@@ -3,8 +3,8 @@
         {
             "config": {
                 "position": [
-                    60,
-                    631
+                    51,
+                    568
                 ]
             },
             "name": "New Model Object",
@@ -13,9 +13,12 @@
                     "_default0_list": true,
                     "_default1_show": false,
                     "_default2_new_create": false,
-                    "_default3_edit_update": true,
+                    "_default3_edit_update": false,
                     "_default4_delete": false,
-                    "customActions": []
+                    "customActions": [
+                        "editPassword",
+                        "editUsername"
+                    ]
                 },
                 "name": "UserAccount",
                 "objectsettings": {
@@ -679,7 +682,7 @@
         }
     ],
     "log": {
-        "last_modified": "2016-04-01 12:29",
+        "last_modified": "2016-04-01 12:35",
         "extension_builder_version": "7.6.0",
         "be_user": " (2)"
     }

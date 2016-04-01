@@ -37,27 +37,22 @@ class UserAccountController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     }
     
     /**
-     * action edit
+     * action editPassword
      * 
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userAccount
-     * @ignorevalidation $userAccount
      * @return void
      */
-    public function editAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userAccount)
+    public function editPasswordAction()
     {
-        $this->view->assign('userAccount', $userAccount);
+        
     }
     
     /**
-     * action update
+     * action editUsername
      * 
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userAccount
      * @return void
      */
-    public function updateAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userAccount)
+    public function editUsernameAction()
     {
-        $this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
-        $this->userAccountRepository->update($userAccount);
-        $this->redirect('list');
+        
     }
 }

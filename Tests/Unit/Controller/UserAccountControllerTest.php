@@ -62,14 +62,15 @@ class UserAccountControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function updateActionUpdatesTheGivenUserAccountInUserAccountRepository()
+    public function editActionAssignsTheGivenUserAccountToView()
     {
         $userAccount = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount();
 
-        $userAccountRepository = $this->getMock(\ThomasWoehlke\TwSimpleworklist\Domain\Repository\UserAccountRepository::class, ['update'], [], '', false);
-        $userAccountRepository->expects(self::once())->method('update')->with($userAccount);
-        $this->inject($this->subject, 'userAccountRepository', $userAccountRepository);
+        $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);
+        $this->inject($this->subject, 'view', $view);
+        $view->expects(self::once())->method('assign')->with('userAccount', $userAccount);
 
-        $this->subject->updateAction($userAccount);
+        $this->subject->editAction($userAccount);
     }
+
 }
