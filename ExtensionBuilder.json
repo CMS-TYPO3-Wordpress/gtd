@@ -558,8 +558,8 @@
         "plugins": [
             {
                 "actions": {
-                    "controllerActionCombinations": "ProjectController => addNewRootProject, addNewChildProject,\nmoveProject, getAllProjects, getRootProjects\nTaskController => inbox, today, next, waiting, scheduled, someday, completed, trash, emptyTrash, transformTaskIntoProject, completeTask, undoneTask, setFocus, unsetFocus, getAllTasksForUser, changeTaskOrderId, changeTaskOrderIdByProject, addNewTaskToProject, addNewTaskToInbox\n\n",
-                    "noncacheableActions": "",
+                    "controllerActionCombinations": "ProjectController => addNewRootProject, addNewChildProject, moveProject, getAllProjects, getRootProjects\nTaskController => inbox, today, next, waiting, scheduled, someday, completed, trash, emptyTrash, transformTaskIntoProject, completeTask, undoneTask, setFocus, unsetFocus, getAllTasksForUser, changeTaskOrderId, changeTaskOrderIdByProject, addNewTaskToProject, addNewTaskToInbox\nUserAccountController => list\n",
+                    "noncacheableActions": "ProjectController => addNewRootProject, addNewChildProject, moveProject, getAllProjects, getRootProjects\nTaskController => inbox, today, next, waiting, scheduled, someday, completed, trash, emptyTrash, transformTaskIntoProject, completeTask, undoneTask, setFocus, unsetFocus, getAllTasksForUser, changeTaskOrderId, changeTaskOrderIdByProject, addNewTaskToProject, addNewTaskToInbox\nUserAccountController => list",
                     "switchableActions": ""
                 },
                 "key": "frontendsimpleworklist",
@@ -679,7 +679,7 @@
         }
     ],
     "log": {
-        "last_modified": "2016-04-01 11:04",
+        "last_modified": "2016-04-01 12:29",
         "extension_builder_version": "7.6.0",
         "be_user": " (2)"
     }
