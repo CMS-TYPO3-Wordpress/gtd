@@ -1,0 +1,42 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<label for="title">
+	<f:translate key="tx_twsimpleworklist_domain_model_task.title" />
+</label><br />
+	<f:form.textfield property="title" /><br />
+<label for="text">
+	<f:translate key="tx_twsimpleworklist_domain_model_task.text" />
+</label><br />
+	<f:form.textarea property="text" cols="40" rows="15" /><br />
+<label for="focus">
+	<f:translate key="tx_twsimpleworklist_domain_model_task.focus" />
+</label><br />
+	<f:form.checkbox property="focus" value="1" /><br />
+<label for="taskState">
+	<f:translate key="tx_twsimpleworklist_domain_model_task.task_state" />
+</label><br />
+	<f:form.textfield property="taskState" /><br />
+<label for="lastTaskState">
+	<f:translate key="tx_twsimpleworklist_domain_model_task.last_task_state" />
+</label><br />
+	<f:form.textfield property="lastTaskState" /><br />
+<label for="taskEnergy">
+	<f:translate key="tx_twsimpleworklist_domain_model_task.task_energy" />
+</label><br />
+	<f:form.textfield property="taskEnergy" /><br />
+<label for="taskTime">
+	<f:translate key="tx_twsimpleworklist_domain_model_task.task_time" />
+</label><br />
+	<f:form.textfield property="taskTime" /><br />
+<label for="dueDate">
+	<f:translate key="tx_twsimpleworklist_domain_model_task.due_date" />
+</label><br />
+	<f:form.textfield property="dueDate"  value="{task.dueDate->f:format.date()}" /><br />
+<label for="orderIdProject">
+	<f:translate key="tx_twsimpleworklist_domain_model_task.order_id_project" />
+</label><br />
+	<f:form.textfield property="orderIdProject" /><br />
+<label for="orderIdTaskState">
+	<f:translate key="tx_twsimpleworklist_domain_model_task.order_id_task_state" />
+</label><br />
+	<f:form.textfield property="orderIdTaskState" /><br />
+</html>
