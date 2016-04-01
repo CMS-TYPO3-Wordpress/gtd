@@ -9,15 +9,15 @@ call_user_func(
             'ThomasWoehlke.' . $extKey,
             'Frontendsimpleworklist',
             [
-                'ProjectController' => 'addNewRootProject, addNewChildProject, moveProject, getAllProjects, getRootProjects',
-                'TaskController' => 'inbox, today, next, waiting, scheduled, someday, completed, trash, emptyTrash, transformTaskIntoProject, completeTask, undoneTask, setFocus, unsetFocus, getAllTasksForUser, changeTaskOrderId, changeTaskOrderIdByProject, addNewTaskToProject, addNewTaskToInbox',
-                'UserAccountController' => 'list'
+                'UserAccount' => 'list, show, edit, update, delete',
+                'Project' => 'list, show, edit, addNewRootProject, addNewChildProject, moveProject, getAllProjects, getRootProjects',
+                'Task' => 'list, show, edit, inbox, today, next, waiting, scheduled, someday, completed, trash, emptyTrash, transformTaskIntoProject, completeTask, undoneTask, setFocus, unsetFocus, getAllTasksForUser, changeTaskOrderId, changeTaskOrderIdByProject, addNewTaskToProject, addNewTaskToInbox'
             ],
             // non-cacheable actions
             [
-                'ProjectController' => 'addNewRootProject, addNewChildProject, moveProject, getAllProjects, getRootProjects',
-                'TaskController' => 'inbox, today, next, waiting, scheduled, someday, completed, trash, emptyTrash, transformTaskIntoProject, completeTask, undoneTask, setFocus, unsetFocus, getAllTasksForUser, changeTaskOrderId, changeTaskOrderIdByProject, addNewTaskToProject, addNewTaskToInbox',
-                'UserAccountController' => 'list'
+                'UserAccount' => 'list show, edit, update, delete',
+                'Project' => 'list, show, edit, addNewRootProject, addNewChildProject, moveProject, getAllProjects, getRootProjects',
+                'Task' => 'list, show, edit, inbox, today, next, waiting, scheduled, someday, completed, trash, emptyTrash, transformTaskIntoProject, completeTask, undoneTask, setFocus, unsetFocus, getAllTasksForUser, changeTaskOrderId, changeTaskOrderIdByProject, addNewTaskToProject, addNewTaskToInbox'
             ]
         );
 

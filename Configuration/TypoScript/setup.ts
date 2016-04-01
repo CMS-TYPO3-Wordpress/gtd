@@ -11,6 +11,18 @@ plugin.tx_twsimpleworklist_frontendsimpleworklist {
   persistence {
     storagePid = {$plugin.tx_twsimpleworklist_frontendsimpleworklist.persistence.storagePid}
     #recursive = 1
+    classes {
+      ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount {
+        mapping {
+          tableName = fe_users
+          columns {
+            username.mapOnProperty = userEmail
+            password.mapOnProperty = userPassword
+            name.mapOnProperty = userFullname
+          }
+        }
+      }
+    }
   }
   features {
     #skipDefaultArguments = 1

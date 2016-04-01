@@ -11,10 +11,10 @@
             "value": {
                 "actionGroup": {
                     "_default0_list": true,
-                    "_default1_show": false,
-                    "_default2_new_create": false,
-                    "_default3_edit_update": false,
-                    "_default4_delete": false,
+                    "_default1_show": true,
+                    "_default2_new_create": true,
+                    "_default3_edit_update": true,
+                    "_default4_delete": true,
                     "customActions": [
                         "editPassword",
                         "editUsername"
@@ -43,7 +43,7 @@
                             "propertyIsExcludeField": true,
                             "propertyIsRequired": false,
                             "propertyName": "userEmail",
-                            "propertyType": "Text",
+                            "propertyType": "String",
                             "uid": "555069225863"
                         },
                         {
@@ -83,11 +83,11 @@
             "name": "New Model Object",
             "value": {
                 "actionGroup": {
-                    "_default0_list": false,
-                    "_default1_show": false,
-                    "_default2_new_create": false,
-                    "_default3_edit_update": false,
-                    "_default4_delete": false,
+                    "_default0_list": true,
+                    "_default1_show": true,
+                    "_default2_new_create": true,
+                    "_default3_edit_update": true,
+                    "_default4_delete": true,
                     "customActions": [
                         "getLastMessagesBetweenCurrentAndOtherUser",
                         "sendNewMessageToOtherUser",
@@ -171,11 +171,11 @@
             "name": "New Model Object",
             "value": {
                 "actionGroup": {
-                    "_default0_list": false,
-                    "_default1_show": false,
-                    "_default2_new_create": false,
-                    "_default3_edit_update": false,
-                    "_default4_delete": false,
+                    "_default0_list": true,
+                    "_default1_show": true,
+                    "_default2_new_create": true,
+                    "_default3_edit_update": true,
+                    "_default4_delete": true,
                     "customActions": [
                         "switchContext",
                         "getAllContextsForUser"
@@ -246,9 +246,9 @@
             "name": "New Model Object",
             "value": {
                 "actionGroup": {
-                    "_default0_list": false,
+                    "_default0_list": true,
                     "_default1_show": true,
-                    "_default2_new_create": false,
+                    "_default2_new_create": true,
                     "_default3_edit_update": true,
                     "_default4_delete": true,
                     "customActions": [
@@ -346,11 +346,11 @@
             "name": "New Model Object",
             "value": {
                 "actionGroup": {
-                    "_default0_list": false,
+                    "_default0_list": true,
                     "_default1_show": true,
-                    "_default2_new_create": false,
+                    "_default2_new_create": true,
                     "_default3_edit_update": true,
-                    "_default4_delete": false,
+                    "_default4_delete": true,
                     "customActions": [
                         "inbox",
                         "today",
@@ -561,8 +561,8 @@
         "plugins": [
             {
                 "actions": {
-                    "controllerActionCombinations": "ProjectController => addNewRootProject, addNewChildProject, moveProject, getAllProjects, getRootProjects\nTaskController => inbox, today, next, waiting, scheduled, someday, completed, trash, emptyTrash, transformTaskIntoProject, completeTask, undoneTask, setFocus, unsetFocus, getAllTasksForUser, changeTaskOrderId, changeTaskOrderIdByProject, addNewTaskToProject, addNewTaskToInbox\nUserAccountController => list\n",
-                    "noncacheableActions": "ProjectController => addNewRootProject, addNewChildProject, moveProject, getAllProjects, getRootProjects\nTaskController => inbox, today, next, waiting, scheduled, someday, completed, trash, emptyTrash, transformTaskIntoProject, completeTask, undoneTask, setFocus, unsetFocus, getAllTasksForUser, changeTaskOrderId, changeTaskOrderIdByProject, addNewTaskToProject, addNewTaskToInbox\nUserAccountController => list",
+                    "controllerActionCombinations": "UserAccount => list, show, edit, update, delete\nProject => list, show, edit, addNewRootProject, addNewChildProject, moveProject, getAllProjects, getRootProjects\nTask => list, show, edit, inbox, today, next, waiting, scheduled, someday, completed, trash, emptyTrash, transformTaskIntoProject, completeTask, undoneTask, setFocus, unsetFocus, getAllTasksForUser, changeTaskOrderId, changeTaskOrderIdByProject, addNewTaskToProject, addNewTaskToInbox\n",
+                    "noncacheableActions": "UserAccount => list show, edit, update, delete\nProject => list, show, edit, addNewRootProject, addNewChildProject, moveProject, getAllProjects, getRootProjects\nTask => list, show, edit, inbox, today, next, waiting, scheduled, someday, completed, trash, emptyTrash, transformTaskIntoProject, completeTask, undoneTask, setFocus, unsetFocus, getAllTasksForUser, changeTaskOrderId, changeTaskOrderIdByProject, addNewTaskToProject, addNewTaskToInbox\n",
                     "switchableActions": ""
                 },
                 "key": "frontendsimpleworklist",
@@ -682,7 +682,7 @@
         }
     ],
     "log": {
-        "last_modified": "2016-04-01 12:35",
+        "last_modified": "2016-04-01 01:38",
         "extension_builder_version": "7.6.0",
         "be_user": " (2)"
     }

@@ -110,11 +110,10 @@ return [
 	        'exclude' => 1,
 	        'label' => 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_useraccount.user_email',
 	        'config' => [
-			    'type' => 'text',
-			    'cols' => 40,
-			    'rows' => 15,
+			    'type' => 'input',
+			    'size' => 30,
 			    'eval' => 'trim'
-			]
+			],
 	        
 	    ],
 	    'user_password' => [
@@ -140,3 +139,4 @@ return [
         
     ],
 ];
+## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder

@@ -7,7 +7,7 @@ CREATE TABLE tx_twsimpleworklist_domain_model_useraccount (
 	pid int(11) DEFAULT '0' NOT NULL,
 
 
-	user_email text NOT NULL,
+	user_email varchar(255) DEFAULT '' NOT NULL,
 	user_password varchar(255) DEFAULT '' NOT NULL,
 	user_fullname varchar(255) DEFAULT '' NOT NULL,
 
