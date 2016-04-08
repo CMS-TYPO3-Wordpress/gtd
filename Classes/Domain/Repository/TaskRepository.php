@@ -17,4 +17,19 @@ namespace ThomasWoehlke\TwSimpleworklist\Domain\Repository;
  */
 class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
+    /**
+     * @param int $taskState
+     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    public function findByUserAccountAndTaskState(\ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userObject, $taskState){
+        $query = $this->createQuery();
+        $query->matching(
+            $query->logicalAnd(
+                $query->equals('userAccount', $userObject),
+                $query->equals('taskState', $taskState)
+            )
+        );
+        return $query->execute();
     }
+
+}

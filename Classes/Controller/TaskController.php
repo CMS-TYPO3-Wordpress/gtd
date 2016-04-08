@@ -76,7 +76,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function inboxAction()
     {
-        $tasks = $this->taskRepository->findAll();
+        $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
+        $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,1);
         $this->view->assign('tasks', $tasks);
     }
     
@@ -87,7 +88,9 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function todayAction()
     {
-        
+        $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
+        $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,2);
+        $this->view->assign('tasks', $tasks);
     }
     
     /**
