@@ -24,7 +24,15 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @inject
      */
     protected $taskRepository = null;
-    
+
+    /**
+     * userAccountRepository
+     *
+     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Repository\UserAccountRepository
+     * @inject
+     */
+    protected $userAccountRepository = null;
+
     /**
      * action show
      * 
@@ -68,7 +76,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function inboxAction()
     {
-        
+        $tasks = $this->taskRepository->findAll();
+        $this->view->assign('tasks', $tasks);
     }
     
     /**
@@ -269,9 +278,31 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function newAction()
     {
-        
+        $taskEnergy = array(
+            0 => 'none',
+            1 => 'low',
+            2 => 'mid',
+            3 => 'high'
+        );
+        $taskTime = array(
+            0 => 'none',
+            1 => '5 min',
+            2 => '10 min',
+            3 => '15 min',
+            4 => '30 min',
+            5 => '45 min',
+            6 => '1 hours',
+            7 => '2 hours',
+            8 => '3 hours',
+            9 => '4 hours',
+            10 => '6 hours',
+            11 => '8 hours',
+            12 => 'more'
+        );
+        $this->view->assign('taskEnergy',$taskEnergy);
+        $this->view->assign('taskTime',$taskTime);
     }
-    
+
     /**
      * action create
      * 
@@ -280,9 +311,15 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function createAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $newTask)
     {
-        $this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+        //$this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+
+        $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
+        $newTask->setUserAccount($userObject);
+        $newTask->setTaskState(1);
+        $newTask->setOrderIdProject(1);
+        $newTask->setOrderIdTaskState(1);
         $this->taskRepository->add($newTask);
-        $this->redirect('list');
+        $this->redirect('inbox');
     }
     
     /**

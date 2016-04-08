@@ -281,7 +281,7 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param \DateTime $dueDate
      * @return void
      */
-    public function setDueDate(\DateTime $dueDate)
+    public function setDueDate(\DateTime $dueDate = NULL)
     {
         $this->dueDate = $dueDate;
     }

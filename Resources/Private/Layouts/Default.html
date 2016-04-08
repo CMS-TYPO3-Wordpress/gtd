@@ -1,4 +1,25 @@
-
-<div class="tx-tw-simpleworklist">
-	<f:render section="main" />
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<div class="container">
+	<div class="row">
+		<div class="col-md-3">
+			<div class="well sidebar-nav">
+				<ul class="nav nav-list">
+					<li><f:link.action id="focus_inbox" controller="Task" action="inbox"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span> Eingang</f:link.action></li>
+					<li><f:link.action id="focus_today"  controller="Task" action="today"><span class="glyphicon glyphicon glyphicon-time" aria-hidden="true"></span> Heute</f:link.action></li>
+					<li><f:link.action id="focus_next" controller="Task" action="next"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Als N&auml;chstes</f:link.action></li>
+					<li><f:link.action id="focus_waiting" controller="Task" action="waiting"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span> Warten</f:link.action></li>
+					<li><f:link.action id="focus_scheduled" controller="Task" action="scheduled"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Eingeplant</f:link.action></li>
+					<li><f:link.action id="focus_someday" controller="Task" action="someday"><span class="glyphicon glyphicon-road" aria-hidden="true"></span> Sp&auml;ter</f:link.action></li>
+					<li><f:link.action id="star" controller="Task" action="focus"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> Fokus</f:link.action></li>
+					<li><f:link.action id="focus_completed" controller="Task" action="completed"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> Erledigte Aufgaben</f:link.action></li>
+					<li><f:link.action id="focus_trash" controller="Task" action="trash"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Papierkorb</f:link.action></li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-md-9">
+			<div class="tx-tw-simpleworklist">
+				<f:render section="main" />
+			</div>
+		</div>
+	</div>
 </div>

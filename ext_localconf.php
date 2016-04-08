@@ -11,13 +11,13 @@ call_user_func(
             [
                 'UserAccount' => 'list, show, edit, update, delete',
                 'Project' => 'list, show, edit, addNewRootProject, addNewChildProject, moveProject, getAllProjects, getRootProjects',
-                'Task' => 'list, show, edit, inbox, today, next, waiting, scheduled, someday, completed, trash, emptyTrash, transformTaskIntoProject, completeTask, undoneTask, setFocus, unsetFocus, getAllTasksForUser, changeTaskOrderId, changeTaskOrderIdByProject, addNewTaskToProject, addNewTaskToInbox'
+                'Task' => 'list, show, edit, new, create, inbox, today, next, waiting, scheduled, someday, completed, trash, emptyTrash, transformTaskIntoProject, completeTask, undoneTask, setFocus, unsetFocus, getAllTasksForUser, changeTaskOrderId, changeTaskOrderIdByProject, addNewTaskToProject, addNewTaskToInbox'
             ],
             // non-cacheable actions
             [
                 'UserAccount' => 'list show, edit, update, delete',
                 'Project' => 'list, show, edit, addNewRootProject, addNewChildProject, moveProject, getAllProjects, getRootProjects',
-                'Task' => 'list, show, edit, inbox, today, next, waiting, scheduled, someday, completed, trash, emptyTrash, transformTaskIntoProject, completeTask, undoneTask, setFocus, unsetFocus, getAllTasksForUser, changeTaskOrderId, changeTaskOrderIdByProject, addNewTaskToProject, addNewTaskToInbox'
+                'Task' => 'list, show, edit, new, create, inbox, today, next, waiting, scheduled, someday, completed, trash, emptyTrash, transformTaskIntoProject, completeTask, undoneTask, setFocus, unsetFocus, getAllTasksForUser, changeTaskOrderId, changeTaskOrderIdByProject, addNewTaskToProject, addNewTaskToInbox'
             ]
         );
 

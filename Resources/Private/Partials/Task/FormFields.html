@@ -7,6 +7,7 @@
 	<f:translate key="tx_twsimpleworklist_domain_model_task.text" />
 </label><br />
 	<f:form.textarea property="text" cols="40" rows="15" /><br />
+<!--
 <label for="focus">
 	<f:translate key="tx_twsimpleworklist_domain_model_task.focus" />
 </label><br />
@@ -19,18 +20,21 @@
 	<f:translate key="tx_twsimpleworklist_domain_model_task.last_task_state" />
 </label><br />
 	<f:form.textfield property="lastTaskState" /><br />
+-->
 <label for="taskEnergy">
 	<f:translate key="tx_twsimpleworklist_domain_model_task.task_energy" />
 </label><br />
-	<f:form.textfield property="taskEnergy" /><br />
+	<f:form.select property="taskEnergy" options="{taskEnergy}" /><br /><br />
 <label for="taskTime">
 	<f:translate key="tx_twsimpleworklist_domain_model_task.task_time" />
 </label><br />
-	<f:form.textfield property="taskTime" /><br />
+	<f:form.select property="taskTime" options="{taskTime}" /><br />
 <label for="dueDate">
 	<f:translate key="tx_twsimpleworklist_domain_model_task.due_date" />
 </label><br />
-	<f:form.textfield property="dueDate"  value="{task.dueDate->f:format.date()}" /><br />
+	<f:form.textfield property="dueDate" value="" required="false" /><br />
+    <!-- f:form.hidden name="newTask[dueDate][dateFormat]" value="Y-m-d"/ -->
+<!--
 <label for="orderIdProject">
 	<f:translate key="tx_twsimpleworklist_domain_model_task.order_id_project" />
 </label><br />
@@ -39,4 +43,5 @@
 	<f:translate key="tx_twsimpleworklist_domain_model_task.order_id_task_state" />
 </label><br />
 	<f:form.textfield property="orderIdTaskState" /><br />
+	-->
 </html>
