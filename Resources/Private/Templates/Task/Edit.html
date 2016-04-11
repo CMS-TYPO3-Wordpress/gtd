@@ -20,7 +20,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 <f:render partial="FormErrors" arguments="{object:Task}" />
 
 <f:form action="update" name="task" object="{task}" >
-<f:render partial="Task/FormFields" arguments="{task:task}" />
+<f:render partial="Task/FormFields" arguments="{task:task,taskEnergy:taskEnergy, taskTime:taskTime}" />
 	<f:form.submit value="Save" />
 </f:form>
 </f:section>
