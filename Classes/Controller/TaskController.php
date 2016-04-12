@@ -37,15 +37,6 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         'inbox' => 0, 'today' => 1, 'next' => 2, 'waiting' => 3, 'scheduled' => 4, 'someday' => 5, 'completed' => 6 , 'trash' => 7
     );
 
-    /*
-    protected function initializeAction()
-    {
-        $taskStates = array(
-            'inbox', 'today', 'next', 'waiting', 'scheduled', 'someday', 'completed', 'trash'
-        );
-    }
-    */
-
     /**
      * action show
      * 
@@ -91,7 +82,16 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('taskEnergy',$taskEnergy);
         $this->view->assign('taskTime',$taskTime);
     }
-    
+
+    public function initializeEditAction()
+    {
+        $this->arguments['task']
+            ->getPropertyMappingConfiguration()
+            ->forProperty('dueDate')
+            ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',
+                \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d');
+    }
+
     /**
      * action update
      * 
@@ -112,6 +112,15 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         }
         $this->taskRepository->update($persistentTask);
         $this->redirect('list');
+    }
+
+    public function initializeUpdateAction()
+    {
+        $this->arguments['task']
+            ->getPropertyMappingConfiguration()
+            ->forProperty('dueDate')
+            ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',
+                \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d');
     }
     
     /**
