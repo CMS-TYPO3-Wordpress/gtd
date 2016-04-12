@@ -190,7 +190,19 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         return $this->taskState;
     }
-    
+
+    /**
+     * Sets the taskState
+     *
+     * @param int $taskState
+     * @return void
+     */
+    public function changeTaskState($taskState)
+    {
+        $this->lastTaskState = $this->taskState;
+        $this->taskState = $taskState;
+    }
+
     /**
      * Sets the taskState
      * 

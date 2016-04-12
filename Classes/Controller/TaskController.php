@@ -108,10 +108,38 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $persistentTask->setTaskTime($task->getTaskTime());
         $persistentTask->setDueDate($task->getDueDate());
         if($task->getDueDate() != NULL){
-            $persistentTask->setTaskState($this->taskStates['scheduled']);
+            $persistentTask->changeTaskState($this->taskStates['scheduled']);
         }
         $this->taskRepository->update($persistentTask);
-        $this->redirect('list');
+        switch($persistentTask->getTaskState()){
+            case $this->taskStates['inbox']:
+                $this->redirect('inbox');
+                break;
+            case $this->taskStates['today']:
+                $this->redirect('today');
+                break;
+            case $this->taskStates['next']:
+                $this->redirect('next');
+                break;
+            case $this->taskStates['waiting']:
+                $this->redirect('waiting');
+                break;
+            case $this->taskStates['scheduled']:
+                $this->redirect('scheduled');
+                break;
+            case $this->taskStates['someday']:
+                $this->redirect('someday');
+                break;
+            case $this->taskStates['completed']:
+                $this->redirect('completed');
+                break;
+            case $this->taskStates['trash']:
+                $this->redirect('trash');
+                break;
+            default:
+                $this->redirect('list');
+                break;
+        }
     }
 
     public function initializeUpdateAction()
