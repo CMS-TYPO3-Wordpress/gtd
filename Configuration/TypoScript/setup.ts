@@ -45,19 +45,6 @@ plugin.tx_twsimpleworklist._CSS_DEFAULT_STYLE (
         border: 1px #FF0000 solid;
     }
 
-    .tx-tw-simpleworklist table {
-        border-collapse:separate;
-        border-spacing:10px;
-    }
-
-    .tx-tw-simpleworklist table th {
-        font-weight:bold;
-    }
-
-    .tx-tw-simpleworklist table td {
-        vertical-align:top;
-    }
-
     .typo3-messages .message-error {
         color:red;
     }

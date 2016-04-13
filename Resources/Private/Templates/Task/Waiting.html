@@ -16,41 +16,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 <f:section name="main">
     <h1>Waiting</h1>
 
-    <f:flashMessages />
-
-    <table  class="tx_twsimpleworklist" >
-        <tr>
-            <th><f:translate key="tx_twsimpleworklist_domain_model_task.title" /></th>
-            <th><f:translate key="tx_twsimpleworklist_domain_model_task.text" /></th>
-            <th><f:translate key="tx_twsimpleworklist_domain_model_task.focus" /></th>
-            <th><f:translate key="tx_twsimpleworklist_domain_model_task.task_state" /></th>
-            <th><f:translate key="tx_twsimpleworklist_domain_model_task.last_task_state" /></th>
-            <th><f:translate key="tx_twsimpleworklist_domain_model_task.task_energy" /></th>
-            <th><f:translate key="tx_twsimpleworklist_domain_model_task.task_time" /></th>
-            <th><f:translate key="tx_twsimpleworklist_domain_model_task.due_date" /></th>
-            <th><f:translate key="tx_twsimpleworklist_domain_model_task.order_id_project" /></th>
-            <th><f:translate key="tx_twsimpleworklist_domain_model_task.order_id_task_state" /></th>
-            <th> </th>
-            <th> </th>
-        </tr>
-
-        <f:for each="{tasks}" as="task">
-            <tr>
-                <td><f:link.action action="show" arguments="{task : task}"> {task.title}</f:link.action></td>
-                <td><f:link.action action="show" arguments="{task : task}"> {task.text}</f:link.action></td>
-                <td><f:link.action action="show" arguments="{task : task}"> {task.focus}</f:link.action></td>
-                <td><f:link.action action="show" arguments="{task : task}"> {task.taskState}</f:link.action></td>
-                <td><f:link.action action="show" arguments="{task : task}"> {task.lastTaskState}</f:link.action></td>
-                <td><f:link.action action="show" arguments="{task : task}"> {task.taskEnergy}</f:link.action></td>
-                <td><f:link.action action="show" arguments="{task : task}"> {task.taskTime}</f:link.action></td>
-                <td><f:link.action action="show" arguments="{task : task}"> {task.dueDate -> f:format.date()}</f:link.action></td>
-                <td><f:link.action action="show" arguments="{task : task}"> {task.orderIdProject}</f:link.action></td>
-                <td><f:link.action action="show" arguments="{task : task}"> {task.orderIdTaskState}</f:link.action></td>
-                <td><f:link.action action="edit" arguments="{task : task}">Edit</f:link.action></td>
-                <td><f:link.action action="delete" arguments="{task : task}">Delete</f:link.action></td>
-            </tr>
-        </f:for>
-    </table>
+    <f:render partial="Task/TaskList" arguments="{tasks:tasks}"/>
 
 </f:section>
 </html>

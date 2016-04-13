@@ -111,7 +111,11 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $persistentTask->changeTaskState($this->taskStates['scheduled']);
         }
         $this->taskRepository->update($persistentTask);
-        switch($persistentTask->getTaskState()){
+        $this->getRedirectFromTask($persistentTask);
+    }
+
+    private function getRedirectFromTask(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task){
+        switch($task->getTaskState()){
             case $this->taskStates['inbox']:
                 $this->redirect('inbox');
                 break;
@@ -284,9 +288,14 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * 
      * @return void
      */
-    public function completeTaskAction()
+    public function completeTaskAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task)
     {
-        
+        $task->changeTaskState($this->taskStates['completed']);
+        $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
+        $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$this->taskStates['completed']);
+        $task->setOrderIdTaskState($maxTaskStateOrderId);
+        $this->taskRepository->update($task);
+        $this->getRedirectFromTask($task);
     }
     
     /**
@@ -294,9 +303,14 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * 
      * @return void
      */
-    public function undoneTaskAction()
+    public function undoneTaskAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task)
     {
-        
+        $task->setToLastTaskState();
+        $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
+        $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$task->getTaskState());
+        $task->setOrderIdTaskState($maxTaskStateOrderId);
+        $this->taskRepository->update($task);
+        $this->getRedirectFromTask($task);
     }
     
     /**
@@ -304,9 +318,11 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * 
      * @return void
      */
-    public function setFocusAction()
+    public function setFocusAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task)
     {
-        
+        $task->setFocus(true);
+        $this->taskRepository->update($task);
+        $this->getRedirectFromTask($task);
     }
     
     /**
@@ -314,9 +330,11 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * 
      * @return void
      */
-    public function unsetFocusAction()
+    public function unsetFocusAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task)
     {
-        
+        $task->setFocus(false);
+        $this->taskRepository->update($task);
+        $this->getRedirectFromTask($task);
     }
     
     /**
