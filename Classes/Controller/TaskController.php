@@ -246,6 +246,18 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$this->taskStates['trash']);
         $this->view->assign('tasks', $tasks);
     }
+
+    /**
+     * action focus
+     *
+     * @return void
+     */
+    public function focusAction()
+    {
+        $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
+        $tasks = $this->taskRepository->findByUserAccountAndHasFocus($userObject);
+        $this->view->assign('tasks', $tasks);
+    }
     
     /**
      * action emptyTrash
@@ -413,12 +425,17 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $newTask->setUserAccount($userObject);
         $newTask->setTaskState($this->taskStates['inbox']);
         $newTask->setOrderIdProject(1);
-        $newTask->setOrderIdTaskState(1);
+        $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$this->taskStates['inbox']);
+        $newTask->setOrderIdTaskState($maxTaskStateOrderId);
         if($newTask->getDueDate() != NULL){
             $newTask->setTaskState($this->taskStates['scheduled']);
+            $this->taskRepository->add($newTask);
+            $this->redirect('scheduled');
+        } else {
+            $newTask->setTaskState($this->taskStates['inbox']);
+            $this->taskRepository->add($newTask);
+            $this->redirect('inbox');
         }
-        $this->taskRepository->add($newTask);
-        $this->redirect('inbox');
     }
 
     public function initializeCreateAction()

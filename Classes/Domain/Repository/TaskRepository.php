@@ -17,6 +17,11 @@ namespace ThomasWoehlke\TwSimpleworklist\Domain\Repository;
  */
 class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
+
+    protected $defaultOrderings = array(
+        'orderIdTaskState' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
+    );
+
     /**
      * @param int $taskState
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
@@ -30,6 +35,43 @@ class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             )
         );
         return $query->execute();
+    }
+
+    /**
+     * @param int $taskState
+     * @return int
+     */
+    public function getMaxTaskStateOrderId(\ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userObject, $taskState){
+        $query = $this->createQuery();
+        $query->matching(
+            $query->logicalAnd(
+                $query->equals('userAccount', $userObject),
+                $query->equals('taskState', $taskState)
+            )
+        );
+        $query->setOrderings(
+            array(
+                "orderIdTaskState" => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
+            )
+        );
+        $query->setLimit(1);
+        $result = $query->execute();
+        $maxTaskStateOrderId = 0;
+        if($result->count()>0){
+            $task = $result->getFirst();
+            $maxTaskStateOrderId = $task->getOrderIdTaskState();
+        }
+        $maxTaskStateOrderId++;
+        return $maxTaskStateOrderId;
+    }
+
+    /**
+     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userObject
+     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    public function findByUserAccountAndHasFocus(\ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userObject)
+    {
+        //TODO: hier weiter
     }
 
 }
