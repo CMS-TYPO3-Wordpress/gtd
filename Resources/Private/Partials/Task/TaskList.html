@@ -14,7 +14,6 @@
         <th><f:translate key="tx_twsimpleworklist_domain_model_task.order_id_project" /></th>
         <th><f:translate key="tx_twsimpleworklist_domain_model_task.order_id_task_state" /></th>
         <th> </th>
-        <th> </th>
     </tr>
 
     <f:for each="{tasks}" as="task">
@@ -45,7 +44,7 @@
                     </f:else>
                 </f:if>
             </td>
-            <td><f:link.action action="show" arguments="{task : task}"> {task.title}</f:link.action></td>
+            <td><f:link.action action="edit" arguments="{task : task}"> {task.title}</f:link.action></td>
             <td>{task.text}</td>
             <td>{task.taskState}</td>
             <td>{task.lastTaskState}</td>
@@ -54,7 +53,6 @@
             <td>{task.dueDate -> f:format.date()}</td>
             <td>{task.orderIdProject}</td>
             <td>{task.orderIdTaskState}</td>
-            <td><f:link.action action="edit" arguments="{task : task}">Edit</f:link.action></td>
             <td><f:link.action action="delete" arguments="{task : task}">Delete</f:link.action></td>
         </tr>
     </f:for>

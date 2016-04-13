@@ -46,6 +46,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     public function showAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task)
     {
         $this->view->assign('task', $task);
+        $this->getTaskEnergyAndTaskTime();
     }
     
     /**
@@ -58,29 +59,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     public function editAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task)
     {
         $this->view->assign('task', $task);
-        $taskEnergy = array(
-            0 => 'none',
-            1 => 'low',
-            2 => 'mid',
-            3 => 'high'
-        );
-        $taskTime = array(
-            0 => 'none',
-            1 => '5 min',
-            2 => '10 min',
-            3 => '15 min',
-            4 => '30 min',
-            5 => '45 min',
-            6 => '1 hours',
-            7 => '2 hours',
-            8 => '3 hours',
-            9 => '4 hours',
-            10 => '6 hours',
-            11 => '8 hours',
-            12 => 'more'
-        );
-        $this->view->assign('taskEnergy',$taskEnergy);
-        $this->view->assign('taskTime',$taskTime);
+        $this->getTaskEnergyAndTaskTime();
     }
 
     public function initializeEditAction()
@@ -397,14 +376,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $tasks = $this->taskRepository->findAll();
         $this->view->assign('tasks', $tasks);
     }
-    
-    /**
-     * action new
-     * 
-     * @return void
-     */
-    public function newAction()
-    {
+
+    private function getTaskEnergyAndTaskTime(){
         $taskEnergy = array(
             0 => 'none',
             1 => 'low',
@@ -428,6 +401,16 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         );
         $this->view->assign('taskEnergy',$taskEnergy);
         $this->view->assign('taskTime',$taskTime);
+    }
+
+    /**
+     * action new
+     * 
+     * @return void
+     */
+    public function newAction()
+    {
+        $this->getTaskEnergyAndTaskTime();
     }
 
     /**

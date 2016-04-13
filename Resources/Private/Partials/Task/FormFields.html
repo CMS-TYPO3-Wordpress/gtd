@@ -1,12 +1,16 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<div class="form-group">
 <label for="title">
 	<f:translate key="tx_twsimpleworklist_domain_model_task.title" />
 </label><br />
-	<f:form.textfield property="title" /><br />
+	<f:form.textfield property="title" class="form-control"/><br />
+</div>
+<div class="form-group">
 <label for="text">
 	<f:translate key="tx_twsimpleworklist_domain_model_task.text" />
 </label><br />
-	<f:form.textarea property="text" cols="40" rows="15" /><br />
+	<f:form.textarea property="text" cols="40" rows="15" class="form-control"/><br />
+</div>
 <!--
 <label for="focus">
 	<f:translate key="tx_twsimpleworklist_domain_model_task.focus" />
@@ -21,18 +25,24 @@
 </label><br />
 	<f:form.textfield property="lastTaskState" /><br />
 -->
+<div class="form-group">
 <label for="taskEnergy">
 	<f:translate key="tx_twsimpleworklist_domain_model_task.task_energy" />
 </label><br />
-	<f:form.select property="taskEnergy" options="{taskEnergy}" /><br /><br />
+	<f:form.select property="taskEnergy" options="{taskEnergy}" class="form-control"/><br /><br />
+</div>
+<div class="form-group">
 <label for="taskTime">
 	<f:translate key="tx_twsimpleworklist_domain_model_task.task_time" />
 </label><br />
-	<f:form.select property="taskTime" options="{taskTime}" /><br />
+	<f:form.select property="taskTime" options="{taskTime}" class="form-control"/><br />
+</div>
+<div class="form-group">
 <label for="dueDate">
 	<f:translate key="tx_twsimpleworklist_domain_model_task.due_date" />
 </label><br />
-	<f:form.textfield property="dueDate" value="{task.dueDate -> f:format.date(format:'Y-m-d')}" required="false" /><br />
+	<f:form.textfield property="dueDate" value="{task.dueDate -> f:format.date(format:'Y-m-d')}" required="false" class="form-control"/><br />
+</div>
 <!--  value="{task.dueDate -> f:format.date()}" -->
 	<!-- value="{task.dueDate -> f:format.date('Y-m-d')}" -->
     <!-- f:form.hidden name="newTask[dueDate][dateFormat]" value="Y-m-d"/ -->
