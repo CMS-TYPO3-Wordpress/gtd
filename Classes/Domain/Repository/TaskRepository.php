@@ -71,7 +71,14 @@ class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      */
     public function findByUserAccountAndHasFocus(\ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userObject)
     {
-        //TODO: hier weiter
+        $query = $this->createQuery();
+        $query->matching(
+            $query->logicalAnd(
+                $query->equals('userAccount', $userObject),
+                $query->equals('focus', true)
+            )
+        );
+        return $query->execute();
     }
 
 }
