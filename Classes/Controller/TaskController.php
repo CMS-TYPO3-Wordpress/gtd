@@ -258,7 +258,12 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function emptyTrashAction()
     {
-        
+        $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
+        $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$this->taskStates['trash']);
+        foreach($tasks as $task){
+            $this->taskRepository->remove($task);
+        }
+        $this->redirect('trash');
     }
     
     /**
@@ -572,6 +577,24 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $task->changeTaskState($this->taskStates['trash']);
         $this->taskRepository->update($task);
+        $this->redirect('trash');
+    }
+
+    /**
+     * action moveAllCompletedToTrash
+     *
+     * @return void
+     */
+    public function moveAllCompletedToTrashAction(){
+        $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
+        $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$this->taskStates['completed']);
+        $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$this->taskStates['trash']);
+        foreach($tasks as $task){
+            $task->changeTaskState($this->taskStates['trash']);
+            $task->setOrderIdTaskState($maxTaskStateOrderId);
+            $this->taskRepository->update($task);
+            $maxTaskStateOrderId++;
+        }
         $this->redirect('trash');
     }
 

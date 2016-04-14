@@ -13,13 +13,12 @@
         <th><f:translate key="tx_twsimpleworklist_domain_model_task.due_date" /></th>
         <th><f:translate key="tx_twsimpleworklist_domain_model_task.order_id_project" /></th>
         <th><f:translate key="tx_twsimpleworklist_domain_model_task.order_id_task_state" /></th>
-        <th> </th>
     </tr>
 
     <f:for each="{tasks}" as="task">
         <tr>
             <td>
-                <f:if condition="{task.taskState}==6">
+                <f:if condition="{task.taskState} > 5">
                     <f:then>
                         <f:link.action action="undoneTask" arguments="{task : task}">
                             <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
@@ -79,7 +78,6 @@
             <td>{task.dueDate -> f:format.date()}</td>
             <td>{task.orderIdProject}</td>
             <td>{task.orderIdTaskState}</td>
-            <td><f:link.action action="delete" arguments="{task : task}">Delete</f:link.action></td>
         </tr>
     </f:for>
 </table>
