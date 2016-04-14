@@ -575,7 +575,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $destinationTaskOrderId = $targetTask->getOrderIdTaskState();
         if($srcTask->getOrderIdTaskState()<$targetTask->getOrderIdTaskState()){
-            $tasks = $this->taskRepository->getTasksToReorderByOrderIdTaskState($userObject, $srcTask, $targetTask);
+            $tasks = $this->taskRepository->getTasksToReorderByOrderIdTaskState($userObject, $srcTask, $targetTask,$srcTask->getTaskState());
             foreach ($tasks as $task){
                 $task->setOrderIdTaskState($task->getOrderIdTaskState()-1);
                 $this->taskRepository->update($task);
@@ -585,7 +585,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $srcTask->setOrderIdTaskState($destinationTaskOrderId);
             $this->taskRepository->update($srcTask);
         } else {
-            $tasks = $this->taskRepository->getTasksToReorderByOrderIdTaskState($userObject, $targetTask, $srcTask);
+            $tasks = $this->taskRepository->getTasksToReorderByOrderIdTaskState($userObject, $targetTask, $srcTask, $srcTask->getTaskState());
             foreach ($tasks as $task){
                 $task->setOrderIdTaskState($task->getOrderIdTaskState()+1);
                 $this->taskRepository->update($task);

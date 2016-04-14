@@ -85,17 +85,20 @@ class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userObject
      * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $lowerTask
      * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $higherTask
+     * @param int $taskState
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
     public function getTasksToReorderByOrderIdTaskState(
         \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userObject,
         \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $lowerTask,
-        \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $higherTask)
+        \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $higherTask,
+        $taskState)
     {
         $query = $this->createQuery();
         $query->matching(
             $query->logicalAnd(
                 $query->equals('userAccount', $userObject),
+                $query->equals('taskState',$taskState),
                 $query->greaterThan('orderIdTaskState',$lowerTask->getOrderIdTaskState()),
                 $query->lessThan('orderIdTaskState',$higherTask->getOrderIdTaskState())
             )
