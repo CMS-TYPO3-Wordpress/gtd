@@ -79,8 +79,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function updateAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task)
     {
-        //$this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
-        $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
+       $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $persistentTask = $this->taskRepository->findByUid($task->getUid());
         $persistentTask->setTitle($task->getTitle());
         $persistentTask->setText($task->getText());
@@ -341,16 +340,6 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
     
     /**
-     * action changeTaskOrderId
-     * 
-     * @return void
-     */
-    public function changeTaskOrderIdAction()
-    {
-        
-    }
-    
-    /**
      * action changeTaskOrderIdByProject
      * 
      * @return void
@@ -366,16 +355,6 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @return void
      */
     public function addNewTaskToProjectAction()
-    {
-        
-    }
-    
-    /**
-     * action addNewTaskToInbox
-     * 
-     * @return void
-     */
-    public function addNewTaskToInboxAction()
     {
         
     }
@@ -435,7 +414,6 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function createAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $newTask)
     {
-        //$this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $newTask->setUserAccount($userObject);
         $newTask->setTaskState($this->taskStates['inbox']);
@@ -462,19 +440,6 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d');
     }
     
-    /**
-     * action delete
-     * 
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task
-     * @return void
-     */
-    public function deleteAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task)
-    {
-        $this->addFlashMessage('The object was deleted. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
-        $this->taskRepository->remove($task);
-        $this->redirect('list');
-    }
-
     /**
      * action moveToInbox
      *
@@ -597,7 +562,6 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         }
         $this->redirect('trash');
     }
-
 
     /**
      * action moveTaskOrder
