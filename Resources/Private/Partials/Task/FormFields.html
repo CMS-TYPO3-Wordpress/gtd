@@ -41,7 +41,7 @@
 <label for="dueDate">
 	<f:translate key="tx_twsimpleworklist_domain_model_task.due_date" />
 </label><br />
-	<f:form.textfield property="dueDate" value="{task.dueDate -> f:format.date(format:'Y-m-d')}" required="false" class="form-control"/><br />
+	<f:form.textfield id="taskDueDate" property="dueDate" value="{task.dueDate -> f:format.date(format:'Y-m-d')}" required="false" class="form-control"/><br />
 </div>
 <!--  value="{task.dueDate -> f:format.date()}" -->
 	<!-- value="{task.dueDate -> f:format.date('Y-m-d')}" -->

@@ -80,6 +80,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     public function updateAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task)
     {
         //$this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+        $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $persistentTask = $this->taskRepository->findByUid($task->getUid());
         $persistentTask->setTitle($task->getTitle());
         $persistentTask->setText($task->getText());
@@ -88,6 +89,14 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $persistentTask->setDueDate($task->getDueDate());
         if($task->getDueDate() != NULL){
             $persistentTask->changeTaskState($this->taskStates['scheduled']);
+            $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$this->taskStates['scheduled']);
+            $persistentTask->setOrderIdTaskState($maxTaskStateOrderId);
+        } else {
+            if($persistentTask->getTaskState() == $this->taskStates['scheduled']){
+                $persistentTask->changeTaskState($this->taskStates['inbox']);
+            }
+            $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$persistentTask->getTaskState());
+            $persistentTask->setOrderIdTaskState($maxTaskStateOrderId);
         }
         $this->taskRepository->update($persistentTask);
         $this->getRedirectFromTask($persistentTask);
