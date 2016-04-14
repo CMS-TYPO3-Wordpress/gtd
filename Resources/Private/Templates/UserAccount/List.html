@@ -18,27 +18,20 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 <f:flashMessages />
 
-<table  class="tx_twsimpleworklist" >
+<table  class="table table-striped" >
 	<tr>
 		<th><f:translate key="tx_twsimpleworklist_domain_model_useraccount.user_email" /></th>
-		<!--<th><f:translate key="tx_twsimpleworklist_domain_model_useraccount.user_password" /></th>-->
 		<th><f:translate key="tx_twsimpleworklist_domain_model_useraccount.user_fullname" /></th>
-		<th> </th>
-		<th> </th>
 	</tr>
 
 	<f:for each="{userAccounts}" as="userAccount">
 		<tr>
 			<td><f:link.action action="show" arguments="{userAccount : userAccount}"> {userAccount.userEmail}</f:link.action></td>
-			<!--<td><f:link.action action="show" arguments="{userAccount : userAccount}"> {userAccount.userPassword}</f:link.action></td>-->
 			<td><f:link.action action="show" arguments="{userAccount : userAccount}"> {userAccount.userFullname}</f:link.action></td>
-			<td><f:link.action action="edit" arguments="{userAccount : userAccount}">Edit</f:link.action></td>
-			<td><f:link.action action="delete" arguments="{userAccount : userAccount}">Delete</f:link.action></td>
 		</tr>
 	</f:for>
 </table>
 
-<f:link.action action="new">New UserAccount</f:link.action>
 </f:section>
 
 </html>

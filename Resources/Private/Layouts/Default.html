@@ -3,7 +3,7 @@
 	<div class="row">
 		<div class="col-md-3">
 			<div class="well sidebar-nav">
-				<ul class="nav nav-list">
+				<ul class="nav nav-pills nav-stacked">
 					<li><f:link.action id="focus_inbox" controller="Task" action="inbox"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span> Eingang</f:link.action></li>
 					<li><f:link.action id="focus_today"  controller="Task" action="today"><span class="glyphicon glyphicon glyphicon-time" aria-hidden="true"></span> Heute</f:link.action></li>
 					<li><f:link.action id="focus_next" controller="Task" action="next"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Als N&auml;chstes</f:link.action></li>
@@ -13,6 +13,8 @@
 					<li><f:link.action id="star" controller="Task" action="focus"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> Fokus</f:link.action></li>
 					<li><f:link.action id="focus_completed" controller="Task" action="completed"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> Erledigte Aufgaben</f:link.action></li>
 					<li><f:link.action id="focus_trash" controller="Task" action="trash"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Papierkorb</f:link.action></li>
+					<li><hr/></li>
+					<li><f:link.action id="list_users" controller="UserAccount" action="list"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Users</f:link.action></li>
 				</ul>
 			</div>
 		</div>
