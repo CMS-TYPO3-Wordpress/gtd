@@ -82,13 +82,13 @@ page.jsInline.999.value (
               var selfId = ("" + $( this ).attr("id")).split("_")[1];
               var draggableId = "" +ui.draggable.attr("id").split("_")[1];
               var draggableType = ""+ui.draggable.attr("id").split("_")[0];
-              var rootUrl = "";
+              var rootUrl = $(location).attr('pathname');
               if(draggableType == "dataDetail") {
-                  rootUrl = '<c:url value="/task"/>';
+                  rootUrl = rootUrl + "?tx_twsimpleworklist_frontendsimpleworklist[action]=moveTaskOrder";
               } else if(draggableType == "dataDetailProject") {
-                  rootUrl = '<c:url value="/project/task"/>';
+                  rootUrl = rootUrl + "?tx_twsimpleworklist_frontendsimpleworklist[action]=moveTaskOrderInsideProject";
               }
-              var html4move = rootUrl + '/' + draggableId + '/changeorderto/' + selfId;
+              var html4move = rootUrl + '&tx_twsimpleworklist_frontendsimpleworklist[srcTask]=' + draggableId + '&tx_twsimpleworklist_frontendsimpleworklist[targetTask]=' + selfId+'&tx_twsimpleworklist_frontendsimpleworklist[controller]=Task';
               window.location.replace(html4move);
           }
       });

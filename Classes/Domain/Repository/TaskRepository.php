@@ -81,4 +81,26 @@ class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         return $query->execute();
     }
 
+    /**
+     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userObject
+     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $lowerTask
+     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $higherTask
+     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    public function getTasksToReorderByOrderIdTaskState(
+        \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userObject,
+        \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $lowerTask,
+        \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $higherTask)
+    {
+        $query = $this->createQuery();
+        $query->matching(
+            $query->logicalAnd(
+                $query->equals('userAccount', $userObject),
+                $query->greaterThan('orderIdTaskState',$lowerTask->getOrderIdTaskState()),
+                $query->lessThan('orderIdTaskState',$higherTask->getOrderIdTaskState())
+            )
+        );
+        return $query->execute();
+    }
+
 }

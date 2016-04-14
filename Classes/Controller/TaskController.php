@@ -598,4 +598,37 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->redirect('trash');
     }
 
+
+    /**
+     * action moveTaskOrder
+     *
+     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $srcTask
+     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $targetTask
+     * @return void
+     */
+    public function moveTaskOrderAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $srcTask,
+                                        \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $targetTask){
+        $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
+        $destinationTaskOrderId = $targetTask->getOrderIdTaskState();
+        if($srcTask->getOrderIdTaskState()<$targetTask->getOrderIdTaskState()){
+            $tasks = $this->taskRepository->getTasksToReorderByOrderIdTaskState($userObject, $srcTask, $targetTask);
+            foreach ($tasks as $task){
+                $task->setOrderIdTaskState($task->getOrderIdTaskState()-1);
+                $this->taskRepository->update($task);
+            }
+            $targetTask->setOrderIdTaskState($targetTask->getOrderIdTaskState()-1);
+            $this->taskRepository->update($targetTask);
+            $srcTask->setOrderIdTaskState($destinationTaskOrderId);
+            $this->taskRepository->update($srcTask);
+        } else {
+            $tasks = $this->taskRepository->getTasksToReorderByOrderIdTaskState($userObject, $targetTask, $srcTask);
+            foreach ($tasks as $task){
+                $task->setOrderIdTaskState($task->getOrderIdTaskState()+1);
+                $this->taskRepository->update($task);
+            }
+            $srcTask->setOrderIdTaskState($destinationTaskOrderId+1);
+            $this->taskRepository->update($srcTask);
+        }
+        $this->getRedirectFromTask($srcTask);
+    }
 }
