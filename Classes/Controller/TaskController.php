@@ -469,4 +469,110 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->taskRepository->remove($task);
         $this->redirect('list');
     }
+
+    /**
+     * action moveToInbox
+     *
+     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task
+     * @return void
+     */
+    public function moveToInboxAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task){
+        $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
+        $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$this->taskStates['inbox']);
+        $task->setOrderIdTaskState($maxTaskStateOrderId);
+        $task->changeTaskState($this->taskStates['inbox']);
+        $this->taskRepository->update($task);
+        $this->redirect('inbox');
+    }
+
+    /**
+     * action moveToToday
+     *
+     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task
+     * @return void
+     */
+    public function moveToTodayAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task){
+        $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
+        $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$this->taskStates['today']);
+        $task->setOrderIdTaskState($maxTaskStateOrderId);
+        $task->changeTaskState($this->taskStates['today']);
+        $this->taskRepository->update($task);
+        $this->redirect('today');
+    }
+
+    /**
+     * action moveToNext
+     *
+     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task
+     * @return void
+     */
+    public function moveToNextAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task){
+        $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
+        $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$this->taskStates['next']);
+        $task->setOrderIdTaskState($maxTaskStateOrderId);
+        $task->changeTaskState($this->taskStates['next']);
+        $this->taskRepository->update($task);
+        $this->redirect('next');
+    }
+
+    /**
+     * action moveToWaiting
+     *
+     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task
+     * @return void
+     */
+    public function moveToWaitingAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task){
+        $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
+        $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$this->taskStates['waiting']);
+        $task->setOrderIdTaskState($maxTaskStateOrderId);
+        $task->changeTaskState($this->taskStates['waiting']);
+        $this->taskRepository->update($task);
+        $this->redirect('waiting');
+    }
+
+    /**
+     * action moveToSomeday
+     *
+     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task
+     * @return void
+     */
+    public function moveToSomedayAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task){
+        $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
+        $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$this->taskStates['someday']);
+        $task->setOrderIdTaskState($maxTaskStateOrderId);
+        $task->changeTaskState($this->taskStates['someday']);
+        $this->taskRepository->update($task);
+        $this->redirect('someday');
+    }
+
+    /**
+     * action moveToCompleted
+     *
+     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task
+     * @return void
+     */
+    public function moveToCompletedAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task){
+        $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
+        $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$this->taskStates['completed']);
+        $task->setOrderIdTaskState($maxTaskStateOrderId);
+        $task->changeTaskState($this->taskStates['completed']);
+        $this->taskRepository->update($task);
+        $this->redirect('completed');
+    }
+
+    /**
+     * action moveToTrash
+     *
+     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task
+     * @return void
+     */
+    public function moveToTrashAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task){
+        $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
+        $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$this->taskStates['trash']);
+        $task->setOrderIdTaskState($maxTaskStateOrderId);
+        $task->changeTaskState($this->taskStates['trash']);
+        $this->taskRepository->update($task);
+        $this->redirect('trash');
+    }
+
 }

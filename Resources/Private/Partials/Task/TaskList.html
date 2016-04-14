@@ -44,7 +44,10 @@
                     </f:else>
                 </f:if>
             </td>
-            <td><f:link.action action="edit" arguments="{task : task}"> {task.title}</f:link.action></td>
+            <td><f:link.action class="dataDetailListTitle"
+                               id="dataDetail_{task.uid}"
+                               action="edit" arguments="{task : task}"> {task.title}</f:link.action>
+            </td>
             <td>{task.text}</td>
             <td>{task.taskState}</td>
             <td>{task.lastTaskState}</td>
