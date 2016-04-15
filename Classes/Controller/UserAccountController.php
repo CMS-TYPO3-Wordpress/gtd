@@ -32,6 +32,8 @@ class UserAccountController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      */
     public function listAction()
     {
+        $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
+        $this->view->assign('thisUser', $userObject);
         $userAccounts = $this->userAccountRepository->findAll();
         $this->view->assign('userAccounts', $userAccounts);
     }

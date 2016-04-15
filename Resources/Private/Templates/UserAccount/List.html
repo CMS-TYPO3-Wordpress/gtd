@@ -26,8 +26,19 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 	<f:for each="{userAccounts}" as="userAccount">
 		<tr>
-			<td><f:link.action action="show" arguments="{userAccount : userAccount}"> {userAccount.userEmail}</f:link.action></td>
-			<td><f:link.action action="show" arguments="{userAccount : userAccount}"> {userAccount.userFullname}</f:link.action></td>
+			<td>
+				<f:if condition="{thisUser.uid} == {userAccount.uid}">
+					<f:then>
+						{userAccount.userEmail}
+					</f:then>
+					<f:else>
+						<f:link.action controller="UserMessage" action="list" arguments="{thisUser : thisUser, otherUser : userAccount}"> {userAccount.userEmail}</f:link.action>
+					</f:else>
+				</f:if>
+			</td>
+			<td>
+				<f:link.action action="show" arguments="{userAccount : userAccount}"> {userAccount.userFullname}</f:link.action>
+			</td>
 		</tr>
 	</f:for>
 </table>

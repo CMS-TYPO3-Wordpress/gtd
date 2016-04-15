@@ -70,8 +70,12 @@ class UserMessageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      * 
      * @return void
      */
-    public function listAction()
+    public function listAction(
+        \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $thisUser,
+        \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $otherUser)
     {
+        $this->view->assign('thisUser', $thisUser);
+        $this->view->assign('otherUser', $otherUser);
         $userMessages = $this->userMessageRepository->findAll();
         $this->view->assign('userMessages', $userMessages);
     }
@@ -103,11 +107,19 @@ class UserMessageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserMessage $newUserMessage
      * @return void
      */
-    public function createAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\UserMessage $newUserMessage)
+    public function createAction(
+        \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserMessage $newUserMessage,
+        \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $sender,
+        \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $receiver)
     {
-        $this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+        $newUserMessage->setReadByReceiver(false);
+        $newUserMessage->setSender($sender);
+        $newUserMessage->setReceiver($receiver);
         $this->userMessageRepository->add($newUserMessage);
-        $this->redirect('list');
+        $arguments = array('thisUser'=> $sender,'otherUser' => $receiver);
+        $controllerName = null;
+        $extensionName = null;
+        $this->redirect('list',$controllerName,$extensionName,$arguments);
     }
     
     /**

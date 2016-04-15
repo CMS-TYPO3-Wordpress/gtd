@@ -10,12 +10,14 @@ call_user_func(
             'Frontendsimpleworklist',
             [
                 'UserAccount' => 'list, show, edit, update, delete',
+                'UserMessage' => 'list, create',
                 'Project' => 'list, show, edit, addNewRootProject, addNewChildProject, moveProject, getAllProjects, getRootProjects',
                 'Task' => 'list, show, edit, update, new, create, focus, inbox, today, next, waiting, scheduled, someday, completed, trash, emptyTrash, transformTaskIntoProject, completeTask, undoneTask, setFocus, unsetFocus, getAllTasksForUser, changeTaskOrderIdByProject, addNewTaskToProject, moveToInbox, moveToToday, moveToNext, moveToWaiting, moveToSomeday, moveToCompleted, moveToTrash, moveAllCompletedToTrash, moveTaskOrder'
             ],
             // non-cacheable actions
             [
                 'UserAccount' => 'list show, edit, update, delete',
+                'UserMessage' => 'list, create',
                 'Project' => 'list, show, edit, addNewRootProject, addNewChildProject, moveProject, getAllProjects, getRootProjects',
                 'Task' => 'list, show, edit, update, new, create, focus, inbox, today, next, waiting, scheduled, someday, completed, trash, emptyTrash, transformTaskIntoProject, completeTask, undoneTask, setFocus, unsetFocus, getAllTasksForUser, changeTaskOrderIdByProject, addNewTaskToProject, moveToInbox, moveToToday, moveToNext, moveToWaiting, moveToSomeday, moveToCompleted, moveToTrash, moveAllCompletedToTrash, moveTaskOrder'
             ]

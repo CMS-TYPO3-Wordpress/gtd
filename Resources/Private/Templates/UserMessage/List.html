@@ -18,6 +18,15 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 <f:flashMessages />
 
+<f:render partial="FormErrors" arguments="{object:UserMessage}" />
+
+<f:form action="create" name="newUserMessage" object="{newUserMessage}">
+	<f:form.hidden name="sender" value="{thisUser}" />
+	<f:form.hidden name="receiver" value="{otherUser}" />
+	<f:render partial="UserMessage/FormFields"/>
+	<f:form.submit value="Send" />
+</f:form>
+
 <table  class="tx_twsimpleworklist" >
 	<tr>
 		<th><f:translate key="tx_twsimpleworklist_domain_model_usermessage.message_text" /></th>
@@ -36,6 +45,5 @@ Otherwise your changes will be overwritten the next time you save the extension 
 	</f:for>
 </table>
 
-<f:link.action action="new">New UserMessage</f:link.action>
 </f:section>
 </html>
