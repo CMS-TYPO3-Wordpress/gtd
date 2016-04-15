@@ -76,7 +76,7 @@ class UserMessageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     {
         $this->view->assign('thisUser', $thisUser);
         $this->view->assign('otherUser', $otherUser);
-        $userMessages = $this->userMessageRepository->findAll();
+        $userMessages = $this->userMessageRepository->findAllBetweenTwoUsers($thisUser,$otherUser);
         $this->view->assign('userMessages', $userMessages);
     }
     

@@ -24,23 +24,19 @@ Otherwise your changes will be overwritten the next time you save the extension 
 	<f:form.hidden name="sender" value="{thisUser}" />
 	<f:form.hidden name="receiver" value="{otherUser}" />
 	<f:render partial="UserMessage/FormFields"/>
-	<f:form.submit value="Send" />
+	<f:form.submit value="Send" class="btn btn-default"/>
 </f:form>
-
-<table  class="tx_twsimpleworklist" >
+<br/>
+<table class="table table-striped" >
 	<tr>
 		<th><f:translate key="tx_twsimpleworklist_domain_model_usermessage.message_text" /></th>
 		<th><f:translate key="tx_twsimpleworklist_domain_model_usermessage.read_by_receiver" /></th>
-		<th> </th>
-		<th> </th>
 	</tr>
 
 	<f:for each="{userMessages}" as="userMessage">
 		<tr>
 			<td><f:link.action action="show" arguments="{userMessage : userMessage}"> {userMessage.messageText}</f:link.action></td>
 			<td><f:link.action action="show" arguments="{userMessage : userMessage}"> {userMessage.readByReceiver}</f:link.action></td>
-			<td><f:link.action action="edit" arguments="{userMessage : userMessage}">Edit</f:link.action></td>
-			<td><f:link.action action="delete" arguments="{userMessage : userMessage}">Delete</f:link.action></td>
 		</tr>
 	</f:for>
 </table>

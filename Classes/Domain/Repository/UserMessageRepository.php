@@ -17,4 +17,28 @@ namespace ThomasWoehlke\TwSimpleworklist\Domain\Repository;
  */
 class UserMessageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
+
+    /**
+     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $thisUser
+     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $otherUser
+     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    public function findAllBetweenTwoUsers(\ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $thisUser,
+                                           \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $otherUser)
+    {
+        $query = $this->createQuery();
+        $query->matching(
+            $query->logicalOr(
+                $query->logicalAnd(
+                    $query->equals('sender', $thisUser),
+                    $query->equals('receiver', $otherUser)
+                ),
+                $query->logicalAnd(
+                    $query->equals('sender', $otherUser),
+                    $query->equals('receiver', $thisUser)
+                )
+            )
+        );
+        return $query->execute();
     }
+}
