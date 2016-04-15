@@ -1,4 +1,5 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:c="http://www.w3.org/1999/html"
+	  data-namespace-typo3-fluid="true">
 <f:layout name="Default" />
 
 This Template is responsible for creating a table of domain objects.
@@ -20,12 +21,27 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 <table  class="table table-striped" >
 	<tr>
+		<th>Messages</th>
 		<th><f:translate key="tx_twsimpleworklist_domain_model_useraccount.user_email" /></th>
 		<th><f:translate key="tx_twsimpleworklist_domain_model_useraccount.user_fullname" /></th>
 	</tr>
 
 	<f:for each="{userAccounts}" as="userAccount">
 		<tr>
+			<td>
+				<f:if condition="{thisUser.uid} != {userAccount.uid}">
+					<f:link.action controller="UserMessage" action="list" arguments="{thisUser : thisUser, otherUser : userAccount}">
+					<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+					</f:link.action>
+					<f:for each="{userAccount2messages}" as="messages" key="uid">
+						<f:if condition="{uid} == {userAccount.uid}">
+							<f:if condition="{messages} > 0">
+								<span class="badge">{messages}</span>
+							</f:if>
+						</f:if>
+					</f:for>
+				</f:if>
+			</td>
 			<td>
 				<f:if condition="{thisUser.uid} == {userAccount.uid}">
 					<f:then>

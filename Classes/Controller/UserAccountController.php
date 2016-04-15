@@ -24,7 +24,15 @@ class UserAccountController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      * @inject
      */
     protected $userAccountRepository = null;
-    
+
+    /**
+     * userMessageRepository
+     *
+     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Repository\UserMessageRepository
+     * @inject
+     */
+    protected $userMessageRepository = null;
+
     /**
      * action list
      * 
@@ -36,6 +44,14 @@ class UserAccountController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $this->view->assign('thisUser', $userObject);
         $userAccounts = $this->userAccountRepository->findAll();
         $this->view->assign('userAccounts', $userAccounts);
+        $userAccount2messages = array();
+        foreach ($userAccounts as $userAccount){
+            if($userAccount->getUid() != $userObject->getUid()){
+                $nrMessages = $this->userMessageRepository->getNewMessagesFor($userAccount);
+                $userAccount2messages[$userAccount->getUid()]=$nrMessages;
+            }
+        }
+        $this->view->assign('userAccount2messages', $userAccount2messages);
     }
     
     /**

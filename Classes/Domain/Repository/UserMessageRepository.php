@@ -45,4 +45,20 @@ class UserMessageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         );
         return $query->execute();
     }
+
+    /**
+     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userAccount
+     * @return int
+     */
+    public function getNewMessagesFor(\ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userAccount)
+    {
+        $query = $this->createQuery();
+        $query->matching(
+            $query->logicalAnd(
+                $query->equals('sender', $userAccount),
+                $query->equals('readByReceiver', false)
+            )
+        );
+        return $query->count();
+    }
 }
