@@ -27,19 +27,27 @@ Otherwise your changes will be overwritten the next time you save the extension 
 	<f:form.submit value="Send" class="btn btn-default"/>
 </f:form>
 <br/>
-<table class="table table-striped" >
-	<tr>
-		<th><f:translate key="tx_twsimpleworklist_domain_model_usermessage.message_text" /></th>
-		<th><f:translate key="tx_twsimpleworklist_domain_model_usermessage.read_by_receiver" /></th>
-	</tr>
+
 
 	<f:for each="{userMessages}" as="userMessage">
-		<tr>
-			<td><f:link.action action="show" arguments="{userMessage : userMessage}"> {userMessage.messageText}</f:link.action></td>
-			<td><f:link.action action="show" arguments="{userMessage : userMessage}"> {userMessage.readByReceiver}</f:link.action></td>
-		</tr>
+		<f:if condition="{userMessage.sender.uid} == {otherUser.uid}">
+			<f:then>
+				<div class="alert alert-danger" role="alert" style="width: 66%; float:right">
+			</f:then>
+			<f:else>
+				<div class="alert alert-info" role="alert" style="width: 66%; float:left">
+			</f:else>
+		</f:if>
+		{userMessage.messageText}
+		<span style="float:right">
+    	<small>
+			<f:if condition="{userMessage.readByReceiver}">
+				<span class="glyphicon glyphicon-ok" aria-hidden="true">
+			</f:if>
+		</small>
+		</span>
+		</div>
 	</f:for>
-</table>
 
 </f:section>
 </html>

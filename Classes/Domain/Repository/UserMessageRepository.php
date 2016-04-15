@@ -18,6 +18,10 @@ namespace ThomasWoehlke\TwSimpleworklist\Domain\Repository;
 class UserMessageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
 
+    protected $defaultOrderings = array(
+        'uid' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
+    );
+
     /**
      * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $thisUser
      * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $otherUser

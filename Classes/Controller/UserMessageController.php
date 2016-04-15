@@ -78,6 +78,12 @@ class UserMessageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $this->view->assign('otherUser', $otherUser);
         $userMessages = $this->userMessageRepository->findAllBetweenTwoUsers($thisUser,$otherUser);
         $this->view->assign('userMessages', $userMessages);
+        foreach ($userMessages as $msg){
+            if((!$msg->isReadByReceiver())&&($msg->getReceiver()->getUid() == $thisUser->getUid())){
+                $msg->setReadByReceiver(true);
+                $this->userMessageRepository->update($msg);
+            }
+        }
     }
     
     /**
