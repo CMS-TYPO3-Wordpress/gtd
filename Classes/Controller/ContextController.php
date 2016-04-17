@@ -17,22 +17,16 @@ namespace ThomasWoehlke\TwSimpleworklist\Controller;
  */
 class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
-    /**
-     * contextRepository
-     * 
-     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Repository\ContextRepository
-     * @inject
-     */
-    protected $contextRepository = null;
     
     /**
      * action switchContext
      * 
      * @return void
      */
-    public function switchContextAction()
+    public function switchContextAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $context)
     {
-        
+        $controllerName = "Task";
+        $this->redirect('inbox',$controllerName);
     }
     
     /**

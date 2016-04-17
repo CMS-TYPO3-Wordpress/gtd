@@ -33,6 +33,14 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     protected $userAccountRepository = null;
 
+    /**
+     * contextService
+     *
+     * @var \ThomasWoehlke\TwSimpleworklist\Service\ContextService
+     * @inject
+     */
+    protected $contextService = null;
+
     protected $taskStates = array(
         'inbox' => 0, 'today' => 1, 'next' => 2, 'waiting' => 3, 'scheduled' => 4, 'someday' => 5, 'completed' => 6 , 'trash' => 7
     );
@@ -47,6 +55,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     {
         $this->view->assign('task', $task);
         $this->getTaskEnergyAndTaskTime();
+        $this->view->assign('contextList',$this->contextService->getContextList());
     }
     
     /**
@@ -60,6 +69,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     {
         $this->view->assign('task', $task);
         $this->getTaskEnergyAndTaskTime();
+        $this->view->assign('contextList',$this->contextService->getContextList());
     }
 
     public function initializeEditAction()
@@ -152,6 +162,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$this->taskStates['inbox']);
         $this->view->assign('tasks', $tasks);
+        $this->view->assign('contextList',$this->contextService->getContextList());
     }
     
     /**
@@ -164,6 +175,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$this->taskStates['today']);
         $this->view->assign('tasks', $tasks);
+        $this->view->assign('contextList',$this->contextService->getContextList());
     }
     
     /**
@@ -176,6 +188,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$this->taskStates['next']);
         $this->view->assign('tasks', $tasks);
+        $this->view->assign('contextList',$this->contextService->getContextList());
     }
     
     /**
@@ -188,6 +201,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$this->taskStates['waiting']);
         $this->view->assign('tasks', $tasks);
+        $this->view->assign('contextList',$this->contextService->getContextList());
     }
     
     /**
@@ -200,6 +214,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$this->taskStates['scheduled']);
         $this->view->assign('tasks', $tasks);
+        $this->view->assign('contextList',$this->contextService->getContextList());
     }
     
     /**
@@ -212,6 +227,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$this->taskStates['someday']);
         $this->view->assign('tasks', $tasks);
+        $this->view->assign('contextList',$this->contextService->getContextList());
     }
     
     /**
@@ -224,6 +240,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$this->taskStates['completed']);
         $this->view->assign('tasks', $tasks);
+        $this->view->assign('contextList',$this->contextService->getContextList());
     }
     
     /**
@@ -236,6 +253,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$this->taskStates['trash']);
         $this->view->assign('tasks', $tasks);
+        $this->view->assign('contextList',$this->contextService->getContextList());
     }
 
     /**
@@ -248,6 +266,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $tasks = $this->taskRepository->findByUserAccountAndHasFocus($userObject);
         $this->view->assign('tasks', $tasks);
+        $this->view->assign('contextList',$this->contextService->getContextList());
     }
     
     /**
@@ -368,6 +387,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     {
         $tasks = $this->taskRepository->findAll();
         $this->view->assign('tasks', $tasks);
+        $this->view->assign('contextList',$this->contextService->getContextList());
     }
 
     private function getTaskEnergyAndTaskTime(){
@@ -404,6 +424,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     public function newAction()
     {
         $this->getTaskEnergyAndTaskTime();
+        $this->view->assign('contextList',$this->contextService->getContextList());
     }
 
     /**

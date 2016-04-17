@@ -17,4 +17,5 @@ namespace ThomasWoehlke\TwSimpleworklist\Domain\Repository;
  */
 class UserAccountRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
-    }
+
+}

@@ -18,20 +18,28 @@ namespace ThomasWoehlke\TwSimpleworklist\Controller;
 class UserAccountController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
     /**
-     * userAccountRepository
-     * 
-     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Repository\UserAccountRepository
-     * @inject
-     */
-    protected $userAccountRepository = null;
-
-    /**
      * userMessageRepository
      *
      * @var \ThomasWoehlke\TwSimpleworklist\Domain\Repository\UserMessageRepository
      * @inject
      */
     protected $userMessageRepository = null;
+
+    /**
+     * userAccountRepository
+     *
+     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Repository\UserAccountRepository
+     * @inject
+     */
+    protected $userAccountRepository = null;
+    
+    /**
+     * contextService
+     *
+     * @var \ThomasWoehlke\TwSimpleworklist\Service\ContextService
+     * @inject
+     */
+    protected $contextService = null;
 
     /**
      * action list
@@ -52,6 +60,7 @@ class UserAccountController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
             }
         }
         $this->view->assign('userAccount2messages', $userAccount2messages);
+        $this->view->assign('contextList',$this->contextService->getContextList());
     }
     
     /**

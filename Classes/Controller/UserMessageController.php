@@ -24,6 +24,14 @@ class UserMessageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      * @inject
      */
     protected $userMessageRepository = null;
+
+    /**
+     * contextService
+     *
+     * @var \ThomasWoehlke\TwSimpleworklist\Service\ContextService
+     * @inject
+     */
+    protected $contextService = null;
     
     /**
      * action getLastMessagesBetweenCurrentAndOtherUser
@@ -84,6 +92,7 @@ class UserMessageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                 $this->userMessageRepository->update($msg);
             }
         }
+        $this->view->assign('contextList',$this->contextService->getContextList());
     }
     
     /**
