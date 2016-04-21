@@ -23,8 +23,6 @@ class UserMessageControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         parent::tearDown();
     }
 
-
-
     /**
      * @test
      */
@@ -85,7 +83,6 @@ class UserMessageControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
         $this->subject->editAction($userMessage);
     }
-
 
     /**
      * @test

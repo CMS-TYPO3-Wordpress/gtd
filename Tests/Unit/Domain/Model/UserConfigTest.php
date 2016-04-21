@@ -6,16 +6,16 @@ namespace ThomasWoehlke\TwSimpleworklist\Tests\Unit\Domain\Model;
  *
  * @author Thomas Woehlke <woehlke@faktura-berlin.de>
  */
-class ContextTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+class UserConfigTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
     /**
-     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context
+     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserConfig
      */
     protected $subject = null;
 
     protected function setUp()
     {
-        $this->subject = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context();
+        $this->subject = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserConfig();
     }
 
     protected function tearDown()
@@ -26,11 +26,11 @@ class ContextTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function getNameDeReturnsInitialValueForString()
+    public function getDefaultContextReturnsInitialValueForContext()
     {
-        self::assertSame(
-            '',
-            $this->subject->getNameDe()
+        self::assertEquals(
+            null,
+            $this->subject->getDefaultContext()
         );
 
     }
@@ -38,40 +38,14 @@ class ContextTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function setNameDeForStringSetsNameDe()
+    public function setDefaultContextForContextSetsDefaultContext()
     {
-        $this->subject->setNameDe('Conceived at T3CON10');
+        $defaultContextFixture = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context();
+        $this->subject->setDefaultContext($defaultContextFixture);
 
         self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'nameDe',
-            $this->subject
-        );
-
-    }
-
-    /**
-     * @test
-     */
-    public function getNameEnReturnsInitialValueForString()
-    {
-        self::assertSame(
-            '',
-            $this->subject->getNameEn()
-        );
-
-    }
-
-    /**
-     * @test
-     */
-    public function setNameEnForStringSetsNameEn()
-    {
-        $this->subject->setNameEn('Conceived at T3CON10');
-
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'nameEn',
+            $defaultContextFixture,
+            'defaultContext',
             $this->subject
         );
 

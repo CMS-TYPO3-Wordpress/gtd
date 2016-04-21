@@ -23,8 +23,6 @@ class UserAccountControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         parent::tearDown();
     }
 
-
-
     /**
      * @test
      */
@@ -86,7 +84,6 @@ class UserAccountControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->subject->editAction($userAccount);
     }
 
-
     /**
      * @test
      */
@@ -128,7 +125,6 @@ class UserAccountControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
         $this->subject->editAction($userAccount);
     }
-
 
     /**
      * @test

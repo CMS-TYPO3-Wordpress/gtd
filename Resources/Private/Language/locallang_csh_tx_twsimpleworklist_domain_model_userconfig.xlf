@@ -3,11 +3,8 @@
 	<file source-language="en" datatype="plaintext" original="messages" date="2016-04-21T10:54:21Z" product-name="tw_simpleworklist">
 		<header/>
 		<body>
-			<trans-unit id="name_de.description">
-				<source>nameDe</source>
-			</trans-unit>
-			<trans-unit id="name_en.description">
-				<source>nameEn</source>
+			<trans-unit id="default_context.description">
+				<source>defaultContext</source>
 			</trans-unit>
 			<trans-unit id="user_account.description">
 				<source>userAccount</source>

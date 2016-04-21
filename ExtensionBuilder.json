@@ -3,8 +3,8 @@
         {
             "config": {
                 "position": [
-                    51,
-                    568
+                    63,
+                    502
                 ]
             },
             "name": "New Model Object",
@@ -164,8 +164,8 @@
         {
             "config": {
                 "position": [
-                    329,
-                    628
+                    493,
+                    505
                 ]
             },
             "name": "New Model Object",
@@ -239,8 +239,8 @@
         {
             "config": {
                 "position": [
-                    681,
-                    399
+                    761,
+                    317
                 ]
             },
             "name": "New Model Object",
@@ -529,6 +529,68 @@
                     ]
                 }
             }
+        },
+        {
+            "config": {
+                "position": [
+                    259,
+                    275
+                ]
+            },
+            "name": "New Model Object",
+            "value": {
+                "actionGroup": {
+                    "_default0_list": true,
+                    "_default1_show": false,
+                    "_default2_new_create": false,
+                    "_default3_edit_update": false,
+                    "_default4_delete": false,
+                    "customActions": []
+                },
+                "name": "UserConfig",
+                "objectsettings": {
+                    "addDeletedField": true,
+                    "addHiddenField": true,
+                    "addStarttimeEndtimeFields": true,
+                    "aggregateRoot": true,
+                    "categorizable": false,
+                    "description": "",
+                    "mapToTable": "",
+                    "parentClass": "",
+                    "sorting": false,
+                    "type": "Entity",
+                    "uid": "661230749925"
+                },
+                "propertyGroup": {
+                    "properties": []
+                },
+                "relationGroup": {
+                    "relations": [
+                        {
+                            "foreignRelationClass": "",
+                            "lazyLoading": false,
+                            "propertyIsExcludeField": true,
+                            "relationDescription": "",
+                            "relationName": "defaultContext",
+                            "relationType": "manyToOne",
+                            "relationWire": "[wired]",
+                            "renderType": "selectSingle",
+                            "uid": "207724374816"
+                        },
+                        {
+                            "foreignRelationClass": "",
+                            "lazyLoading": false,
+                            "propertyIsExcludeField": true,
+                            "relationDescription": "",
+                            "relationName": "userAccount",
+                            "relationType": "zeroToOne",
+                            "relationWire": "[wired]",
+                            "renderType": "selectMultipleSideBySide",
+                            "uid": "1249013677846"
+                        }
+                    ]
+                }
+            }
         }
     ],
     "properties": {
@@ -679,11 +741,35 @@
                 "terminal": "SOURCES",
                 "uid": "535747404769"
             }
+        },
+        {
+            "src": {
+                "moduleId": 5,
+                "terminal": "relationWire_0",
+                "uid": "207724374816"
+            },
+            "tgt": {
+                "moduleId": 2,
+                "terminal": "SOURCES",
+                "uid": "1339386361078"
+            }
+        },
+        {
+            "src": {
+                "moduleId": 5,
+                "terminal": "relationWire_1",
+                "uid": "1249013677846"
+            },
+            "tgt": {
+                "moduleId": 0,
+                "terminal": "SOURCES",
+                "uid": "535747404769"
+            }
         }
     ],
     "log": {
-        "last_modified": "2016-04-01 01:38",
+        "last_modified": "2016-04-21 10:54",
         "extension_builder_version": "7.6.0",
-        "be_user": " (2)"
+        "be_user": " (1)"
     }
 }
