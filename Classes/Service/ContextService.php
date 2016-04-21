@@ -1,7 +1,9 @@
 <?php
 namespace ThomasWoehlke\TwSimpleworklist\Service;
 
-use \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context;
+use ThomasWoehlke\TwSimpleworklist\Domain\Model\Context;
+use ThomasWoehlke\TwSimpleworklist\Domain\Model\UserConfig;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * Created by PhpStorm.
@@ -29,6 +31,14 @@ class ContextService implements \TYPO3\CMS\Core\SingletonInterface
     protected $userAccountRepository = null;
 
     /**
+     * userConfigRepository
+     *
+     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Repository\UserConfigRepository
+     * @inject
+     */
+    protected $userConfigRepository = null;
+
+    /**
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
     public function getContextList(){
@@ -41,7 +51,11 @@ class ContextService implements \TYPO3\CMS\Core\SingletonInterface
         return $contextList;
     }
 
-    private function createDefaultContexts($userObject)
+    /**
+     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userObject
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     */
+    private function createDefaultContexts(\ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userObject)
     {
         $work = new Context();
         $private = new Context();
@@ -53,6 +67,40 @@ class ContextService implements \TYPO3\CMS\Core\SingletonInterface
         $private->setUserAccount($userObject);
         $this->contextRepository->add($work);
         $this->contextRepository->add($private);
+    }
+
+    /**
+     * @return \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context
+     */
+    public function getCurrentContext()
+    {
+        $sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', 'tx_twsimpleworklist_fesessiondata');
+        $contextUid = $sessionData['contextUid'];
+        if($contextUid == null){
+            $contextList = $this->getContextList();
+            $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
+            $userConfig = $this->userConfigRepository->findByUserAccount($userObject);
+            if($userConfig == null){
+                $userConfig2 = new UserConfig();
+                $userConfig2->setUserAccount($userObject);
+                $ctx = $contextList->getFirst();
+                $userConfig2->setDefaultContext($ctx);
+                //DebuggerUtility::var_dump($userConfig2);
+                $this->userConfigRepository->add($userConfig2);
+                $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
+                $persistenceManager = $objectManager->get("TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
+                $persistenceManager->persistAll();
+                $userConfig = $this->userConfigRepository->findByUserAccount($userObject);
+                //DebuggerUtility::var_dump($userConfig);
+            }
+            $defaultContext = $userConfig->getDefaultContext();
+            $sessionData['contextUid'] = $defaultContext->getUid();
+            $GLOBALS['TSFE']->fe_user->setKey('ses', 'tx_twsimpleworklist_fesessiondata', $sessionData);
+            $GLOBALS['TSFE']->fe_user->storeSessionData();
+            return $defaultContext;
+        } else {
+            return $this->contextRepository->findByUid($contextUid);
+        }
     }
 
 }

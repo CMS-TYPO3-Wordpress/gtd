@@ -118,20 +118,14 @@ return [
 	        
 	    ],
 	    'user_account' => [
-	        'exclude' => 1,
-	        'label' => 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_userconfig.user_account',
-	        'config' => [
-			    'type' => 'inline',
-			    'foreign_table' => 'tx_twsimpleworklist_domain_model_useraccount',
-			    'minitems' => 0,
-			    'maxitems' => 1,
-			    'appearance' => [
-			        'collapseAll' => 0,
-			        'levelLinksPosition' => 'top',
-			        'showSynchronizationLink' => 1,
-			        'showPossibleLocalizationRecords' => 1,
-			        'showAllLocalizationLink' => 1
-			    ],
+			'exclude' => 1,
+			'label' => 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_usermessage.receiver',
+			'config' => [
+				'type' => 'select',
+				'renderType' => 'selectSingle',
+				'foreign_table' => 'tx_twsimpleworklist_domain_model_useraccount',
+				'minitems' => 0,
+				'maxitems' => 1,
 			],
 	        
 	    ],

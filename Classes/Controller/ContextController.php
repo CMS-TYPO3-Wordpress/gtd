@@ -17,6 +17,14 @@ namespace ThomasWoehlke\TwSimpleworklist\Controller;
  */
 class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
+
+    /**
+     * contextRepository
+     *
+     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Repository\ContextRepository
+     * @inject
+     */
+    protected $contextRepository = null;
     
     /**
      * action switchContext
@@ -25,8 +33,11 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     public function switchContextAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $context)
     {
-        $controllerName = "Task";
-        $this->redirect('inbox',$controllerName);
+        $sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', 'tx_twsimpleworklist_fesessiondata');
+        $sessionData['contextUid'] = $context->getUid();
+        $GLOBALS['TSFE']->fe_user->setKey('ses', 'tx_twsimpleworklist_fesessiondata', $sessionData);
+        $GLOBALS['TSFE']->fe_user->storeSessionData();
+        $this->redirect('inbox',"Task");
     }
     
     /**

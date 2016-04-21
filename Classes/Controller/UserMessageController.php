@@ -93,6 +93,7 @@ class UserMessageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
             }
         }
         $this->view->assign('contextList',$this->contextService->getContextList());
+        $this->view->assign('currentContext',$this->contextService->getCurrentContext());
     }
     
     /**

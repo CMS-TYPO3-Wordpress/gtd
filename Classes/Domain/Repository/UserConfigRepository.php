@@ -17,4 +17,18 @@ namespace ThomasWoehlke\TwSimpleworklist\Domain\Repository;
  */
 class UserConfigRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
+
+    /**
+     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userObject
+     * @return \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserConfig
+     */
+    public function findByUserAccount(\ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userObject)
+    {
+        $query = $this->createQuery();
+        $query->matching(
+            $query->equals('userAccount', $userObject)
+        );
+        $query->setLimit(1);
+        return $query->execute()->getFirst();
     }
+}
