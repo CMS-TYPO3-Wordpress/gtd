@@ -26,11 +26,14 @@ class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @param int $taskState
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findByUserAccountAndTaskState(\ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userObject, $taskState){
+    public function findByUserAccountAndTaskState(\ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userObject,
+                                                  \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $currentContext,
+                                                  $taskState){
         $query = $this->createQuery();
         $query->matching(
             $query->logicalAnd(
                 $query->equals('userAccount', $userObject),
+                $query->equals('context',$currentContext),
                 $query->equals('taskState', $taskState)
             )
         );
@@ -41,11 +44,14 @@ class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @param int $taskState
      * @return int
      */
-    public function getMaxTaskStateOrderId(\ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userObject, $taskState){
+    public function getMaxTaskStateOrderId(\ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userObject,
+                                           \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $currentContext,
+                                           $taskState){
         $query = $this->createQuery();
         $query->matching(
             $query->logicalAnd(
                 $query->equals('userAccount', $userObject),
+                $query->equals('context',$currentContext),
                 $query->equals('taskState', $taskState)
             )
         );
@@ -69,12 +75,15 @@ class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userObject
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findByUserAccountAndHasFocus(\ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userObject)
+    public function findByUserAccountAndHasFocus(
+        \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userObject,
+        \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $currentContext)
     {
         $query = $this->createQuery();
         $query->matching(
             $query->logicalAnd(
                 $query->equals('userAccount', $userObject),
+                $query->equals('context',$currentContext),
                 $query->equals('focus', true)
             )
         );
@@ -90,6 +99,7 @@ class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      */
     public function getTasksToReorderByOrderIdTaskState(
         \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userObject,
+        \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $currentContext,
         \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $lowerTask,
         \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $higherTask,
         $taskState)
@@ -98,6 +108,7 @@ class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         $query->matching(
             $query->logicalAnd(
                 $query->equals('userAccount', $userObject),
+                $query->equals('context',$currentContext),
                 $query->equals('taskState',$taskState),
                 $query->greaterThan('orderIdTaskState',$lowerTask->getOrderIdTaskState()),
                 $query->lessThan('orderIdTaskState',$higherTask->getOrderIdTaskState())
