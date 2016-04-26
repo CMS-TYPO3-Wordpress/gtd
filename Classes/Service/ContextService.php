@@ -37,7 +37,7 @@ class ContextService implements \TYPO3\CMS\Core\SingletonInterface
      * @inject
      */
     protected $userConfigRepository = null;
-
+    
     /**
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */

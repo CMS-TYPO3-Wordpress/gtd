@@ -1,6 +1,8 @@
 <?php
 namespace ThomasWoehlke\TwSimpleworklist\Controller;
 
+use \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project;
+
 /***
  *
  * This file is part of the "SimpleWorklist" Extension for TYPO3 CMS.
@@ -24,7 +26,23 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @inject
      */
     protected $projectRepository = null;
-    
+
+    /**
+     * contextService
+     *
+     * @var \ThomasWoehlke\TwSimpleworklist\Service\ContextService
+     * @inject
+     */
+    protected $contextService = null;
+
+    /**
+     * userAccountRepository
+     *
+     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Repository\UserAccountRepository
+     * @inject
+     */
+    protected $userAccountRepository = null;
+
     /**
      * action show
      * 
@@ -156,5 +174,80 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
         $this->projectRepository->add($newProject);
         $this->redirect('list');
+    }
+
+    /**
+     * action createTestData
+     * @return void
+     */
+    public function createTestDataAction()
+    {
+        $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
+        $currentContext = $this->contextService->getCurrentContext();
+        $testProject1 = new Project();
+        $testProject1->setContext($currentContext);
+        $testProject1->setUserAccount($userObject);
+        $testProject1->setName("Project 1");
+        $testProject1->setDescription("Description 1");
+        $testProject1->setParent(null);
+        $this->projectRepository->add($testProject1);
+
+        $testProject2 = new Project();
+        $testProject2->setContext($currentContext);
+        $testProject2->setUserAccount($userObject);
+        $testProject2->setName("Project 2");
+        $testProject2->setDescription("Description 2");
+        $testProject2->setParent(null);
+        $this->projectRepository->add($testProject2);
+
+        $testProject3 = new Project();
+        $testProject3->setContext($currentContext);
+        $testProject3->setUserAccount($userObject);
+        $testProject3->setName("Project 3");
+        $testProject3->setDescription("Description 3");
+        $testProject3->setParent(null);
+        $this->projectRepository->add($testProject3);
+
+        $testProject1_1 = new Project();
+        $testProject1_1->setContext($currentContext);
+        $testProject1_1->setUserAccount($userObject);
+        $testProject1_1->setName("Project 11");
+        $testProject1_1->setDescription("Description 11");
+        $testProject1_1->setParent($testProject1);
+        $this->projectRepository->add($testProject1_1);
+
+        $testProject1_2 = new Project();
+        $testProject1_2->setContext($currentContext);
+        $testProject1_2->setUserAccount($userObject);
+        $testProject1_2->setName("Project 12");
+        $testProject1_2->setDescription("Description 12");
+        $testProject1_2->setParent($testProject1);
+        $this->projectRepository->add($testProject1_2);
+
+        $testProject1_3 = new Project();
+        $testProject1_3->setContext($currentContext);
+        $testProject1_3->setUserAccount($userObject);
+        $testProject1_3->setName("Project 13");
+        $testProject1_3->setDescription("Description 13");
+        $testProject1_3->setParent($testProject1);
+        $this->projectRepository->add($testProject1_3);
+
+        $testProject1_3_1 = new Project();
+        $testProject1_3_1->setContext($currentContext);
+        $testProject1_3_1->setUserAccount($userObject);
+        $testProject1_3_1->setName("Project 131");
+        $testProject1_3_1->setDescription("Description 131");
+        $testProject1_3_1->setParent($testProject1_3);
+        $this->projectRepository->add($testProject1_3_1);
+
+        $testProject1_3_2 = new Project();
+        $testProject1_3_2->setContext($currentContext);
+        $testProject1_3_2->setUserAccount($userObject);
+        $testProject1_3_2->setName("Project 132");
+        $testProject1_3_2->setDescription("Description 132");
+        $testProject1_3_2->setParent($testProject1_3);
+        $this->projectRepository->add($testProject1_3_2);
+
+        $this->redirect('inbox',"Task");
     }
 }

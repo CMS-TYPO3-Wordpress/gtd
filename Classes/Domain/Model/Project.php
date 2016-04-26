@@ -51,6 +51,66 @@ class Project extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project
      */
     protected $parent = null;
+
+    /**
+     * children
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project>
+     */
+    protected $children = NULL;
+
+    /**
+     * __construct
+     */
+    public function __construct() {
+        //Do not remove the next line: It would break the functionality
+        $this->initStorageObjects();
+    }
+
+    /**
+     * Initializes all ObjectStorage properties
+     * Do not modify this method!
+     * It will be rewritten on each save in the extension builder
+     * You may modify the constructor of this class instead
+     *
+     * @return void
+     */
+    protected function initStorageObjects() {
+        $this->children = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+    }
+
+    /**
+     * @param Project $child
+     * @return void
+     */
+    public function addChild(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $child){
+        $this->children->attach($child);
+    }
+
+    /**
+     * @param Project $child
+     * @return void
+     */
+    public function removeChild(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $child){
+        $this->children->detach($child);
+    }
+
+    /**
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project>
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project> $children
+     * @return void
+     */
+    public function setChildren(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $children)
+    {
+        $this->children = $children;
+    }
     
     /**
      * Returns the name
@@ -152,7 +212,7 @@ class Project extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $parent
      * @return void
      */
-    public function setParent(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $parent)
+    public function setParent(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $parent = null)
     {
         $this->parent = $parent;
     }

@@ -134,7 +134,7 @@ CREATE TABLE tx_twsimpleworklist_domain_model_project (
 	description text NOT NULL,
 	context int(11) unsigned DEFAULT '0',
 	user_account int(11) unsigned DEFAULT '0',
-	parent int(11) unsigned DEFAULT '0',
+	parent int(11) unsigned DEFAULT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,

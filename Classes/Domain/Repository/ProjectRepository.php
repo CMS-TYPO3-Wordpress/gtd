@@ -17,4 +17,21 @@ namespace ThomasWoehlke\TwSimpleworklist\Domain\Repository;
  */
 class ProjectRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
+
+    /**
+     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $currentContext
+     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    public function getRootProjects(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $currentContext)
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->useQueryCache(FALSE);
+        $query->matching(
+            $query->logicalAnd(
+                $query->equals('context', $currentContext),
+                $query->equals('parent', 0)
+            )
+        );
+        return $query->execute();
     }
+}

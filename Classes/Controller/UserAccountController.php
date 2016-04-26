@@ -42,6 +42,14 @@ class UserAccountController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     protected $contextService = null;
 
     /**
+     * projectRepository
+     *
+     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Repository\ProjectRepository
+     * @inject
+     */
+    protected $projectRepository = null;
+
+    /**
      * action list
      * 
      * @return void
@@ -59,9 +67,11 @@ class UserAccountController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                 $userAccount2messages[$userAccount->getUid()]=$nrMessages;
             }
         }
+        $currentContext = $this->contextService->getCurrentContext();
         $this->view->assign('userAccount2messages', $userAccount2messages);
         $this->view->assign('contextList',$this->contextService->getContextList());
-        $this->view->assign('currentContext',$this->contextService->getCurrentContext());
+        $this->view->assign('currentContext',$currentContext);
+        $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($currentContext));
     }
     
     /**

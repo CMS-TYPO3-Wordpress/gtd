@@ -32,7 +32,15 @@ class UserMessageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      * @inject
      */
     protected $contextService = null;
-    
+
+    /**
+     * projectRepository
+     *
+     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Repository\ProjectRepository
+     * @inject
+     */
+    protected $projectRepository = null;
+
     /**
      * action getLastMessagesBetweenCurrentAndOtherUser
      * 
@@ -94,6 +102,7 @@ class UserMessageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         }
         $this->view->assign('contextList',$this->contextService->getContextList());
         $this->view->assign('currentContext',$this->contextService->getCurrentContext());
+        $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($this->contextService->getCurrentContext()));
     }
     
     /**
