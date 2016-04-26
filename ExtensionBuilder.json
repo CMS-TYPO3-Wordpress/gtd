@@ -3,8 +3,8 @@
         {
             "config": {
                 "position": [
-                    63,
-                    502
+                    72,
+                    592
                 ]
             },
             "name": "New Model Object",
@@ -164,8 +164,8 @@
         {
             "config": {
                 "position": [
-                    493,
-                    505
+                    481,
+                    591
                 ]
             },
             "name": "New Model Object",
@@ -239,8 +239,8 @@
         {
             "config": {
                 "position": [
-                    761,
-                    317
+                    773,
+                    328
                 ]
             },
             "name": "New Model Object",
@@ -331,6 +331,17 @@
                             "relationWire": "[wired]",
                             "renderType": "selectSingle",
                             "uid": "861367125885"
+                        },
+                        {
+                            "foreignRelationClass": "",
+                            "lazyLoading": false,
+                            "propertyIsExcludeField": true,
+                            "relationDescription": "",
+                            "relationName": "children",
+                            "relationType": "zeroToMany",
+                            "relationWire": "[wired]",
+                            "renderType": "selectSingle",
+                            "uid": "159490431936"
                         }
                     ]
                 }
@@ -585,7 +596,7 @@
                             "relationName": "userAccount",
                             "relationType": "zeroToOne",
                             "relationWire": "[wired]",
-                            "renderType": "selectMultipleSideBySide",
+                            "renderType": "selectSingle",
                             "uid": "1249013677846"
                         }
                     ]
@@ -765,11 +776,23 @@
                 "terminal": "SOURCES",
                 "uid": "535747404769"
             }
+        },
+        {
+            "src": {
+                "moduleId": 3,
+                "terminal": "relationWire_3",
+                "uid": "159490431936"
+            },
+            "tgt": {
+                "moduleId": 3,
+                "terminal": "SOURCES",
+                "uid": "731244460409"
+            }
         }
     ],
     "log": {
-        "last_modified": "2016-04-21 10:54",
+        "last_modified": "2016-04-26 01:31",
         "extension_builder_version": "7.6.0",
-        "be_user": " (1)"
+        "be_user": " (2)"
     }
 }

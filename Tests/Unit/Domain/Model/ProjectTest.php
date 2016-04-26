@@ -23,6 +23,8 @@ class ProjectTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         parent::tearDown();
     }
 
+
+
     /**
      * @test
      */
@@ -158,6 +160,64 @@ class ProjectTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'parent',
             $this->subject
         );
+
+    }
+
+    /**
+     * @test
+     */
+    public function getChildrenReturnsInitialValueForProject()
+    {
+        $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        self::assertEquals(
+            $newObjectStorage,
+            $this->subject->getChildren()
+        );
+
+    }
+
+    /**
+     * @test
+     */
+    public function setChildrenForObjectStorageContainingProjectSetsChildren()
+    {
+        $child = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project();
+        $objectStorageHoldingExactlyOneChildren = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $objectStorageHoldingExactlyOneChildren->attach($child);
+        $this->subject->setChildren($objectStorageHoldingExactlyOneChildren);
+
+        self::assertAttributeEquals(
+            $objectStorageHoldingExactlyOneChildren,
+            'children',
+            $this->subject
+        );
+
+    }
+
+    /**
+     * @test
+     */
+    public function addChildToObjectStorageHoldingChildren()
+    {
+        $child = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project();
+        $childrenObjectStorageMock = $this->getMock(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class, ['attach'], [], '', false);
+        $childrenObjectStorageMock->expects(self::once())->method('attach')->with(self::equalTo($child));
+        $this->inject($this->subject, 'children', $childrenObjectStorageMock);
+
+        $this->subject->addChild($child);
+    }
+
+    /**
+     * @test
+     */
+    public function removeChildFromObjectStorageHoldingChildren()
+    {
+        $child = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project();
+        $childrenObjectStorageMock = $this->getMock(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class, ['detach'], [], '', false);
+        $childrenObjectStorageMock->expects(self::once())->method('detach')->with(self::equalTo($child));
+        $this->inject($this->subject, 'children', $childrenObjectStorageMock);
+
+        $this->subject->removeChild($child);
 
     }
 }

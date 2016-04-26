@@ -18,6 +18,13 @@ namespace ThomasWoehlke\TwSimpleworklist\Domain\Model;
 class Project extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
     /**
+     * children
+     * 
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project>
+     */
+    protected $children = NULL;
+    
+    /**
      * name
      * 
      * @var string
@@ -51,59 +58,65 @@ class Project extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project
      */
     protected $parent = null;
-
-    /**
-     * children
-     *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project>
-     */
-    protected $children = NULL;
-
+    
     /**
      * __construct
      */
-    public function __construct() {
+    public function __construct()
+    {
         //Do not remove the next line: It would break the functionality
         $this->initStorageObjects();
     }
-
+    
     /**
      * Initializes all ObjectStorage properties
      * Do not modify this method!
      * It will be rewritten on each save in the extension builder
      * You may modify the constructor of this class instead
-     *
+     * 
      * @return void
      */
-    protected function initStorageObjects() {
+    protected function initStorageObjects()
+    {
         $this->children = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     }
-
+    
     /**
-     * @param Project $child
+     * Adds a Project
+     * 
+     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $child
      * @return void
      */
-    public function addChild(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $child){
+    public function addChild(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $child)
+    {
         $this->children->attach($child);
     }
-
+    
     /**
-     * @param Project $child
+     * Removes a Project
+     * 
+     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $child
      * @return void
      */
-    public function removeChild(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $child){
-        $this->children->detach($child);
+    public function removeChild(
+        \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $childToRemove)
+    {
+        $this->children->detach($childToRemove);
     }
-
+    
     /**
+     * Returns the children
+     * 
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project>
      */
     public function getChildren()
     {
         return $this->children;
     }
-
+    
     /**
+     * Sets the children
+     * 
      * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project> $children
      * @return void
      */

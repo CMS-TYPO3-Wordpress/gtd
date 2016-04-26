@@ -23,6 +23,8 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         parent::tearDown();
     }
 
+
+
     /**
      * @test
      */
@@ -83,6 +85,7 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
         $this->subject->editAction($task);
     }
+
 
     /**
      * @test

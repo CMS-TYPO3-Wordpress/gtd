@@ -19,14 +19,14 @@ return [
 			'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => 'name,description,context,user_account,parent,',
+        'searchFields' => 'name,description,context,user_account,parent,children,',
         'iconfile' => 'EXT:tw_simpleworklist/Resources/Public/Icons/tx_twsimpleworklist_domain_model_project.gif'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, description, context, user_account, parent',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, description, context, user_account, parent, children',
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, description, context, user_account, parent, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, description, context, user_account, parent, children, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -163,7 +163,32 @@ return [
 			],
 	        
 	    ],
+	    'children' => [
+	        'exclude' => 1,
+	        'label' => 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_project.children',
+	        'config' => [
+			    'type' => 'inline',
+			    'foreign_table' => 'tx_twsimpleworklist_domain_model_project',
+			    'foreign_field' => 'project3',
+			    'maxitems' => 9999,
+			    'appearance' => [
+			        'collapseAll' => 0,
+			        'levelLinksPosition' => 'top',
+			        'showSynchronizationLink' => 1,
+			        'showPossibleLocalizationRecords' => 1,
+			        'showAllLocalizationLink' => 1
+			    ],
+			],
+			    
+			
+	        
+	    ],
         
+        'project3' => [
+            'config' => [
+                'type' => 'passthrough',
+            ],
+        ],
     ],
 ];
 ## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder

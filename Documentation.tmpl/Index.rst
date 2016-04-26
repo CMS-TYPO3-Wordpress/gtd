@@ -5,6 +5,7 @@
 
 .. include:: Includes.txt
 
+
 .. _start:
 
 =============================================================
@@ -46,6 +47,7 @@ SimpleWorklist
 
 	The content of this document is related to TYPO3,
 	a GNU/GPL CMS/Framework available from `www.typo3.org <http://www.typo3.org/>`_.
+
 
 	**Table of Contents**
 

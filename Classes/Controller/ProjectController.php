@@ -190,7 +190,6 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $testProject1->setName("Project 1");
         $testProject1->setDescription("Description 1");
         $testProject1->setParent(null);
-        $this->projectRepository->add($testProject1);
 
         $testProject2 = new Project();
         $testProject2->setContext($currentContext);
@@ -198,7 +197,6 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $testProject2->setName("Project 2");
         $testProject2->setDescription("Description 2");
         $testProject2->setParent(null);
-        $this->projectRepository->add($testProject2);
 
         $testProject3 = new Project();
         $testProject3->setContext($currentContext);
@@ -206,7 +204,6 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $testProject3->setName("Project 3");
         $testProject3->setDescription("Description 3");
         $testProject3->setParent(null);
-        $this->projectRepository->add($testProject3);
 
         $testProject1_1 = new Project();
         $testProject1_1->setContext($currentContext);
@@ -214,7 +211,6 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $testProject1_1->setName("Project 11");
         $testProject1_1->setDescription("Description 11");
         $testProject1_1->setParent($testProject1);
-        $this->projectRepository->add($testProject1_1);
 
         $testProject1_2 = new Project();
         $testProject1_2->setContext($currentContext);
@@ -222,7 +218,6 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $testProject1_2->setName("Project 12");
         $testProject1_2->setDescription("Description 12");
         $testProject1_2->setParent($testProject1);
-        $this->projectRepository->add($testProject1_2);
 
         $testProject1_3 = new Project();
         $testProject1_3->setContext($currentContext);
@@ -230,7 +225,6 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $testProject1_3->setName("Project 13");
         $testProject1_3->setDescription("Description 13");
         $testProject1_3->setParent($testProject1);
-        $this->projectRepository->add($testProject1_3);
 
         $testProject1_3_1 = new Project();
         $testProject1_3_1->setContext($currentContext);
@@ -238,7 +232,6 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $testProject1_3_1->setName("Project 131");
         $testProject1_3_1->setDescription("Description 131");
         $testProject1_3_1->setParent($testProject1_3);
-        $this->projectRepository->add($testProject1_3_1);
 
         $testProject1_3_2 = new Project();
         $testProject1_3_2->setContext($currentContext);
@@ -246,6 +239,22 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $testProject1_3_2->setName("Project 132");
         $testProject1_3_2->setDescription("Description 132");
         $testProject1_3_2->setParent($testProject1_3);
+
+
+        $testProject1->addChild($testProject1_1);
+        $testProject1->addChild($testProject1_2);
+        $testProject1->addChild($testProject1_3);
+
+        $testProject1_3->addChild($testProject1_3_1);
+        $testProject1_3->addChild($testProject1_3_2);
+
+        $this->projectRepository->add($testProject1);
+        $this->projectRepository->add($testProject2);
+        $this->projectRepository->add($testProject3);
+        $this->projectRepository->add($testProject1_1);
+        $this->projectRepository->add($testProject1_2);
+        $this->projectRepository->add($testProject1_3);
+        $this->projectRepository->add($testProject1_3_1);
         $this->projectRepository->add($testProject1_3_2);
 
         $this->redirect('inbox',"Task");
