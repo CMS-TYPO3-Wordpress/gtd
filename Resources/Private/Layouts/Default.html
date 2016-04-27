@@ -24,7 +24,10 @@
 					</li>
 					<li><f:link.action controller="Project" action="createTestData">Create Test Data</f:link.action></li>
 					<li><hr/></li>
-					<li><ul><f:render partial="Project/Navigation" arguments="{navProjects:rootProjects}" /></ul></li>
+					<li>
+						<f:link.action id="categoryNode_0" class="categoryNode" controller="Project" action="show">Projekte</f:link.action>
+						<ul><f:render partial="Project/Navigation" arguments="{navProjects:rootProjects}" /></ul>
+					</li>
 				</ul>
 			</div>
 		</div>

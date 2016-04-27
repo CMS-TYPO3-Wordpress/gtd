@@ -49,7 +49,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project
      * @return void
      */
-    public function showAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project)
+    public function showAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project=null)
     {
         $this->view->assign('project', $project);
         $this->view->assign('contextList',$this->contextService->getContextList());
@@ -122,17 +122,30 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     public function moveProjectAction(
         \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $srcProject,
-        \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $targetProject)
+        \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $targetProject=null)
     {
-        $oldParent = $srcProject->getParent();
-        if($oldParent != null){
-            $oldParent->removeChild($srcProject);
-            $this->projectRepository->update($oldParent);
+        $context = $this->contextService->getCurrentContext();
+        if($targetProject == null){
+            $oldParent = $srcProject->getParent();
+            if($oldParent != null){
+                $oldParent->removeChild($srcProject);
+                $this->projectRepository->update($oldParent);
+            }
+            $srcProject->setParent($targetProject);
+            $srcProject->setContext($context);
+            $this->projectRepository->update($srcProject);
+        } else {
+            $oldParent = $srcProject->getParent();
+            if($oldParent != null){
+                $oldParent->removeChild($srcProject);
+                $this->projectRepository->update($oldParent);
+            }
+            $srcProject->setParent($targetProject);
+            $srcProject->setContext($context);
+            $this->projectRepository->update($srcProject);
+            $targetProject->addChild($srcProject);
+            $this->projectRepository->update($targetProject);
         }
-        $targetProject->addChild($srcProject);
-        $srcProject->setParent($targetProject);
-        $this->projectRepository->update($srcProject);
-        $this->projectRepository->update($targetProject);
         $this->redirect('list');
     }
     
@@ -176,7 +189,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $parentProject
      * @return void
      */
-    public function newAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $parentProject)
+    public function newAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $parentProject=null)
     {
         $this->view->assign('parentProject', $parentProject);
         $this->view->assign('contextList',$this->contextService->getContextList());
@@ -191,13 +204,16 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @return void
      */
     public function createAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $newProject,
-                                 \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $parentProject)
+                                 \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $parentProject=null)
     {
-        //$this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+        $context = $this->contextService->getCurrentContext();
         $newProject->setParent($parentProject);
-        $parentProject->addChild($newProject);
+        $newProject->setContext($context);
         $this->projectRepository->add($newProject);
-        $this->projectRepository->update($parentProject);
+        if($parentProject != null){
+            $parentProject->addChild($newProject);
+            $this->projectRepository->update($parentProject);
+        }
         //TODO: redirect to show the new Project
         $this->redirect('list');
     }
