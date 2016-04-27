@@ -13,11 +13,11 @@ in /Configuration/ExtensionBuilder/settings.yaml:
 Otherwise your changes will be overwritten the next time you save the extension in the extension builder
 
 <f:section name="main">
-<h1>Single View for Project</h1>
+<h1>{project.name}</h1>
+<h2><small>{project.description}</small></h2>
 
 <f:flashMessages />
-<f:render partial="Project/Properties" arguments="{project:project}" />
-<f:link.action action="list">Back to list</f:link.action><br />
-<f:link.action action="new">New Project</f:link.action>
+<!-- f:render partial="Project/Properties" arguments="{project:project}" / -->
+<f:link.action action="new" arguments="{parentProject:project}">New Child Project</f:link.action>
 </f:section>
 </html>

@@ -52,6 +52,9 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     public function showAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project)
     {
         $this->view->assign('project', $project);
+        $this->view->assign('contextList',$this->contextService->getContextList());
+        $this->view->assign('currentContext',$this->contextService->getCurrentContext());
+        $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($this->contextService->getCurrentContext()));
     }
     
     /**
@@ -155,12 +158,16 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     
     /**
      * action new
-     * 
+     *
+     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $parentProject
      * @return void
      */
-    public function newAction()
+    public function newAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $parentProject)
     {
-        
+        $this->view->assign('parentProject', $parentProject);
+        $this->view->assign('contextList',$this->contextService->getContextList());
+        $this->view->assign('currentContext',$this->contextService->getCurrentContext());
+        $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($this->contextService->getCurrentContext()));
     }
     
     /**
@@ -169,10 +176,15 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $newProject
      * @return void
      */
-    public function createAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $newProject)
+    public function createAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $newProject,
+                                 \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $parentProject)
     {
-        $this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+        //$this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+        $newProject->setParent($parentProject);
+        $parentProject->addChild($newProject);
         $this->projectRepository->add($newProject);
+        $this->projectRepository->update($parentProject);
+        //TODO: redirect to show the new Project
         $this->redirect('list');
     }
 
