@@ -120,9 +120,20 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * 
      * @return void
      */
-    public function moveProjectAction()
+    public function moveProjectAction(
+        \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $srcProject,
+        \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $targetProject)
     {
-        
+        $oldParent = $srcProject->getParent();
+        if($oldParent != null){
+            $oldParent->removeChild($srcProject);
+            $this->projectRepository->update($oldParent);
+        }
+        $targetProject->addChild($srcProject);
+        $srcProject->setParent($targetProject);
+        $this->projectRepository->update($srcProject);
+        $this->projectRepository->update($targetProject);
+        $this->redirect('list');
     }
     
     /**
@@ -154,6 +165,9 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     {
         $projects = $this->projectRepository->findAll();
         $this->view->assign('projects', $projects);
+        $this->view->assign('contextList',$this->contextService->getContextList());
+        $this->view->assign('currentContext',$this->contextService->getCurrentContext());
+        $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($this->contextService->getCurrentContext()));
     }
     
     /**
