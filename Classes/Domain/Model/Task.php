@@ -364,7 +364,7 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project
      * @return void
      */
-    public function setProject(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project)
+    public function setProject(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project=null)
     {
         $this->project = $project;
     }

@@ -12,7 +12,7 @@ call_user_func(
                 'UserAccount' => 'list, show, edit, update, delete',
                 'UserMessage' => 'list, create',
                 'Context' => 'switchContext',
-                'Project' => 'list, show, new, create, edit, addNewRootProject, addNewChildProject, moveProject, getAllProjects, getRootProjects, createTestData',
+                'Project' => 'list, show, new, create, edit, moveTask, addNewRootProject, addNewChildProject, moveProject, getAllProjects, getRootProjects, createTestData',
                 'Task' => 'list, show, edit, update, new, create, focus, inbox, today, next, waiting, scheduled, someday, completed, trash, emptyTrash, transformTaskIntoProject, completeTask, undoneTask, setFocus, unsetFocus, getAllTasksForUser, changeTaskOrderIdByProject, addNewTaskToProject, moveToInbox, moveToToday, moveToNext, moveToWaiting, moveToSomeday, moveToCompleted, moveToTrash, moveAllCompletedToTrash, moveTaskOrder'
             ],
             // non-cacheable actions
@@ -20,7 +20,7 @@ call_user_func(
                 'UserAccount' => 'list show, edit, update, delete',
                 'UserMessage' => 'list, create',
                 'Context' => 'switchContext',
-                'Project' => 'list, show, new, create, edit, addNewRootProject, addNewChildProject, moveProject, getAllProjects, getRootProjects, createTestData',
+                'Project' => 'list, show, new, create, edit, moveTask, addNewRootProject, addNewChildProject, moveProject, getAllProjects, getRootProjects, createTestData',
                 'Task' => 'list, show, edit, update, new, create, focus, inbox, today, next, waiting, scheduled, someday, completed, trash, emptyTrash, transformTaskIntoProject, completeTask, undoneTask, setFocus, unsetFocus, getAllTasksForUser, changeTaskOrderIdByProject, addNewTaskToProject, moveToInbox, moveToToday, moveToNext, moveToWaiting, moveToSomeday, moveToCompleted, moveToTrash, moveAllCompletedToTrash, moveTaskOrder'
             ]
         );

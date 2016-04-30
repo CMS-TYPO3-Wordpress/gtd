@@ -117,4 +117,19 @@ class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         return $query->execute();
     }
 
+    public function findByProject(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project=null)
+    {
+        $query = $this->createQuery();
+        if($project == null){
+            $query->matching(
+                $query->equals('project', 0)
+            );
+        } else {
+            $query->matching(
+                $query->equals('project', $project)
+            );
+        }
+        return $query->execute();
+    }
+
 }

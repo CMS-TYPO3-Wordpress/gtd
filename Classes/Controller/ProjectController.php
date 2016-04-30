@@ -2,6 +2,7 @@
 namespace ThomasWoehlke\TwSimpleworklist\Controller;
 
 use \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project;
+use ThomasWoehlke\TwSimpleworklist\Domain\Model\Task;
 
 /***
  *
@@ -26,6 +27,14 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @inject
      */
     protected $projectRepository = null;
+
+    /**
+     * taskRepository
+     *
+     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Repository\TaskRepository
+     * @inject
+     */
+    protected $taskRepository = null;
 
     /**
      * contextService
@@ -55,6 +64,8 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('contextList',$this->contextService->getContextList());
         $this->view->assign('currentContext',$this->contextService->getCurrentContext());
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($this->contextService->getCurrentContext()));
+        $tasks = $this->taskRepository->findByProject($project);
+        $this->view->assign('tasks', $tasks);
     }
     
     /**
@@ -146,7 +157,25 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $targetProject->addChild($srcProject);
             $this->projectRepository->update($targetProject);
         }
-        $this->redirect('list');
+        $arguments = array("project" => $targetProject);
+        $this->redirect('show',null,null, $arguments);
+    }
+
+    /**
+     * action moveTask
+     *
+     * @param Task $srcTask
+     * @param Project|null $targetProject
+     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException
+     */
+    public function moveTaskAction(
+        \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $srcTask,
+        \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $targetProject=null
+    ){
+        $srcTask->setProject($targetProject);
+        $this->taskRepository->update($srcTask);
+        $arguments = array("project" => $targetProject);
+        $this->redirect('show',null,null, $arguments);
     }
     
     /**

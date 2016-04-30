@@ -19,5 +19,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 <f:flashMessages />
 <!-- f:render partial="Project/Properties" arguments="{project:project}" / -->
 <f:link.action action="new" arguments="{parentProject:project}">New Child Project</f:link.action>
+<br/>
+<f:render partial="Task/TaskList" arguments="{tasks:tasks}"/>
 </f:section>
 </html>
