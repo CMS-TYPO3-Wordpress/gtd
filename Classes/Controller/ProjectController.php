@@ -173,6 +173,8 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $targetProject=null
     ){
         $srcTask->setProject($targetProject);
+        $projectOrderId = $this->taskRepository->getMaxProjectOrderId($targetProject);
+        $srcTask->setOrderIdProject($projectOrderId);
         $this->taskRepository->update($srcTask);
         $arguments = array("project" => $targetProject);
         $this->redirect('show',null,null, $arguments);

@@ -487,7 +487,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $newTask->setContext($currentContext);
         $newTask->setUserAccount($userObject);
         $newTask->setTaskState($this->taskStates['inbox']);
-        $newTask->setOrderIdProject(1);
+        $projectOrderId = $this->taskRepository->getMaxProjectOrderId(null);
+        $newTask->setOrderIdProject($projectOrderId);
         $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,$this->taskStates['inbox']);
         $newTask->setOrderIdTaskState($maxTaskStateOrderId);
         if($newTask->getDueDate() != NULL){

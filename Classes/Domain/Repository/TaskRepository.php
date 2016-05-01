@@ -129,7 +129,41 @@ class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 $query->equals('project', $project)
             );
         }
+        $query->setOrderings(
+            array(
+                "orderIdProject" => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
+            )
+        );
         return $query->execute();
+    }
+
+    public function getMaxProjectOrderId(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project=null)
+    {
+        $query = $this->createQuery();
+        if($project == null){
+            $query->matching(
+                $query->equals('project', 0)
+            );
+        } else {
+            $query->matching(
+                $query->equals('project', $project)
+            );
+        }
+        $query->setOrderings(
+            array(
+                "orderIdProject" => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
+            )
+        );
+        $query->setLimit(1);
+        $result = $query->execute();
+
+        $maxProjectOrderId = 0;
+        if($result->count()>0){
+            $task = $result->getFirst();
+            $maxProjectOrderId = $task->getOrderIdProject();
+        }
+        $maxProjectOrderId++;
+        return $maxProjectOrderId;
     }
 
 }
