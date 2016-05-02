@@ -120,15 +120,9 @@ class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     public function findByProject(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project=null)
     {
         $query = $this->createQuery();
-        if($project == null){
-            $query->matching(
-                $query->equals('project', 0)
-            );
-        } else {
-            $query->matching(
-                $query->equals('project', $project)
-            );
-        }
+        $query->matching(
+            $query->equals('project', $project)
+        );
         $query->setOrderings(
             array(
                 "orderIdProject" => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
@@ -164,6 +158,23 @@ class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         }
         $maxProjectOrderId++;
         return $maxProjectOrderId;
+    }
+
+    public function findByRootProjectAndContext($ctx)
+    {
+        $query = $this->createQuery();
+        $query->matching(
+            $query->logicalAnd(
+                $query->equals('context',$ctx),
+                $query->equals('project', 0)
+            )
+        );
+        $query->setOrderings(
+            array(
+                "orderIdProject" => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
+            )
+        );
+        return $query->execute();
     }
 
 }

@@ -60,11 +60,17 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     public function showAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project=null)
     {
+        $ctx = $this->contextService->getCurrentContext();
         $this->view->assign('project', $project);
         $this->view->assign('contextList',$this->contextService->getContextList());
-        $this->view->assign('currentContext',$this->contextService->getCurrentContext());
+        $this->view->assign('currentContext',$ctx);
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($this->contextService->getCurrentContext()));
-        $tasks = $this->taskRepository->findByProject($project);
+        $tasks = null;
+        if($project == null){
+            $tasks = $this->taskRepository->findByRootProjectAndContext($ctx);
+        } else {
+            $tasks = $this->taskRepository->findByProject($project);
+        }
         $this->view->assign('tasks', $tasks);
     }
     
