@@ -11,6 +11,12 @@
 					<li><f:link.action id="focus_scheduled" controller="Task" action="scheduled"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Eingeplant</f:link.action></li>
 					<li><f:link.action id="focus_someday" controller="Task" action="someday"><span class="glyphicon glyphicon-road" aria-hidden="true"></span> Sp&auml;ter</f:link.action></li>
 					<li><f:link.action id="star" controller="Task" action="focus"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> Fokus</f:link.action></li>
+					<li><hr/></li>
+					<li>
+						<f:link.action id="categoryNode_0" class="categoryNode" controller="Project" action="show">Projekte</f:link.action>
+						<ul><f:render partial="Project/Navigation" arguments="{navProjects:rootProjects}" /></ul>
+					</li>
+					<li><hr/></li>
 					<li><f:link.action id="focus_completed" controller="Task" action="completed"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> Erledigte Aufgaben</f:link.action></li>
 					<li><f:link.action id="focus_trash" controller="Task" action="trash"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Papierkorb</f:link.action></li>
 					<li><hr/></li>
@@ -23,11 +29,6 @@
 						</ul>
 					</li>
 					<li><f:link.action controller="Project" action="createTestData">Create Test Data</f:link.action></li>
-					<li><hr/></li>
-					<li>
-						<f:link.action id="categoryNode_0" class="categoryNode" controller="Project" action="show">Projekte</f:link.action>
-						<ul><f:render partial="Project/Navigation" arguments="{navProjects:rootProjects}" /></ul>
-					</li>
 				</ul>
 			</div>
 		</div>
