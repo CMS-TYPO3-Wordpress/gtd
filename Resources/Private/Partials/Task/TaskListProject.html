@@ -10,7 +10,7 @@
         <th><f:translate key="tx_twsimpleworklist_domain_model_task.task_energy" /></th>
         <th><f:translate key="tx_twsimpleworklist_domain_model_task.task_time" /></th>
         <th><f:translate key="tx_twsimpleworklist_domain_model_task.due_date" /></th>
-        <th>Project</th>
+        <th>Task State</th>
     </tr>
 
     <f:for each="{tasks}" as="task">
@@ -73,9 +73,35 @@
             </td>
             <td>{task.dueDate -> f:format.date()}</td>
             <td>
-                <f:if condition="{task.project}">
-                    <f:link.action controller="Project" action="show" arguments="{project:task.project}">{task.project.name}</f:link.action>
-                </f:if>
+                <f:switch expression="{task.taskState}">
+                    <f:case value="0">
+                        <f:link.action controller="Task" action="inbox"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span> Eingang</f:link.action>
+                    </f:case>
+                    <f:case value="1">
+                        <f:link.action controller="Task" action="today"><span class="glyphicon glyphicon glyphicon-time" aria-hidden="true"></span> Heute</f:link.action>
+                    </f:case>
+                    <f:case value="2">
+                        <f:link.action controller="Task" action="next"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Als N&auml;chstes</f:link.action>
+                    </f:case>
+                    <f:case value="3">
+                        <f:link.action controller="Task" action="waiting"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span> Warten</f:link.action>
+                    </f:case>
+                    <f:case value="4">
+                        <f:link.action controller="Task" action="scheduled"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Eingeplant</f:link.action>
+                    </f:case>
+                    <f:case value="5">
+                        <f:link.action controller="Task" action="someday"><span class="glyphicon glyphicon-road" aria-hidden="true"></span> Sp&auml;ter</f:link.action>
+                    </f:case>
+                    <f:case value="6">
+                        <f:link.action controller="Task" action="focus"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> Fokus</f:link.action>
+                    </f:case>
+                    <f:case value="7">
+                        <f:link.action controller="Task" action="completed"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> Erledigte Aufgaben</f:link.action>
+                    </f:case>
+                    <f:case value="8">
+                        <f:link.action controller="Task" action="trash"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Papierkorb</f:link.action>
+                    </f:case>
+                </f:switch>
             </td>
         </tr>
     </f:for>

@@ -13,13 +13,16 @@ in /Configuration/ExtensionBuilder/settings.yaml:
 Otherwise your changes will be overwritten the next time you save the extension in the extension builder
 
 <f:section name="main">
-<h1>{project.name}</h1>
+<h1><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> <f:link.action action="edit" arguments="{project:project}">{project.name}</f:link.action></h1>
 <h2><small>{project.description}</small></h2>
 
 <f:flashMessages />
 <!-- f:render partial="Project/Properties" arguments="{project:project}" / -->
-<f:link.action action="new" arguments="{parentProject:project}">New Child Project</f:link.action>
+<f:link.action action="new" arguments="{parentProject:project}"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> New Child Project</f:link.action>
+<f:if condition="{deleteable}">
+&nbsp;<f:link.action action="delete" arguments="{project:project}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete this Project</f:link.action>
+</f:if><br/>
 <br/>
-<f:render partial="Task/TaskList" arguments="{tasks:tasks}"/>
+<f:render partial="Task/TaskListProject" arguments="{tasks:tasks}"/>
 </f:section>
 </html>

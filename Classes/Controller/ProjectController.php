@@ -66,12 +66,17 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('currentContext',$ctx);
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($this->contextService->getCurrentContext()));
         $tasks = null;
+        $deleteable = false;
         if($project == null){
             $tasks = $this->taskRepository->findByRootProjectAndContext($ctx);
         } else {
             $tasks = $this->taskRepository->findByProject($project);
+            if($tasks->count() == 0 && $project->getChildren()->count() == 0){
+                $deleteable = true;
+            }
         }
         $this->view->assign('tasks', $tasks);
+        $this->view->assign('deleteable',$deleteable);
     }
     
     /**
@@ -84,6 +89,10 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     public function editAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project)
     {
         $this->view->assign('project', $project);
+        $ctx = $this->contextService->getCurrentContext();
+        $this->view->assign('contextList',$this->contextService->getContextList());
+        $this->view->assign('currentContext',$ctx);
+        $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($this->contextService->getCurrentContext()));
     }
     
     /**
@@ -94,9 +103,10 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     public function updateAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project)
     {
-        $this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+        //$this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
         $this->projectRepository->update($project);
-        $this->redirect('list');
+        $args = array('project'=>$project);
+        $this->redirect('show',null,null,$args);
     }
     
     /**
@@ -107,9 +117,18 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     public function deleteAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project)
     {
-        $this->addFlashMessage('The object was deleted. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
-        $this->projectRepository->remove($project);
-        $this->redirect('list');
+        $parentProject = $project->getParent();
+        $deleteable = false;
+        $tasks = $this->taskRepository->findByProject($project);
+        if($tasks->count() == 0 && $project->getChildren()->count() == 0){
+            $deleteable = true;
+        }
+        if($deleteable) {
+            $this->addFlashMessage('The object was deleted. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+            $this->projectRepository->remove($project);
+        }
+        $args = array('project'=>$parentProject);
+        $this->redirect('show',null,null,$args);
     }
     
     /**
@@ -251,8 +270,8 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $parentProject->addChild($newProject);
             $this->projectRepository->update($parentProject);
         }
-        //TODO: redirect to show the new Project
-        $this->redirect('list');
+        $args = array('project'=>$parentProject);
+        $this->redirect('show',null,null,$args);
     }
 
     /**

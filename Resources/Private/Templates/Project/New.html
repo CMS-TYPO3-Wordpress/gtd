@@ -13,7 +13,7 @@ in /Configuration/ExtensionBuilder/settings.yaml:
 Otherwise your changes will be overwritten the next time you save the extension in the extension builder
 
 <f:section name="main">
-<h1>New Project</h1>
+<h1><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> New Project</h1>
 
 <f:flashMessages />
 
@@ -21,7 +21,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 <f:form action="create" name="newProject" object="{newProject}" arguments="{parentProject:parentProject}">
 <f:render partial="Project/FormFields" />
-	<f:form.submit value="Create new" />
+	<f:form.submit value="Create new" class="btn btn-default" />
 </f:form>
 </f:section>
 </html>
