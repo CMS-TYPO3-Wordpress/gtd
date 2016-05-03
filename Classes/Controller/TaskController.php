@@ -675,4 +675,21 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         }
         $this->getRedirectFromTask($srcTask);
     }
+
+    /**
+     * action moveTaskOrderInsideProject
+     *
+     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $srcTask
+     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $targetTask
+     * @return void
+     */
+    public function moveTaskOrderInsideProjectAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $srcTask,
+                                                     \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $targetTask){
+        //$userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
+        //$currentContext = $this->contextService->getCurrentContext();
+        //TODO: HIER WEITER #4
+        $project = $srcTask->getProject();
+        $args = array('project'=>$project);
+        $this->redirect('show','Project',null,$args);
+    }
 }
