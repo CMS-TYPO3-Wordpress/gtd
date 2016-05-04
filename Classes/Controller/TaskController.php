@@ -392,36 +392,6 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
     
     /**
-     * action getAllTasksForUser
-     * 
-     * @return void
-     */
-    public function getAllTasksForUserAction()
-    {
-        
-    }
-    
-    /**
-     * action changeTaskOrderIdByProject
-     * 
-     * @return void
-     */
-    public function changeTaskOrderIdByProjectAction()
-    {
-        
-    }
-    
-    /**
-     * action addNewTaskToProject
-     * 
-     * @return void
-     */
-    public function addNewTaskToProjectAction()
-    {
-        
-    }
-    
-    /**
      * action list
      * 
      * @return void

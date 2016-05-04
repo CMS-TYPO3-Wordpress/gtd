@@ -132,26 +132,6 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     }
     
     /**
-     * action addNewRootProject
-     * 
-     * @return void
-     */
-    public function addNewRootProjectAction()
-    {
-        
-    }
-    
-    /**
-     * action addNewChildProject
-     * 
-     * @return void
-     */
-    public function addNewChildProjectAction()
-    {
-        
-    }
-    
-    /**
      * action moveProject
      * 
      * @return void
@@ -203,26 +183,6 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->taskRepository->update($srcTask);
         $arguments = array("project" => $targetProject);
         $this->redirect('show',null,null, $arguments);
-    }
-    
-    /**
-     * action getAllProjects
-     * 
-     * @return void
-     */
-    public function getAllProjectsAction()
-    {
-        
-    }
-    
-    /**
-     * action getRootProjects
-     * 
-     * @return void
-     */
-    public function getRootProjectsAction()
-    {
-        
     }
     
     /**
