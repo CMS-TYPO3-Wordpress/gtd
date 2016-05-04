@@ -685,10 +685,29 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function moveTaskOrderInsideProjectAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $srcTask,
                                                      \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $targetTask){
-        //$userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
-        //$currentContext = $this->contextService->getCurrentContext();
-        //TODO: HIER WEITER #4
+        $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
+        $currentContext = $this->contextService->getCurrentContext();
         $project = $srcTask->getProject();
+        $destinationProjectOrderId = $targetTask->getOrderIdProject();
+        if($srcTask->getOrderIdProject()<$targetTask->getOrderIdProject()){
+            $tasks = $this->taskRepository->getTasksToReorderByOrderIdProject($userObject, $currentContext, $srcTask, $targetTask, $project);
+            foreach ($tasks as $task){
+                $task->setOrderIdProject($task->getOrderIdProject()-1);
+                $this->taskRepository->update($task);
+            }
+            $targetTask->setOrderIdProject($targetTask->getOrderIdProject()-1);
+            $this->taskRepository->update($targetTask);
+            $srcTask->setOrderIdProject($destinationProjectOrderId);
+            $this->taskRepository->update($srcTask);
+        } else {
+            $tasks = $this->taskRepository->getTasksToReorderByOrderIdProject($userObject, $currentContext, $targetTask, $srcTask, $project);
+            foreach ($tasks as $task){
+                $task->setOrderIdProject($task->getOrderIdProject()+1);
+                $this->taskRepository->update($task);
+            }
+            $srcTask->setOrderIdProject($destinationProjectOrderId+1);
+            $this->taskRepository->update($srcTask);
+        }
         $args = array('project'=>$project);
         $this->redirect('show','Project',null,$args);
     }

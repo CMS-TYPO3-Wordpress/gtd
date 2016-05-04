@@ -177,4 +177,36 @@ class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         return $query->execute();
     }
 
+    public function getTasksToReorderByOrderIdProject(
+        \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userObject,
+        \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $currentContext,
+        \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $lowerTask,
+        \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $higherTask,
+        \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project=null)
+    {
+        $query = $this->createQuery();
+        if($project == null){
+            $query->matching(
+                $query->logicalAnd(
+                    $query->equals('userAccount', $userObject),
+                    $query->equals('context',$currentContext),
+                    $query->equals('project',0),
+                    $query->greaterThan('orderIdProject',$lowerTask->getOrderIdProject()),
+                    $query->lessThan('orderIdProject',$higherTask->getOrderIdProject())
+                )
+            );
+        } else {
+            $query->matching(
+                $query->logicalAnd(
+                    $query->equals('userAccount', $userObject),
+                    $query->equals('context',$currentContext),
+                    $query->equals('project',$project),
+                    $query->greaterThan('orderIdProject',$lowerTask->getOrderIdProject()),
+                    $query->lessThan('orderIdProject',$higherTask->getOrderIdProject())
+                )
+            );
+        }
+        return $query->execute();
+    }
+
 }
