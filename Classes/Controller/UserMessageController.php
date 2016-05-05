@@ -40,46 +40,6 @@ class UserMessageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      * @inject
      */
     protected $projectRepository = null;
-
-    /**
-     * action getLastMessagesBetweenCurrentAndOtherUser
-     * 
-     * @return void
-     */
-    public function getLastMessagesBetweenCurrentAndOtherUserAction()
-    {
-        
-    }
-    
-    /**
-     * action sendNewMessageToOtherUser
-     * 
-     * @return void
-     */
-    public function sendNewMessageToOtherUserAction()
-    {
-        
-    }
-    
-    /**
-     * action getAllMessagesBetweenCurrentAndOtherUser
-     * 
-     * @return void
-     */
-    public function getAllMessagesBetweenCurrentAndOtherUserAction()
-    {
-        
-    }
-    
-    /**
-     * action sendNewMessageToOtherUser2
-     * 
-     * @return void
-     */
-    public function sendNewMessageToOtherUser2Action()
-    {
-        
-    }
     
     /**
      * action list
@@ -106,27 +66,6 @@ class UserMessageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     }
     
     /**
-     * action show
-     * 
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserMessage $userMessage
-     * @return void
-     */
-    public function showAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\UserMessage $userMessage)
-    {
-        $this->view->assign('userMessage', $userMessage);
-    }
-    
-    /**
-     * action new
-     * 
-     * @return void
-     */
-    public function newAction()
-    {
-        
-    }
-    
-    /**
      * action create
      * 
      * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserMessage $newUserMessage
@@ -147,41 +86,4 @@ class UserMessageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $this->redirect('list',$controllerName,$extensionName,$arguments);
     }
     
-    /**
-     * action edit
-     * 
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserMessage $userMessage
-     * @ignorevalidation $userMessage
-     * @return void
-     */
-    public function editAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\UserMessage $userMessage)
-    {
-        $this->view->assign('userMessage', $userMessage);
-    }
-    
-    /**
-     * action update
-     * 
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserMessage $userMessage
-     * @return void
-     */
-    public function updateAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\UserMessage $userMessage)
-    {
-        $this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
-        $this->userMessageRepository->update($userMessage);
-        $this->redirect('list');
-    }
-    
-    /**
-     * action delete
-     * 
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserMessage $userMessage
-     * @return void
-     */
-    public function deleteAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\UserMessage $userMessage)
-    {
-        $this->addFlashMessage('The object was deleted. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
-        $this->userMessageRepository->remove($userMessage);
-        $this->redirect('list');
-    }
 }

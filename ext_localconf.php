@@ -17,7 +17,7 @@ call_user_func(
             ],
             // non-cacheable actions
             [
-                'UserAccount' => 'list show, edit, update, delete',
+                'UserAccount' => 'list, show, edit, update, delete',
                 'UserMessage' => 'list, create',
                 'Context' => 'switchContext',
                 'Project' => 'list, show, new, create, edit, update, delete, moveTask, moveProject, createTestData',
