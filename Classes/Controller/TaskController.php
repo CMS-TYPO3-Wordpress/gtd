@@ -11,6 +11,7 @@ namespace ThomasWoehlke\TwSimpleworklist\Controller;
  *  (c) 2016 Thomas Woehlke <woehlke@faktura-berlin.de>, faktura gGmbH
  *
  ***/
+use ThomasWoehlke\TwSimpleworklist\Domain\Model\Project;
 
 /**
  * TaskController
@@ -327,17 +328,33 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     
     /**
      * action transformTaskIntoProject
-     * 
+     *
+     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task
      * @return void
      */
-    public function transformTaskIntoProjectAction()
+    public function transformTaskIntoProjectAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task)
     {
-        
+        $parentProject = $task->getProject();
+        $newProject = new Project();
+        $newProject->setContext($task->getContext());
+        $newProject->setUserAccount($task->getUserAccount());
+        $newProject->setParent($parentProject);
+        $newProject->setName($task->getTitle());
+        $newProject->setDescription($task->getText());
+        if($parentProject != null){
+            $parentProject->addChild($newProject);
+            $this->projectRepository->update($parentProject);
+        }
+        $this->projectRepository->add($newProject);
+        $this->taskRepository->remove($task);
+        $args = array("project" => $parentProject);
+        $this->redirect('show',"Project",null,$args);
     }
     
     /**
      * action completeTask
-     * 
+     *
+     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task
      * @return void
      */
     public function completeTaskAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task)
@@ -353,7 +370,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     
     /**
      * action undoneTask
-     * 
+     *
+     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task
      * @return void
      */
     public function undoneTaskAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task)
@@ -369,7 +387,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     
     /**
      * action setFocus
-     * 
+     *
+     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task
      * @return void
      */
     public function setFocusAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task)
@@ -381,7 +400,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     
     /**
      * action unsetFocus
-     * 
+     *
+     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task
      * @return void
      */
     public function unsetFocusAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task)
