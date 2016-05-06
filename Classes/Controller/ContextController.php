@@ -25,6 +25,30 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @inject
      */
     protected $contextRepository = null;
+
+    /**
+     * contextService
+     *
+     * @var \ThomasWoehlke\TwSimpleworklist\Service\ContextService
+     * @inject
+     */
+    protected $contextService = null;
+
+    /**
+     * projectRepository
+     *
+     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Repository\ProjectRepository
+     * @inject
+     */
+    protected $projectRepository = null;
+
+    /**
+     * userAccountRepository
+     *
+     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Repository\UserAccountRepository
+     * @inject
+     */
+    protected $userAccountRepository = null;
     
     /**
      * action switchContext
@@ -38,16 +62,6 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $GLOBALS['TSFE']->fe_user->setKey('ses', 'tx_twsimpleworklist_fesessiondata', $sessionData);
         $GLOBALS['TSFE']->fe_user->storeSessionData();
         $this->redirect('inbox',"Task");
-    }
-    
-    /**
-     * action getAllContextsForUser
-     * 
-     * @return void
-     */
-    public function getAllContextsForUserAction()
-    {
-        
     }
     
     /**
@@ -79,7 +93,9 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     public function newAction()
     {
-        
+        $this->view->assign('contextList',$this->contextService->getContextList());
+        $this->view->assign('currentContext',$this->contextService->getCurrentContext());
+        $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($this->contextService->getCurrentContext()));
     }
     
     /**
@@ -91,8 +107,10 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     public function createAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $newContext)
     {
         $this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+        $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
+        $newContext->setUserAccount($userObject);
         $this->contextRepository->add($newContext);
-        $this->redirect('list');
+        $this->redirect('show','UserConfig');
     }
     
     /**
@@ -105,6 +123,9 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     public function editAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $context)
     {
         $this->view->assign('context', $context);
+        $this->view->assign('contextList',$this->contextService->getContextList());
+        $this->view->assign('currentContext',$this->contextService->getCurrentContext());
+        $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($this->contextService->getCurrentContext()));
     }
     
     /**
@@ -113,11 +134,11 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $context
      * @return void
      */
-    public function updateAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $context)
+    public function updateAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $ctx)
     {
         $this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
-        $this->contextRepository->update($context);
-        $this->redirect('list');
+        $this->contextRepository->update($ctx);
+        $this->redirect('show','UserConfig');
     }
     
     /**
@@ -130,6 +151,6 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     {
         $this->addFlashMessage('The object was deleted. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
         $this->contextRepository->remove($context);
-        $this->redirect('list');
+        $this->redirect('show','UserConfig');
     }
 }

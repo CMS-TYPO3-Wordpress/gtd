@@ -2,8 +2,7 @@
 <f:layout name="Default" />
 
 <f:section name="main">
-<h1>Your Settings</h1>
-<h2>{thisUser.userFullname}</h2>
+<h2>Your Settings <small>{thisUser.userFullname} ({thisUser.userEmail})</small></h2>
 <f:flashMessages />
 <f:form action="update" name="userConfig" object="{userConfig}" >
     <div class="form-group">
@@ -12,5 +11,27 @@
     </div>
     <f:form.submit value="Save Default Context" class="btn btn-default" />
 </f:form>
+<hr/>
+<h3>Edit Your Contexts</h3>
+<table class="table table-striped" >
+    <tr>
+        <th><f:translate key="tx_twsimpleworklist_domain_model_context.name_de" /></th>
+        <th><f:translate key="tx_twsimpleworklist_domain_model_context.name_en" /></th>
+        <th> </th>
+        <th> </th>
+    </tr>
+
+    <f:for each="{contextList}" as="ctx">
+        <tr>
+            <td><f:link.action controller="Context" action="show" arguments="{context : ctx}"> {ctx.nameDe}</f:link.action></td>
+            <td><f:link.action controller="Context" action="show" arguments="{context : ctx}"> {ctx.nameEn}</f:link.action></td>
+            <td><f:link.action controller="Context" action="edit" arguments="{context : ctx}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</f:link.action></td>
+            <td><f:link.action controller="Context" action="delete" arguments="{context : ctx}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete</f:link.action></td>
+        </tr>
+    </f:for>
+</table>
+
+<f:link.action controller="Context" action="new"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> New Context</f:link.action>
+
 </f:section>
 </html>

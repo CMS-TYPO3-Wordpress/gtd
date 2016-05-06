@@ -13,15 +13,15 @@ in /Configuration/ExtensionBuilder/settings.yaml:
 Otherwise your changes will be overwritten the next time you save the extension in the extension builder
 
 <f:section name="main">
-<h1>Edit Context</h1>
+<h1><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Edit Context</h1>
 
 <f:flashMessages />
 
 <f:render partial="FormErrors" arguments="{object:Context}" />
 
-<f:form action="update" name="context" object="{context}" >
-<f:render partial="Context/FormFields" arguments="{context:context}" />
-	<f:form.submit value="Save" />
+<f:form action="update" name="ctx" object="{context}" >
+    <f:render partial="Context/FormFields" arguments="{context:ctx}" />
+    <f:form.submit value="Save" class="btn btn-default" />
 </f:form>
 </f:section>
 </html>
