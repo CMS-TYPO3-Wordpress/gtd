@@ -11,6 +11,7 @@ call_user_func(
             [
                 'UserAccount' => 'list, show, edit, update, delete',
                 'UserMessage' => 'list, create',
+                'UserConfig' => 'show, update',
                 'Context' => 'switchContext',
                 'Project' => 'list, show, new, create, edit, update, delete, moveTask, moveProject, createTestData',
                 'Task' => 'list, show, edit, update, new, create, focus, inbox, today, next, waiting, scheduled, someday, completed, trash, emptyTrash, moveTaskOrderInsideProject, transformTaskIntoProject, completeTask, undoneTask, setFocus, unsetFocus, moveToInbox, moveToToday, moveToNext, moveToWaiting, moveToSomeday, moveToCompleted, moveToTrash, moveAllCompletedToTrash, moveTaskOrder'
@@ -19,6 +20,7 @@ call_user_func(
             [
                 'UserAccount' => 'list, show, edit, update, delete',
                 'UserMessage' => 'list, create',
+                'UserConfig' => 'show, update',
                 'Context' => 'switchContext',
                 'Project' => 'list, show, new, create, edit, update, delete, moveTask, moveProject, createTestData',
                 'Task' => 'list, show, edit, update, new, create, focus, inbox, today, next, waiting, scheduled, someday, completed, trash, emptyTrash, moveTaskOrderInsideProject, transformTaskIntoProject, completeTask, undoneTask, setFocus, unsetFocus, moveToInbox, moveToToday, moveToNext, moveToWaiting, moveToSomeday, moveToCompleted, moveToTrash, moveAllCompletedToTrash, moveTaskOrder'

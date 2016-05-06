@@ -103,4 +103,15 @@ class ContextService implements \TYPO3\CMS\Core\SingletonInterface
         }
     }
 
+    /**
+     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $context
+     * @return void
+     */
+    public function setCurrentContext(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $context){
+        $sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', 'tx_twsimpleworklist_fesessiondata');
+        $sessionData['contextUid'] = $context->getUid();
+        $GLOBALS['TSFE']->fe_user->setKey('ses', 'tx_twsimpleworklist_fesessiondata', $sessionData);
+        $GLOBALS['TSFE']->fe_user->storeSessionData();
+    }
+
 }

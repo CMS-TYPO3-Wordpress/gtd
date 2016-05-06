@@ -1,0 +1,16 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+
+<f:section name="main">
+<h1>Your Settings</h1>
+<h2>{thisUser.userFullname}</h2>
+<f:flashMessages />
+<f:form action="update" name="userConfig" object="{userConfig}" >
+    <div class="form-group">
+        <label for="defaultContext">Set Default Context</label>
+        <f:form.select id="defaultContext" property="defaultContext" options="{contextList}" optionLabelField="nameDe" class="form-control"/>
+    </div>
+    <f:form.submit value="Save Default Context" class="btn btn-default" />
+</f:form>
+</f:section>
+</html>
