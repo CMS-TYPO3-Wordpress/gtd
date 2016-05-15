@@ -4,32 +4,32 @@
 		<div class="col-md-3">
 			<div class="well sidebar-nav">
 				<ul class="nav nav-pills nav-stacked">
-					<li><f:link.action id="focus_inbox" controller="Task" action="inbox"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span> Eingang</f:link.action></li>
-					<li><f:link.action id="focus_today"  controller="Task" action="today"><span class="glyphicon glyphicon glyphicon-time" aria-hidden="true"></span> Heute</f:link.action></li>
-					<li><f:link.action id="focus_next" controller="Task" action="next"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Als N&auml;chstes</f:link.action></li>
-					<li><f:link.action id="focus_waiting" controller="Task" action="waiting"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span> Warten</f:link.action></li>
-					<li><f:link.action id="focus_scheduled" controller="Task" action="scheduled"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Eingeplant</f:link.action></li>
-					<li><f:link.action id="focus_someday" controller="Task" action="someday"><span class="glyphicon glyphicon-road" aria-hidden="true"></span> Sp&auml;ter</f:link.action></li>
-					<li><f:link.action id="star" controller="Task" action="focus"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> Fokus</f:link.action></li>
+					<li><f:link.action id="focus_inbox" controller="Task" action="inbox"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span> <f:translate key="tx_twsimpleworklist_layout_default.inbox" /></f:link.action></li>
+					<li><f:link.action id="focus_today"  controller="Task" action="today"><span class="glyphicon glyphicon glyphicon-time" aria-hidden="true"></span> <f:translate key="tx_twsimpleworklist_layout_default.today" /></f:link.action></li>
+					<li><f:link.action id="focus_next" controller="Task" action="next"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> <f:translate key="tx_twsimpleworklist_layout_default.next" /></f:link.action></li>
+					<li><f:link.action id="focus_waiting" controller="Task" action="waiting"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span> <f:translate key="tx_twsimpleworklist_layout_default.waiting" /></f:link.action></li>
+					<li><f:link.action id="focus_scheduled" controller="Task" action="scheduled"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> <f:translate key="tx_twsimpleworklist_layout_default.scheduled" /></f:link.action></li>
+					<li><f:link.action id="focus_someday" controller="Task" action="someday"><span class="glyphicon glyphicon-road" aria-hidden="true"></span> <f:translate key="tx_twsimpleworklist_layout_default.someday" /></f:link.action></li>
+					<li><f:link.action id="star" controller="Task" action="focus"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> <f:translate key="tx_twsimpleworklist_layout_default.focus" /></f:link.action></li>
 					<li><hr/></li>
 					<li>
-						<f:link.action id="categoryNode_0" class="categoryNode" controller="Project" action="show"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> Projekte</f:link.action>
+						<f:link.action id="categoryNode_0" class="categoryNode" controller="Project" action="show"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> <f:translate key="tx_twsimpleworklist_layout_default.projects" /></f:link.action>
 						<ul><f:render partial="Project/Navigation" arguments="{navProjects:rootProjects}" /></ul>
 					</li>
 					<li><hr/></li>
-					<li><f:link.action id="focus_completed" controller="Task" action="completed"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> Erledigte Aufgaben</f:link.action></li>
-					<li><f:link.action id="focus_trash" controller="Task" action="trash"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Papierkorb</f:link.action></li>
+					<li><f:link.action id="focus_completed" controller="Task" action="completed"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> <f:translate key="tx_twsimpleworklist_layout_default.completed" /></f:link.action></li>
+					<li><f:link.action id="focus_trash" controller="Task" action="trash"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> <f:translate key="tx_twsimpleworklist_layout_default.trash" /></f:link.action></li>
 					<li><hr/></li>
 					<li><f:link.action id="list_users" controller="UserAccount" action="list"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Users</f:link.action></li>
-					<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Context ({currentContext.nameDe})<span class="caret"></span></a>
+					<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><f:translate key="tx_twsimpleworklist_layout_default.context" /> ({currentContext.nameDe})<span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<f:for each="{contextList}" as="context">
 							<li><f:link.action controller="Context" action="switchContext" arguments="{context:context}">{context.nameDe}</f:link.action></li>
 							</f:for>
 						</ul>
 					</li>
-					<li><f:link.action controller="Project" action="createTestData">Create Test Data</f:link.action></li>
-					<li><f:link.action controller="UserConfig" action="show">Settings</f:link.action></li>
+					<li><f:link.action controller="Project" action="createTestData"><f:translate key="tx_twsimpleworklist_layout_default.createTestData" /></f:link.action></li>
+					<li><f:link.action controller="UserConfig" action="show"><f:translate key="tx_twsimpleworklist_layout_default.settings" /></f:link.action></li>
 				</ul>
 			</div>
 		</div>

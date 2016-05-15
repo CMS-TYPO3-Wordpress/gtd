@@ -3,6 +3,48 @@
 	<file source-language="en" datatype="plaintext" original="messages" date="2016-04-21T10:54:21Z" product-name="tw_simpleworklist">
 		<header/>
 		<body>
+			<trans-unit id="tx_twsimpleworklist_layout_default.inbox">
+				<source>Inbox</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_layout_default.today">
+				<source>Today</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_layout_default.next">
+				<source>Next</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_layout_default.waiting">
+				<source>Waiting</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_layout_default.scheduled">
+				<source>Scheduled</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_layout_default.someday">
+				<source>Someday</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_layout_default.focus">
+				<source>Focus</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_layout_default.projects">
+				<source>Projects</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_layout_default.completed">
+				<source>Completed</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_layout_default.trash">
+				<source>Trash</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_layout_default.context">
+				<source>Context</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_layout_default.users">
+				<source>Users</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_layout_default.createTestData">
+				<source>Create Test Data</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_layout_default.settings">
+				<source>Settings</source>
+			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_domain_model_useraccount">
 				<source>User Account</source>
 			</trans-unit>
