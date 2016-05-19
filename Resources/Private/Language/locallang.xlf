@@ -48,6 +48,21 @@
 			<trans-unit id="tx_twsimpleworklist_template_user_config.show">
 				<source>Your Settings</source>
 			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_template_task_inbox.newTask">
+				<source>New Task</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_template_task_inbox.editTask">
+				<source>Edit Task</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_template_task_inbox.createNew">
+				<source>Create New</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_template_task_edit.save">
+				<source>Save</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_template_task_edit.transform">
+				<source>transform Task Into Project</source>
+			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_domain_model_useraccount">
 				<source>User Account</source>
 			</trans-unit>

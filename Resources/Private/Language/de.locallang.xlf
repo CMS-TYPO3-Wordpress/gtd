@@ -9,45 +9,79 @@
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_layout_default.today">
 				<source>Today</source>
+				<target state="translated">Heute</target>
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_layout_default.next">
 				<source>Next</source>
+				<target state="translated">Als nächstes</target>
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_layout_default.waiting">
 				<source>Waiting</source>
+				<target state="translated">Warten</target>
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_layout_default.scheduled">
 				<source>Scheduled</source>
+				<target state="translated">Geplant</target>
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_layout_default.someday">
 				<source>Someday</source>
+				<target state="translated">Später</target>
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_layout_default.focus">
 				<source>Focus</source>
+				<target state="translated">Fokus</target>
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_layout_default.projects">
 				<source>Projects</source>
+				<target state="translated">Projekte</target>
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_layout_default.completed">
 				<source>Completed</source>
+				<target state="translated">Fertig</target>
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_layout_default.trash">
 				<source>Trash</source>
+				<target state="translated">Papierkorb</target>
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_layout_default.context">
 				<source>Context</source>
+				<target state="translated">Kontext</target>
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_layout_default.users">
 				<source>Users</source>
+				<target state="translated">Benutzer</target>
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_layout_default.createTestData">
 				<source>Create Test Data</source>
+				<target state="translated">Erzeuge Test Daten</target>
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_layout_default.settings">
 				<source>Settings</source>
+				<target state="translated">Einstellungen</target>
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_template_user_config.show">
 				<source>Your Settings</source>
+				<target state="translated">Einstellungen</target>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_template_task_inbox.newTask">
+				<source>New Task</source>
+				<target state="translated">Neue Aufgabe</target>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_template_task_inbox.editTask">
+				<source>Edit Task</source>
+				<target state="translated">Aufgabe ändern</target>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_template_task_inbox.createNew">
+				<source>Create New</source>
+				<target state="translated">Aufgabe erstellen</target>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_template_task_edit.save">
+				<source>Save</source>
+				<target state="translated">Speichern</target>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_template_task_edit.transform">
+				<source>transform Task Into Project</source>
+				<target state="translated">wandle Aufgabe um in ein Projekt</target>
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_domain_model_useraccount">
 				<source>User Account</source>
@@ -90,15 +124,19 @@
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_domain_model_project">
 				<source>Project</source>
+				<target state="translated">Projekt</target>
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_domain_model_project.name">
 				<source>Name</source>
+				<target state="translated">Name</target>
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_domain_model_project.description">
 				<source>Description</source>
+				<target state="translated">Beschreibung</target>
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_domain_model_project.context">
 				<source>Context</source>
+				<target state="translated">Kontext</target>
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_domain_model_project.user_account">
 				<source>User Account</source>
@@ -108,30 +146,37 @@
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_domain_model_task">
 				<source>Task</source>
+				<target state="translated">Aufgabe</target>
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_domain_model_task.title">
 				<source>Title</source>
+				<target state="translated">Titel</target>
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_domain_model_task.text">
 				<source>Text</source>
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_domain_model_task.focus">
 				<source>Focus</source>
+				<target state="translated">Fokus</target>
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_domain_model_task.task_state">
 				<source>Task State</source>
+				<target state="translated">Aufgaben Stand</target>
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_domain_model_task.last_task_state">
 				<source>Last Task State</source>
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_domain_model_task.task_energy">
 				<source>Task Energy</source>
+				<target state="translated">Energie</target>
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_domain_model_task.task_time">
 				<source>Task Time</source>
+				<target state="translated">Zeit</target>
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_domain_model_task.due_date">
 				<source>Due Date</source>
+				<target state="translated">Fälligkeitsdatum</target>
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_domain_model_task.order_id_project">
 				<source>Order Id Project</source>
@@ -141,9 +186,11 @@
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_domain_model_task.project">
 				<source>Project</source>
+				<target state="translated">Projekt</target>
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_domain_model_task.context">
 				<source>Context</source>
+				<target state="translated">Kontext</target>
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_domain_model_task.user_account">
 				<source>User Account</source>
