@@ -13,15 +13,15 @@ in /Configuration/ExtensionBuilder/settings.yaml:
 Otherwise your changes will be overwritten the next time you save the extension in the extension builder
 
 <f:section name="main">
-<h1><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Edit Context</h1>
+<h1><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> <f:translate key="tx_twsimpleworklist_domain_model_context.edit_context" /></h1>
 
 <f:flashMessages />
 
 <f:render partial="FormErrors" arguments="{object:Context}" />
 
 <f:form action="update" name="ctx" object="{context}" >
-    <f:render partial="Context/FormFields" arguments="{context:ctx}" />
-    <f:form.submit value="Save" class="btn btn-default" />
+    <f:render partial="Context/FormFields" arguments="{ctx:ctx}" />
+    <f:form.submit value="{f:translate(key:'tx_twsimpleworklist_domain_model_context.save')}" class="btn btn-default" />
 </f:form>
 </f:section>
 </html>

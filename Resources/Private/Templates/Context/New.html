@@ -13,7 +13,7 @@ in /Configuration/ExtensionBuilder/settings.yaml:
 Otherwise your changes will be overwritten the next time you save the extension in the extension builder
 
 <f:section name="main">
-<h1><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> New Context</h1>
+<h1><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> <f:translate key="tx_twsimpleworklist_domain_model_context.new_context" /></h1>
 
 <f:flashMessages />
 
@@ -21,7 +21,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 <f:form action="create"  name="newContext" object="{newContext}">
 <f:render partial="Context/FormFields" />
-	<f:form.submit value="Create new" class="btn btn-default" />
+	<f:form.submit value="{f:translate(key:'tx_twsimpleworklist_domain_model_context.create_new')}" class="btn btn-default" />
 </f:form>
 </f:section>
 </html>

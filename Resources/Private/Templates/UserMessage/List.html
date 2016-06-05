@@ -2,7 +2,7 @@
 <f:layout name="Default" />
 
 <f:section name="main">
-<h1>Listing for UserMessage</h1>
+<h2><f:translate key="tx_twsimpleworklist_domain_model_usermessage.list" /> <small><f:translate key="tx_twsimpleworklist_domain_model_usermessage.your_dialog_with" />{otherUser.userFullname}</small></h2>
 
 <f:flashMessages />
 
@@ -12,7 +12,7 @@
 	<f:form.hidden name="sender" value="{thisUser}" />
 	<f:form.hidden name="receiver" value="{otherUser}" />
 	<f:render partial="UserMessage/FormFields"/>
-	<f:form.submit value="Send" class="btn btn-default"/>
+	<f:form.submit value="{f:translate(key:'tx_twsimpleworklist_domain_model_usermessage.send')}" class="btn btn-default"/>
 </f:form>
 <br/>
 

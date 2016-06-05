@@ -3,6 +3,12 @@
 	<file source-language="en" datatype="plaintext" original="messages" date="2016-04-21T10:54:21Z" product-name="tw_simpleworklist">
 		<header/>
 		<body>
+			<trans-unit id="tx_twsimpleworklist_project_show.new_child">
+				<source>New Child Project</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_project_show.delete">
+				<source>Delete this Project</source>
+			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_layout_default.inbox">
 				<source>Inbox</source>
 			</trans-unit>
@@ -75,8 +81,23 @@
 			<trans-unit id="tx_twsimpleworklist_domain_model_useraccount.user_fullname">
 				<source>User Fullname</source>
 			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_domain_model_useraccount.messages">
+				<source>Messages</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_domain_model_useraccount.list">
+				<source>User</source>
+			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_domain_model_usermessage">
 				<source>User Message</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_domain_model_usermessage.list">
+				<source>User Messages</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_domain_model_usermessage.send">
+				<source>Send</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_domain_model_usermessage.your_dialog_with">
+				<source>Your Dialog with</source>
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_domain_model_usermessage.message_text">
 				<source>Message Text</source>
@@ -93,11 +114,38 @@
 			<trans-unit id="tx_twsimpleworklist_domain_model_context">
 				<source>Context</source>
 			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_template_user_config.set_default_context">
+				<source>Set Default Context</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_template_user_config.save_default_context">
+				<source>Save Default Context</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_template_user_config.edit_your_contexts">
+				<source>Edit Your Contexts</source>
+			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_domain_model_context.name_de">
-				<source>Name De</source>
+				<source>German</source>
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_domain_model_context.name_en">
-				<source>Name En</source>
+				<source>English</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_domain_model_context.edit">
+				<source>Edit</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_domain_model_context.delete">
+				<source>Delete</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_domain_model_context.new_context">
+				<source>New Context</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_domain_model_context.create_new">
+				<source>Create New</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_domain_model_context.save">
+				<source>Save</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_domain_model_context.edit_context">
+				<source>Edit Context</source>
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_domain_model_context.user_account">
 				<source>User Account</source>

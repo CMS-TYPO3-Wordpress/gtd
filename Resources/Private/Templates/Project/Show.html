@@ -7,9 +7,9 @@
 
 <f:flashMessages />
 <!-- f:render partial="Project/Properties" arguments="{project:project}" / -->
-<f:link.action action="new" arguments="{parentProject:project}"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> New Child Project</f:link.action>
+<f:link.action action="new" arguments="{parentProject:project}"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> <f:translate key="tx_twsimpleworklist_project_show.new_child" /></f:link.action>
 <f:if condition="{deleteable}">
-&nbsp;<f:link.action action="delete" arguments="{project:project}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete this Project</f:link.action>
+&nbsp;<f:link.action action="delete" arguments="{project:project}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> <f:translate key="tx_twsimpleworklist_project_show.delete" /></f:link.action>
 </f:if><br/>
 <br/>
 <f:render partial="Task/TaskListProject" arguments="{tasks:tasks}"/>
