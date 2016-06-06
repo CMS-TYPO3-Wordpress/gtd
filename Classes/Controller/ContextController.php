@@ -49,10 +49,10 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @inject
      */
     protected $userAccountRepository = null;
-    
+
     /**
      * action switchContext
-     * 
+     *
      * @return void
      */
     public function switchContextAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $context)
@@ -63,10 +63,10 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $GLOBALS['TSFE']->fe_user->storeSessionData();
         $this->redirect('inbox',"Task");
     }
-    
+
     /**
      * action list
-     * 
+     *
      * @return void
      */
     public function listAction()
@@ -74,10 +74,10 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $contexts = $this->contextRepository->findAll();
         $this->view->assign('contexts', $contexts);
     }
-    
+
     /**
      * action show
-     * 
+     *
      * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $context
      * @return void
      */
@@ -85,10 +85,10 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     {
         $this->view->assign('context', $context);
     }
-    
+
     /**
      * action new
-     * 
+     *
      * @return void
      */
     public function newAction()
@@ -97,10 +97,10 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('currentContext',$this->contextService->getCurrentContext());
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($this->contextService->getCurrentContext()));
     }
-    
+
     /**
      * action create
-     * 
+     *
      * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $newContext
      * @return void
      */
@@ -112,25 +112,25 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->contextRepository->add($newContext);
         $this->redirect('show','UserConfig');
     }
-    
+
     /**
      * action edit
-     * 
+     *
      * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $context
      * @ignorevalidation $context
      * @return void
      */
     public function editAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $context)
     {
-        $this->view->assign('context', $context);
+        $this->view->assign('mycontext', $context);
         $this->view->assign('contextList',$this->contextService->getContextList());
         $this->view->assign('currentContext',$this->contextService->getCurrentContext());
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($this->contextService->getCurrentContext()));
     }
-    
+
     /**
      * action update
-     * 
+     *
      * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $context
      * @return void
      */
@@ -140,10 +140,10 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->contextRepository->update($ctx);
         $this->redirect('show','UserConfig');
     }
-    
+
     /**
      * action delete
-     * 
+     *
      * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $context
      * @return void
      */

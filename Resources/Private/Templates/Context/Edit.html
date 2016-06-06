@@ -19,7 +19,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 <f:render partial="FormErrors" arguments="{object:Context}" />
 
-<f:form action="update" name="ctx" object="{context}" >
+<f:form action="update" name="ctx" object="{mycontext}" >
     <f:render partial="Context/FormFields" arguments="{ctx:ctx}" />
     <f:form.submit value="{f:translate(key:'tx_twsimpleworklist_domain_model_context.save')}" class="btn btn-default" />
 </f:form>
