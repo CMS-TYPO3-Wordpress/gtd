@@ -20,7 +20,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
     /**
      * taskRepository
-     * 
+     *
      * @var \ThomasWoehlke\TwSimpleworklist\Domain\Repository\TaskRepository
      * @inject
      */
@@ -54,9 +54,11 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         'inbox' => 0, 'today' => 1, 'next' => 2, 'waiting' => 3, 'scheduled' => 4, 'someday' => 5, 'completed' => 6 , 'trash' => 7
     );
 
+    private $extName = 'tw_simpleworklist';
+
     /**
      * action show
-     * 
+     *
      * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task
      * @return void
      */
@@ -68,10 +70,10 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('currentContext',$this->contextService->getCurrentContext());
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($this->contextService->getCurrentContext()));
     }
-    
+
     /**
      * action edit
-     * 
+     *
      * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task
      * @ignorevalidation $task
      * @return void
@@ -96,7 +98,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
     /**
      * action update
-     * 
+     *
      * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task
      * @return void
      */
@@ -122,6 +124,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $persistentTask->setOrderIdTaskState($maxTaskStateOrderId);
         }
         $this->taskRepository->update($persistentTask);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.updated', $this->extName, null);
+        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->getRedirectFromTask($persistentTask);
     }
 
@@ -165,10 +169,10 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',
                 \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d');
     }
-    
+
     /**
      * action inbox
-     * 
+     *
      * @return void
      */
     public function inboxAction()
@@ -181,10 +185,10 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('currentContext',$this->contextService->getCurrentContext());
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($currentContext));
     }
-    
+
     /**
      * action today
-     * 
+     *
      * @return void
      */
     public function todayAction()
@@ -197,10 +201,10 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('currentContext',$this->contextService->getCurrentContext());
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($currentContext));
     }
-    
+
     /**
      * action next
-     * 
+     *
      * @return void
      */
     public function nextAction()
@@ -213,10 +217,10 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('currentContext',$this->contextService->getCurrentContext());
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($currentContext));
     }
-    
+
     /**
      * action waiting
-     * 
+     *
      * @return void
      */
     public function waitingAction()
@@ -229,10 +233,10 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('currentContext',$this->contextService->getCurrentContext());
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($currentContext));
     }
-    
+
     /**
      * action scheduled
-     * 
+     *
      * @return void
      */
     public function scheduledAction()
@@ -245,10 +249,10 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('currentContext',$this->contextService->getCurrentContext());
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($currentContext));
     }
-    
+
     /**
      * action someday
-     * 
+     *
      * @return void
      */
     public function somedayAction()
@@ -261,10 +265,10 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('currentContext',$this->contextService->getCurrentContext());
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($currentContext));
     }
-    
+
     /**
      * action completed
-     * 
+     *
      * @return void
      */
     public function completedAction()
@@ -277,10 +281,10 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('currentContext',$this->contextService->getCurrentContext());
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($currentContext));
     }
-    
+
     /**
      * action trash
-     * 
+     *
      * @return void
      */
     public function trashAction()
@@ -309,10 +313,10 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('currentContext',$this->contextService->getCurrentContext());
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($currentContext));
     }
-    
+
     /**
      * action emptyTrash
-     * 
+     *
      * @return void
      */
     public function emptyTrashAction()
@@ -323,9 +327,10 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         foreach($tasks as $task){
             $this->taskRepository->remove($task);
         }
+        $this->addFlashMessage('Trash is emptied.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('trash');
     }
-    
+
     /**
      * action transformTaskIntoProject
      *
@@ -348,9 +353,10 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->projectRepository->add($newProject);
         $this->taskRepository->remove($task);
         $args = array("project" => $parentProject);
+        $this->addFlashMessage('Task transformied into Project.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('show',"Project",null,$args);
     }
-    
+
     /**
      * action completeTask
      *
@@ -365,9 +371,10 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,$this->taskStates['completed']);
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $this->taskRepository->update($task);
+        $this->addFlashMessage('Task is completed.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->getRedirectFromTask($task);
     }
-    
+
     /**
      * action undoneTask
      *
@@ -382,9 +389,10 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,$task->getTaskState());
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $this->taskRepository->update($task);
+        $this->addFlashMessage('Task is not completed.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->getRedirectFromTask($task);
     }
-    
+
     /**
      * action setFocus
      *
@@ -395,9 +403,10 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     {
         $task->setFocus(true);
         $this->taskRepository->update($task);
+        $this->addFlashMessage('Task is now in Focus.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->getRedirectFromTask($task);
     }
-    
+
     /**
      * action unsetFocus
      *
@@ -408,12 +417,13 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     {
         $task->setFocus(false);
         $this->taskRepository->update($task);
+        $this->addFlashMessage('Task is now out of Focus.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->getRedirectFromTask($task);
     }
-    
+
     /**
      * action list
-     * 
+     *
      * @return void
      */
     public function listAction()
@@ -453,7 +463,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
     /**
      * action new
-     * 
+     *
      * @return void
      */
     public function newAction()
@@ -466,7 +476,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
     /**
      * action create
-     * 
+     *
      * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $newTask
      * @return void
      */
@@ -481,6 +491,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $newTask->setOrderIdProject($projectOrderId);
         $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,$this->taskStates['inbox']);
         $newTask->setOrderIdTaskState($maxTaskStateOrderId);
+        $this->addFlashMessage('Stored new Task.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         if($newTask->getDueDate() != NULL){
             $newTask->setTaskState($this->taskStates['scheduled']);
             $this->taskRepository->add($newTask);
@@ -497,10 +508,10 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->arguments['newTask']
             ->getPropertyMappingConfiguration()
             ->forProperty('dueDate')
-            ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter', 
+            ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',
                 \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d');
     }
-    
+
     /**
      * action moveToInbox
      *
@@ -514,6 +525,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $task->changeTaskState($this->taskStates['inbox']);
         $this->taskRepository->update($task);
+        $this->addFlashMessage('Task is moved to Inbox.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('inbox');
     }
 
@@ -530,6 +542,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $task->changeTaskState($this->taskStates['today']);
         $this->taskRepository->update($task);
+        $this->addFlashMessage('Task is moved to Today.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('today');
     }
 
@@ -546,6 +559,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $task->changeTaskState($this->taskStates['next']);
         $this->taskRepository->update($task);
+        $this->addFlashMessage('Task is moved to Next.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('next');
     }
 
@@ -562,6 +576,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $task->changeTaskState($this->taskStates['waiting']);
         $this->taskRepository->update($task);
+        $this->addFlashMessage('Task is moved to Waiting.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('waiting');
     }
 
@@ -578,6 +593,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $task->changeTaskState($this->taskStates['someday']);
         $this->taskRepository->update($task);
+        $this->addFlashMessage('Task is moved to Someday.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('someday');
     }
 
@@ -594,6 +610,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $task->changeTaskState($this->taskStates['completed']);
         $this->taskRepository->update($task);
+        $this->addFlashMessage('Task is moved to Completed.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('completed');
     }
 
@@ -610,6 +627,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $task->changeTaskState($this->taskStates['trash']);
         $this->taskRepository->update($task);
+        $this->addFlashMessage('Task is moved to Trash.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('trash');
     }
 
@@ -629,6 +647,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $this->taskRepository->update($task);
             $maxTaskStateOrderId++;
         }
+        $this->addFlashMessage('All completed Tasks are moved to Trash.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('trash');
     }
 
@@ -663,6 +682,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $srcTask->setOrderIdTaskState($destinationTaskOrderId+1);
             $this->taskRepository->update($srcTask);
         }
+        $this->addFlashMessage('Changed Task Ordering.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->getRedirectFromTask($srcTask);
     }
 
@@ -699,6 +719,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $this->taskRepository->update($srcTask);
         }
         $args = array('project'=>$project);
+        $this->addFlashMessage('Changed Task Ordering.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('show','Project',null,$args);
     }
 }

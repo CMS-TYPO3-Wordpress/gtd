@@ -57,7 +57,6 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     public function switchContextAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $context)
     {
-        $this->addFlashMessage('The Context was switched.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', 'tx_twsimpleworklist_fesessiondata');
         $sessionData['contextUid'] = $context->getUid();
         $GLOBALS['TSFE']->fe_user->setKey('ses', 'tx_twsimpleworklist_fesessiondata', $sessionData);

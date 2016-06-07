@@ -219,6 +219,9 @@
 			<trans-unit id="tx_twsimpleworklist_domain_model_userconfig.user_account">
 				<source>User Account</source>
 			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_flash.task.updated">
+				<source>Task is updated.</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

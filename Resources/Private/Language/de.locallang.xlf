@@ -273,6 +273,10 @@
 			<trans-unit id="tx_twsimpleworklist_domain_model_userconfig.user_account">
 				<source>User Account</source>
 			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_flash.task.updated">
+				<source>Task is updated.</source>
+				<target state="translated">Aufgabe wurde aktualisiert.</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

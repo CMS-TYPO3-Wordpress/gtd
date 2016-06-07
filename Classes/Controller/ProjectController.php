@@ -22,7 +22,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 {
     /**
      * projectRepository
-     * 
+     *
      * @var \ThomasWoehlke\TwSimpleworklist\Domain\Repository\ProjectRepository
      * @inject
      */
@@ -54,7 +54,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
     /**
      * action show
-     * 
+     *
      * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project
      * @return void
      */
@@ -78,10 +78,10 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('tasks', $tasks);
         $this->view->assign('deleteable',$deleteable);
     }
-    
+
     /**
      * action edit
-     * 
+     *
      * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project
      * @ignorevalidation $project
      * @return void
@@ -94,10 +94,10 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('currentContext',$ctx);
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($this->contextService->getCurrentContext()));
     }
-    
+
     /**
      * action update
-     * 
+     *
      * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project
      * @return void
      */
@@ -108,10 +108,10 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $args = array('project'=>$project);
         $this->redirect('show',null,null,$args);
     }
-    
+
     /**
      * action delete
-     * 
+     *
      * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project
      * @return void
      */
@@ -130,10 +130,10 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $args = array('project'=>$parentProject);
         $this->redirect('show',null,null,$args);
     }
-    
+
     /**
      * action moveProject
-     * 
+     *
      * @return void
      */
     public function moveProjectAction(
@@ -182,12 +182,13 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $srcTask->setOrderIdProject($projectOrderId);
         $this->taskRepository->update($srcTask);
         $arguments = array("project" => $targetProject);
+        $this->addFlashMessage('Moved Task to this Project.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('show',null,null, $arguments);
     }
-    
+
     /**
      * action list
-     * 
+     *
      * @return void
      */
     public function listAction()
@@ -198,7 +199,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('currentContext',$this->contextService->getCurrentContext());
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($this->contextService->getCurrentContext()));
     }
-    
+
     /**
      * action new
      *
@@ -212,10 +213,10 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('currentContext',$this->contextService->getCurrentContext());
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($this->contextService->getCurrentContext()));
     }
-    
+
     /**
      * action create
-     * 
+     *
      * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $newProject
      * @return void
      */
