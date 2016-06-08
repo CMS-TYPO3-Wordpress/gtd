@@ -222,6 +222,54 @@
 			<trans-unit id="tx_twsimpleworklist_flash.task.updated">
 				<source>Task is updated.</source>
 			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_flash.task.trash_emptied">
+				<source>Trash is emptied.</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_flash.task.task2project">
+				<source>Task transformed into Project.</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_flash.task.completed">
+				<source>Task is completed.</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_flash.task.notcompleted">
+				<source>Task is not completed.</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_flash.task.focus">
+				<source>Task is now in Focus.</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_flash.task.notfocus">
+				<source>Task is now out of Focus.</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_flash.task.new">
+				<source>Stored new Task.</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_flash.task.moved_inbox">
+				<source>Task is moved to Inbox.</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_flash.task.moved_today">
+				<source>Task is moved to Today.</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_flash.task.moved_next">
+				<source>Task is moved to Next.</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_flash.task.moved_waiting">
+				<source>Task is moved to Waiting.</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_flash.task.moved_someday">
+				<source>Task is moved to Someday.</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_flash.task.moved_completed">
+				<source>Task is moved to Completed.</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_flash.task.moved_trash">
+				<source>Task is moved to Trash.</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_flash.task.moved_completed2trash">
+				<source>All completed Tasks are moved to Trash.</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_flash.task.ordering">
+				<source>Changed Task Ordering.</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

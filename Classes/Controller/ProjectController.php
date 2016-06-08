@@ -52,6 +52,8 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     protected $userAccountRepository = null;
 
+    private $extName = 'tw_simpleworklist';
+
     /**
      * action show
      *
@@ -182,7 +184,9 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $srcTask->setOrderIdProject($projectOrderId);
         $this->taskRepository->update($srcTask);
         $arguments = array("project" => $targetProject);
-        $this->addFlashMessage('Moved Task to this Project.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
+        //$this->addFlashMessage('Moved Task to this Project.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.ordering', $this->extName, null);
+        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('show',null,null, $arguments);
     }
 

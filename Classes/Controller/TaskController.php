@@ -327,7 +327,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         foreach($tasks as $task){
             $this->taskRepository->remove($task);
         }
-        $this->addFlashMessage('Trash is emptied.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.trash_emptied', $this->extName, null);
+        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('trash');
     }
 
@@ -353,7 +354,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->projectRepository->add($newProject);
         $this->taskRepository->remove($task);
         $args = array("project" => $parentProject);
-        $this->addFlashMessage('Task transformied into Project.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.task2project', $this->extName, null);
+        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('show',"Project",null,$args);
     }
 
@@ -371,7 +373,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,$this->taskStates['completed']);
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $this->taskRepository->update($task);
-        $this->addFlashMessage('Task is completed.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.completed', $this->extName, null);
+        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->getRedirectFromTask($task);
     }
 
@@ -389,7 +392,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,$task->getTaskState());
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $this->taskRepository->update($task);
-        $this->addFlashMessage('Task is not completed.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.notcompleted', $this->extName, null);
+        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->getRedirectFromTask($task);
     }
 
@@ -403,7 +407,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     {
         $task->setFocus(true);
         $this->taskRepository->update($task);
-        $this->addFlashMessage('Task is now in Focus.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.focus', $this->extName, null);
+        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->getRedirectFromTask($task);
     }
 
@@ -417,7 +422,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     {
         $task->setFocus(false);
         $this->taskRepository->update($task);
-        $this->addFlashMessage('Task is now out of Focus.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.notfocus', $this->extName, null);
+        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->getRedirectFromTask($task);
     }
 
@@ -491,7 +497,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $newTask->setOrderIdProject($projectOrderId);
         $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,$this->taskStates['inbox']);
         $newTask->setOrderIdTaskState($maxTaskStateOrderId);
-        $this->addFlashMessage('Stored new Task.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.new', $this->extName, null);
+        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         if($newTask->getDueDate() != NULL){
             $newTask->setTaskState($this->taskStates['scheduled']);
             $this->taskRepository->add($newTask);
@@ -525,7 +532,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $task->changeTaskState($this->taskStates['inbox']);
         $this->taskRepository->update($task);
-        $this->addFlashMessage('Task is moved to Inbox.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.moved_inbox', $this->extName, null);
+        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('inbox');
     }
 
@@ -542,7 +550,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $task->changeTaskState($this->taskStates['today']);
         $this->taskRepository->update($task);
-        $this->addFlashMessage('Task is moved to Today.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.moved_today', $this->extName, null);
+        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('today');
     }
 
@@ -559,7 +568,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $task->changeTaskState($this->taskStates['next']);
         $this->taskRepository->update($task);
-        $this->addFlashMessage('Task is moved to Next.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.moved_next', $this->extName, null);
+        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('next');
     }
 
@@ -576,7 +586,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $task->changeTaskState($this->taskStates['waiting']);
         $this->taskRepository->update($task);
-        $this->addFlashMessage('Task is moved to Waiting.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.moved_waiting', $this->extName, null);
+        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('waiting');
     }
 
@@ -593,7 +604,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $task->changeTaskState($this->taskStates['someday']);
         $this->taskRepository->update($task);
-        $this->addFlashMessage('Task is moved to Someday.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.moved_someday', $this->extName, null);
+        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('someday');
     }
 
@@ -610,7 +622,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $task->changeTaskState($this->taskStates['completed']);
         $this->taskRepository->update($task);
-        $this->addFlashMessage('Task is moved to Completed.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.moved_completed', $this->extName, null);
+        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('completed');
     }
 
@@ -627,7 +640,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $task->changeTaskState($this->taskStates['trash']);
         $this->taskRepository->update($task);
-        $this->addFlashMessage('Task is moved to Trash.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.moved_trash', $this->extName, null);
+        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('trash');
     }
 
@@ -647,7 +661,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $this->taskRepository->update($task);
             $maxTaskStateOrderId++;
         }
-        $this->addFlashMessage('All completed Tasks are moved to Trash.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.moved_completed2trash', $this->extName, null);
+        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('trash');
     }
 
@@ -682,7 +697,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $srcTask->setOrderIdTaskState($destinationTaskOrderId+1);
             $this->taskRepository->update($srcTask);
         }
-        $this->addFlashMessage('Changed Task Ordering.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.ordering', $this->extName, null);
+        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->getRedirectFromTask($srcTask);
     }
 
@@ -719,7 +735,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $this->taskRepository->update($srcTask);
         }
         $args = array('project'=>$project);
-        $this->addFlashMessage('Changed Task Ordering.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.ordering', $this->extName, null);
+        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('show','Project',null,$args);
     }
 }
