@@ -264,11 +264,29 @@
 			<trans-unit id="tx_twsimpleworklist_flash.task.moved_trash">
 				<source>Task is moved to Trash.</source>
 			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_flash.task.moved2project">
+				<source>Task is moved to this Project.</source>
+			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_flash.task.moved_completed2trash">
 				<source>All completed Tasks are moved to Trash.</source>
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_flash.task.ordering">
 				<source>Changed Task Ordering.</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_flash.project.updated">
+				<source>Projekt updated.</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_flash.project.deleted">
+				<source>Projekt deleted.</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_flash.project.moved">
+				<source>Projekt moved.</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_flash.project.created">
+				<source>Projekt created.</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_flash.testdata.created">
+				<source>Testdata created.</source>
 			</trans-unit>
 		</body>
 	</file>

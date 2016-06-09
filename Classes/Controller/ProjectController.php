@@ -105,8 +105,9 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     public function updateAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project)
     {
-        //$this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
         $this->projectRepository->update($project);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.project.updated', $this->extName, null);
+        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $args = array('project'=>$project);
         $this->redirect('show',null,null,$args);
     }
@@ -126,7 +127,8 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $deleteable = true;
         }
         if($deleteable) {
-            $this->addFlashMessage('The object was deleted. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+            $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.project.deleted', $this->extName, null);
+            $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
             $this->projectRepository->remove($project);
         }
         $args = array('project'=>$parentProject);
@@ -164,6 +166,8 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $targetProject->addChild($srcProject);
             $this->projectRepository->update($targetProject);
         }
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.project.moved', $this->extName, null);
+        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $arguments = array("project" => $targetProject);
         $this->redirect('show',null,null, $arguments);
     }
@@ -184,8 +188,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $srcTask->setOrderIdProject($projectOrderId);
         $this->taskRepository->update($srcTask);
         $arguments = array("project" => $targetProject);
-        //$this->addFlashMessage('Moved Task to this Project.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.ordering', $this->extName, null);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.moved2project', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('show',null,null, $arguments);
     }
@@ -235,6 +238,8 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $parentProject->addChild($newProject);
             $this->projectRepository->update($parentProject);
         }
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.project.created', $this->extName, null);
+        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $args = array('project'=>$parentProject);
         $this->redirect('show',null,null,$args);
     }
@@ -319,6 +324,9 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->projectRepository->add($testProject1_3);
         $this->projectRepository->add($testProject1_3_1);
         $this->projectRepository->add($testProject1_3_2);
+
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.testdata.created', $this->extName, null);
+        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
 
         $this->redirect('inbox',"Task");
     }
