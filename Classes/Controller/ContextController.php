@@ -50,6 +50,8 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     protected $userAccountRepository = null;
 
+    private $extName = 'tw_simpleworklist';
+
     /**
      * action switchContext
      *
@@ -106,10 +108,12 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     public function createAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $newContext)
     {
-        $this->addFlashMessage('The object was created.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $newContext->setUserAccount($userObject);
         $this->contextRepository->add($newContext);
+        //$this->addFlashMessage('The object was created.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.context.created', $this->extName, null);
+        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('show','UserConfig');
     }
 
@@ -136,8 +140,10 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     public function updateAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $ctx)
     {
-        $this->addFlashMessage('The object was updated.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->contextRepository->update($ctx);
+        //$this->addFlashMessage('The object was updated.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.context.updated', $this->extName, null);
+        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('show','UserConfig');
     }
 
@@ -149,8 +155,10 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     public function deleteAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $context)
     {
-        $this->addFlashMessage('The object was deleted.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
         $this->contextRepository->remove($context);
+        //$this->addFlashMessage('The object was deleted.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.context.deleted', $this->extName, null);
+        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
         $this->redirect('show','UserConfig');
     }
 }

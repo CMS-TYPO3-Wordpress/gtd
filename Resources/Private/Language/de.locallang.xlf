@@ -385,6 +385,18 @@
 				<source>Save Project</source>
 				<target state="translated">Projekt speichern</target>
 			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_flash.context.created">
+				<source>Context created.</source>
+				<target state="translated">Neuen Kontext gespeichert.</target>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_flash.context.updated">
+				<source>Context updated.</source>
+				<target state="translated">Kontext aktualisiert.</target>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_flash.context.deleted">
+				<source>Context deleted.</source>
+				<target state="translated">Kontext gelöscht</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
