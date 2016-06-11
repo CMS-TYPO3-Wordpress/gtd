@@ -19,7 +19,7 @@ class UserMessageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
 {
     /**
      * userMessageRepository
-     * 
+     *
      * @var \ThomasWoehlke\TwSimpleworklist\Domain\Repository\UserMessageRepository
      * @inject
      */
@@ -40,15 +40,19 @@ class UserMessageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      * @inject
      */
     protected $projectRepository = null;
-    
+
     /**
      * action list
-     * 
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $thisUser
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $otherUser
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     *
      * @return void
      */
     public function listAction(
-        \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $thisUser,
-        \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $otherUser)
+        \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $thisUser,
+        \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $otherUser)
     {
         $this->view->assign('thisUser', $thisUser);
         $this->view->assign('otherUser', $otherUser);
@@ -64,17 +68,22 @@ class UserMessageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $this->view->assign('currentContext',$this->contextService->getCurrentContext());
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($this->contextService->getCurrentContext()));
     }
-    
+
     /**
      * action create
-     * 
+     *
      * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserMessage $newUserMessage
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $sender
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $receiver
+     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     *
      * @return void
      */
     public function createAction(
         \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserMessage $newUserMessage,
-        \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $sender,
-        \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $receiver)
+        \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $sender,
+        \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $receiver)
     {
         $newUserMessage->setReadByReceiver(false);
         $newUserMessage->setSender($sender);
@@ -85,5 +94,5 @@ class UserMessageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $extensionName = null;
         $this->redirect('list',$controllerName,$extensionName,$arguments);
     }
-    
+
 }

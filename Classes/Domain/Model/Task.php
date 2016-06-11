@@ -8,7 +8,7 @@ namespace ThomasWoehlke\TwSimpleworklist\Domain\Model;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2016 
+ *  (c) 2016
  *
  ***/
 
@@ -19,108 +19,108 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
     /**
      * title
-     * 
+     *
      * @var string
      */
     protected $title = '';
-    
+
     /**
      * text
-     * 
+     *
      * @var string
      */
     protected $text = '';
-    
+
     /**
      * focus
-     * 
+     *
      * @var bool
      */
     protected $focus = false;
-    
+
     /**
      * taskState
-     * 
+     *
      * @var int
      */
     protected $taskState = 0;
-    
+
     /**
      * lastTaskState
-     * 
+     *
      * @var int
      */
     protected $lastTaskState = 0;
-    
+
     /**
      * taskEnergy
-     * 
+     *
      * @var int
      */
     protected $taskEnergy = 0;
-    
+
     /**
      * taskTime
-     * 
+     *
      * @var int
      */
     protected $taskTime = 0;
-    
+
     /**
      * dueDate
-     * 
+     *
      * @var \DateTime
      */
     protected $dueDate = null;
-    
+
     /**
      * orderIdProject
-     * 
+     *
      * @var int
      */
     protected $orderIdProject = 0;
-    
+
     /**
      * orderIdTaskState
-     * 
+     *
      * @var int
      */
     protected $orderIdTaskState = 0;
-    
+
     /**
      * project
-     * 
+     *
      * @var \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project
      */
     protected $project = null;
-    
+
     /**
      * context
-     * 
+     *
      * @var \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context
      */
     protected $context = null;
-    
+
     /**
      * userAccount
-     * 
-     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount
+     *
+     * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
      */
     protected $userAccount = null;
-    
+
     /**
      * Returns the title
-     * 
+     *
      * @return string $title
      */
     public function getTitle()
     {
         return $this->title;
     }
-    
+
     /**
      * Sets the title
-     * 
+     *
      * @param string $title
      * @return void
      */
@@ -128,20 +128,20 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->title = $title;
     }
-    
+
     /**
      * Returns the text
-     * 
+     *
      * @return string $text
      */
     public function getText()
     {
         return $this->text;
     }
-    
+
     /**
      * Sets the text
-     * 
+     *
      * @param string $text
      * @return void
      */
@@ -149,20 +149,20 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->text = $text;
     }
-    
+
     /**
      * Returns the focus
-     * 
+     *
      * @return bool $focus
      */
     public function getFocus()
     {
         return $this->focus;
     }
-    
+
     /**
      * Sets the focus
-     * 
+     *
      * @param bool $focus
      * @return void
      */
@@ -170,20 +170,20 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->focus = $focus;
     }
-    
+
     /**
      * Returns the boolean state of focus
-     * 
+     *
      * @return bool
      */
     public function isFocus()
     {
         return $this->focus;
     }
-    
+
     /**
      * Returns the taskState
-     * 
+     *
      * @return int $taskState
      */
     public function getTaskState()
@@ -213,7 +213,7 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets the taskState
-     * 
+     *
      * @param int $taskState
      * @return void
      */
@@ -221,20 +221,20 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->taskState = $taskState;
     }
-    
+
     /**
      * Returns the lastTaskState
-     * 
+     *
      * @return int $lastTaskState
      */
     public function getLastTaskState()
     {
         return $this->lastTaskState;
     }
-    
+
     /**
      * Sets the lastTaskState
-     * 
+     *
      * @param int $lastTaskState
      * @return void
      */
@@ -242,20 +242,20 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->lastTaskState = $lastTaskState;
     }
-    
+
     /**
      * Returns the taskEnergy
-     * 
+     *
      * @return int $taskEnergy
      */
     public function getTaskEnergy()
     {
         return $this->taskEnergy;
     }
-    
+
     /**
      * Sets the taskEnergy
-     * 
+     *
      * @param int $taskEnergy
      * @return void
      */
@@ -263,20 +263,20 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->taskEnergy = $taskEnergy;
     }
-    
+
     /**
      * Returns the taskTime
-     * 
+     *
      * @return int $taskTime
      */
     public function getTaskTime()
     {
         return $this->taskTime;
     }
-    
+
     /**
      * Sets the taskTime
-     * 
+     *
      * @param int $taskTime
      * @return void
      */
@@ -284,20 +284,20 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->taskTime = $taskTime;
     }
-    
+
     /**
      * Returns the dueDate
-     * 
+     *
      * @return \DateTime $dueDate
      */
     public function getDueDate()
     {
         return $this->dueDate;
     }
-    
+
     /**
      * Sets the dueDate
-     * 
+     *
      * @param \DateTime $dueDate
      * @return void
      */
@@ -305,20 +305,20 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->dueDate = $dueDate;
     }
-    
+
     /**
      * Returns the orderIdProject
-     * 
+     *
      * @return int $orderIdProject
      */
     public function getOrderIdProject()
     {
         return $this->orderIdProject;
     }
-    
+
     /**
      * Sets the orderIdProject
-     * 
+     *
      * @param int $orderIdProject
      * @return void
      */
@@ -326,20 +326,20 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->orderIdProject = $orderIdProject;
     }
-    
+
     /**
      * Returns the orderIdTaskState
-     * 
+     *
      * @return int $orderIdTaskState
      */
     public function getOrderIdTaskState()
     {
         return $this->orderIdTaskState;
     }
-    
+
     /**
      * Sets the orderIdTaskState
-     * 
+     *
      * @param int $orderIdTaskState
      * @return void
      */
@@ -347,20 +347,20 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->orderIdTaskState = $orderIdTaskState;
     }
-    
+
     /**
      * Returns the project
-     * 
+     *
      * @return \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project
      */
     public function getProject()
     {
         return $this->project;
     }
-    
+
     /**
      * Sets the project
-     * 
+     *
      * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project
      * @return void
      */
@@ -368,20 +368,20 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->project = $project;
     }
-    
+
     /**
      * Returns the context
-     * 
+     *
      * @return \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $context
      */
     public function getContext()
     {
         return $this->context;
     }
-    
+
     /**
      * Sets the context
-     * 
+     *
      * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $context
      * @return void
      */
@@ -389,24 +389,24 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->context = $context;
     }
-    
+
     /**
      * Returns the userAccount
-     * 
-     * @return \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userAccount
+     *
+     * @return \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userAccount
      */
     public function getUserAccount()
     {
         return $this->userAccount;
     }
-    
+
     /**
      * Sets the userAccount
-     * 
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userAccount
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userAccount
      * @return void
      */
-    public function setUserAccount(\ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userAccount)
+    public function setUserAccount(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userAccount)
     {
         $this->userAccount = $userAccount;
     }

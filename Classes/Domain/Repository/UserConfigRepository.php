@@ -19,10 +19,10 @@ class UserConfigRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
 
     /**
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userObject
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userObject
      * @return \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserConfig
      */
-    public function findByUserAccount(\ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userObject)
+    public function findByUserAccount(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userObject)
     {
         $query = $this->createQuery();
         $query->matching(

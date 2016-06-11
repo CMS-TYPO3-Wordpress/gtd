@@ -25,7 +25,7 @@ class ContextService implements \TYPO3\CMS\Core\SingletonInterface
     /**
      * userAccountRepository
      *
-     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Repository\UserAccountRepository
+     * @var \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository
      * @inject
      */
     protected $userAccountRepository = null;
@@ -37,7 +37,7 @@ class ContextService implements \TYPO3\CMS\Core\SingletonInterface
      * @inject
      */
     protected $userConfigRepository = null;
-    
+
     /**
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
@@ -52,10 +52,10 @@ class ContextService implements \TYPO3\CMS\Core\SingletonInterface
     }
 
     /**
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userObject
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userObject
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
      */
-    private function createDefaultContexts(\ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userObject)
+    private function createDefaultContexts(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userObject)
     {
         $work = new Context();
         $private = new Context();

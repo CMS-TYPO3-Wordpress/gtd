@@ -8,7 +8,7 @@ namespace ThomasWoehlke\TwSimpleworklist\Domain\Model;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2016 
+ *  (c) 2016
  *
  ***/
 
@@ -19,45 +19,45 @@ class UserMessage extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
     /**
      * messageText
-     * 
+     *
      * @var string
      */
     protected $messageText = '';
-    
+
     /**
      * readByReceiver
-     * 
+     *
      * @var bool
      */
     protected $readByReceiver = false;
-    
+
     /**
      * sender
-     * 
-     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount
+     *
+     * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
      */
     protected $sender = null;
-    
+
     /**
      * receiver
-     * 
-     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount
+     *
+     * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
      */
     protected $receiver = null;
-    
+
     /**
      * Returns the messageText
-     * 
+     *
      * @return string $messageText
      */
     public function getMessageText()
     {
         return $this->messageText;
     }
-    
+
     /**
      * Sets the messageText
-     * 
+     *
      * @param string $messageText
      * @return void
      */
@@ -65,20 +65,20 @@ class UserMessage extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->messageText = $messageText;
     }
-    
+
     /**
      * Returns the readByReceiver
-     * 
+     *
      * @return bool $readByReceiver
      */
     public function getReadByReceiver()
     {
         return $this->readByReceiver;
     }
-    
+
     /**
      * Sets the readByReceiver
-     * 
+     *
      * @param bool $readByReceiver
      * @return void
      */
@@ -86,55 +86,55 @@ class UserMessage extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->readByReceiver = $readByReceiver;
     }
-    
+
     /**
      * Returns the boolean state of readByReceiver
-     * 
+     *
      * @return bool
      */
     public function isReadByReceiver()
     {
         return $this->readByReceiver;
     }
-    
+
     /**
      * Returns the sender
-     * 
-     * @return \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $sender
+     *
+     * @return \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $sender
      */
     public function getSender()
     {
         return $this->sender;
     }
-    
+
     /**
      * Sets the sender
-     * 
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $sender
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $sender
      * @return void
      */
-    public function setSender(\ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $sender)
+    public function setSender(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $sender)
     {
         $this->sender = $sender;
     }
-    
+
     /**
      * Returns the receiver
-     * 
-     * @return \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $receiver
+     *
+     * @return \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $receiver
      */
     public function getReceiver()
     {
         return $this->receiver;
     }
-    
+
     /**
      * Sets the receiver
-     * 
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $receiver
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $receiver
      * @return void
      */
-    public function setReceiver(\ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $receiver)
+    public function setReceiver(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $receiver)
     {
         $this->receiver = $receiver;
     }

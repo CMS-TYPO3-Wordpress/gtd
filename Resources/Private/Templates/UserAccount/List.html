@@ -45,15 +45,15 @@ Otherwise your changes will be overwritten the next time you save the extension 
 			<td>
 				<f:if condition="{thisUser.uid} == {userAccount.uid}">
 					<f:then>
-						{userAccount.userEmail}
+						{userAccount.email}
 					</f:then>
 					<f:else>
-						<f:link.action controller="UserMessage" action="list" arguments="{thisUser : thisUser, otherUser : userAccount}"> {userAccount.userEmail}</f:link.action>
+						<f:link.action controller="UserMessage" action="list" arguments="{thisUser : thisUser, otherUser : userAccount}"> {userAccount.email}</f:link.action>
 					</f:else>
 				</f:if>
 			</td>
 			<td>
-				<f:link.action action="show" arguments="{userAccount : userAccount}"> {userAccount.userFullname}</f:link.action>
+				<f:link.action action="show" arguments="{userAccount : userAccount}"> {userAccount.name}</f:link.action>
 			</td>
 		</tr>
 	</f:for>

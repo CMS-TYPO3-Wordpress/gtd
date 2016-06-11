@@ -28,11 +28,11 @@ class UserAccountController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     /**
      * userAccountRepository
      *
-     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Repository\UserAccountRepository
+     * @var \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository
      * @inject
      */
     protected $userAccountRepository = null;
-    
+
     /**
      * contextService
      *
@@ -51,7 +51,7 @@ class UserAccountController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
 
     /**
      * action list
-     * 
+     *
      * @return void
      */
     public function listAction()
@@ -73,5 +73,5 @@ class UserAccountController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $this->view->assign('currentContext',$currentContext);
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($currentContext));
     }
-    
+
 }

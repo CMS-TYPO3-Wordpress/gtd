@@ -29,7 +29,7 @@ class UserConfigController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContr
     /**
      * userAccountRepository
      *
-     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Repository\UserAccountRepository
+     * @var \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository
      * @inject
      */
     protected $userAccountRepository = null;
@@ -49,6 +49,8 @@ class UserConfigController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContr
      * @inject
      */
     protected $projectRepository = null;
+
+    private $extName = 'tw_simpleworklist';
 
     /**
      * action list
@@ -84,11 +86,13 @@ class UserConfigController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContr
      * @return void
      */
     public function updateAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\UserConfig $userConfig){
-        $this->addFlashMessage('The Default Context was changed.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $persistentUserConfig = $this->userConfigRepository->findByUid($userConfig->getUid());
         $persistentUserConfig->setDefaultContext($userConfig->getDefaultContext());
         $this->userConfigRepository->update($persistentUserConfig);
         $this->contextService->setCurrentContext($userConfig->getDefaultContext());
+        //$this->addFlashMessage('The Default Context was changed.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.userconfig.updated', $this->extName, null);
+        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('show');
     }
 }

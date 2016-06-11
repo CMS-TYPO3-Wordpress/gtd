@@ -23,12 +23,12 @@ class UserMessageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     );
 
     /**
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $thisUser
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $otherUser
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $thisUser
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $otherUser
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findAllBetweenTwoUsers(\ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $thisUser,
-                                           \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $otherUser)
+    public function findAllBetweenTwoUsers(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $thisUser,
+        \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $otherUser)
     {
         $query = $this->createQuery();
         $query->matching(
@@ -47,10 +47,10 @@ class UserMessageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     }
 
     /**
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userAccount
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userAccount
      * @return int
      */
-    public function getNewMessagesFor(\ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userAccount)
+    public function getNewMessagesFor(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userAccount)
     {
         $query = $this->createQuery();
         $query->matching(

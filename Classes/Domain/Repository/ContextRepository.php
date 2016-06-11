@@ -18,10 +18,10 @@ namespace ThomasWoehlke\TwSimpleworklist\Domain\Repository;
 class ContextRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
     /**
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userObject
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userObject
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findAllByUserAccount(\ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userObject)
+    public function findAllByUserAccount(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userObject)
     {
         $query = $this->createQuery();
         $query->matching(

@@ -23,14 +23,14 @@ class UserConfig extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context
      */
     protected $defaultContext = null;
-    
+
     /**
      * userAccount
      *
-     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount
+     * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
      */
     protected $userAccount = null;
-    
+
     /**
      * Returns the defaultContext
      *
@@ -40,7 +40,7 @@ class UserConfig extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         return $this->defaultContext;
     }
-    
+
     /**
      * Sets the defaultContext
      *
@@ -51,24 +51,24 @@ class UserConfig extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->defaultContext = $defaultContext;
     }
-    
+
     /**
      * Returns the userAccount
      *
-     * @return \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userAccount
+     * @return \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userAccount
      */
     public function getUserAccount()
     {
         return $this->userAccount;
     }
-    
+
     /**
      * Sets the userAccount
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userAccount
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userAccount
      * @return void
      */
-    public function setUserAccount(\ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount $userAccount)
+    public function setUserAccount(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userAccount)
     {
         $this->userAccount = $userAccount;
     }

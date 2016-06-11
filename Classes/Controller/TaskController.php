@@ -29,7 +29,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * userAccountRepository
      *
-     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Repository\UserAccountRepository
+     * @var \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository
      * @inject
      */
     protected $userAccountRepository = null;

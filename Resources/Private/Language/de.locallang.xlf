@@ -146,7 +146,7 @@
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_template_user_config.set_default_context">
 				<source>Set Default Context</source>
-				<target state="translated">Setzte Kontext</target>
+				<target state="translated">Setze Kontext</target>
 			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_template_user_config.save_default_context">
 				<source>Save Default Context</source>
@@ -364,6 +364,10 @@
 			<trans-unit id="tx_twsimpleworklist_flash.testdata.created">
 				<source>Testdata created.</source>
 				<target state="translated">Testdaten erzeugt.</target>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_flash.userconfig.updated">
+				<source>The Default Context was changed.</source>
+				<target state="translated">Der Kontext wurde geändert.</target>
 			</trans-unit>
 		</body>
 	</file>
