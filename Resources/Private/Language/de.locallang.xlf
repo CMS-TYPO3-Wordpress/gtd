@@ -369,6 +369,22 @@
 				<source>The Default Context was changed.</source>
 				<target state="translated">Der Kontext wurde geändert.</target>
 			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_project.new">
+				<source>New Project</source>
+				<target state="translated">Neues Projekt</target>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_project.edit">
+				<source>Edit Project</source>
+				<target state="translated">Projekt bearbeiten</target>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_project_new.save">
+				<source>Create new</source>
+				<target state="translated">Neues Projekt speichern</target>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_project_edit.save">
+				<source>Save Project</source>
+				<target state="translated">Projekt speichern</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

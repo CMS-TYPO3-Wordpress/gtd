@@ -291,6 +291,18 @@
 			<trans-unit id="tx_twsimpleworklist_flash.userconfig.updated">
 				<source>The Default Context was changed.</source>
 			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_project.new">
+				<source>New Project</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_project.edit">
+				<source>Edit Project</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_project_new.save">
+				<source>Create new</source>
+			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_project_edit.save">
+				<source>Save Project</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
