@@ -6,7 +6,7 @@
 
 <f:flashMessages />
 
-<f:render partial="FormErrors" arguments="{object:UserMessage}" />
+<f:render partial="FormErrors" arguments="{object:newUserMessage}" />
 
 <f:form action="create" name="newUserMessage" object="{newUserMessage}">
 	<f:form.hidden name="sender" value="{thisUser}" />

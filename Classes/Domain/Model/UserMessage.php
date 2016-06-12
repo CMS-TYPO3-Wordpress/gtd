@@ -12,6 +12,9 @@ namespace ThomasWoehlke\TwSimpleworklist\Domain\Model;
  *
  ***/
 
+use TYPO3\CMS\Extbase\Validation\Validator\NotEmptyValidator;
+use TYPO3\CMS\Extbase\Validation\Validator\TextValidator;
+
 /**
  * UserMessage
  */
@@ -21,6 +24,7 @@ class UserMessage extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * messageText
      *
      * @var string
+     * @validate NotEmpty,Text
      */
     protected $messageText = '';
 

@@ -12,6 +12,9 @@ namespace ThomasWoehlke\TwSimpleworklist\Domain\Model;
  *
  ***/
 
+use TYPO3\CMS\Extbase\Validation\Validator\NotEmptyValidator;
+use TYPO3\CMS\Extbase\Validation\Validator\TextValidator;
+
 /**
  * Project
  */
@@ -28,6 +31,7 @@ class Project extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * name
      *
      * @var string
+     * @validate NotEmpty,Text
      */
     protected $name = '';
 
@@ -35,6 +39,7 @@ class Project extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * description
      *
      * @var string
+     * @validate NotEmpty,Text
      */
     protected $description = '';
 

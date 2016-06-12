@@ -12,7 +12,12 @@ namespace ThomasWoehlke\TwSimpleworklist\Domain\Model;
  *
  ***/
 
-/**
+use TYPO3\CMS\Extbase\Validation\Validator\NotEmptyValidator;
+use TYPO3\CMS\Extbase\Validation\Validator\TextValidator;
+use TYPO3\CMS\Extbase\Validation\Validator\NumberRangeValidator;
+use TYPO3\CMS\Extbase\Validation\Validator\DateTimeValidator;
+
+    /**
  * Task
  */
 class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
@@ -21,6 +26,8 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * title
      *
      * @var string
+     * @validate NotEmpty
+     * @validate Text
      */
     protected $title = '';
 
@@ -28,6 +35,8 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * text
      *
      * @var string
+     * @validate NotEmpty
+     * @validate Text
      */
     protected $text = '';
 
@@ -42,6 +51,7 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * taskState
      *
      * @var int
+     * @validate NumberRange(minimum = 0, maximum = 7)
      */
     protected $taskState = 0;
 
@@ -49,6 +59,7 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * lastTaskState
      *
      * @var int
+     * @validate NumberRange(minimum = 0, maximum = 7)
      */
     protected $lastTaskState = 0;
 
@@ -56,6 +67,7 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * taskEnergy
      *
      * @var int
+     * @validate NumberRange(minimum = 0, maximum = 3)
      */
     protected $taskEnergy = 0;
 
@@ -63,6 +75,7 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * taskTime
      *
      * @var int
+     * @validate NumberRange(minimum = 0, maximum = 12)
      */
     protected $taskTime = 0;
 
@@ -70,6 +83,7 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * dueDate
      *
      * @var \DateTime
+     * @validate DateTime
      */
     protected $dueDate = null;
 
