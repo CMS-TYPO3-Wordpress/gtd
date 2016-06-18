@@ -263,7 +263,12 @@ return [
 	        'label' => 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_task.project',
 	        'config' => [
 			    'type' => 'select',
-			    'renderType' => 'selectSingle',
+				'renderType' => 'selectTree',
+				'treeConfig' => [
+					'parentField' => 'parent',
+					'childrenField' => 'children',
+					'rootUid' => 0,
+				],
 			    'foreign_table' => 'tx_twsimpleworklist_domain_model_project',
 			    'minitems' => 0,
 			    'maxitems' => 1,
