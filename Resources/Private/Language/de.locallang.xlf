@@ -213,6 +213,9 @@
 			<trans-unit id="tx_twsimpleworklist_domain_model_project.parent">
 				<source>Parent</source>
 			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_domain_model_project.children">
+				<source>Children</source>
+			</trans-unit>
 			<trans-unit id="tx_twsimpleworklist_domain_model_task">
 				<source>Task</source>
 				<target state="translated">Aufgabe</target>
