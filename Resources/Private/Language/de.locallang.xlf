@@ -400,6 +400,10 @@
 				<source>Context deleted.</source>
 				<target state="translated">Kontext gelöscht</target>
 			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_layout_default.trash.empty">
+				<source>Empty Trash</source>
+				<target state="translated">Papierkorb leeren</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

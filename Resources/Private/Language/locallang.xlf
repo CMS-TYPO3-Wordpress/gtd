@@ -315,6 +315,9 @@
 			<trans-unit id="tx_twsimpleworklist_flash.context.deleted">
 				<source>Context deleted.</source>
 			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist_layout_default.trash.empty">
+				<source>Empty Trash</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
