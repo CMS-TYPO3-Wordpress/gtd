@@ -104,8 +104,8 @@ return [
                 ],
             ],
         ],
-        
-	
+
+
 	    'title' => [
 	        'exclude' => 1,
 	        'label' => 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_task.title',
@@ -114,7 +114,7 @@ return [
 			    'size' => 30,
 			    'eval' => 'trim'
 			],
-	        
+
 	    ],
 	    'text' => [
 	        'exclude' => 1,
@@ -125,7 +125,7 @@ return [
 			    'rows' => 15,
 			    'eval' => 'trim'
 			]
-	        
+
 	    ],
 	    'focus' => [
 	        'exclude' => 1,
@@ -134,7 +134,7 @@ return [
 			    'type' => 'check',
 			    'default' => 0
 			]
-	        
+
 	    ],
 	    'task_state' => [
 	        'exclude' => 1,
@@ -156,7 +156,7 @@ return [
 			    'maxitems' => 1,
 			    'eval' => ''
 			],
-	        
+
 	    ],
 	    'last_task_state' => [
 	        'exclude' => 1,
@@ -178,7 +178,7 @@ return [
 			    'maxitems' => 1,
 			    'eval' => ''
 			],
-	        
+
 	    ],
 	    'task_energy' => [
 	        'exclude' => 1,
@@ -196,7 +196,7 @@ return [
 			    'maxitems' => 1,
 			    'eval' => ''
 			],
-	        
+
 	    ],
 	    'task_time' => [
 	        'exclude' => 1,
@@ -223,7 +223,7 @@ return [
 			    'maxitems' => 1,
 			    'eval' => ''
 			],
-	        
+
 	    ],
 	    'due_date' => [
 	        'exclude' => 1,
@@ -236,7 +236,7 @@ return [
 			    'checkbox' => 0,
 			    'default' => '0000-00-00'
 			],
-	        
+
 	    ],
 	    'order_id_project' => [
 	        'exclude' => 1,
@@ -246,7 +246,7 @@ return [
 			    'size' => 4,
 			    'eval' => 'int'
 			]
-	        
+
 	    ],
 	    'order_id_task_state' => [
 	        'exclude' => 1,
@@ -256,7 +256,7 @@ return [
 			    'size' => 4,
 			    'eval' => 'int'
 			]
-	        
+
 	    ],
 	    'project' => [
 	        'exclude' => 1,
@@ -268,7 +268,7 @@ return [
 			    'minitems' => 0,
 			    'maxitems' => 1,
 			],
-	        
+
 	    ],
 	    'context' => [
 	        'exclude' => 1,
@@ -280,21 +280,21 @@ return [
 			    'minitems' => 0,
 			    'maxitems' => 1,
 			],
-	        
+
 	    ],
 	    'user_account' => [
 	        'exclude' => 1,
-	        'label' => 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_task.user_account',
+	        'label' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:fe_users.username',
 	        'config' => [
 			    'type' => 'select',
 			    'renderType' => 'selectSingle',
-			    'foreign_table' => 'tx_twsimpleworklist_domain_model_useraccount',
+			    'foreign_table' => 'fe_users',
 			    'minitems' => 0,
 			    'maxitems' => 1,
 			],
-	        
+
 	    ],
-        
+
     ],
 ];
 ## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder

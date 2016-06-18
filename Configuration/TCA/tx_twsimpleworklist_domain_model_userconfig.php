@@ -115,21 +115,21 @@ return [
 			    'minitems' => 0,
 			    'maxitems' => 1,
 			],
-	        
+
 	    ],
 	    'user_account' => [
 			'exclude' => 1,
-			'label' => 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_usermessage.receiver',
+			'label' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:fe_users.username',
 			'config' => [
 				'type' => 'select',
 				'renderType' => 'selectSingle',
-				'foreign_table' => 'tx_twsimpleworklist_domain_model_useraccount',
+				'foreign_table' => 'fe_users',
 				'minitems' => 0,
 				'maxitems' => 1,
 			],
-	        
+
 	    ],
-        
+
     ],
 ];
 ## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder

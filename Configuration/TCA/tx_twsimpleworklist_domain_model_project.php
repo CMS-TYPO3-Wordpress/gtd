@@ -104,8 +104,8 @@ return [
                 ],
             ],
         ],
-        
-	
+
+
 	    'name' => [
 	        'exclude' => 1,
 	        'label' => 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_project.name',
@@ -114,7 +114,7 @@ return [
 			    'size' => 30,
 			    'eval' => 'trim'
 			],
-	        
+
 	    ],
 	    'description' => [
 	        'exclude' => 1,
@@ -125,7 +125,7 @@ return [
 			    'rows' => 15,
 			    'eval' => 'trim'
 			]
-	        
+
 	    ],
 	    'context' => [
 	        'exclude' => 1,
@@ -137,19 +137,19 @@ return [
 			    'minitems' => 0,
 			    'maxitems' => 1,
 			],
-	        
+
 	    ],
 	    'user_account' => [
 	        'exclude' => 1,
-	        'label' => 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_project.user_account',
+	        'label' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:fe_users.username',
 	        'config' => [
 			    'type' => 'select',
 			    'renderType' => 'selectSingle',
-			    'foreign_table' => 'tx_twsimpleworklist_domain_model_useraccount',
+			    'foreign_table' => 'fe_users',
 			    'minitems' => 0,
 			    'maxitems' => 1,
 			],
-	        
+
 	    ],
 	    'parent' => [
 	        'exclude' => 1,
@@ -161,7 +161,7 @@ return [
 			    'minitems' => 0,
 			    'maxitems' => 1,
 			],
-	        
+
 	    ],
 	    'children' => [
 	        'exclude' => 1,
@@ -179,11 +179,11 @@ return [
 			        'showAllLocalizationLink' => 1
 			    ],
 			],
-			    
-			
-	        
+
+
+
 	    ],
-        
+
         'project3' => [
             'config' => [
                 'type' => 'passthrough',

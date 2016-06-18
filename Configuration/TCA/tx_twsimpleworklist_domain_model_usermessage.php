@@ -104,8 +104,8 @@ return [
                 ],
             ],
         ],
-        
-	
+
+
 	    'message_text' => [
 	        'exclude' => 1,
 	        'label' => 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_usermessage.message_text',
@@ -115,7 +115,7 @@ return [
 			    'rows' => 15,
 			    'eval' => 'trim'
 			]
-	        
+
 	    ],
 	    'read_by_receiver' => [
 	        'exclude' => 1,
@@ -124,7 +124,7 @@ return [
 			    'type' => 'check',
 			    'default' => 0
 			]
-	        
+
 	    ],
 	    'sender' => [
 	        'exclude' => 1,
@@ -132,11 +132,11 @@ return [
 	        'config' => [
 			    'type' => 'select',
 			    'renderType' => 'selectSingle',
-			    'foreign_table' => 'tx_twsimpleworklist_domain_model_useraccount',
+			    'foreign_table' => 'fe_users',
 			    'minitems' => 0,
 			    'maxitems' => 1,
 			],
-	        
+
 	    ],
 	    'receiver' => [
 	        'exclude' => 1,
@@ -144,13 +144,13 @@ return [
 	        'config' => [
 			    'type' => 'select',
 			    'renderType' => 'selectSingle',
-			    'foreign_table' => 'tx_twsimpleworklist_domain_model_useraccount',
+			    'foreign_table' => 'fe_users',
 			    'minitems' => 0,
 			    'maxitems' => 1,
 			],
-	        
+
 	    ],
-        
+
     ],
 ];
 ## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
