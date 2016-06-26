@@ -10,19 +10,6 @@ plugin.tx_twsimpleworklist_frontendsimpleworklist {
   }
   persistence {
     storagePid = {$plugin.tx_twsimpleworklist_frontendsimpleworklist.persistence.storagePid}
-    #recursive = 1
-    #classes {
-    #  ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount {
-    #    mapping {
-    #      tableName = fe_users
-    #      columns {
-    #        username.mapOnProperty = userEmail
-    #        password.mapOnProperty = userPassword
-    #        name.mapOnProperty = userFullname
-    #      }
-    #    }
-    #  }
-    #}
   }
   features {
     #skipDefaultArguments = 1
@@ -43,14 +30,25 @@ plugin.tx_twsimpleworklist._CSS_DEFAULT_STYLE (
         border: 1px #FF0000 solid;
     }
 
-    .typo3-messages .message-error {
+    #tw_simpleworklist .typo3-messages .message-error {
         color:red;
     }
 
-    .typo3-messages .message-ok {
+    #tw_simpleworklist .typo3-messages .message-ok {
         color:green;
     }
+
+    #tw_simpleworklist .nav > li > a {
+        padding: 5px 10px !important;
+    }
+
+    #tw_simpleworklist hr {
+      margin-top: 10px !important;
+      margin-bottom: 10px !important;
+    }
 )
+
+page.includeCSS.file1 = EXT:tw_simpleworklist/Resources/Public/Css/jquery-ui.css
 
 page.includeJSFooterlibs.jqueryui = http://code.jquery.com/ui/1.11.4/jquery-ui.js
 page.includeJSFooterlibs.jqueryui.external = 1

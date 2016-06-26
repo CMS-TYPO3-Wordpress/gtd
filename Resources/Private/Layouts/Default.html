@@ -1,5 +1,5 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-<div class="container">
+<div id="tw_simpleworklist" class="container">
 	<div class="row">
 		<div class="col-md-3">
 			<div class="well sidebar-nav">
@@ -11,14 +11,13 @@
 					<li><f:link.action id="focus_scheduled" controller="Task" action="scheduled"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> <f:translate key="tx_twsimpleworklist_layout_default.scheduled" /></f:link.action></li>
 					<li><f:link.action id="focus_someday" controller="Task" action="someday"><span class="glyphicon glyphicon-road" aria-hidden="true"></span> <f:translate key="tx_twsimpleworklist_layout_default.someday" /></f:link.action></li>
 					<li><f:link.action id="star" controller="Task" action="focus"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> <f:translate key="tx_twsimpleworklist_layout_default.focus" /></f:link.action></li>
+					<li><f:link.action id="focus_completed" controller="Task" action="completed"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> <f:translate key="tx_twsimpleworklist_layout_default.completed" /></f:link.action></li>
+					<li><f:link.action id="focus_trash" controller="Task" action="trash"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> <f:translate key="tx_twsimpleworklist_layout_default.trash" /></f:link.action></li>
 					<li><hr/></li>
 					<li>
 						<f:link.action id="categoryNode_0" class="categoryNode" controller="Project" action="show"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> <f:translate key="tx_twsimpleworklist_layout_default.projects" /></f:link.action>
 						<ul><f:render partial="Project/Navigation" arguments="{navProjects:rootProjects}" /></ul>
 					</li>
-					<li><hr/></li>
-					<li><f:link.action id="focus_completed" controller="Task" action="completed"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> <f:translate key="tx_twsimpleworklist_layout_default.completed" /></f:link.action></li>
-					<li><f:link.action id="focus_trash" controller="Task" action="trash"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> <f:translate key="tx_twsimpleworklist_layout_default.trash" /></f:link.action></li>
 					<li><hr/></li>
 					<li><f:link.action id="list_users" controller="UserAccount" action="list"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <f:translate key="tx_twsimpleworklist_layout_default.users" /></f:link.action></li>
 					<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-tags" aria-hidden="true"></span> <f:translate key="tx_twsimpleworklist_layout_default.context" /> ({currentContext.nameDe})<span class="caret"></span></a>
