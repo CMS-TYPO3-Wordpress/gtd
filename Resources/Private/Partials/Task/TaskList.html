@@ -71,7 +71,7 @@
                     <f:case value="12"><span class="badge">more</span></f:case>
                 </f:switch>
             </td>
-            <td>{task.dueDate -> f:format.date()}</td>
+            <td><f:format.date date="{task.dueDate}" format="{f:translate(key: 'tx_twsimpleworklist.date_format')}" /></td>
             <td>
                 <f:if condition="{task.project}">
                     <f:link.action controller="Project" action="show" arguments="{project:task.project}">{task.project.name}</f:link.action>

@@ -318,6 +318,9 @@
 			<trans-unit id="tx_twsimpleworklist_layout_default.trash.empty">
 				<source>Empty Trash</source>
 			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist.date_format">
+				<source>m/d/Y</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

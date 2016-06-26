@@ -404,6 +404,10 @@
 				<source>Empty Trash</source>
 				<target state="translated">Papierkorb leeren</target>
 			</trans-unit>
+			<trans-unit id="tx_twsimpleworklist.date_format">
+				<source>m/d/Y</source>
+				<target state="translated">d.m.Y</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
