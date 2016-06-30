@@ -17,16 +17,17 @@ Introduction
 What does it do?
 ----------------
 
-This chapter should give a brief overview of the extension. What does it do? What problems does it solve?
-Who is interested in this? Basically, this section includes everything people need to know to decide whether they
-should go on with this extension or not.
+TYPO3 Frontend User can use this Extension as Todo List for Timemanagement or Projectmanangement with the Getting Things Done Scheme by David Allen.
+
+David Allen wrote the Book "Getting Things Done - The Art of Stress-free productivity".
+More info about it: http://gettingthingsdone.com/
+
+More Info about GTD: https://en.wikipedia.org/wiki/Getting_Things_Done
 
 .. important::
+   GTD® and Getting Things Done® are registered trademarks of the David Allen Company.
+   SimpleWorklist is not affiliated with or endorsed by the David Allen Company.
 
-   Please don't forget to repeat your extension's version number in the
-   :file:`Settings.yml` file, in the :code:`release` property. It will be
-   automatically picked up on the cover page by the :code:`|release|`
-   substitution.
 
 
 .. _screenshots:
@@ -34,8 +35,7 @@ should go on with this extension or not.
 Screenshots
 -----------
 
-This chapter should help people figure how the extension works. Remove it
-if not relevant.
+Here are some Screenshots:
 
 .. figure:: ../Images/IntroductionPackage.png
    :width: 500px

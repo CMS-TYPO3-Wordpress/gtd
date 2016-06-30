@@ -27,7 +27,7 @@ SimpleWorklist
 		Your Todo-List for Getting Things Done
 
 	:Keywords:
-		Todo, Selfmanagement, Projectmanagement, Frontend, Getting Things Done
+		Todo, Timemanagement, Projectmanagement, Frontend, Getting Things Done
 
 	:Copyright:
 		2016
@@ -36,7 +36,7 @@ SimpleWorklist
 		Thomas Woehlke
 
 	:Email:
-		woehlke@faktura-berlin.de
+		thomas@woehlke.org
 
 	:License:
 		This document is published under the Open Content License

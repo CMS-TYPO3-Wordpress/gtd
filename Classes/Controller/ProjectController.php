@@ -2,7 +2,7 @@
 namespace ThomasWoehlke\TwSimpleworklist\Controller;
 
 use \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project;
-use ThomasWoehlke\TwSimpleworklist\Domain\Model\Task;
+use \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task;
 
 /***
  *
