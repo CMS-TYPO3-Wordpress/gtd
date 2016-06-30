@@ -1,4 +1,4 @@
-# tw_simpleworklist
+# gtd
 TYPO3 Extension for Getting Things Done GTD
 
 TYPO3 Frontend User can use this Extension as Todo List for Timemanagement or Projectmanangement with the Getting Things Done Scheme by David Allen.
