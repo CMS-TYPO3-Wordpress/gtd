@@ -11,7 +11,7 @@
  ***************************************************************/
 
 $EM_CONF[$_EXTKEY] = [
-    'title' => 'SimpleWorklist',
+    'title' => 'GTD',
     'description' => 'Your Todo-List for Getting Things Done',
     'category' => 'plugin',
     'author' => 'Thomas Woehlke',
