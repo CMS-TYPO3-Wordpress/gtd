@@ -114,34 +114,5 @@ class UserAccountControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
         $this->subject->deleteAction($userAccount);
     }
-
-    /**
-     * @test
-     */
-    public function editActionAssignsTheGivenUserAccountToView()
-    {
-        $userAccount = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount();
-
-        $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);
-        $this->inject($this->subject, 'view', $view);
-        $view->expects(self::once())->method('assign')->with('userAccount', $userAccount);
-
-        $this->subject->editAction($userAccount);
-    }
-
-
-    /**
-     * @test
-     */
-    public function editActionAssignsTheGivenUserAccountToView()
-    {
-        $userAccount = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount();
-
-        $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);
-        $this->inject($this->subject, 'view', $view);
-        $view->expects(self::once())->method('assign')->with('userAccount', $userAccount);
-
-        $this->subject->editAction($userAccount);
-    }
-
+    
 }
