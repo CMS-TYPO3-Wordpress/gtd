@@ -26,7 +26,7 @@ More Info about GTD: https://en.wikipedia.org/wiki/Getting_Things_Done
 
 .. important::
    GTD® and Getting Things Done® are registered trademarks of the David Allen Company.
-   SimpleWorklist is not affiliated with or endorsed by the David Allen Company.
+   GTD TYPO3 Extension is not affiliated with or endorsed by the David Allen Company.
 
 
 
