@@ -1,9 +1,9 @@
 <?php
-namespace ThomasWoehlke\TwSimpleworklist\Domain\Repository;
+namespace ThomasWoehlke\Gtd\Domain\Repository;
 
 /***
  *
- * This file is part of the "SimpleWorklist" Extension for TYPO3 CMS.
+ * This file is part of the "Getting Things Done" Extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
@@ -19,10 +19,10 @@ class ProjectRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
 
     /**
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $currentContext
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Context $currentContext
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function getRootProjects(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $currentContext)
+    public function getRootProjects(\ThomasWoehlke\Gtd\Domain\Model\Context $currentContext)
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->useQueryCache(FALSE);

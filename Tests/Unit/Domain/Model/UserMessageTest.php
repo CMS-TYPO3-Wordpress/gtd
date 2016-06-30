@@ -1,5 +1,5 @@
 <?php
-namespace ThomasWoehlke\TwSimpleworklist\Tests\Unit\Domain\Model;
+namespace ThomasWoehlke\Gtd\Tests\Unit\Domain\Model;
 
 /**
  * Test case.
@@ -9,13 +9,13 @@ namespace ThomasWoehlke\TwSimpleworklist\Tests\Unit\Domain\Model;
 class UserMessageTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
     /**
-     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserMessage
+     * @var \ThomasWoehlke\Gtd\Domain\Model\UserMessage
      */
     protected $subject = null;
 
     protected function setUp()
     {
-        $this->subject = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserMessage();
+        $this->subject = new \ThomasWoehlke\Gtd\Domain\Model\UserMessage();
     }
 
     protected function tearDown()
@@ -96,7 +96,7 @@ class UserMessageTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function setSenderForUserAccountSetsSender()
     {
-        $senderFixture = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount();
+        $senderFixture = new \ThomasWoehlke\Gtd\Domain\Model\UserAccount();
         $this->subject->setSender($senderFixture);
 
         self::assertAttributeEquals(
@@ -124,7 +124,7 @@ class UserMessageTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function setReceiverForUserAccountSetsReceiver()
     {
-        $receiverFixture = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount();
+        $receiverFixture = new \ThomasWoehlke\Gtd\Domain\Model\UserAccount();
         $this->subject->setReceiver($receiverFixture);
 
         self::assertAttributeEquals(

@@ -9,13 +9,13 @@
 .. _start:
 
 =============================================================
-SimpleWorklist
+Getting Things Done
 =============================================================
 
 .. only:: html
 
 	:Classification:
-		tw_simpleworklist
+		gtd
 
 	:Version:
 		|release|

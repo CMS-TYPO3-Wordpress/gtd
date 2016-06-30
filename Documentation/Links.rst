@@ -12,13 +12,13 @@ Links
 -----
 
 :TER:
-	https://typo3.org/extensions/repository/view/<extension key>
+	https://typo3.org/extensions/repository/view/gtd
 
 :Bug Tracker:
-	https://forge.typo3.org/projects/extension-<extension key>/issues
+	https://github.com/phasenraum2010/gtd/issues
 
 :Git Repository:
-	https://github.com/phasenraum2010/tw_simpleworklist
+	https://github.com/phasenraum2010/gtd
 
 :Contact:
 	`@ThomasWoehlke <https://twitter.com/ThomasWoehlke>`__

@@ -1,5 +1,5 @@
 <?php
-namespace ThomasWoehlke\TwSimpleworklist\Tests\Unit\Domain\Model;
+namespace ThomasWoehlke\Gtd\Tests\Unit\Domain\Model;
 
 /**
  * Test case.
@@ -9,13 +9,13 @@ namespace ThomasWoehlke\TwSimpleworklist\Tests\Unit\Domain\Model;
 class ProjectTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
     /**
-     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project
+     * @var \ThomasWoehlke\Gtd\Domain\Model\Project
      */
     protected $subject = null;
 
     protected function setUp()
     {
-        $this->subject = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project();
+        $this->subject = new \ThomasWoehlke\Gtd\Domain\Model\Project();
     }
 
     protected function tearDown()
@@ -96,7 +96,7 @@ class ProjectTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function setContextForContextSetsContext()
     {
-        $contextFixture = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context();
+        $contextFixture = new \ThomasWoehlke\Gtd\Domain\Model\Context();
         $this->subject->setContext($contextFixture);
 
         self::assertAttributeEquals(
@@ -124,7 +124,7 @@ class ProjectTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function setUserAccountForUserAccountSetsUserAccount()
     {
-        $userAccountFixture = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount();
+        $userAccountFixture = new \ThomasWoehlke\Gtd\Domain\Model\UserAccount();
         $this->subject->setUserAccount($userAccountFixture);
 
         self::assertAttributeEquals(
@@ -152,7 +152,7 @@ class ProjectTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function setParentForProjectSetsParent()
     {
-        $parentFixture = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project();
+        $parentFixture = new \ThomasWoehlke\Gtd\Domain\Model\Project();
         $this->subject->setParent($parentFixture);
 
         self::assertAttributeEquals(
@@ -181,7 +181,7 @@ class ProjectTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function setChildrenForObjectStorageContainingProjectSetsChildren()
     {
-        $child = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project();
+        $child = new \ThomasWoehlke\Gtd\Domain\Model\Project();
         $objectStorageHoldingExactlyOneChildren = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $objectStorageHoldingExactlyOneChildren->attach($child);
         $this->subject->setChildren($objectStorageHoldingExactlyOneChildren);
@@ -199,7 +199,7 @@ class ProjectTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function addChildToObjectStorageHoldingChildren()
     {
-        $child = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project();
+        $child = new \ThomasWoehlke\Gtd\Domain\Model\Project();
         $childrenObjectStorageMock = $this->getMock(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class, ['attach'], [], '', false);
         $childrenObjectStorageMock->expects(self::once())->method('attach')->with(self::equalTo($child));
         $this->inject($this->subject, 'children', $childrenObjectStorageMock);
@@ -212,7 +212,7 @@ class ProjectTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function removeChildFromObjectStorageHoldingChildren()
     {
-        $child = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project();
+        $child = new \ThomasWoehlke\Gtd\Domain\Model\Project();
         $childrenObjectStorageMock = $this->getMock(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class, ['detach'], [], '', false);
         $childrenObjectStorageMock->expects(self::once())->method('detach')->with(self::equalTo($child));
         $this->inject($this->subject, 'children', $childrenObjectStorageMock);

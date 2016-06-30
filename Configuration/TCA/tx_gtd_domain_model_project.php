@@ -1,8 +1,8 @@
 <?php
 return [
     'ctrl' => [
-        'title'	=> 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_userconfig',
-        'label' => 'default_context',
+        'title'	=> 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_project',
+        'label' => 'name',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
@@ -19,14 +19,14 @@ return [
 			'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => 'default_context,user_account,',
-        'iconfile' => 'EXT:tw_simpleworklist/Resources/Public/Icons/tx_twsimpleworklist_domain_model_userconfig.gif'
+        'searchFields' => 'name,description,context,user_account,parent,children,',
+        'iconfile' => 'EXT:gtd/Resources/Public/Icons/tx_gtd_domain_model_project.gif'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, default_context, user_account',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, description, context, user_account, parent, children',
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, default_context, user_account, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, description, context, user_account, parent, children, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -48,8 +48,8 @@ return [
                 'items' => [
                     ['', 0],
                 ],
-                'foreign_table' => 'tx_twsimpleworklist_domain_model_userconfig',
-                'foreign_table_where' => 'AND tx_twsimpleworklist_domain_model_userconfig.pid=###CURRENT_PID### AND tx_twsimpleworklist_domain_model_userconfig.sys_language_uid IN (-1,0)',
+                'foreign_table' => 'tx_gtd_domain_model_project',
+                'foreign_table_where' => 'AND tx_gtd_domain_model_project.pid=###CURRENT_PID### AND tx_gtd_domain_model_project.sys_language_uid IN (-1,0)',
             ],
         ],
         'l10n_diffsource' => [
@@ -105,31 +105,95 @@ return [
             ],
         ],
 
-	    'default_context' => [
+
+	    'name' => [
 	        'exclude' => 1,
-	        'label' => 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_userconfig.default_context',
+	        'label' => 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_project.name',
+	        'config' => [
+			    'type' => 'input',
+			    'size' => 30,
+			    'eval' => 'trim'
+			],
+
+	    ],
+	    'description' => [
+	        'exclude' => 1,
+	        'label' => 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_project.description',
+	        'config' => [
+			    'type' => 'text',
+			    'cols' => 40,
+			    'rows' => 15,
+			    'eval' => 'trim'
+			]
+
+	    ],
+	    'context' => [
+	        'exclude' => 1,
+	        'label' => 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_project.context',
 	        'config' => [
 			    'type' => 'select',
 			    'renderType' => 'selectSingle',
-			    'foreign_table' => 'tx_twsimpleworklist_domain_model_context',
+			    'foreign_table' => 'tx_gtd_domain_model_context',
 			    'minitems' => 0,
 			    'maxitems' => 1,
 			],
 
 	    ],
 	    'user_account' => [
-			'exclude' => 1,
-			'label' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:fe_users.username',
-			'config' => [
-				'type' => 'select',
-				'renderType' => 'selectSingle',
-				'foreign_table' => 'fe_users',
-				'minitems' => 0,
-				'maxitems' => 1,
+	        'exclude' => 1,
+	        'label' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:fe_users.username',
+	        'config' => [
+			    'type' => 'select',
+			    'renderType' => 'selectSingle',
+			    'foreign_table' => 'fe_users',
+			    'minitems' => 0,
+			    'maxitems' => 1,
 			],
 
 	    ],
+	    'parent' => [
+	        'exclude' => 1,
+	        'label' => 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_project.parent',
+	        'config' => [
+			    'type' => 'select',
+			    'renderType' => 'selectTree',
+				'treeConfig' => [
+					'parentField' => 'parent',
+					'childrenField' => 'children',
+					'rootUid' => 0,
+				],
+			    'foreign_table' => 'tx_gtd_domain_model_project',
+			    'minitems' => 0,
+			    'maxitems' => 1,
+			],
 
+	    ],
+	    'children' => [
+	        'exclude' => 1,
+	        'label' => 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_project.children',
+	        'config' => [
+			    'type' => 'inline',
+			    'foreign_table' => 'tx_gtd_domain_model_project',
+			    'foreign_field' => 'project3',
+			    'maxitems' => 9999,
+			    'appearance' => [
+			        'collapseAll' => 0,
+			        'levelLinksPosition' => 'top',
+			        'showSynchronizationLink' => 1,
+			        'showPossibleLocalizationRecords' => 1,
+			        'showAllLocalizationLink' => 1
+			    ],
+			],
+
+
+
+	    ],
+
+        'project3' => [
+            'config' => [
+                'type' => 'passthrough',
+            ],
+        ],
     ],
 ];
 ## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder

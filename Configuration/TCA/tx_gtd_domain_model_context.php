@@ -1,8 +1,8 @@
 <?php
 return [
     'ctrl' => [
-        'title'	=> 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_project',
-        'label' => 'name',
+        'title'	=> 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_context',
+        'label' => 'name_de',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
@@ -19,14 +19,14 @@ return [
 			'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => 'name,description,context,user_account,parent,children,',
-        'iconfile' => 'EXT:tw_simpleworklist/Resources/Public/Icons/tx_twsimpleworklist_domain_model_project.gif'
+        'searchFields' => 'name_de,name_en,user_account,',
+        'iconfile' => 'EXT:gtd/Resources/Public/Icons/tx_gtd_domain_model_context.gif'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, description, context, user_account, parent, children',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name_de, name_en, user_account',
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, description, context, user_account, parent, children, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name_de, name_en, user_account, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -48,8 +48,8 @@ return [
                 'items' => [
                     ['', 0],
                 ],
-                'foreign_table' => 'tx_twsimpleworklist_domain_model_project',
-                'foreign_table_where' => 'AND tx_twsimpleworklist_domain_model_project.pid=###CURRENT_PID### AND tx_twsimpleworklist_domain_model_project.sys_language_uid IN (-1,0)',
+                'foreign_table' => 'tx_gtd_domain_model_context',
+                'foreign_table_where' => 'AND tx_gtd_domain_model_context.pid=###CURRENT_PID### AND tx_gtd_domain_model_context.sys_language_uid IN (-1,0)',
             ],
         ],
         'l10n_diffsource' => [
@@ -106,9 +106,9 @@ return [
         ],
 
 
-	    'name' => [
+	    'name_de' => [
 	        'exclude' => 1,
-	        'label' => 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_project.name',
+	        'label' => 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_context.name_de',
 	        'config' => [
 			    'type' => 'input',
 			    'size' => 30,
@@ -116,26 +116,13 @@ return [
 			],
 
 	    ],
-	    'description' => [
+	    'name_en' => [
 	        'exclude' => 1,
-	        'label' => 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_project.description',
+	        'label' => 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_context.name_en',
 	        'config' => [
-			    'type' => 'text',
-			    'cols' => 40,
-			    'rows' => 15,
+			    'type' => 'input',
+			    'size' => 30,
 			    'eval' => 'trim'
-			]
-
-	    ],
-	    'context' => [
-	        'exclude' => 1,
-	        'label' => 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_project.context',
-	        'config' => [
-			    'type' => 'select',
-			    'renderType' => 'selectSingle',
-			    'foreign_table' => 'tx_twsimpleworklist_domain_model_context',
-			    'minitems' => 0,
-			    'maxitems' => 1,
 			],
 
 	    ],
@@ -151,49 +138,7 @@ return [
 			],
 
 	    ],
-	    'parent' => [
-	        'exclude' => 1,
-	        'label' => 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_project.parent',
-	        'config' => [
-			    'type' => 'select',
-			    'renderType' => 'selectTree',
-				'treeConfig' => [
-					'parentField' => 'parent',
-					'childrenField' => 'children',
-					'rootUid' => 0,
-				],
-			    'foreign_table' => 'tx_twsimpleworklist_domain_model_project',
-			    'minitems' => 0,
-			    'maxitems' => 1,
-			],
 
-	    ],
-	    'children' => [
-	        'exclude' => 1,
-	        'label' => 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_project.children',
-	        'config' => [
-			    'type' => 'inline',
-			    'foreign_table' => 'tx_twsimpleworklist_domain_model_project',
-			    'foreign_field' => 'project3',
-			    'maxitems' => 9999,
-			    'appearance' => [
-			        'collapseAll' => 0,
-			        'levelLinksPosition' => 'top',
-			        'showSynchronizationLink' => 1,
-			        'showPossibleLocalizationRecords' => 1,
-			        'showAllLocalizationLink' => 1
-			    ],
-			],
-
-
-
-	    ],
-
-        'project3' => [
-            'config' => [
-                'type' => 'passthrough',
-            ],
-        ],
     ],
 ];
 ## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder

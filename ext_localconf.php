@@ -7,7 +7,7 @@ call_user_func(
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
             'ThomasWoehlke.' . $extKey,
-            'Frontendsimpleworklist',
+            'Frontendgtd',
             [
                 'UserAccount' => 'list',
                 'UserMessage' => 'list, create',

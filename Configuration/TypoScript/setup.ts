@@ -1,15 +1,15 @@
 
-plugin.tx_twsimpleworklist_frontendsimpleworklist {
+plugin.tx_gtd_frontendgtd {
   view {
-    templateRootPaths.0 = EXT:tw_simpleworklist/Resources/Private/Templates/
-    templateRootPaths.1 = {$plugin.tx_twsimpleworklist_frontendsimpleworklist.view.templateRootPath}
-    partialRootPaths.0 = EXT:tw_simpleworklist/Resources/Private/Partials/
-    partialRootPaths.1 = {$plugin.tx_twsimpleworklist_frontendsimpleworklist.view.partialRootPath}
-    layoutRootPaths.0 = EXT:tw_simpleworklist/Resources/Private/Layouts/
-    layoutRootPaths.1 = {$plugin.tx_twsimpleworklist_frontendsimpleworklist.view.layoutRootPath}
+    templateRootPaths.0 = EXT:gtd/Resources/Private/Templates/
+    templateRootPaths.1 = {$plugin.tx_gtd_frontendgtd.view.templateRootPath}
+    partialRootPaths.0 = EXT:gtd/Resources/Private/Partials/
+    partialRootPaths.1 = {$plugin.tx_gtd_frontendgtd.view.partialRootPath}
+    layoutRootPaths.0 = EXT:gtd/Resources/Private/Layouts/
+    layoutRootPaths.1 = {$plugin.tx_gtd_frontendgtd.view.layoutRootPath}
   }
   persistence {
-    storagePid = {$plugin.tx_twsimpleworklist_frontendsimpleworklist.persistence.storagePid}
+    storagePid = {$plugin.tx_gtd_frontendgtd.persistence.storagePid}
   }
   features {
     #skipDefaultArguments = 1
@@ -19,7 +19,7 @@ plugin.tx_twsimpleworklist_frontendsimpleworklist {
   }
 }
 
-plugin.tx_twsimpleworklist._CSS_DEFAULT_STYLE (
+plugin.tx_gtd._CSS_DEFAULT_STYLE (
     textarea.f3-form-error {
         background-color:#FF9F9F;
         border: 1px #FF0000 solid;
@@ -30,25 +30,25 @@ plugin.tx_twsimpleworklist._CSS_DEFAULT_STYLE (
         border: 1px #FF0000 solid;
     }
 
-    #tw_simpleworklist .typo3-messages .message-error {
+    #tx-gtd .typo3-messages .message-error {
         color:red;
     }
 
-    #tw_simpleworklist .typo3-messages .message-ok {
+    #tx-gtd .typo3-messages .message-ok {
         color:green;
     }
 
-    #tw_simpleworklist .nav > li > a {
+    #tx-gtd .nav > li > a {
         padding: 5px 10px !important;
     }
 
-    #tw_simpleworklist hr {
+    #tx-gtd hr {
       margin-top: 10px !important;
       margin-bottom: 10px !important;
     }
 )
 
-page.includeCSS.file1 = EXT:tw_simpleworklist/Resources/Public/Css/jquery-ui.css
+page.includeCSS.file1 = EXT:gtd/Resources/Public/Css/jquery-ui.css
 
 page.includeJSFooterlibs.jqueryui = http://code.jquery.com/ui/1.11.4/jquery-ui.js
 page.includeJSFooterlibs.jqueryui.external = 1
@@ -66,11 +66,11 @@ page.jsInline.999.value (
               var rootUrl = $(location).attr('pathname');
               var html4move = "";
               if(draggableType == "dataDetail" || draggableType == "dataDetailProject"){
-                  rootUrl = rootUrl + "?tx_twsimpleworklist_frontendsimpleworklist[action]=moveTask";
-                  html4move = rootUrl + '&tx_twsimpleworklist_frontendsimpleworklist[srcTask]=' + draggableId + '&tx_twsimpleworklist_frontendsimpleworklist[targetProject]=' + selfId+'&tx_twsimpleworklist_frontendsimpleworklist[controller]=Project';
+                  rootUrl = rootUrl + "?tx_gtd_frontendgtd[action]=moveTask";
+                  html4move = rootUrl + '&tx_gtd_frontendgtd[srcTask]=' + draggableId + '&tx_gtd_frontendgtd[targetProject]=' + selfId+'&tx_gtd_frontendgtd[controller]=Project';
               } else {
-                  rootUrl = rootUrl + "?tx_twsimpleworklist_frontendsimpleworklist[action]=moveProject";
-                  html4move = rootUrl + '&tx_twsimpleworklist_frontendsimpleworklist[srcProject]=' + draggableId + '&tx_twsimpleworklist_frontendsimpleworklist[targetProject]=' + selfId+'&tx_twsimpleworklist_frontendsimpleworklist[controller]=Project';
+                  rootUrl = rootUrl + "?tx_gtd_frontendgtd[action]=moveProject";
+                  html4move = rootUrl + '&tx_gtd_frontendgtd[srcProject]=' + draggableId + '&tx_gtd_frontendgtd[targetProject]=' + selfId+'&tx_gtd_frontendgtd[controller]=Project';
               }
               window.location.replace(html4move);
           }
@@ -82,11 +82,11 @@ page.jsInline.999.value (
               var draggableType = ""+ui.draggable.attr("id").split("_")[0];
               var rootUrl = $(location).attr('pathname');
               if(draggableType == "dataDetail") {
-                  rootUrl = rootUrl + "?tx_twsimpleworklist_frontendsimpleworklist[action]=moveTaskOrder";
+                  rootUrl = rootUrl + "?tx_gtd_frontendgtd[action]=moveTaskOrder";
               } else if(draggableType == "dataDetailProject") {
-                  rootUrl = rootUrl + "?tx_twsimpleworklist_frontendsimpleworklist[action]=moveTaskOrderInsideProject";
+                  rootUrl = rootUrl + "?tx_gtd_frontendgtd[action]=moveTaskOrderInsideProject";
               }
-              var html4move = rootUrl + '&tx_twsimpleworklist_frontendsimpleworklist[srcTask]=' + draggableId + '&tx_twsimpleworklist_frontendsimpleworklist[targetTask]=' + selfId+'&tx_twsimpleworklist_frontendsimpleworklist[controller]=Task';
+              var html4move = rootUrl + '&tx_gtd_frontendgtd[srcTask]=' + draggableId + '&tx_gtd_frontendgtd[targetTask]=' + selfId+'&tx_gtd_frontendgtd[controller]=Task';
               window.location.replace(html4move);
           }
       });
@@ -97,7 +97,7 @@ page.jsInline.999.value (
               var draggableType = ""+ui.draggable.attr("id").split("_")[0];
               var rootUrl = $(location).attr('pathname');
               if(draggableType == "dataDetail" || draggableType == "dataDetailProject"){
-                  var html4move = rootUrl+"?tx_twsimpleworklist_frontendsimpleworklist[task]="+draggableId+"&tx_twsimpleworklist_frontendsimpleworklist[action]=moveToInbox&tx_twsimpleworklist_frontendsimpleworklist[controller]=Task";
+                  var html4move = rootUrl+"?tx_gtd_frontendgtd[task]="+draggableId+"&tx_gtd_frontendgtd[action]=moveToInbox&tx_gtd_frontendgtd[controller]=Task";
                   window.location.replace(html4move);
               }
           }
@@ -109,7 +109,7 @@ page.jsInline.999.value (
               var draggableType = ""+ui.draggable.attr("id").split("_")[0];
               var rootUrl = $(location).attr('pathname');
               if(draggableType == "dataDetail" || draggableType == "dataDetailProject"){
-                  var html4move = rootUrl+"?tx_twsimpleworklist_frontendsimpleworklist[task]="+draggableId+"&tx_twsimpleworklist_frontendsimpleworklist[action]=moveToToday&tx_twsimpleworklist_frontendsimpleworklist[controller]=Task";
+                  var html4move = rootUrl+"?tx_gtd_frontendgtd[task]="+draggableId+"&tx_gtd_frontendgtd[action]=moveToToday&tx_gtd_frontendgtd[controller]=Task";
                   window.location.replace(html4move);
               }
           }
@@ -121,7 +121,7 @@ page.jsInline.999.value (
               var draggableType = ""+ui.draggable.attr("id").split("_")[0];
               var rootUrl = $(location).attr('pathname');
               if(draggableType == "dataDetail" || draggableType == "dataDetailProject"){
-                  var html4move = rootUrl+"?tx_twsimpleworklist_frontendsimpleworklist[task]="+draggableId+"&tx_twsimpleworklist_frontendsimpleworklist[action]=moveToNext&tx_twsimpleworklist_frontendsimpleworklist[controller]=Task";
+                  var html4move = rootUrl+"?tx_gtd_frontendgtd[task]="+draggableId+"&tx_gtd_frontendgtd[action]=moveToNext&tx_gtd_frontendgtd[controller]=Task";
                   window.location.replace(html4move);
               }
           }
@@ -133,7 +133,7 @@ page.jsInline.999.value (
               var draggableType = ""+ui.draggable.attr("id").split("_")[0];
               var rootUrl = $(location).attr('pathname');
               if(draggableType == "dataDetail" || draggableType == "dataDetailProject"){
-                  var html4move = rootUrl+"?tx_twsimpleworklist_frontendsimpleworklist[task]="+draggableId+"&tx_twsimpleworklist_frontendsimpleworklist[action]=moveToWaiting&tx_twsimpleworklist_frontendsimpleworklist[controller]=Task";
+                  var html4move = rootUrl+"?tx_gtd_frontendgtd[task]="+draggableId+"&tx_gtd_frontendgtd[action]=moveToWaiting&tx_gtd_frontendgtd[controller]=Task";
                   window.location.replace(html4move);
               }
           }
@@ -145,7 +145,7 @@ page.jsInline.999.value (
               var draggableType = ""+ui.draggable.attr("id").split("_")[0];
               var rootUrl = $(location).attr('pathname');
               if(draggableType == "dataDetail" || draggableType == "dataDetailProject"){
-                  var html4move = rootUrl+"?tx_twsimpleworklist_frontendsimpleworklist[task]="+draggableId+"&tx_twsimpleworklist_frontendsimpleworklist[action]=moveToSomeday&tx_twsimpleworklist_frontendsimpleworklist[controller]=Task";
+                  var html4move = rootUrl+"?tx_gtd_frontendgtd[task]="+draggableId+"&tx_gtd_frontendgtd[action]=moveToSomeday&tx_gtd_frontendgtd[controller]=Task";
                   window.location.replace(html4move);
               }
           }
@@ -157,7 +157,7 @@ page.jsInline.999.value (
               var draggableType = ""+ui.draggable.attr("id").split("_")[0];
               var rootUrl = $(location).attr('pathname');
               if(draggableType == "dataDetail" || draggableType == "dataDetailProject"){
-                  var html4move = rootUrl+"?tx_twsimpleworklist_frontendsimpleworklist[task]="+draggableId+"&tx_twsimpleworklist_frontendsimpleworklist[action]=moveToCompleted&tx_twsimpleworklist_frontendsimpleworklist[controller]=Task";
+                  var html4move = rootUrl+"?tx_gtd_frontendgtd[task]="+draggableId+"&tx_gtd_frontendgtd[action]=moveToCompleted&tx_gtd_frontendgtd[controller]=Task";
                   window.location.replace(html4move);
               }
           }
@@ -169,7 +169,7 @@ page.jsInline.999.value (
               var draggableType = ""+ui.draggable.attr("id").split("_")[0];
               var rootUrl = $(location).attr('pathname');
               if(draggableType == "dataDetail" || draggableType == "dataDetailProject"){
-                  var html4move = rootUrl+"?tx_twsimpleworklist_frontendsimpleworklist[task]="+draggableId+"&tx_twsimpleworklist_frontendsimpleworklist[action]=moveToTrash&tx_twsimpleworklist_frontendsimpleworklist[controller]=Task";
+                  var html4move = rootUrl+"?tx_gtd_frontendgtd[task]="+draggableId+"&tx_gtd_frontendgtd[action]=moveToTrash&tx_gtd_frontendgtd[controller]=Task";
                   window.location.replace(html4move);
               }
           }

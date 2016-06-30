@@ -1,5 +1,5 @@
 <?php
-namespace ThomasWoehlke\TwSimpleworklist\Tests\Unit\Controller;
+namespace ThomasWoehlke\Gtd\Tests\Unit\Controller;
 
 /**
  * Test case.
@@ -9,13 +9,13 @@ namespace ThomasWoehlke\TwSimpleworklist\Tests\Unit\Controller;
 class ProjectControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
     /**
-     * @var \ThomasWoehlke\TwSimpleworklist\Controller\ProjectController
+     * @var \ThomasWoehlke\Gtd\Controller\ProjectController
      */
     protected $subject = null;
 
     protected function setUp()
     {
-        $this->subject = $this->getMock(\ThomasWoehlke\TwSimpleworklist\Controller\ProjectController::class, ['redirect', 'forward', 'addFlashMessage'], [], '', false);
+        $this->subject = $this->getMock(\ThomasWoehlke\Gtd\Controller\ProjectController::class, ['redirect', 'forward', 'addFlashMessage'], [], '', false);
     }
 
     protected function tearDown()
@@ -33,7 +33,7 @@ class ProjectControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
         $allProjects = $this->getMock(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class, [], [], '', false);
 
-        $projectRepository = $this->getMock(\ThomasWoehlke\TwSimpleworklist\Domain\Repository\ProjectRepository::class, ['findAll'], [], '', false);
+        $projectRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\ProjectRepository::class, ['findAll'], [], '', false);
         $projectRepository->expects(self::once())->method('findAll')->will(self::returnValue($allProjects));
         $this->inject($this->subject, 'projectRepository', $projectRepository);
 
@@ -49,7 +49,7 @@ class ProjectControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function showActionAssignsTheGivenProjectToView()
     {
-        $project = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project();
+        $project = new \ThomasWoehlke\Gtd\Domain\Model\Project();
 
         $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);
         $this->inject($this->subject, 'view', $view);
@@ -63,9 +63,9 @@ class ProjectControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function createActionAddsTheGivenProjectToProjectRepository()
     {
-        $project = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project();
+        $project = new \ThomasWoehlke\Gtd\Domain\Model\Project();
 
-        $projectRepository = $this->getMock(\ThomasWoehlke\TwSimpleworklist\Domain\Repository\ProjectRepository::class, ['add'], [], '', false);
+        $projectRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\ProjectRepository::class, ['add'], [], '', false);
         $projectRepository->expects(self::once())->method('add')->with($project);
         $this->inject($this->subject, 'projectRepository', $projectRepository);
 
@@ -77,7 +77,7 @@ class ProjectControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function editActionAssignsTheGivenProjectToView()
     {
-        $project = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project();
+        $project = new \ThomasWoehlke\Gtd\Domain\Model\Project();
 
         $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);
         $this->inject($this->subject, 'view', $view);
@@ -92,9 +92,9 @@ class ProjectControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function updateActionUpdatesTheGivenProjectInProjectRepository()
     {
-        $project = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project();
+        $project = new \ThomasWoehlke\Gtd\Domain\Model\Project();
 
-        $projectRepository = $this->getMock(\ThomasWoehlke\TwSimpleworklist\Domain\Repository\ProjectRepository::class, ['update'], [], '', false);
+        $projectRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\ProjectRepository::class, ['update'], [], '', false);
         $projectRepository->expects(self::once())->method('update')->with($project);
         $this->inject($this->subject, 'projectRepository', $projectRepository);
 
@@ -106,9 +106,9 @@ class ProjectControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function deleteActionRemovesTheGivenProjectFromProjectRepository()
     {
-        $project = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project();
+        $project = new \ThomasWoehlke\Gtd\Domain\Model\Project();
 
-        $projectRepository = $this->getMock(\ThomasWoehlke\TwSimpleworklist\Domain\Repository\ProjectRepository::class, ['remove'], [], '', false);
+        $projectRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\ProjectRepository::class, ['remove'], [], '', false);
         $projectRepository->expects(self::once())->method('remove')->with($project);
         $this->inject($this->subject, 'projectRepository', $projectRepository);
 

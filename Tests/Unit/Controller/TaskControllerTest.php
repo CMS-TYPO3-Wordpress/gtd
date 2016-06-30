@@ -1,5 +1,5 @@
 <?php
-namespace ThomasWoehlke\TwSimpleworklist\Tests\Unit\Controller;
+namespace ThomasWoehlke\Gtd\Tests\Unit\Controller;
 
 /**
  * Test case.
@@ -9,13 +9,13 @@ namespace ThomasWoehlke\TwSimpleworklist\Tests\Unit\Controller;
 class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
     /**
-     * @var \ThomasWoehlke\TwSimpleworklist\Controller\TaskController
+     * @var \ThomasWoehlke\Gtd\Controller\TaskController
      */
     protected $subject = null;
 
     protected function setUp()
     {
-        $this->subject = $this->getMock(\ThomasWoehlke\TwSimpleworklist\Controller\TaskController::class, ['redirect', 'forward', 'addFlashMessage'], [], '', false);
+        $this->subject = $this->getMock(\ThomasWoehlke\Gtd\Controller\TaskController::class, ['redirect', 'forward', 'addFlashMessage'], [], '', false);
     }
 
     protected function tearDown()
@@ -33,7 +33,7 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
         $allTasks = $this->getMock(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class, [], [], '', false);
 
-        $taskRepository = $this->getMock(\ThomasWoehlke\TwSimpleworklist\Domain\Repository\TaskRepository::class, ['findAll'], [], '', false);
+        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['findAll'], [], '', false);
         $taskRepository->expects(self::once())->method('findAll')->will(self::returnValue($allTasks));
         $this->inject($this->subject, 'taskRepository', $taskRepository);
 
@@ -49,7 +49,7 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function showActionAssignsTheGivenTaskToView()
     {
-        $task = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task();
+        $task = new \ThomasWoehlke\Gtd\Domain\Model\Task();
 
         $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);
         $this->inject($this->subject, 'view', $view);
@@ -63,9 +63,9 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function createActionAddsTheGivenTaskToTaskRepository()
     {
-        $task = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task();
+        $task = new \ThomasWoehlke\Gtd\Domain\Model\Task();
 
-        $taskRepository = $this->getMock(\ThomasWoehlke\TwSimpleworklist\Domain\Repository\TaskRepository::class, ['add'], [], '', false);
+        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['add'], [], '', false);
         $taskRepository->expects(self::once())->method('add')->with($task);
         $this->inject($this->subject, 'taskRepository', $taskRepository);
 
@@ -77,7 +77,7 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function editActionAssignsTheGivenTaskToView()
     {
-        $task = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task();
+        $task = new \ThomasWoehlke\Gtd\Domain\Model\Task();
 
         $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);
         $this->inject($this->subject, 'view', $view);
@@ -92,9 +92,9 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function updateActionUpdatesTheGivenTaskInTaskRepository()
     {
-        $task = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task();
+        $task = new \ThomasWoehlke\Gtd\Domain\Model\Task();
 
-        $taskRepository = $this->getMock(\ThomasWoehlke\TwSimpleworklist\Domain\Repository\TaskRepository::class, ['update'], [], '', false);
+        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['update'], [], '', false);
         $taskRepository->expects(self::once())->method('update')->with($task);
         $this->inject($this->subject, 'taskRepository', $taskRepository);
 
@@ -106,9 +106,9 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function deleteActionRemovesTheGivenTaskFromTaskRepository()
     {
-        $task = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task();
+        $task = new \ThomasWoehlke\Gtd\Domain\Model\Task();
 
-        $taskRepository = $this->getMock(\ThomasWoehlke\TwSimpleworklist\Domain\Repository\TaskRepository::class, ['remove'], [], '', false);
+        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['remove'], [], '', false);
         $taskRepository->expects(self::once())->method('remove')->with($task);
         $this->inject($this->subject, 'taskRepository', $taskRepository);
 

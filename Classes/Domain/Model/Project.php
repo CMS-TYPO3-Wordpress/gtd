@@ -1,9 +1,9 @@
 <?php
-namespace ThomasWoehlke\TwSimpleworklist\Domain\Model;
+namespace ThomasWoehlke\Gtd\Domain\Model;
 
 /***
  *
- * This file is part of the "SimpleWorklist" Extension for TYPO3 CMS.
+ * This file is part of the "Getting Things Done" Extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
@@ -23,7 +23,7 @@ class Project extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * children
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ThomasWoehlke\Gtd\Domain\Model\Project>
      */
     protected $children = NULL;
 
@@ -46,7 +46,7 @@ class Project extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * context
      *
-     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context
+     * @var \ThomasWoehlke\Gtd\Domain\Model\Context
      */
     protected $context = null;
 
@@ -60,7 +60,7 @@ class Project extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * parent
      *
-     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project
+     * @var \ThomasWoehlke\Gtd\Domain\Model\Project
      */
     protected $parent = null;
 
@@ -89,10 +89,10 @@ class Project extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Adds a Project
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $child
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Project $child
      * @return void
      */
-    public function addChild(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $child)
+    public function addChild(\ThomasWoehlke\Gtd\Domain\Model\Project $child)
     {
         $this->children->attach($child);
     }
@@ -100,11 +100,11 @@ class Project extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Removes a Project
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $child
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Project $child
      * @return void
      */
     public function removeChild(
-        \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $childToRemove)
+        \ThomasWoehlke\Gtd\Domain\Model\Project $childToRemove)
     {
         $this->children->detach($childToRemove);
     }
@@ -112,7 +112,7 @@ class Project extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the children
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project>
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ThomasWoehlke\Gtd\Domain\Model\Project>
      */
     public function getChildren()
     {
@@ -122,7 +122,7 @@ class Project extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the children
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project> $children
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\ThomasWoehlke\Gtd\Domain\Model\Project> $children
      * @return void
      */
     public function setChildren(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $children)
@@ -175,7 +175,7 @@ class Project extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the context
      *
-     * @return \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $context
+     * @return \ThomasWoehlke\Gtd\Domain\Model\Context $context
      */
     public function getContext()
     {
@@ -185,10 +185,10 @@ class Project extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the context
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $context
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Context $context
      * @return void
      */
-    public function setContext(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $context)
+    public function setContext(\ThomasWoehlke\Gtd\Domain\Model\Context $context)
     {
         $this->context = $context;
     }
@@ -217,7 +217,7 @@ class Project extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the parent
      *
-     * @return \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $parent
+     * @return \ThomasWoehlke\Gtd\Domain\Model\Project $parent
      */
     public function getParent()
     {
@@ -227,10 +227,10 @@ class Project extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the parent
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $parent
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Project $parent
      * @return void
      */
-    public function setParent(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $parent = null)
+    public function setParent(\ThomasWoehlke\Gtd\Domain\Model\Project $parent = null)
     {
         $this->parent = $parent;
     }

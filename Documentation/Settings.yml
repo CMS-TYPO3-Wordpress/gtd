@@ -11,7 +11,7 @@
 ---
 conf.py:
   copyright: 2016
-  project: SimpleWorklist
+  project: GTD
   version:
   release: 0.0.1
   intersphinx_mapping:
@@ -20,8 +20,8 @@ conf.py:
     - null
   latex_documents:
   - - Index
-    - tw_simpleworklist.tex
-    - SimpleWorklist
+    - gtd.tex
+    - GTD
     - Thomas Woehlke
     - manual
   latex_elements:

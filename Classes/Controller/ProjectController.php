@@ -1,12 +1,12 @@
 <?php
-namespace ThomasWoehlke\TwSimpleworklist\Controller;
+namespace ThomasWoehlke\Gtd\Controller;
 
-use \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project;
-use \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task;
+use ThomasWoehlke\Gtd\Domain\Model\Project;
+use ThomasWoehlke\Gtd\Domain\Model\Task;
 
 /***
  *
- * This file is part of the "SimpleWorklist" Extension for TYPO3 CMS.
+ * This file is part of the "Getting Things Done" Extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
@@ -23,7 +23,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     /**
      * projectRepository
      *
-     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Repository\ProjectRepository
+     * @var \ThomasWoehlke\Gtd\Domain\Repository\ProjectRepository
      * @inject
      */
     protected $projectRepository = null;
@@ -31,7 +31,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     /**
      * taskRepository
      *
-     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Repository\TaskRepository
+     * @var \ThomasWoehlke\Gtd\Domain\Repository\TaskRepository
      * @inject
      */
     protected $taskRepository = null;
@@ -39,7 +39,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     /**
      * contextService
      *
-     * @var \ThomasWoehlke\TwSimpleworklist\Service\ContextService
+     * @var \ThomasWoehlke\Gtd\Service\ContextService
      * @inject
      */
     protected $contextService = null;
@@ -52,15 +52,15 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     protected $userAccountRepository = null;
 
-    private $extName = 'tw_simpleworklist';
+    private $extName = 'gtd';
 
     /**
      * action show
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Project $project
      * @return void
      */
-    public function showAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project=null)
+    public function showAction(\ThomasWoehlke\Gtd\Domain\Model\Project $project=null)
     {
         $ctx = $this->contextService->getCurrentContext();
         $this->view->assign('project', $project);
@@ -84,11 +84,11 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     /**
      * action edit
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Project $project
      * @ignorevalidation $project
      * @return void
      */
-    public function editAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project)
+    public function editAction(\ThomasWoehlke\Gtd\Domain\Model\Project $project)
     {
         $this->view->assign('project', $project);
         $ctx = $this->contextService->getCurrentContext();
@@ -100,13 +100,13 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     /**
      * action update
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Project $project
      * @return void
      */
-    public function updateAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project)
+    public function updateAction(\ThomasWoehlke\Gtd\Domain\Model\Project $project)
     {
         $this->projectRepository->update($project);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.project.updated', $this->extName, null);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.project.updated', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $args = array('project'=>$project);
         $this->redirect('show',null,null,$args);
@@ -115,10 +115,10 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     /**
      * action delete
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Project $project
      * @return void
      */
-    public function deleteAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project)
+    public function deleteAction(\ThomasWoehlke\Gtd\Domain\Model\Project $project)
     {
         $parentProject = $project->getParent();
         $deleteable = false;
@@ -127,7 +127,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $deleteable = true;
         }
         if($deleteable) {
-            $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.project.deleted', $this->extName, null);
+            $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.project.deleted', $this->extName, null);
             $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
             $this->projectRepository->remove($project);
         }
@@ -141,8 +141,8 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @return void
      */
     public function moveProjectAction(
-        \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $srcProject,
-        \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $targetProject=null)
+        \ThomasWoehlke\Gtd\Domain\Model\Project $srcProject,
+        \ThomasWoehlke\Gtd\Domain\Model\Project $targetProject=null)
     {
         $context = $this->contextService->getCurrentContext();
         if($targetProject == null){
@@ -166,7 +166,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $targetProject->addChild($srcProject);
             $this->projectRepository->update($targetProject);
         }
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.project.moved', $this->extName, null);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.project.moved', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $arguments = array("project" => $targetProject);
         $this->redirect('show',null,null, $arguments);
@@ -180,15 +180,15 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @throws \TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException
      */
     public function moveTaskAction(
-        \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $srcTask,
-        \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $targetProject=null
+        \ThomasWoehlke\Gtd\Domain\Model\Task $srcTask,
+        \ThomasWoehlke\Gtd\Domain\Model\Project $targetProject=null
     ){
         $srcTask->setProject($targetProject);
         $projectOrderId = $this->taskRepository->getMaxProjectOrderId($targetProject);
         $srcTask->setOrderIdProject($projectOrderId);
         $this->taskRepository->update($srcTask);
         $arguments = array("project" => $targetProject);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.moved2project', $this->extName, null);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.moved2project', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('show',null,null, $arguments);
     }
@@ -210,10 +210,10 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     /**
      * action new
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $parentProject
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Project $parentProject
      * @return void
      */
-    public function newAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $parentProject=null)
+    public function newAction(\ThomasWoehlke\Gtd\Domain\Model\Project $parentProject=null)
     {
         $this->view->assign('parentProject', $parentProject);
         $this->view->assign('contextList',$this->contextService->getContextList());
@@ -224,11 +224,11 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     /**
      * action create
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $newProject
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Project $newProject
      * @return void
      */
-    public function createAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $newProject,
-                                 \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $parentProject=null)
+    public function createAction(\ThomasWoehlke\Gtd\Domain\Model\Project $newProject,
+                                 \ThomasWoehlke\Gtd\Domain\Model\Project $parentProject=null)
     {
         $context = $this->contextService->getCurrentContext();
         $newProject->setParent($parentProject);
@@ -238,7 +238,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $parentProject->addChild($newProject);
             $this->projectRepository->update($parentProject);
         }
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.project.created', $this->extName, null);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.project.created', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $args = array('project'=>$parentProject);
         $this->redirect('show',null,null,$args);
@@ -325,7 +325,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->projectRepository->add($testProject1_3_1);
         $this->projectRepository->add($testProject1_3_2);
 
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.testdata.created', $this->extName, null);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.testdata.created', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
 
         $this->redirect('inbox',"Task");

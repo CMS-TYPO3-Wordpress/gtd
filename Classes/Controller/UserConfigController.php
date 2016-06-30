@@ -1,9 +1,9 @@
 <?php
-namespace ThomasWoehlke\TwSimpleworklist\Controller;
+namespace ThomasWoehlke\Gtd\Controller;
 
 /***
  *
- * This file is part of the "SimpleWorklist" Extension for TYPO3 CMS.
+ * This file is part of the "Getting Things Done" Extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
@@ -20,7 +20,7 @@ class UserConfigController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContr
     /**
      * userConfigRepository
      *
-     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Repository\UserConfigRepository
+     * @var \ThomasWoehlke\Gtd\Domain\Repository\UserConfigRepository
      * @inject
      */
     protected $userConfigRepository = null;
@@ -37,7 +37,7 @@ class UserConfigController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContr
     /**
      * contextService
      *
-     * @var \ThomasWoehlke\TwSimpleworklist\Service\ContextService
+     * @var \ThomasWoehlke\Gtd\Service\ContextService
      * @inject
      */
     protected $contextService = null;
@@ -45,12 +45,12 @@ class UserConfigController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContr
     /**
      * projectRepository
      *
-     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Repository\ProjectRepository
+     * @var \ThomasWoehlke\Gtd\Domain\Repository\ProjectRepository
      * @inject
      */
     protected $projectRepository = null;
 
-    private $extName = 'tw_simpleworklist';
+    private $extName = 'gtd';
 
     /**
      * action list
@@ -82,16 +82,16 @@ class UserConfigController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContr
     /**
      * action update
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserConfig $userConfig
+     * @param \ThomasWoehlke\Gtd\Domain\Model\UserConfig $userConfig
      * @return void
      */
-    public function updateAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\UserConfig $userConfig){
+    public function updateAction(\ThomasWoehlke\Gtd\Domain\Model\UserConfig $userConfig){
         $persistentUserConfig = $this->userConfigRepository->findByUid($userConfig->getUid());
         $persistentUserConfig->setDefaultContext($userConfig->getDefaultContext());
         $this->userConfigRepository->update($persistentUserConfig);
         $this->contextService->setCurrentContext($userConfig->getDefaultContext());
         //$this->addFlashMessage('The Default Context was changed.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.userconfig.updated', $this->extName, null);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.userconfig.updated', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('show');
     }

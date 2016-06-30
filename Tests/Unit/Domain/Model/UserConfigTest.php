@@ -1,5 +1,5 @@
 <?php
-namespace ThomasWoehlke\TwSimpleworklist\Tests\Unit\Domain\Model;
+namespace ThomasWoehlke\Gtd\Tests\Unit\Domain\Model;
 
 /**
  * Test case.
@@ -9,13 +9,13 @@ namespace ThomasWoehlke\TwSimpleworklist\Tests\Unit\Domain\Model;
 class UserConfigTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
     /**
-     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserConfig
+     * @var \ThomasWoehlke\Gtd\Domain\Model\UserConfig
      */
     protected $subject = null;
 
     protected function setUp()
     {
-        $this->subject = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserConfig();
+        $this->subject = new \ThomasWoehlke\Gtd\Domain\Model\UserConfig();
     }
 
     protected function tearDown()
@@ -42,7 +42,7 @@ class UserConfigTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function setDefaultContextForContextSetsDefaultContext()
     {
-        $defaultContextFixture = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context();
+        $defaultContextFixture = new \ThomasWoehlke\Gtd\Domain\Model\Context();
         $this->subject->setDefaultContext($defaultContextFixture);
 
         self::assertAttributeEquals(
@@ -70,7 +70,7 @@ class UserConfigTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function setUserAccountForUserAccountSetsUserAccount()
     {
-        $userAccountFixture = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount();
+        $userAccountFixture = new \ThomasWoehlke\Gtd\Domain\Model\UserAccount();
         $this->subject->setUserAccount($userAccountFixture);
 
         self::assertAttributeEquals(

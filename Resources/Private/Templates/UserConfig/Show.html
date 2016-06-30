@@ -2,21 +2,21 @@
 <f:layout name="Default" />
 
 <f:section name="main">
-<h2><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> <f:translate key="tx_twsimpleworklist_template_user_config.show" /> <small>{thisUser.name} ({thisUser.email})</small></h2>
+<h2><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> <f:translate key="tx_gtd_template_user_config.show" /> <small>{thisUser.name} ({thisUser.email})</small></h2>
 <f:flashMessages />
 <f:form action="update" name="userConfig" object="{userConfig}" >
     <div class="form-group">
-        <label for="defaultContext"><f:translate key="tx_twsimpleworklist_template_user_config.set_default_context" /></label>
+        <label for="defaultContext"><f:translate key="tx_gtd_template_user_config.set_default_context" /></label>
         <f:form.select id="defaultContext" property="defaultContext" options="{contextList}" optionLabelField="nameDe" class="form-control"/>
     </div>
-    <f:form.submit value="{f:translate(key:'tx_twsimpleworklist_template_user_config.save_default_context')}" class="btn btn-default" />
+    <f:form.submit value="{f:translate(key:'tx_gtd_template_user_config.save_default_context')}" class="btn btn-default" />
 </f:form>
 <hr/>
-<h3><f:translate key="tx_twsimpleworklist_template_user_config.edit_your_contexts" /></h3>
+<h3><f:translate key="tx_gtd_template_user_config.edit_your_contexts" /></h3>
 <table class="table table-striped" >
     <tr>
-        <th><f:translate key="tx_twsimpleworklist_domain_model_context.name_de" /></th>
-        <th><f:translate key="tx_twsimpleworklist_domain_model_context.name_en" /></th>
+        <th><f:translate key="tx_gtd_domain_model_context.name_de" /></th>
+        <th><f:translate key="tx_gtd_domain_model_context.name_en" /></th>
         <th> </th>
         <th> </th>
     </tr>
@@ -25,13 +25,13 @@
         <tr>
             <td><f:link.action controller="Context" action="show" arguments="{context : ctx}"> {ctx.nameDe}</f:link.action></td>
             <td><f:link.action controller="Context" action="show" arguments="{context : ctx}"> {ctx.nameEn}</f:link.action></td>
-            <td><f:link.action controller="Context" action="edit" arguments="{context : ctx}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> <f:translate key="tx_twsimpleworklist_domain_model_context.edit" /></f:link.action></td>
-            <td><f:link.action controller="Context" action="delete" arguments="{context : ctx}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> <f:translate key="tx_twsimpleworklist_domain_model_context.delete" /></f:link.action></td>
+            <td><f:link.action controller="Context" action="edit" arguments="{context : ctx}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> <f:translate key="tx_gtd_domain_model_context.edit" /></f:link.action></td>
+            <td><f:link.action controller="Context" action="delete" arguments="{context : ctx}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> <f:translate key="tx_gtd_domain_model_context.delete" /></f:link.action></td>
         </tr>
     </f:for>
 </table>
 
-<f:link.action controller="Context" action="new"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> <f:translate key="tx_twsimpleworklist_domain_model_context.new_context" /></f:link.action>
+<f:link.action controller="Context" action="new"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> <f:translate key="tx_gtd_domain_model_context.new_context" /></f:link.action>
 
 </f:section>
 </html>

@@ -1,7 +1,7 @@
 #
-# Table structure for table 'tx_twsimpleworklist_domain_model_usermessage'
+# Table structure for table 'tx_gtd_domain_model_usermessage'
 #
-CREATE TABLE tx_twsimpleworklist_domain_model_usermessage (
+CREATE TABLE tx_gtd_domain_model_usermessage (
 
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
@@ -44,9 +44,9 @@ CREATE TABLE tx_twsimpleworklist_domain_model_usermessage (
 );
 
 #
-# Table structure for table 'tx_twsimpleworklist_domain_model_context'
+# Table structure for table 'tx_gtd_domain_model_context'
 #
-CREATE TABLE tx_twsimpleworklist_domain_model_context (
+CREATE TABLE tx_gtd_domain_model_context (
 
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
@@ -88,9 +88,9 @@ CREATE TABLE tx_twsimpleworklist_domain_model_context (
 );
 
 #
-# Table structure for table 'tx_twsimpleworklist_domain_model_project'
+# Table structure for table 'tx_gtd_domain_model_project'
 #
-CREATE TABLE tx_twsimpleworklist_domain_model_project (
+CREATE TABLE tx_gtd_domain_model_project (
 
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
@@ -136,9 +136,9 @@ CREATE TABLE tx_twsimpleworklist_domain_model_project (
 );
 
 #
-# Table structure for table 'tx_twsimpleworklist_domain_model_task'
+# Table structure for table 'tx_gtd_domain_model_task'
 #
-CREATE TABLE tx_twsimpleworklist_domain_model_task (
+CREATE TABLE tx_gtd_domain_model_task (
 
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
@@ -190,9 +190,9 @@ CREATE TABLE tx_twsimpleworklist_domain_model_task (
 );
 
 #
-# Table structure for table 'tx_twsimpleworklist_domain_model_userconfig'
+# Table structure for table 'tx_gtd_domain_model_userconfig'
 #
-CREATE TABLE tx_twsimpleworklist_domain_model_userconfig (
+CREATE TABLE tx_gtd_domain_model_userconfig (
 
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
@@ -252,9 +252,9 @@ CREATE TABLE tx_twsimpleworklist_domain_model_userconfig (
 
 
 #
-# Table structure for table 'tx_twsimpleworklist_domain_model_project'
+# Table structure for table 'tx_gtd_domain_model_project'
 #
-CREATE TABLE tx_twsimpleworklist_domain_model_project (
+CREATE TABLE tx_gtd_domain_model_project (
 
 	project3  int(11) unsigned DEFAULT '0' NOT NULL,
 

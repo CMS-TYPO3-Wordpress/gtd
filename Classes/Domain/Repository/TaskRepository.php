@@ -1,9 +1,9 @@
 <?php
-namespace ThomasWoehlke\TwSimpleworklist\Domain\Repository;
+namespace ThomasWoehlke\Gtd\Domain\Repository;
 
 /***
  *
- * This file is part of the "SimpleWorklist" Extension for TYPO3 CMS.
+ * This file is part of the "Getting Things Done" Extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
@@ -27,7 +27,7 @@ class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
     public function findByUserAccountAndTaskState(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userObject,
-                                                  \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $currentContext,
+                                                  \ThomasWoehlke\Gtd\Domain\Model\Context $currentContext,
                                                   $taskState){
         $query = $this->createQuery();
         $query->matching(
@@ -45,7 +45,7 @@ class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @return int
      */
     public function getMaxTaskStateOrderId(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userObject,
-                                           \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $currentContext,
+                                           \ThomasWoehlke\Gtd\Domain\Model\Context $currentContext,
                                            $taskState){
         $query = $this->createQuery();
         $query->matching(
@@ -77,7 +77,7 @@ class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      */
     public function findByUserAccountAndHasFocus(
         \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userObject,
-        \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $currentContext)
+        \ThomasWoehlke\Gtd\Domain\Model\Context $currentContext)
     {
         $query = $this->createQuery();
         $query->matching(
@@ -92,16 +92,16 @@ class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
     /**
      * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userObject
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $lowerTask
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $higherTask
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Task $lowerTask
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Task $higherTask
      * @param int $taskState
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
     public function getTasksToReorderByOrderIdTaskState(
         \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userObject,
-        \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $currentContext,
-        \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $lowerTask,
-        \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $higherTask,
+        \ThomasWoehlke\Gtd\Domain\Model\Context $currentContext,
+        \ThomasWoehlke\Gtd\Domain\Model\Task $lowerTask,
+        \ThomasWoehlke\Gtd\Domain\Model\Task $higherTask,
         $taskState)
     {
         $query = $this->createQuery();
@@ -117,7 +117,7 @@ class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         return $query->execute();
     }
 
-    public function findByProject(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project=null)
+    public function findByProject(\ThomasWoehlke\Gtd\Domain\Model\Project $project=null)
     {
         $query = $this->createQuery();
         $query->matching(
@@ -131,7 +131,7 @@ class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         return $query->execute();
     }
 
-    public function getMaxProjectOrderId(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project=null)
+    public function getMaxProjectOrderId(\ThomasWoehlke\Gtd\Domain\Model\Project $project=null)
     {
         $query = $this->createQuery();
         if($project == null){
@@ -179,10 +179,10 @@ class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
     public function getTasksToReorderByOrderIdProject(
         \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userObject,
-        \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $currentContext,
-        \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $lowerTask,
-        \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $higherTask,
-        \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project=null)
+        \ThomasWoehlke\Gtd\Domain\Model\Context $currentContext,
+        \ThomasWoehlke\Gtd\Domain\Model\Task $lowerTask,
+        \ThomasWoehlke\Gtd\Domain\Model\Task $higherTask,
+        \ThomasWoehlke\Gtd\Domain\Model\Project $project=null)
     {
         $query = $this->createQuery();
         if($project == null){

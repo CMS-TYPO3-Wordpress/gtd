@@ -619,14 +619,14 @@
             "targetVersion": "7.6.0-7.6.99",
             "version": ""
         },
-        "extensionKey": "tw_simpleworklist",
-        "name": "SimpleWorklist",
-        "originalExtensionKey": "tw_simpleworklist",
+        "extensionKey": "gtd",
+        "name": "Getting Things Donet",
+        "originalExtensionKey": "gtd",
         "originalVendorName": "ThomasWoehlke",
         "persons": [
             {
                 "company": "faktura gGmbH",
-                "email": "woehlke@faktura-berlin.de",
+                "email": "thomas@woehlke.org",
                 "name": "Thomas Woehlke",
                 "role": "Developer"
             }
@@ -638,8 +638,8 @@
                     "noncacheableActions": "UserAccount => list show, edit, update, delete\nProject => list, show, edit, addNewRootProject, addNewChildProject, moveProject, getAllProjects, getRootProjects\nTask => list, show, edit, inbox, today, next, waiting, scheduled, someday, completed, trash, emptyTrash, transformTaskIntoProject, completeTask, undoneTask, setFocus, unsetFocus, getAllTasksForUser, changeTaskOrderId, changeTaskOrderIdByProject, addNewTaskToProject, addNewTaskToInbox\n",
                     "switchableActions": ""
                 },
-                "key": "frontendsimpleworklist",
-                "name": "FrontendSimpleWorklist"
+                "key": "frontendgtd",
+                "name": "FrontendGTD"
             }
         ],
         "vendorName": "ThomasWoehlke"

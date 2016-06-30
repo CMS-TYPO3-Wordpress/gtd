@@ -1,9 +1,9 @@
 <?php
-namespace ThomasWoehlke\TwSimpleworklist\Controller;
+namespace ThomasWoehlke\Gtd\Controller;
 
 /***
  *
- * This file is part of the "SimpleWorklist" Extension for TYPO3 CMS.
+ * This file is part of the "Getting Things Done" Extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
@@ -20,7 +20,7 @@ class UserAccountController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     /**
      * userMessageRepository
      *
-     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Repository\UserMessageRepository
+     * @var \ThomasWoehlke\Gtd\Domain\Repository\UserMessageRepository
      * @inject
      */
     protected $userMessageRepository = null;
@@ -36,7 +36,7 @@ class UserAccountController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     /**
      * contextService
      *
-     * @var \ThomasWoehlke\TwSimpleworklist\Service\ContextService
+     * @var \ThomasWoehlke\Gtd\Service\ContextService
      * @inject
      */
     protected $contextService = null;
@@ -44,7 +44,7 @@ class UserAccountController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     /**
      * projectRepository
      *
-     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Repository\ProjectRepository
+     * @var \ThomasWoehlke\Gtd\Domain\Repository\ProjectRepository
      * @inject
      */
     protected $projectRepository = null;

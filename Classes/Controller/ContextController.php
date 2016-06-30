@@ -1,9 +1,9 @@
 <?php
-namespace ThomasWoehlke\TwSimpleworklist\Controller;
+namespace ThomasWoehlke\Gtd\Controller;
 
 /***
  *
- * This file is part of the "SimpleWorklist" Extension for TYPO3 CMS.
+ * This file is part of the "Getting Things Done" Extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
@@ -21,7 +21,7 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     /**
      * contextRepository
      *
-     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Repository\ContextRepository
+     * @var \ThomasWoehlke\Gtd\Domain\Repository\ContextRepository
      * @inject
      */
     protected $contextRepository = null;
@@ -29,7 +29,7 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     /**
      * contextService
      *
-     * @var \ThomasWoehlke\TwSimpleworklist\Service\ContextService
+     * @var \ThomasWoehlke\Gtd\Service\ContextService
      * @inject
      */
     protected $contextService = null;
@@ -37,7 +37,7 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     /**
      * projectRepository
      *
-     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Repository\ProjectRepository
+     * @var \ThomasWoehlke\Gtd\Domain\Repository\ProjectRepository
      * @inject
      */
     protected $projectRepository = null;
@@ -50,18 +50,18 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     protected $userAccountRepository = null;
 
-    private $extName = 'tw_simpleworklist';
+    private $extName = 'gtd';
 
     /**
      * action switchContext
      *
      * @return void
      */
-    public function switchContextAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $context)
+    public function switchContextAction(\ThomasWoehlke\Gtd\Domain\Model\Context $context)
     {
-        $sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', 'tx_twsimpleworklist_fesessiondata');
+        $sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', 'tx_gtd_fesessiondata');
         $sessionData['contextUid'] = $context->getUid();
-        $GLOBALS['TSFE']->fe_user->setKey('ses', 'tx_twsimpleworklist_fesessiondata', $sessionData);
+        $GLOBALS['TSFE']->fe_user->setKey('ses', 'tx_gtd_fesessiondata', $sessionData);
         $GLOBALS['TSFE']->fe_user->storeSessionData();
         $this->redirect('inbox',"Task");
     }
@@ -80,10 +80,10 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     /**
      * action show
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $context
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Context $context
      * @return void
      */
-    public function showAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $context)
+    public function showAction(\ThomasWoehlke\Gtd\Domain\Model\Context $context)
     {
         $this->view->assign('context', $context);
     }
@@ -103,16 +103,16 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     /**
      * action create
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $newContext
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Context $newContext
      * @return void
      */
-    public function createAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $newContext)
+    public function createAction(\ThomasWoehlke\Gtd\Domain\Model\Context $newContext)
     {
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $newContext->setUserAccount($userObject);
         $this->contextRepository->add($newContext);
         //$this->addFlashMessage('The object was created.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.context.created', $this->extName, null);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.context.created', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('show','UserConfig');
     }
@@ -120,11 +120,11 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     /**
      * action edit
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $context
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Context $context
      * @ignorevalidation $context
      * @return void
      */
-    public function editAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $context)
+    public function editAction(\ThomasWoehlke\Gtd\Domain\Model\Context $context)
     {
         $this->view->assign('mycontext', $context);
         $this->view->assign('contextList',$this->contextService->getContextList());
@@ -135,14 +135,14 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     /**
      * action update
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $context
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Context $context
      * @return void
      */
-    public function updateAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $ctx)
+    public function updateAction(\ThomasWoehlke\Gtd\Domain\Model\Context $ctx)
     {
         $this->contextRepository->update($ctx);
         //$this->addFlashMessage('The object was updated.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.context.updated', $this->extName, null);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.context.updated', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('show','UserConfig');
     }
@@ -150,14 +150,14 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     /**
      * action delete
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $context
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Context $context
      * @return void
      */
-    public function deleteAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $context)
+    public function deleteAction(\ThomasWoehlke\Gtd\Domain\Model\Context $context)
     {
         $this->contextRepository->remove($context);
         //$this->addFlashMessage('The object was deleted.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.context.deleted', $this->extName, null);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.context.deleted', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
         $this->redirect('show','UserConfig');
     }

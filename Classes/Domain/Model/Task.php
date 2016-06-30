@@ -1,9 +1,9 @@
 <?php
-namespace ThomasWoehlke\TwSimpleworklist\Domain\Model;
+namespace ThomasWoehlke\Gtd\Domain\Model;
 
 /***
  *
- * This file is part of the "SimpleWorklist" Extension for TYPO3 CMS.
+ * This file is part of the "Getting Things Done" Extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
@@ -104,14 +104,14 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * project
      *
-     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project
+     * @var \ThomasWoehlke\Gtd\Domain\Model\Project
      */
     protected $project = null;
 
     /**
      * context
      *
-     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context
+     * @var \ThomasWoehlke\Gtd\Domain\Model\Context
      */
     protected $context = null;
 
@@ -365,7 +365,7 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the project
      *
-     * @return \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project
+     * @return \ThomasWoehlke\Gtd\Domain\Model\Project $project
      */
     public function getProject()
     {
@@ -375,10 +375,10 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the project
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Project $project
      * @return void
      */
-    public function setProject(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Project $project=null)
+    public function setProject(\ThomasWoehlke\Gtd\Domain\Model\Project $project=null)
     {
         $this->project = $project;
     }
@@ -386,7 +386,7 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the context
      *
-     * @return \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $context
+     * @return \ThomasWoehlke\Gtd\Domain\Model\Context $context
      */
     public function getContext()
     {
@@ -396,10 +396,10 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the context
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $context
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Context $context
      * @return void
      */
-    public function setContext(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $context)
+    public function setContext(\ThomasWoehlke\Gtd\Domain\Model\Context $context)
     {
         $this->context = $context;
     }

@@ -1,5 +1,5 @@
 <?php
-namespace ThomasWoehlke\TwSimpleworklist\Tests\Unit\Controller;
+namespace ThomasWoehlke\Gtd\Tests\Unit\Controller;
 
 /**
  * Test case.
@@ -9,13 +9,13 @@ namespace ThomasWoehlke\TwSimpleworklist\Tests\Unit\Controller;
 class UserAccountControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
     /**
-     * @var \ThomasWoehlke\TwSimpleworklist\Controller\UserAccountController
+     * @var \ThomasWoehlke\Gtd\Controller\UserAccountController
      */
     protected $subject = null;
 
     protected function setUp()
     {
-        $this->subject = $this->getMock(\ThomasWoehlke\TwSimpleworklist\Controller\UserAccountController::class, ['redirect', 'forward', 'addFlashMessage'], [], '', false);
+        $this->subject = $this->getMock(\ThomasWoehlke\Gtd\Controller\UserAccountController::class, ['redirect', 'forward', 'addFlashMessage'], [], '', false);
     }
 
     protected function tearDown()
@@ -33,7 +33,7 @@ class UserAccountControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
         $allUserAccounts = $this->getMock(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class, [], [], '', false);
 
-        $userAccountRepository = $this->getMock(\ThomasWoehlke\TwSimpleworklist\Domain\Repository\UserAccountRepository::class, ['findAll'], [], '', false);
+        $userAccountRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\UserAccountRepository::class, ['findAll'], [], '', false);
         $userAccountRepository->expects(self::once())->method('findAll')->will(self::returnValue($allUserAccounts));
         $this->inject($this->subject, 'userAccountRepository', $userAccountRepository);
 
@@ -49,7 +49,7 @@ class UserAccountControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function showActionAssignsTheGivenUserAccountToView()
     {
-        $userAccount = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount();
+        $userAccount = new \ThomasWoehlke\Gtd\Domain\Model\UserAccount();
 
         $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);
         $this->inject($this->subject, 'view', $view);
@@ -63,9 +63,9 @@ class UserAccountControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function createActionAddsTheGivenUserAccountToUserAccountRepository()
     {
-        $userAccount = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount();
+        $userAccount = new \ThomasWoehlke\Gtd\Domain\Model\UserAccount();
 
-        $userAccountRepository = $this->getMock(\ThomasWoehlke\TwSimpleworklist\Domain\Repository\UserAccountRepository::class, ['add'], [], '', false);
+        $userAccountRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\UserAccountRepository::class, ['add'], [], '', false);
         $userAccountRepository->expects(self::once())->method('add')->with($userAccount);
         $this->inject($this->subject, 'userAccountRepository', $userAccountRepository);
 
@@ -77,7 +77,7 @@ class UserAccountControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function editActionAssignsTheGivenUserAccountToView()
     {
-        $userAccount = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount();
+        $userAccount = new \ThomasWoehlke\Gtd\Domain\Model\UserAccount();
 
         $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);
         $this->inject($this->subject, 'view', $view);
@@ -92,9 +92,9 @@ class UserAccountControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function updateActionUpdatesTheGivenUserAccountInUserAccountRepository()
     {
-        $userAccount = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount();
+        $userAccount = new \ThomasWoehlke\Gtd\Domain\Model\UserAccount();
 
-        $userAccountRepository = $this->getMock(\ThomasWoehlke\TwSimpleworklist\Domain\Repository\UserAccountRepository::class, ['update'], [], '', false);
+        $userAccountRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\UserAccountRepository::class, ['update'], [], '', false);
         $userAccountRepository->expects(self::once())->method('update')->with($userAccount);
         $this->inject($this->subject, 'userAccountRepository', $userAccountRepository);
 
@@ -106,9 +106,9 @@ class UserAccountControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function deleteActionRemovesTheGivenUserAccountFromUserAccountRepository()
     {
-        $userAccount = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount();
+        $userAccount = new \ThomasWoehlke\Gtd\Domain\Model\UserAccount();
 
-        $userAccountRepository = $this->getMock(\ThomasWoehlke\TwSimpleworklist\Domain\Repository\UserAccountRepository::class, ['remove'], [], '', false);
+        $userAccountRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\UserAccountRepository::class, ['remove'], [], '', false);
         $userAccountRepository->expects(self::once())->method('remove')->with($userAccount);
         $this->inject($this->subject, 'userAccountRepository', $userAccountRepository);
 

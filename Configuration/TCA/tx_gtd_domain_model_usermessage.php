@@ -1,7 +1,7 @@
 <?php
 return [
     'ctrl' => [
-        'title'	=> 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_usermessage',
+        'title'	=> 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_usermessage',
         'label' => 'message_text',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
@@ -20,7 +20,7 @@ return [
             'endtime' => 'endtime',
         ],
         'searchFields' => 'message_text,read_by_receiver,sender,receiver,',
-        'iconfile' => 'EXT:tw_simpleworklist/Resources/Public/Icons/tx_twsimpleworklist_domain_model_usermessage.gif'
+        'iconfile' => 'EXT:gtd/Resources/Public/Icons/tx_gtd_domain_model_usermessage.gif'
     ],
     'interface' => [
         'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, message_text, read_by_receiver, sender, receiver',
@@ -48,8 +48,8 @@ return [
                 'items' => [
                     ['', 0],
                 ],
-                'foreign_table' => 'tx_twsimpleworklist_domain_model_usermessage',
-                'foreign_table_where' => 'AND tx_twsimpleworklist_domain_model_usermessage.pid=###CURRENT_PID### AND tx_twsimpleworklist_domain_model_usermessage.sys_language_uid IN (-1,0)',
+                'foreign_table' => 'tx_gtd_domain_model_usermessage',
+                'foreign_table_where' => 'AND tx_gtd_domain_model_usermessage.pid=###CURRENT_PID### AND tx_gtd_domain_model_usermessage.sys_language_uid IN (-1,0)',
             ],
         ],
         'l10n_diffsource' => [
@@ -108,7 +108,7 @@ return [
 
 	    'message_text' => [
 	        'exclude' => 1,
-	        'label' => 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_usermessage.message_text',
+	        'label' => 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_usermessage.message_text',
 	        'config' => [
 			    'type' => 'text',
 			    'cols' => 40,
@@ -119,7 +119,7 @@ return [
 	    ],
 	    'read_by_receiver' => [
 	        'exclude' => 1,
-	        'label' => 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_usermessage.read_by_receiver',
+	        'label' => 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_usermessage.read_by_receiver',
 	        'config' => [
 			    'type' => 'check',
 			    'default' => 0
@@ -128,7 +128,7 @@ return [
 	    ],
 	    'sender' => [
 	        'exclude' => 1,
-	        'label' => 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_usermessage.sender',
+	        'label' => 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_usermessage.sender',
 	        'config' => [
 			    'type' => 'select',
 			    'renderType' => 'selectSingle',
@@ -140,7 +140,7 @@ return [
 	    ],
 	    'receiver' => [
 	        'exclude' => 1,
-	        'label' => 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_usermessage.receiver',
+	        'label' => 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_usermessage.receiver',
 	        'config' => [
 			    'type' => 'select',
 			    'renderType' => 'selectSingle',

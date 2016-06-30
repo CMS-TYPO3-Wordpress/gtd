@@ -1,9 +1,9 @@
 <?php
-namespace ThomasWoehlke\TwSimpleworklist\Controller;
+namespace ThomasWoehlke\Gtd\Controller;
 
 /***
  *
- * This file is part of the "SimpleWorklist" Extension for TYPO3 CMS.
+ * This file is part of the "Getting Things Done" Extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
@@ -11,7 +11,7 @@ namespace ThomasWoehlke\TwSimpleworklist\Controller;
  *  (c) 2016 Thomas Woehlke <woehlke@faktura-berlin.de>, faktura gGmbH
  *
  ***/
-use ThomasWoehlke\TwSimpleworklist\Domain\Model\Project;
+use ThomasWoehlke\Gtd\Domain\Model\Project;
 
 /**
  * TaskController
@@ -21,7 +21,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * taskRepository
      *
-     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Repository\TaskRepository
+     * @var \ThomasWoehlke\Gtd\Domain\Repository\TaskRepository
      * @inject
      */
     protected $taskRepository = null;
@@ -37,7 +37,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * projectRepository
      *
-     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Repository\ProjectRepository
+     * @var \ThomasWoehlke\Gtd\Domain\Repository\ProjectRepository
      * @inject
      */
     protected $projectRepository = null;
@@ -45,7 +45,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * contextService
      *
-     * @var \ThomasWoehlke\TwSimpleworklist\Service\ContextService
+     * @var \ThomasWoehlke\Gtd\Service\ContextService
      * @inject
      */
     protected $contextService = null;
@@ -54,15 +54,15 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         'inbox' => 0, 'today' => 1, 'next' => 2, 'waiting' => 3, 'scheduled' => 4, 'someday' => 5, 'completed' => 6 , 'trash' => 7
     );
 
-    private $extName = 'tw_simpleworklist';
+    private $extName = 'gtd';
 
     /**
      * action show
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Task $task
      * @return void
      */
-    public function showAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task)
+    public function showAction(\ThomasWoehlke\Gtd\Domain\Model\Task $task)
     {
         $this->view->assign('task', $task);
         $this->getTaskEnergyAndTaskTime();
@@ -74,11 +74,11 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * action edit
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Task $task
      * @ignorevalidation $task
      * @return void
      */
-    public function editAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task)
+    public function editAction(\ThomasWoehlke\Gtd\Domain\Model\Task $task)
     {
         $this->view->assign('task', $task);
         $this->getTaskEnergyAndTaskTime();
@@ -99,10 +99,10 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * action update
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Task $task
      * @return void
      */
-    public function updateAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task)
+    public function updateAction(\ThomasWoehlke\Gtd\Domain\Model\Task $task)
     {
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
@@ -124,12 +124,12 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $persistentTask->setOrderIdTaskState($maxTaskStateOrderId);
         }
         $this->taskRepository->update($persistentTask);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.updated', $this->extName, null);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.updated', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->getRedirectFromTask($persistentTask);
     }
 
-    private function getRedirectFromTask(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task){
+    private function getRedirectFromTask(\ThomasWoehlke\Gtd\Domain\Model\Task $task){
         switch($task->getTaskState()){
             case $this->taskStates['inbox']:
                 $this->redirect('inbox');
@@ -327,7 +327,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         foreach($tasks as $task){
             $this->taskRepository->remove($task);
         }
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.trash_emptied', $this->extName, null);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.trash_emptied', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('trash');
     }
@@ -335,10 +335,10 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * action transformTaskIntoProject
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Task $task
      * @return void
      */
-    public function transformTaskIntoProjectAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task)
+    public function transformTaskIntoProjectAction(\ThomasWoehlke\Gtd\Domain\Model\Task $task)
     {
         $parentProject = $task->getProject();
         $newProject = new Project();
@@ -354,7 +354,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->projectRepository->add($newProject);
         $this->taskRepository->remove($task);
         $args = array("project" => $parentProject);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.task2project', $this->extName, null);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.task2project', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('show',"Project",null,$args);
     }
@@ -362,10 +362,10 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * action completeTask
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Task $task
      * @return void
      */
-    public function completeTaskAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task)
+    public function completeTaskAction(\ThomasWoehlke\Gtd\Domain\Model\Task $task)
     {
         $task->changeTaskState($this->taskStates['completed']);
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
@@ -373,7 +373,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,$this->taskStates['completed']);
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $this->taskRepository->update($task);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.completed', $this->extName, null);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.completed', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->getRedirectFromTask($task);
     }
@@ -381,10 +381,10 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * action undoneTask
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Task $task
      * @return void
      */
-    public function undoneTaskAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task)
+    public function undoneTaskAction(\ThomasWoehlke\Gtd\Domain\Model\Task $task)
     {
         $task->setToLastTaskState();
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
@@ -392,7 +392,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,$task->getTaskState());
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $this->taskRepository->update($task);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.notcompleted', $this->extName, null);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.notcompleted', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->getRedirectFromTask($task);
     }
@@ -400,14 +400,14 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * action setFocus
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Task $task
      * @return void
      */
-    public function setFocusAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task)
+    public function setFocusAction(\ThomasWoehlke\Gtd\Domain\Model\Task $task)
     {
         $task->setFocus(true);
         $this->taskRepository->update($task);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.focus', $this->extName, null);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.focus', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->getRedirectFromTask($task);
     }
@@ -415,14 +415,14 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * action unsetFocus
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Task $task
      * @return void
      */
-    public function unsetFocusAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task)
+    public function unsetFocusAction(\ThomasWoehlke\Gtd\Domain\Model\Task $task)
     {
         $task->setFocus(false);
         $this->taskRepository->update($task);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.notfocus', $this->extName, null);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.notfocus', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->getRedirectFromTask($task);
     }
@@ -483,10 +483,10 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * action create
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $newTask
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Task $newTask
      * @return void
      */
-    public function createAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $newTask)
+    public function createAction(\ThomasWoehlke\Gtd\Domain\Model\Task $newTask)
     {
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
@@ -497,7 +497,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $newTask->setOrderIdProject($projectOrderId);
         $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,$this->taskStates['inbox']);
         $newTask->setOrderIdTaskState($maxTaskStateOrderId);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.new', $this->extName, null);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.new', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         if($newTask->getDueDate() != NULL){
             $newTask->setTaskState($this->taskStates['scheduled']);
@@ -522,17 +522,17 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * action moveToInbox
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Task $task
      * @return void
      */
-    public function moveToInboxAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task){
+    public function moveToInboxAction(\ThomasWoehlke\Gtd\Domain\Model\Task $task){
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
         $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,$this->taskStates['inbox']);
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $task->changeTaskState($this->taskStates['inbox']);
         $this->taskRepository->update($task);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.moved_inbox', $this->extName, null);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.moved_inbox', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('inbox');
     }
@@ -540,17 +540,17 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * action moveToToday
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Task $task
      * @return void
      */
-    public function moveToTodayAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task){
+    public function moveToTodayAction(\ThomasWoehlke\Gtd\Domain\Model\Task $task){
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
         $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,$this->taskStates['today']);
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $task->changeTaskState($this->taskStates['today']);
         $this->taskRepository->update($task);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.moved_today', $this->extName, null);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.moved_today', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('today');
     }
@@ -558,17 +558,17 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * action moveToNext
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Task $task
      * @return void
      */
-    public function moveToNextAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task){
+    public function moveToNextAction(\ThomasWoehlke\Gtd\Domain\Model\Task $task){
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
         $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,$this->taskStates['next']);
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $task->changeTaskState($this->taskStates['next']);
         $this->taskRepository->update($task);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.moved_next', $this->extName, null);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.moved_next', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('next');
     }
@@ -576,17 +576,17 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * action moveToWaiting
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Task $task
      * @return void
      */
-    public function moveToWaitingAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task){
+    public function moveToWaitingAction(\ThomasWoehlke\Gtd\Domain\Model\Task $task){
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
         $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,$this->taskStates['waiting']);
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $task->changeTaskState($this->taskStates['waiting']);
         $this->taskRepository->update($task);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.moved_waiting', $this->extName, null);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.moved_waiting', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('waiting');
     }
@@ -594,17 +594,17 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * action moveToSomeday
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Task $task
      * @return void
      */
-    public function moveToSomedayAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task){
+    public function moveToSomedayAction(\ThomasWoehlke\Gtd\Domain\Model\Task $task){
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
         $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,$this->taskStates['someday']);
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $task->changeTaskState($this->taskStates['someday']);
         $this->taskRepository->update($task);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.moved_someday', $this->extName, null);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.moved_someday', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('someday');
     }
@@ -612,17 +612,17 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * action moveToCompleted
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Task $task
      * @return void
      */
-    public function moveToCompletedAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task){
+    public function moveToCompletedAction(\ThomasWoehlke\Gtd\Domain\Model\Task $task){
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
         $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,$this->taskStates['completed']);
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $task->changeTaskState($this->taskStates['completed']);
         $this->taskRepository->update($task);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.moved_completed', $this->extName, null);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.moved_completed', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('completed');
     }
@@ -630,17 +630,17 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * action moveToTrash
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Task $task
      * @return void
      */
-    public function moveToTrashAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $task){
+    public function moveToTrashAction(\ThomasWoehlke\Gtd\Domain\Model\Task $task){
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
         $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,$this->taskStates['trash']);
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $task->changeTaskState($this->taskStates['trash']);
         $this->taskRepository->update($task);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.moved_trash', $this->extName, null);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.moved_trash', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('trash');
     }
@@ -661,7 +661,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $this->taskRepository->update($task);
             $maxTaskStateOrderId++;
         }
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.moved_completed2trash', $this->extName, null);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.moved_completed2trash', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('trash');
     }
@@ -669,12 +669,12 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * action moveTaskOrder
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $srcTask
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $targetTask
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Task $srcTask
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Task $targetTask
      * @return void
      */
-    public function moveTaskOrderAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $srcTask,
-                                        \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $targetTask){
+    public function moveTaskOrderAction(\ThomasWoehlke\Gtd\Domain\Model\Task $srcTask,
+                                        \ThomasWoehlke\Gtd\Domain\Model\Task $targetTask){
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
         $destinationTaskOrderId = $targetTask->getOrderIdTaskState();
@@ -697,7 +697,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $srcTask->setOrderIdTaskState($destinationTaskOrderId+1);
             $this->taskRepository->update($srcTask);
         }
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.ordering', $this->extName, null);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.ordering', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->getRedirectFromTask($srcTask);
     }
@@ -705,12 +705,12 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * action moveTaskOrderInsideProject
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $srcTask
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $targetTask
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Task $srcTask
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Task $targetTask
      * @return void
      */
-    public function moveTaskOrderInsideProjectAction(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $srcTask,
-                                                     \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task $targetTask){
+    public function moveTaskOrderInsideProjectAction(\ThomasWoehlke\Gtd\Domain\Model\Task $srcTask,
+                                                     \ThomasWoehlke\Gtd\Domain\Model\Task $targetTask){
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
         $project = $srcTask->getProject();
@@ -735,7 +735,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $this->taskRepository->update($srcTask);
         }
         $args = array('project'=>$project);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_twsimpleworklist_flash.task.ordering', $this->extName, null);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.ordering', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('show','Project',null,$args);
     }

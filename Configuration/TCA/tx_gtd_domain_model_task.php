@@ -1,7 +1,7 @@
 <?php
 return [
     'ctrl' => [
-        'title'	=> 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_task',
+        'title'	=> 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_task',
         'label' => 'title',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
@@ -20,7 +20,7 @@ return [
             'endtime' => 'endtime',
         ],
         'searchFields' => 'title,text,focus,task_state,last_task_state,task_energy,task_time,due_date,order_id_project,order_id_task_state,project,context,user_account,',
-        'iconfile' => 'EXT:tw_simpleworklist/Resources/Public/Icons/tx_twsimpleworklist_domain_model_task.gif'
+        'iconfile' => 'EXT:gtd/Resources/Public/Icons/tx_gtd_domain_model_task.gif'
     ],
     'interface' => [
         'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, text, focus, task_state, last_task_state, task_energy, task_time, due_date, order_id_project, order_id_task_state, project, context, user_account',
@@ -48,8 +48,8 @@ return [
                 'items' => [
                     ['', 0],
                 ],
-                'foreign_table' => 'tx_twsimpleworklist_domain_model_task',
-                'foreign_table_where' => 'AND tx_twsimpleworklist_domain_model_task.pid=###CURRENT_PID### AND tx_twsimpleworklist_domain_model_task.sys_language_uid IN (-1,0)',
+                'foreign_table' => 'tx_gtd_domain_model_task',
+                'foreign_table_where' => 'AND tx_gtd_domain_model_task.pid=###CURRENT_PID### AND tx_gtd_domain_model_task.sys_language_uid IN (-1,0)',
             ],
         ],
         'l10n_diffsource' => [
@@ -108,7 +108,7 @@ return [
 
 	    'title' => [
 	        'exclude' => 1,
-	        'label' => 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_task.title',
+	        'label' => 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_task.title',
 	        'config' => [
 			    'type' => 'input',
 			    'size' => 30,
@@ -118,7 +118,7 @@ return [
 	    ],
 	    'text' => [
 	        'exclude' => 1,
-	        'label' => 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_task.text',
+	        'label' => 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_task.text',
 	        'config' => [
 			    'type' => 'text',
 			    'cols' => 40,
@@ -129,7 +129,7 @@ return [
 	    ],
 	    'focus' => [
 	        'exclude' => 1,
-	        'label' => 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_task.focus',
+	        'label' => 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_task.focus',
 	        'config' => [
 			    'type' => 'check',
 			    'default' => 0
@@ -138,7 +138,7 @@ return [
 	    ],
 	    'task_state' => [
 	        'exclude' => 1,
-	        'label' => 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_task.task_state',
+	        'label' => 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_task.task_state',
 	        'config' => [
 			    'type' => 'select',
 			    'renderType' => 'selectSingle',
@@ -160,7 +160,7 @@ return [
 	    ],
 	    'last_task_state' => [
 	        'exclude' => 1,
-	        'label' => 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_task.last_task_state',
+	        'label' => 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_task.last_task_state',
 	        'config' => [
 			    'type' => 'select',
 			    'renderType' => 'selectSingle',
@@ -182,7 +182,7 @@ return [
 	    ],
 	    'task_energy' => [
 	        'exclude' => 1,
-	        'label' => 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_task.task_energy',
+	        'label' => 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_task.task_energy',
 	        'config' => [
 			    'type' => 'select',
 			    'renderType' => 'selectSingle',
@@ -200,7 +200,7 @@ return [
 	    ],
 	    'task_time' => [
 	        'exclude' => 1,
-	        'label' => 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_task.task_time',
+	        'label' => 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_task.task_time',
 	        'config' => [
 			    'type' => 'select',
 			    'renderType' => 'selectSingle',
@@ -227,7 +227,7 @@ return [
 	    ],
 	    'due_date' => [
 	        'exclude' => 1,
-	        'label' => 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_task.due_date',
+	        'label' => 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_task.due_date',
 	        'config' => [
 			    'dbType' => 'date',
 			    'type' => 'input',
@@ -240,7 +240,7 @@ return [
 	    ],
 	    'order_id_project' => [
 	        'exclude' => 1,
-	        'label' => 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_task.order_id_project',
+	        'label' => 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_task.order_id_project',
 	        'config' => [
 			    'type' => 'input',
 			    'size' => 4,
@@ -250,7 +250,7 @@ return [
 	    ],
 	    'order_id_task_state' => [
 	        'exclude' => 1,
-	        'label' => 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_task.order_id_task_state',
+	        'label' => 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_task.order_id_task_state',
 	        'config' => [
 			    'type' => 'input',
 			    'size' => 4,
@@ -260,7 +260,7 @@ return [
 	    ],
 	    'project' => [
 	        'exclude' => 1,
-	        'label' => 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_task.project',
+	        'label' => 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_task.project',
 	        'config' => [
 			    'type' => 'select',
 				'renderType' => 'selectTree',
@@ -269,7 +269,7 @@ return [
 					'childrenField' => 'children',
 					'rootUid' => 0,
 				],
-			    'foreign_table' => 'tx_twsimpleworklist_domain_model_project',
+			    'foreign_table' => 'tx_gtd_domain_model_project',
 			    'minitems' => 0,
 			    'maxitems' => 1,
 			],
@@ -277,11 +277,11 @@ return [
 	    ],
 	    'context' => [
 	        'exclude' => 1,
-	        'label' => 'LLL:EXT:tw_simpleworklist/Resources/Private/Language/locallang_db.xlf:tx_twsimpleworklist_domain_model_task.context',
+	        'label' => 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_task.context',
 	        'config' => [
 			    'type' => 'select',
 			    'renderType' => 'selectSingle',
-			    'foreign_table' => 'tx_twsimpleworklist_domain_model_context',
+			    'foreign_table' => 'tx_gtd_domain_model_context',
 			    'minitems' => 0,
 			    'maxitems' => 1,
 			],

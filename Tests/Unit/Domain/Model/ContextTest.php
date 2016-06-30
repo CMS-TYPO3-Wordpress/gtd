@@ -1,5 +1,5 @@
 <?php
-namespace ThomasWoehlke\TwSimpleworklist\Tests\Unit\Domain\Model;
+namespace ThomasWoehlke\Gtd\Tests\Unit\Domain\Model;
 
 /**
  * Test case.
@@ -9,13 +9,13 @@ namespace ThomasWoehlke\TwSimpleworklist\Tests\Unit\Domain\Model;
 class ContextTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
     /**
-     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context
+     * @var \ThomasWoehlke\Gtd\Domain\Model\Context
      */
     protected $subject = null;
 
     protected function setUp()
     {
-        $this->subject = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context();
+        $this->subject = new \ThomasWoehlke\Gtd\Domain\Model\Context();
     }
 
     protected function tearDown()
@@ -96,7 +96,7 @@ class ContextTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function setUserAccountForUserAccountSetsUserAccount()
     {
-        $userAccountFixture = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount();
+        $userAccountFixture = new \ThomasWoehlke\Gtd\Domain\Model\UserAccount();
         $this->subject->setUserAccount($userAccountFixture);
 
         self::assertAttributeEquals(

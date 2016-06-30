@@ -1,8 +1,8 @@
 <?php
-namespace ThomasWoehlke\TwSimpleworklist\Service;
+namespace ThomasWoehlke\Gtd\Service;
 
-use ThomasWoehlke\TwSimpleworklist\Domain\Model\Context;
-use ThomasWoehlke\TwSimpleworklist\Domain\Model\UserConfig;
+use ThomasWoehlke\Gtd\Domain\Model\Context;
+use ThomasWoehlke\Gtd\Domain\Model\UserConfig;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
@@ -17,7 +17,7 @@ class ContextService implements \TYPO3\CMS\Core\SingletonInterface
     /**
      * contextRepository
      *
-     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Repository\ContextRepository
+     * @var \ThomasWoehlke\Gtd\Domain\Repository\ContextRepository
      * @inject
      */
     protected $contextRepository = null;
@@ -33,7 +33,7 @@ class ContextService implements \TYPO3\CMS\Core\SingletonInterface
     /**
      * userConfigRepository
      *
-     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Repository\UserConfigRepository
+     * @var \ThomasWoehlke\Gtd\Domain\Repository\UserConfigRepository
      * @inject
      */
     protected $userConfigRepository = null;
@@ -67,17 +67,21 @@ class ContextService implements \TYPO3\CMS\Core\SingletonInterface
         $private->setUserAccount($userObject);
         $this->contextRepository->add($work);
         $this->contextRepository->add($private);
+        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
+        $persistenceManager = $objectManager->get("TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
+        $persistenceManager->persistAll();
     }
 
     /**
-     * @return \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context
+     * @return \ThomasWoehlke\Gtd\Domain\Model\Context
      */
     public function getCurrentContext()
     {
-        $sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', 'tx_twsimpleworklist_fesessiondata');
+        $sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', 'tx_gtd_fesessiondata');
         $contextUid = $sessionData['contextUid'];
         if($contextUid == null){
             $contextList = $this->getContextList();
+            DebuggerUtility::var_dump($contextList);
             $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
             $userConfig = $this->userConfigRepository->findByUserAccount($userObject);
             if($userConfig == null){
@@ -85,7 +89,6 @@ class ContextService implements \TYPO3\CMS\Core\SingletonInterface
                 $userConfig2->setUserAccount($userObject);
                 $ctx = $contextList->getFirst();
                 $userConfig2->setDefaultContext($ctx);
-                //DebuggerUtility::var_dump($userConfig2);
                 $this->userConfigRepository->add($userConfig2);
                 $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
                 $persistenceManager = $objectManager->get("TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
@@ -95,7 +98,7 @@ class ContextService implements \TYPO3\CMS\Core\SingletonInterface
             }
             $defaultContext = $userConfig->getDefaultContext();
             $sessionData['contextUid'] = $defaultContext->getUid();
-            $GLOBALS['TSFE']->fe_user->setKey('ses', 'tx_twsimpleworklist_fesessiondata', $sessionData);
+            $GLOBALS['TSFE']->fe_user->setKey('ses', 'tx_gtd_fesessiondata', $sessionData);
             $GLOBALS['TSFE']->fe_user->storeSessionData();
             return $defaultContext;
         } else {
@@ -104,13 +107,13 @@ class ContextService implements \TYPO3\CMS\Core\SingletonInterface
     }
 
     /**
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $context
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Context $context
      * @return void
      */
-    public function setCurrentContext(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $context){
-        $sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', 'tx_twsimpleworklist_fesessiondata');
+    public function setCurrentContext(\ThomasWoehlke\Gtd\Domain\Model\Context $context){
+        $sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', 'tx_gtd_fesessiondata');
         $sessionData['contextUid'] = $context->getUid();
-        $GLOBALS['TSFE']->fe_user->setKey('ses', 'tx_twsimpleworklist_fesessiondata', $sessionData);
+        $GLOBALS['TSFE']->fe_user->setKey('ses', 'tx_gtd_fesessiondata', $sessionData);
         $GLOBALS['TSFE']->fe_user->storeSessionData();
     }
 

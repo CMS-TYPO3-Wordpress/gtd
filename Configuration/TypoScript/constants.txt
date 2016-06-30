@@ -1,15 +1,15 @@
 
-plugin.tx_twsimpleworklist_frontendsimpleworklist {
+plugin.tx_gtd_frontendgtd {
   view {
-    # cat=plugin.tx_twsimpleworklist_frontendsimpleworklist/file; type=string; label=Path to template root (FE)
+    # cat=plugin.tx_gtd_frontendgtd/file; type=string; label=Path to template root (FE)
     templateRootPath =
-    # cat=plugin.tx_twsimpleworklist_frontendsimpleworklist/file; type=string; label=Path to template partials (FE)
+    # cat=plugin.tx_gtd_frontendgtd/file; type=string; label=Path to template partials (FE)
     partialRootPath =
-    # cat=plugin.tx_twsimpleworklist_frontendsimpleworklist/file; type=string; label=Path to template layouts (FE)
+    # cat=plugin.tx_gtd_frontendgtd/file; type=string; label=Path to template layouts (FE)
     layoutRootPath =
   }
   persistence {
-    # cat=plugin.tx_twsimpleworklist_frontendsimpleworklist//a; type=string; label=Default storage PID
+    # cat=plugin.tx_gtd_frontendgtd//a; type=string; label=Default storage PID
     storagePid =
   }
 }

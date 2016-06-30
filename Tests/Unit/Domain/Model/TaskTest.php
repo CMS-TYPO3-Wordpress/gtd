@@ -1,5 +1,5 @@
 <?php
-namespace ThomasWoehlke\TwSimpleworklist\Tests\Unit\Domain\Model;
+namespace ThomasWoehlke\Gtd\Tests\Unit\Domain\Model;
 
 /**
  * Test case.
@@ -9,13 +9,13 @@ namespace ThomasWoehlke\TwSimpleworklist\Tests\Unit\Domain\Model;
 class TaskTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
     /**
-     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task
+     * @var \ThomasWoehlke\Gtd\Domain\Model\Task
      */
     protected $subject = null;
 
     protected function setUp()
     {
-        $this->subject = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\Task();
+        $this->subject = new \ThomasWoehlke\Gtd\Domain\Model\Task();
     }
 
     protected function tearDown()
@@ -235,7 +235,7 @@ class TaskTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function setProjectForProjectSetsProject()
     {
-        $projectFixture = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\Project();
+        $projectFixture = new \ThomasWoehlke\Gtd\Domain\Model\Project();
         $this->subject->setProject($projectFixture);
 
         self::assertAttributeEquals(
@@ -263,7 +263,7 @@ class TaskTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function setContextForContextSetsContext()
     {
-        $contextFixture = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context();
+        $contextFixture = new \ThomasWoehlke\Gtd\Domain\Model\Context();
         $this->subject->setContext($contextFixture);
 
         self::assertAttributeEquals(
@@ -291,7 +291,7 @@ class TaskTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function setUserAccountForUserAccountSetsUserAccount()
     {
-        $userAccountFixture = new \ThomasWoehlke\TwSimpleworklist\Domain\Model\UserAccount();
+        $userAccountFixture = new \ThomasWoehlke\Gtd\Domain\Model\UserAccount();
         $this->subject->setUserAccount($userAccountFixture);
 
         self::assertAttributeEquals(

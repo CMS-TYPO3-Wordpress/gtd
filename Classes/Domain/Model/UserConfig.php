@@ -1,9 +1,9 @@
 <?php
-namespace ThomasWoehlke\TwSimpleworklist\Domain\Model;
+namespace ThomasWoehlke\Gtd\Domain\Model;
 
 /***
  *
- * This file is part of the "SimpleWorklist" Extension for TYPO3 CMS.
+ * This file is part of the "Getting Things Done" Extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
@@ -20,7 +20,7 @@ class UserConfig extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * defaultContext
      *
-     * @var \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context
+     * @var \ThomasWoehlke\Gtd\Domain\Model\Context
      */
     protected $defaultContext = null;
 
@@ -34,7 +34,7 @@ class UserConfig extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the defaultContext
      *
-     * @return \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $defaultContext
+     * @return \ThomasWoehlke\Gtd\Domain\Model\Context $defaultContext
      */
     public function getDefaultContext()
     {
@@ -44,10 +44,10 @@ class UserConfig extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the defaultContext
      *
-     * @param \ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $defaultContext
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Context $defaultContext
      * @return void
      */
-    public function setDefaultContext(\ThomasWoehlke\TwSimpleworklist\Domain\Model\Context $defaultContext)
+    public function setDefaultContext(\ThomasWoehlke\Gtd\Domain\Model\Context $defaultContext)
     {
         $this->defaultContext = $defaultContext;
     }
