@@ -87,6 +87,9 @@
 			<trans-unit id="tx_gtd_domain_model_useraccount.list">
 				<source>User</source>
 			</trans-unit>
+			<trans-unit id="tx_gtd_domain_model_useraccount.username">
+				<source>User</source>
+			</trans-unit>
 			<trans-unit id="tx_gtd_domain_model_usermessage">
 				<source>User Message</source>
 			</trans-unit>

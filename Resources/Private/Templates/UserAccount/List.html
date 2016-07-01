@@ -22,7 +22,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 <table  class="table table-striped" >
 	<tr>
 		<th><f:translate key="tx_gtd_domain_model_useraccount.messages" /></th>
-		<th><f:translate key="tx_gtd_domain_model_useraccount.user_email" /></th>
+		<th><f:translate key="tx_gtd_domain_model_useraccount.username" /></th>
 		<th><f:translate key="tx_gtd_domain_model_useraccount.user_fullname" /></th>
 	</tr>
 
@@ -45,15 +45,15 @@ Otherwise your changes will be overwritten the next time you save the extension 
 			<td>
 				<f:if condition="{thisUser.uid} == {userAccount.uid}">
 					<f:then>
-						{userAccount.email}
+						{userAccount.username}
 					</f:then>
 					<f:else>
-						<f:link.action controller="UserMessage" action="list" arguments="{thisUser : thisUser, otherUser : userAccount}"> {userAccount.email}</f:link.action>
+						<f:link.action controller="UserMessage" action="list" arguments="{thisUser : thisUser, otherUser : userAccount}"> {userAccount.username}</f:link.action>
 					</f:else>
 				</f:if>
 			</td>
 			<td>
-				<f:link.action action="show" arguments="{userAccount : userAccount}"> {userAccount.name}</f:link.action>
+				{userAccount.name}
 			</td>
 		</tr>
 	</f:for>

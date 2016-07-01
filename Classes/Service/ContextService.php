@@ -81,7 +81,7 @@ class ContextService implements \TYPO3\CMS\Core\SingletonInterface
         $contextUid = $sessionData['contextUid'];
         if($contextUid == null){
             $contextList = $this->getContextList();
-            DebuggerUtility::var_dump($contextList);
+            //DebuggerUtility::var_dump($contextList);
             $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
             $userConfig = $this->userConfigRepository->findByUserAccount($userObject);
             if($userConfig == null){

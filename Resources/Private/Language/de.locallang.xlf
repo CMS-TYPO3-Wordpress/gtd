@@ -113,6 +113,10 @@
 				<source>User</source>
 				<target state="translated">Benutzer</target>
 			</trans-unit>
+			<trans-unit id="tx_gtd_domain_model_useraccount.username">
+				<source>User</source>
+				<target state="translated">Benutzerkonto</target>
+			</trans-unit>
 			<trans-unit id="tx_gtd_domain_model_usermessage">
 				<source>User Message</source>
 			</trans-unit>
