@@ -280,16 +280,16 @@
 				<source>Changed Task Ordering.</source>
 			</trans-unit>
 			<trans-unit id="tx_gtd_flash.project.updated">
-				<source>Projekt updated.</source>
+				<source>Project updated.</source>
 			</trans-unit>
 			<trans-unit id="tx_gtd_flash.project.deleted">
-				<source>Projekt deleted.</source>
+				<source>Project deleted.</source>
 			</trans-unit>
 			<trans-unit id="tx_gtd_flash.project.moved">
-				<source>Projekt moved.</source>
+				<source>Project moved.</source>
 			</trans-unit>
 			<trans-unit id="tx_gtd_flash.project.created">
-				<source>Projekt created.</source>
+				<source>Project created.</source>
 			</trans-unit>
 			<trans-unit id="tx_gtd_flash.testdata.created">
 				<source>Testdata created.</source>

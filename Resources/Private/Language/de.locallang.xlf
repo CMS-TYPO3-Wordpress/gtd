@@ -353,19 +353,19 @@
 				<target state="translated">Reihenfolge der Aufgaben geändert.</target>
 			</trans-unit>
 			<trans-unit id="tx_gtd_flash.project.updated">
-				<source>Projekt updated.</source>
+				<source>Project updated.</source>
 				<target state="translated">Projekt aktualisiert.</target>
 			</trans-unit>
 			<trans-unit id="tx_gtd_flash.project.deleted">
-				<source>Projekt deleted.</source>
+				<source>Project deleted.</source>
 				<target state="translated">Projekt gelöscht.</target>
 			</trans-unit>
 			<trans-unit id="tx_gtd_flash.project.moved">
-				<source>Projekt moved.</source>
+				<source>Project moved.</source>
 				<target state="translated">Projekt verschoben.</target>
 			</trans-unit>
 			<trans-unit id="tx_gtd_flash.project.created">
-				<source>Projekt created.</source>
+				<source>Project created.</source>
 				<target state="translated">Projekt erzeugt.</target>
 			</trans-unit>
 			<trans-unit id="tx_gtd_flash.testdata.created">
