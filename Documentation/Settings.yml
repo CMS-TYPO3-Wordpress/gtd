@@ -13,7 +13,7 @@ conf.py:
   copyright: 2016
   project: GTD
   version:
-  release: 0.0.2
+  release: 0.0.3
   intersphinx_mapping:
     t3tsref:
     - http://docs.typo3.org/typo3cms/TyposcriptReference/
