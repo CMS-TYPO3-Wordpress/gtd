@@ -11,52 +11,129 @@
 Users Manual
 ============
 
-Target group: **Editors**
+Target group: **Website Users**
 
-Here should be described how to use the extension from the editor perspective.
+You collect Tasks to do and order them by State and into Projects.
 
 - How does it work?
 
-  - works well when doing this.
+  - First you have to log in with your user credentials.
 
-  - does not work so well when doing that
-    but we can live with it.
+  - Then you see a List of Users. You may send messages to each other.
 
-  - **mind indentation when nesting lists**.
 
-- How to install the plugin on a web page?
+- How to work with Tasks
 
-- What options are available?
+  - You start processing your Tasks in Inbox. **Here you create new Tasks.**
 
-Language should be non-technical, explaining, using small examples.
-Don't use to many acronyms unless they have been explained.
-Don't be confusing by putting information targeting administrators.
+  - You change State of a Task by drag and drop to a List e.g. Today
+
+  - A new Task is always on Top. You may change the Ordering in a Tasklist or Project by drag and drop Tasks inside the List.
+
+  - If you enter a Due Date then the Task is moved to the List Scheduled
+
+  - If you check the Star the Task will also be listed in the Focus List
+
+  - If the Task is done, check the checkbox and the Task will be moved to the Completed List
+
+  - If you plan to delete completed Tasks just click "Move all Tasks to Trash" in Completed List
+
+  - In Trash you can delete all Tasks there
+
+
+- How to Work with Projects
+
+  - Additionally to the Task State Lists you may order Tasks into Projects
+
+  - Projects may have Sub-Projects
+
+  - To add a Task to a Project just Drag and Drop
+
+  - You may transform a Task into a Project
+
+
+- Work with Context
+
+  - you may choose a Context. e.g. Work and Private
+
+  - Projects and Tasks belong to one of the Contexts
+
+  - You may create more Contexts in the Settings
+
+- Settings:
+
+Here you can set the default Context with what you will start after Login. You also can change the List of Contexts here.
 
 .. tip::
 
-   Take a break from time to time.
-
-Admonitions should be used to warn the users about potential
-pitfalls, attract their attention to important elements
-or just add some notes for for information (further reading,
-for example).
+   Drag and Drop forces the page to reload, sometimes it is good to be a little bit patience.
 
 .. important::
 
-   Remember to always say "please" when asking your software to
-   do something.
+   You should read the Book "Getting Things Done" by David Allen: http://gettingthingsdone.com/
+   There is a Wikipedia Article: https://en.wikipedia.org/wiki/Getting_Things_Done
+   GTD® and Getting Things Done® are registered trademarks of the David Allen Company.
+   GTD TYPO3 Extension is not affiliated with or endorsed by the David Allen Company.
 
-Provide screenshots as needed for making things clear. When creating
-screenshots, try using the `Introduction Package <http://demo.typo3.org/>`_
-as a neutral TYPO3 CMS instance.
+Here are some screenshots for the first impression:
 
-.. figure:: ../Images/UserManual/BackendView.png
+.. figure:: ../Images/01-user.png
    :width: 500px
-   :alt: Backend view
+   :alt: Communication between Users
 
-   Default Backend view (caption of the image)
+   Communication between Users
 
-   The Backend view of TYPO3 after the user has clicked on module "Page". (legend of the image)
+   Users can Send Messages to each other
+
+
+
+.. figure:: ../Images/02-user.png
+   :width: 500px
+   :alt: Communication between Users
+
+   Message Talk between two Users
+
+   Users can Send Messages to each other
+
+
+
+.. figure:: ../Images/03-Inbox.png
+   :width: 500px
+   :alt: Inbox
+
+   Inbox
+
+   You start collecting Tasks in Inbox
+
+
+
+.. figure:: ../Images/04-Today.png
+   :width: 500px
+   :alt: Today
+
+   Today
+
+   Choose Tasks you want to solve today and move them to Today List by Drag and Drop
+
+
+
+.. figure:: ../Images/05-Completed.png
+   :width: 500px
+   :alt: Completed
+
+   Completed
+
+   If a Task is done, you hit the checkbox and the Task is moved to the Completed List
+
+
+
+.. figure:: ../Images/06-Projekte.png
+   :width: 500px
+   :alt: Projects
+
+   Projects
+
+   Tasks can also be ordered in Projects. Projects may have subprojects.
 
 
 .. _user-faq:
@@ -64,4 +141,4 @@ as a neutral TYPO3 CMS instance.
 FAQ
 ---
 
-Possible subsection: FAQ
+Yet to come: FAQ

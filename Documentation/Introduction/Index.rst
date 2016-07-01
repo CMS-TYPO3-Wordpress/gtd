@@ -37,10 +37,21 @@ Screenshots
 
 Here are some Screenshots:
 
-.. figure:: ../Images/IntroductionPackage.png
+.. figure:: ../Images/03-Inbox.png
    :width: 500px
-   :alt: Introduction Package
+   :alt: Inbox
 
-   Introduction Package just after installation (caption of the image)
+   Inbox
 
-   How the Frontend of the Introduction Package looks like just after installation (legend of the image)
+   You start collecting Tasks in Inbox
+
+
+.. figure:: ../Images/06-Projekte.png
+   :width: 500px
+   :alt: Projects
+
+   Projects
+
+   Tasks can also be ordered in Projects. Projects may have subprojects.
+
+

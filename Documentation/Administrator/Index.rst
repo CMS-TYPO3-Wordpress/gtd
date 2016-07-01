@@ -17,40 +17,78 @@ Describes how to manage the extension from an administrator point of view.
 That relates to Page/User TSconfig, permissions, configuration etc.,
 which administrator level users have access to.
 
-Language should be non / semi-technical, explaining, using small examples.
-
-
 .. _admin-installation:
+
+Requirements
+------------
+
+- TYPO3 7.6 LTS
+- Twitter Bootstrap 3 http://getbootstrap.com/
+   - I used the Extension t3sbootstrap: http://www.t3sbootstrap.de/
+- An Extension for User Selfcare is Recommended. e.g.:
+   - femanager https://typo3.org/extensions/repository/view/femanager
+   - sr_feuser_register https://typo3.org/extensions/repository/view/sr_feuser_register
+
 
 Installation
 ------------
 
-- How should the extension be installed?
-- Are they dependencies to resolve?
-- Is it a static template file to be included?
-
 To install the extension, perform the following steps:
 
-#. Go to the Extension Manager
-#. Install the extension
-#. Load the static template
-#. ...
+#. Install and configure the Requirements
+#. Install gtd from TER
+#. Create two pages: A Login Page and the Page for gtd-Plugin
+#. Create a Folder where the Users and the gtd-Data will be stored
+#. Create a usergroup for gtd, maybe it is good to create a testuser
+#. Include the static Template
+#. Configure the Template
 
-For a list of configuration options, using a definition list is recommended:
+configuration options:
 
-Some Configuration
-  This option enables...
+Template: Constant-Editor
+  plugin.tx_gtd_frontendgtd.persistence.storagePid = <PID of Data Folder>
+  Needed for the GTD-plugin to find the Folder with the Data and Users.
 
-Other configuration
-  This other option is for all the rest...
+Template: Setup (TypoScript)
+  config.moveJsFromHeaderToFooter = 1
+  The Extension uses jQuery-ui, this option is for loading jQuery before jQuery-ui
 
 
-.. figure:: ../Images/AdministratorManual/ExtensionManager.png
-   :alt: Extension Manager
+.. figure:: ../Images/AdministratorManual/20-Constants-Editor.png
+   :width: 500px
+   :alt: Constants-Editor
 
-   Extension Manager (caption of the image)
+   Constants-Editor
 
-   List of extensions within the Extension Manager also shorten with "EM" (legend of the image)
+   Set plugin.tx_gtd_frontendgtd.persistence.storagePid to the PID of your Data Folder
+
+
+.. figure:: ../Images/AdministratorManual/21-Template.png
+   :width: 500px
+   :alt: Include the static Template
+
+   Include the static Template
+
+   You need to Include the static Template, it contains TypoScript, JavaScript and CSS for the Plugin.
+
+
+.. figure:: ../Images/AdministratorManual/22-Plugin.png
+   :width: 500px
+   :alt: Plugin
+
+   Plugin
+
+   The plugin runs this Application in the Frontend.
+
+
+.. figure:: ../Images/AdministratorManual/22-Data-Folder.png
+   :width: 500px
+   :alt: Data Folder
+
+   Data Folder
+
+   List of Frontend-Users and Frontend-Usergroups and also all the gtd-Data.
+
 
 
 .. _admin-configuration:
@@ -58,10 +96,11 @@ Other configuration
 Configuration
 -------------
 
-* Where and how the extension should be configured? TypoScript? PHP?
+* The Extension is to be configured with the Constant-Editor and with TypoScript.
 
-* Are there other prerequisite to full fill beforehand?
-  For example, configure a setting in a special way somewhere.
+* The prerequisite to full fill beforehand:
+  The two pages Login and gtd-plugin has to be configured to be accessable to the users in the gtd-Folder.
+  I used the Extension t3sbootstrap to configure the Login.
 
 
 .. _admin-faq:
@@ -69,7 +108,7 @@ Configuration
 FAQ
 ---
 
-Possible subsection: FAQ
+Yet to come: FAQ
 
 Subsection
 ^^^^^^^^^^
