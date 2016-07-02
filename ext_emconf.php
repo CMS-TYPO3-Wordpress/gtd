@@ -5,7 +5,7 @@
  ***************************************************************/
 
 $EM_CONF[$_EXTKEY] = [
-    'title' => 'Getting Things Done',
+    'title' => 'Todo-List for Getting Things Done',
     'description' => 'Frontend User can use this Extension as Todo List for Timemanagement or Projectmanangement with the Getting Things Done Scheme introduced by David Allen.',
     'category' => 'plugin',
     'author' => 'Thomas Woehlke',
