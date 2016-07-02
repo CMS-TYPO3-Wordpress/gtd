@@ -26,7 +26,7 @@ More Info about GTD: https://en.wikipedia.org/wiki/Getting_Things_Done
 
 .. important::
    GTD® and Getting Things Done® are registered trademarks of the David Allen Company;
-   But gtd TYPO3 Extension is not affiliated with or endorsed by the David Allen Company and it fully supports the same GNU Public License GPL as TYPO itself.
+   But gtd TYPO3 Extension is not affiliated with or endorsed by the David Allen Company and it fully supports the same GNU Public License GPL as TYPO3 itself.
 
 
 
