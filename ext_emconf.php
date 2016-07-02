@@ -6,7 +6,7 @@
 
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Getting Things Done',
-    'description' => 'Frontend User can use this Extension as Todo List for Timemanagement or Projectmanangement with the Getting Things Done Scheme by David Allen.',
+    'description' => 'Frontend User can use this Extension as Todo List for Timemanagement or Projectmanangement with the Getting Things Done Scheme introduced by David Allen.',
     'category' => 'plugin',
     'author' => 'Thomas Woehlke',
     'author_email' => 'thomas@woehlke.org',
@@ -21,7 +21,7 @@ $EM_CONF[$_EXTKEY] = [
     'modify_tables' => '',
     'clearCacheOnLoad' => 0,
     'lockType' => '',
-    'version' => '0.0.3',
+    'version' => '0.9.0',
     'constraints' => [
         'depends' => [
             'felogin' => '7.6.0-7.99.99',

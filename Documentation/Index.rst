@@ -24,7 +24,7 @@ Getting Things Done
 		en
 
 	:Description:
-		Your Todo-List for Getting Things Done
+		Frontend User can use this Extension as Todo List for Timemanagement or Projectmanangement with the Getting Things Done Scheme introduced by David Allen.
 
 	:Keywords:
 		Todo, Timemanagement, Projectmanagement, Frontend, Getting Things Done
@@ -58,7 +58,6 @@ Getting Things Done
 	Introduction/Index
 	User/Index
 	Administrator/Index
-	Configuration/Index
 	KnownProblems/Index
 	ToDoList/Index
 	ChangeLog/Index

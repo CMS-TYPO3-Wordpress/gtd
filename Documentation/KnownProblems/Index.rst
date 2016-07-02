@@ -11,7 +11,10 @@
 Known Problems
 ==============
 
-Say where bugs can be reported / followed up. Is it a
-`bug tracker <http://forge.typo3.org/projects/typo3cms-doc-official-extension-template/issues>`_?
-Use this section for informing about any type of of problem
-that are not necessarily named in the bug tracker such as performance issues, ...
+Bugs, Questions and Feature Requests can be reported / followed up at Github:
+`Issues <https://github.com/phasenraum2010/gtd/issues>`_.
+
+There are two issues about Translation:
+- The Effort of time and energy must be translated
+- The Domain Object "Context" shall be localized by TYPO3 Standard
+- Drag and Drop is sometimes slow; maybe change to Ajax

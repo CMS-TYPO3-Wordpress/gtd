@@ -11,6 +11,7 @@
 To-Do list
 ==========
 
-Give a link pointing to a `roadmap <http://forge.typo3.org/projects/typo3cms-doc-official-extension-template/roadmap>`_.
-Alternatively, you can dress up a list of things you want to add or fix in this chapter
-or give a vision about where the extension is heading.
+Here are Milestones in the `roadmap <https://github.com/phasenraum2010/gtd/milestones>`_.
+
+Bugs, Questions and Feature Requests can be reported / followed up at Github:
+`Issues <https://github.com/phasenraum2010/gtd/issues>`_.

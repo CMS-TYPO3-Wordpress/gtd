@@ -11,6 +11,4 @@
 ChangeLog
 =========
 
-Providing a change log chapter is optional. You can also refer
-users to the ChangeLog file inside the extension or to some repository's
-commit listing.
+Please refer to the to the repository's commit listing: `Commits <https://github.com/phasenraum2010/gtd/commits/master>`_.
