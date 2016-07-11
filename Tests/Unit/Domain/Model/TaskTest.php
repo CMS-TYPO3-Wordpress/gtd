@@ -291,7 +291,7 @@ class TaskTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function setUserAccountForUserAccountSetsUserAccount()
     {
-        $userAccountFixture = new \ThomasWoehlke\Gtd\Domain\Model\UserAccount();
+        $userAccountFixture = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUser();
         $this->subject->setUserAccount($userAccountFixture);
 
         self::assertAttributeEquals(

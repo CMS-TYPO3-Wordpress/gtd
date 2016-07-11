@@ -96,7 +96,7 @@ class UserMessageTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function setSenderForUserAccountSetsSender()
     {
-        $senderFixture = new \ThomasWoehlke\Gtd\Domain\Model\UserAccount();
+        $senderFixture = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUser();
         $this->subject->setSender($senderFixture);
 
         self::assertAttributeEquals(
@@ -124,7 +124,7 @@ class UserMessageTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function setReceiverForUserAccountSetsReceiver()
     {
-        $receiverFixture = new \ThomasWoehlke\Gtd\Domain\Model\UserAccount();
+        $receiverFixture = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUser();
         $this->subject->setReceiver($receiverFixture);
 
         self::assertAttributeEquals(
