@@ -28,9 +28,8 @@ class UserAccountControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function listActionFetchesAllUserAccountsFromRepositoryAndAssignsThemToView()
+    public function listAction()
     {
-
         //setup some Test Data
         $nrMessages = 5;
         $userLoggedIn = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUser('loggedinuser','fd85df6575');
@@ -38,7 +37,7 @@ class UserAccountControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $userOther2 = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUser('otheruser1','fd85df6575');
         $userAccount2messages = array();
         $userAccounts = array($userLoggedIn,$userOther1,$userOther2);
-        $currentContext = new Context();
+        $currentContext = new \ThomasWoehlke\Gtd\Domain\Model\Context();
         $currentContext->setNameDe('Arbeit');
         $currentContext->setNameEn('Work');
         $contextList=array($currentContext);

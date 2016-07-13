@@ -64,9 +64,10 @@ class UserMessageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                 $this->userMessageRepository->update($msg);
             }
         }
+        $context = $this->contextService->getCurrentContext();
         $this->view->assign('contextList',$this->contextService->getContextList());
-        $this->view->assign('currentContext',$this->contextService->getCurrentContext());
-        $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($this->contextService->getCurrentContext()));
+        $this->view->assign('currentContext',$context);
+        $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($context));
     }
 
     /**
