@@ -1,6 +1,8 @@
 <?php
 namespace ThomasWoehlke\Gtd\Tests\Unit\Controller;
 
+use ThomasWoehlke\Gtd\Domain\Model\Context;
+
 /**
  * Test case.
  *
@@ -23,96 +25,64 @@ class UserAccountControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         parent::tearDown();
     }
 
-
-
     /**
      * @test
      */
     public function listActionFetchesAllUserAccountsFromRepositoryAndAssignsThemToView()
     {
 
-        $allUserAccounts = $this->getMock(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class, [], [], '', false);
+        //setup some Test Data
+        $nrMessages = 5;
+        $userLoggedIn = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUser('loggedinuser','fd85df6575');
+        $userOther1 = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUser('otheruser1','fd85df6575');
+        $userOther2 = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUser('otheruser1','fd85df6575');
+        $userAccount2messages = array();
+        $userAccounts = array($userLoggedIn,$userOther1,$userOther2);
+        $currentContext = new Context();
+        $currentContext->setNameDe('Arbeit');
+        $currentContext->setNameEn('Work');
+        $contextList=array($currentContext);
+        $project1 = new \ThomasWoehlke\Gtd\Domain\Model\Project();
+        $project1->setName('p1');
+        $project1->setDescription('d1');
+        $project2 = new \ThomasWoehlke\Gtd\Domain\Model\Project();
+        $project2->setName('p2');
+        $project2->setDescription('d2');
+        $rootProjects = array($project1,$project2);
 
-        $userAccountRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\UserAccountRepository::class, ['findAll'], [], '', false);
-        $userAccountRepository->expects(self::once())->method('findAll')->will(self::returnValue($allUserAccounts));
+        // inject userAccountRepository
+        $userAccountRepository = $this->getMock(\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository::class, ['findAll','findByUid'], [null,1], '', false);
+        $userAccountRepository->expects(self::once())->method('findByUid')->will(self::returnValue($userLoggedIn));
+        $userAccountRepository->expects(self::once())->method('findAll')->will(self::returnValue($userAccounts));
         $this->inject($this->subject, 'userAccountRepository', $userAccountRepository);
 
+        // inject $userMessageRepository
+        $userMessageRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\UserMessageRepository::class, ['getNewMessagesFor'], [$userOther1], '', false);
+        $userMessageRepository->expects(self::any())->method('getNewMessagesFor')->will(self::returnValue($nrMessages));
+        $this->inject($this->subject, 'userAccountRepository', $userAccountRepository);
+
+        //inject $contextService
+        $contextService = $this->getMock(\ThomasWoehlke\Gtd\Service\ContextService::class, ['getCurrentContext','getContextList'], [], '', false);
+        $contextService->expects(self::once())->method('getCurrentContext')->will(self::returnValue($currentContext));
+        $contextService->expects(self::once())->method('getContextList')->will(self::returnValue($contextList));
+        $this->inject($this->subject, 'contextService', $contextService);
+
+        //inject $projectRepository
+        $projectRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\ProjectRepository::class, ['getRootProjects'], [$currentContext], '', false);
+        $projectRepository->expects(self::once())->method('getRootProjects')->will(self::returnValue($rootProjects));
+        $this->inject($this->subject, 'projectRepository', $projectRepository);
+
         $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);
-        $view->expects(self::once())->method('assign')->with('userAccounts', $allUserAccounts);
+        $view->expects(self::at(0))->method('assign')->withConsecutive(['thisUser',$userLoggedIn]);
+        $view->expects(self::at(1))->method('assign')->withConsecutive(['userAccounts', $userAccounts]);
+        $view->expects(self::at(2))->method('assign')->withConsecutive(['userAccount2messages',$userAccount2messages]);
+        $view->expects(self::at(3))->method('assign')->withConsecutive(['contextList',$contextList]);
+        $view->expects(self::at(4))->method('assign')->withConsecutive(['currentContext',$currentContext]);
+        $view->expects(self::at(5))->method('assign')->withConsecutive(['rootProjects',$rootProjects]);
+
         $this->inject($this->subject, 'view', $view);
 
         $this->subject->listAction();
     }
 
-    /**
-     * @test
-     */
-    public function showActionAssignsTheGivenUserAccountToView()
-    {
-        $userAccount = new \ThomasWoehlke\Gtd\Domain\Model\UserAccount();
-
-        $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);
-        $this->inject($this->subject, 'view', $view);
-        $view->expects(self::once())->method('assign')->with('userAccount', $userAccount);
-
-        $this->subject->showAction($userAccount);
-    }
-
-    /**
-     * @test
-     */
-    public function createActionAddsTheGivenUserAccountToUserAccountRepository()
-    {
-        $userAccount = new \ThomasWoehlke\Gtd\Domain\Model\UserAccount();
-
-        $userAccountRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\UserAccountRepository::class, ['add'], [], '', false);
-        $userAccountRepository->expects(self::once())->method('add')->with($userAccount);
-        $this->inject($this->subject, 'userAccountRepository', $userAccountRepository);
-
-        $this->subject->createAction($userAccount);
-    }
-
-    /**
-     * @test
-     */
-    public function editActionAssignsTheGivenUserAccountToView()
-    {
-        $userAccount = new \ThomasWoehlke\Gtd\Domain\Model\UserAccount();
-
-        $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);
-        $this->inject($this->subject, 'view', $view);
-        $view->expects(self::once())->method('assign')->with('userAccount', $userAccount);
-
-        $this->subject->editAction($userAccount);
-    }
-
-
-    /**
-     * @test
-     */
-    public function updateActionUpdatesTheGivenUserAccountInUserAccountRepository()
-    {
-        $userAccount = new \ThomasWoehlke\Gtd\Domain\Model\UserAccount();
-
-        $userAccountRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\UserAccountRepository::class, ['update'], [], '', false);
-        $userAccountRepository->expects(self::once())->method('update')->with($userAccount);
-        $this->inject($this->subject, 'userAccountRepository', $userAccountRepository);
-
-        $this->subject->updateAction($userAccount);
-    }
-
-    /**
-     * @test
-     */
-    public function deleteActionRemovesTheGivenUserAccountFromUserAccountRepository()
-    {
-        $userAccount = new \ThomasWoehlke\Gtd\Domain\Model\UserAccount();
-
-        $userAccountRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\UserAccountRepository::class, ['remove'], [], '', false);
-        $userAccountRepository->expects(self::once())->method('remove')->with($userAccount);
-        $this->inject($this->subject, 'userAccountRepository', $userAccountRepository);
-
-        $this->subject->deleteAction($userAccount);
-    }
-    
 }

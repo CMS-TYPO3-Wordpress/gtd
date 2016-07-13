@@ -68,10 +68,12 @@ class UserAccountController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
             }
         }
         $currentContext = $this->contextService->getCurrentContext();
+        $contextList = $this->contextService->getContextList();
+        $rootProjects = $this->projectRepository->getRootProjects($currentContext);
         $this->view->assign('userAccount2messages', $userAccount2messages);
-        $this->view->assign('contextList',$this->contextService->getContextList());
+        $this->view->assign('contextList',$contextList);
         $this->view->assign('currentContext',$currentContext);
-        $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($currentContext));
+        $this->view->assign('rootProjects',$rootProjects);
     }
 
 }
