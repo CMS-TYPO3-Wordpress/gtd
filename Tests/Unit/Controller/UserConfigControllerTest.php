@@ -104,6 +104,42 @@ class UserConfigControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      * @test
      */
     public function updateActionTest(){
+        $userLoggedIn = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUser('loggedinuser','fd85df6575');
+        $userConfig = new \ThomasWoehlke\Gtd\Domain\Model\UserConfig();
+        $currentContext = new \ThomasWoehlke\Gtd\Domain\Model\Context();
+        $currentContext->setNameDe('Arbeit');
+        $currentContext->setNameEn('Work');
+        $userConfig->setUserAccount($userLoggedIn);
+        $userConfig->setDefaultContext($currentContext);
+        $contextList = [$currentContext];
+        $project1 = new \ThomasWoehlke\Gtd\Domain\Model\Project();
+        $project1->setName('p1');
+        $project1->setDescription('d1');
+        $project1->setContext($currentContext);
+        $project1->setUserAccount($userLoggedIn);
+        $project2 = new \ThomasWoehlke\Gtd\Domain\Model\Project();
+        $project2->setName('p2');
+        $project2->setDescription('d2');
+        $project2->setContext($currentContext);
+        $project2->setUserAccount($userLoggedIn);
+        $rootProjects = array($project1,$project2);
 
+        //inject $userConfigRepository
+        $userConfigRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\UserConfigRepository::class, ['findByUid','update'], [$userLoggedIn,$userConfig], '', false);
+        $userConfigRepository->expects(self::once())->method('findByUid')->will(self::returnValue($userConfig));
+        $userConfigRepository->expects(self::once())->method('update')->with($userConfig);
+        $this->inject($this->subject, 'userConfigRepository', $userConfigRepository);
+
+        //inject $contextService
+        $contextService = $this->getMock(\ThomasWoehlke\Gtd\Service\ContextService::class, ['setCurrentContext'], [], '', false);
+        $contextService->expects(self::once())->method('setCurrentContext')->with($currentContext);
+        $this->inject($this->subject, 'contextService', $contextService);
+
+
+        $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);
+
+        $this->inject($this->subject, 'view', $view);
+
+        $this->subject->updateAction($userConfig);
     }
 }
