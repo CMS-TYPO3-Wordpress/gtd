@@ -70,13 +70,15 @@ class UserConfigController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContr
      */
     public function showAction(){
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
-        $this->view->assign('thisUser', $userObject);
         $userConfig = $this->userConfigRepository->findByUserAccount($userObject);
-        $this->view->assign('userConfig',$userConfig);
         $currentContext = $this->contextService->getCurrentContext();
-        $this->view->assign('contextList',$this->contextService->getContextList());
+        $contextList = $this->contextService->getContextList();
+        $rootProjects = $this->projectRepository->getRootProjects($currentContext);
+        $this->view->assign('thisUser', $userObject);
+        $this->view->assign('userConfig',$userConfig);
+        $this->view->assign('contextList',$contextList);
         $this->view->assign('currentContext',$currentContext);
-        $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($currentContext));
+        $this->view->assign('rootProjects',$rootProjects);
     }
 
     /**
@@ -90,7 +92,6 @@ class UserConfigController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContr
         $persistentUserConfig->setDefaultContext($userConfig->getDefaultContext());
         $this->userConfigRepository->update($persistentUserConfig);
         $this->contextService->setCurrentContext($userConfig->getDefaultContext());
-        //$this->addFlashMessage('The Default Context was changed.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.userconfig.updated', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('show');

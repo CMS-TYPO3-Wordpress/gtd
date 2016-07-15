@@ -1,8 +1,6 @@
 <?php
 namespace ThomasWoehlke\Gtd\Tests\Unit\Controller;
 
-use ThomasWoehlke\Gtd\Domain\Model\Context;
-
 /**
  * Test case.
  *
