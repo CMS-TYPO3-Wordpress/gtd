@@ -111,18 +111,10 @@ class UserConfigControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $currentContext->setNameEn('Work');
         $userConfig->setUserAccount($userLoggedIn);
         $userConfig->setDefaultContext($currentContext);
-        $contextList = [$currentContext];
-        $project1 = new \ThomasWoehlke\Gtd\Domain\Model\Project();
-        $project1->setName('p1');
-        $project1->setDescription('d1');
-        $project1->setContext($currentContext);
-        $project1->setUserAccount($userLoggedIn);
-        $project2 = new \ThomasWoehlke\Gtd\Domain\Model\Project();
-        $project2->setName('p2');
-        $project2->setDescription('d2');
-        $project2->setContext($currentContext);
-        $project2->setUserAccount($userLoggedIn);
-        $rootProjects = array($project1,$project2);
+
+        $dbresult = array();
+        $dbresult['uid'] = 1;
+
 
         //inject $userConfigRepository
         $userConfigRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\UserConfigRepository::class, ['findByUid','update'], [$userLoggedIn,$userConfig], '', false);
@@ -135,6 +127,12 @@ class UserConfigControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $contextService->expects(self::once())->method('setCurrentContext')->with($currentContext);
         $this->inject($this->subject, 'contextService', $contextService);
 
+
+        $GLOBALS['TYPO3_DB'] = $this->getMock(\TYPO3\CMS\Core\Database\DatabaseConnection::class, array(), array(), '', false);
+        $GLOBALS['TYPO3_DB']->expects(self::any())->method('exec_SELECTgetSingleRow')->will(self::returnValue($dbresult));
+        $GLOBALS['TYPO3_DB']->expects(self::any())->method('fullQuoteStr')->will(self::returnValue('test'));
+
+        $GLOBALS['TYPO3_LOADED_EXT'] = ['gtd'=>[]];
 
         $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);
 

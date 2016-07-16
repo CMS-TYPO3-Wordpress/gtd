@@ -50,6 +50,7 @@ class UserConfigController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContr
      */
     protected $projectRepository = null;
 
+
     private $extName = 'gtd';
 
     /**
@@ -89,9 +90,10 @@ class UserConfigController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContr
      */
     public function updateAction(\ThomasWoehlke\Gtd\Domain\Model\UserConfig $userConfig){
         $persistentUserConfig = $this->userConfigRepository->findByUid($userConfig->getUid());
-        $persistentUserConfig->setDefaultContext($userConfig->getDefaultContext());
+        $ctx = $userConfig->getDefaultContext();
+        $persistentUserConfig->setDefaultContext($ctx);
         $this->userConfigRepository->update($persistentUserConfig);
-        $this->contextService->setCurrentContext($userConfig->getDefaultContext());
+        $this->contextService->setCurrentContext($ctx);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.userconfig.updated', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('show');
