@@ -95,9 +95,10 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     public function newAction()
     {
+        $ctx = $this->contextService->getCurrentContext();
         $this->view->assign('contextList',$this->contextService->getContextList());
-        $this->view->assign('currentContext',$this->contextService->getCurrentContext());
-        $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($this->contextService->getCurrentContext()));
+        $this->view->assign('currentContext',$ctx);
+        $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($ctx));
     }
 
     /**
@@ -126,10 +127,11 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     public function editAction(\ThomasWoehlke\Gtd\Domain\Model\Context $context)
     {
+        $ctx = $this->contextService->getCurrentContext();
         $this->view->assign('mycontext', $context);
         $this->view->assign('contextList',$this->contextService->getContextList());
-        $this->view->assign('currentContext',$this->contextService->getCurrentContext());
-        $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($this->contextService->getCurrentContext()));
+        $this->view->assign('currentContext',$ctx);
+        $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($ctx));
     }
 
     /**
