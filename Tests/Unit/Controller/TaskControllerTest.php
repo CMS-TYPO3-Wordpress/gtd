@@ -23,95 +23,222 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         parent::tearDown();
     }
 
-
-
     /**
      * @test
      */
-    public function listActionFetchesAllTasksFromRepositoryAndAssignsThemToView()
-    {
+    public function showActionTest(){
 
-        $allTasks = $this->getMock(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class, [], [], '', false);
-
-        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['findAll'], [], '', false);
-        $taskRepository->expects(self::once())->method('findAll')->will(self::returnValue($allTasks));
-        $this->inject($this->subject, 'taskRepository', $taskRepository);
-
-        $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);
-        $view->expects(self::once())->method('assign')->with('tasks', $allTasks);
-        $this->inject($this->subject, 'view', $view);
-
-        $this->subject->listAction();
     }
 
     /**
      * @test
      */
-    public function showActionAssignsTheGivenTaskToView()
-    {
-        $task = new \ThomasWoehlke\Gtd\Domain\Model\Task();
+    public function editActionTest(){
 
-        $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);
-        $this->inject($this->subject, 'view', $view);
-        $view->expects(self::once())->method('assign')->with('task', $task);
-
-        $this->subject->showAction($task);
     }
 
     /**
      * @test
      */
-    public function createActionAddsTheGivenTaskToTaskRepository()
-    {
-        $task = new \ThomasWoehlke\Gtd\Domain\Model\Task();
+    public function updateActionTest(){
 
-        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['add'], [], '', false);
-        $taskRepository->expects(self::once())->method('add')->with($task);
-        $this->inject($this->subject, 'taskRepository', $taskRepository);
-
-        $this->subject->createAction($task);
     }
 
     /**
      * @test
      */
-    public function editActionAssignsTheGivenTaskToView()
-    {
-        $task = new \ThomasWoehlke\Gtd\Domain\Model\Task();
+    public function inboxActionTest(){
 
-        $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);
-        $this->inject($this->subject, 'view', $view);
-        $view->expects(self::once())->method('assign')->with('task', $task);
-
-        $this->subject->editAction($task);
-    }
-
-
-    /**
-     * @test
-     */
-    public function updateActionUpdatesTheGivenTaskInTaskRepository()
-    {
-        $task = new \ThomasWoehlke\Gtd\Domain\Model\Task();
-
-        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['update'], [], '', false);
-        $taskRepository->expects(self::once())->method('update')->with($task);
-        $this->inject($this->subject, 'taskRepository', $taskRepository);
-
-        $this->subject->updateAction($task);
     }
 
     /**
      * @test
      */
-    public function deleteActionRemovesTheGivenTaskFromTaskRepository()
-    {
-        $task = new \ThomasWoehlke\Gtd\Domain\Model\Task();
+    public function todayActionTest(){
 
-        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['remove'], [], '', false);
-        $taskRepository->expects(self::once())->method('remove')->with($task);
-        $this->inject($this->subject, 'taskRepository', $taskRepository);
-
-        $this->subject->deleteAction($task);
     }
+
+    /**
+     * @test
+     */
+    public function nextActionTest(){
+
+    }
+
+    /**
+     * @test
+     */
+    public function waitingActionTest(){
+
+    }
+
+    /**
+     * @test
+     */
+    public function scheduledActionTest(){
+
+    }
+
+    /**
+     * @test
+     */
+    public function somedayActionTest(){
+
+    }
+
+    /**
+     * @test
+     */
+    public function completedActionTest(){
+
+    }
+
+    /**
+     * @test
+     */
+    public function trashActionTest(){
+
+    }
+
+    /**
+     * @test
+     */
+    public function focusActionTest(){
+
+    }
+
+    /**
+     * @test
+     */
+    public function emptyTrashActionTest(){
+
+    }
+
+    /**
+     * @test
+     */
+    public function transformTaskIntoProjectActionTest(){
+
+    }
+
+    /**
+     * @test
+     */
+    public function completeTaskActionTest(){
+
+    }
+
+    /**
+     * @test
+     */
+    public function undoneTaskActionTest(){
+
+    }
+
+    /**
+     * @test
+     */
+    public function setFocusActionTest(){
+
+    }
+
+    /**
+     * @test
+     */
+    public function unsetFocusActionTest(){
+
+    }
+
+    /**
+     * @test
+     */
+    public function listActionTest(){
+
+    }
+
+    /**
+     * @test
+     */
+    public function newActionTest(){
+
+    }
+
+    /**
+     * @test
+     */
+    public function createActionTest(){
+
+    }
+
+    /**
+     * @test
+     */
+    public function moveToInboxActionTest(){
+
+    }
+
+    /**
+     * @test
+     */
+    public function moveToTodayActionTest(){
+
+    }
+
+    /**
+     * @test
+     */
+    public function moveToNextActionTest(){
+
+    }
+
+    /**
+     * @test
+     */
+    public function moveToWaitingActionTest(){
+
+    }
+
+    /**
+     * @test
+     */
+    public function moveToSomedayActionTest(){
+
+    }
+
+    /**
+     * @test
+     */
+    public function moveToCompletedActionTest(){
+
+    }
+
+    /**
+     * @test
+     */
+    public function moveToTrashActionTest(){
+
+    }
+
+    /**
+     * @test
+     */
+    public function moveAllCompletedToTrashActionTest(){
+
+    }
+
+    /**
+     * @test
+     */
+    public function moveTaskOrderActionTest(){
+
+    }
+
+    /**
+     * @test
+     */
+    public function moveTaskOrderInsideProjectActionTest(){
+
+    }
+
+
 }
