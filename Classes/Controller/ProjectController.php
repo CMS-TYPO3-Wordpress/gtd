@@ -66,7 +66,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('project', $project);
         $this->view->assign('contextList',$this->contextService->getContextList());
         $this->view->assign('currentContext',$ctx);
-        $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($this->contextService->getCurrentContext()));
+        $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($ctx));
         $tasks = null;
         $deleteable = false;
         if($project == null){
