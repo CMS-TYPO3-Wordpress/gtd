@@ -94,7 +94,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $ctx = $this->contextService->getCurrentContext();
         $this->view->assign('contextList',$this->contextService->getContextList());
         $this->view->assign('currentContext',$ctx);
-        $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($this->contextService->getCurrentContext()));
+        $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($ctx));
     }
 
     /**
@@ -201,10 +201,11 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     public function listAction()
     {
         $projects = $this->projectRepository->findAll();
+        $ctx = $this->contextService->getCurrentContext();
         $this->view->assign('projects', $projects);
         $this->view->assign('contextList',$this->contextService->getContextList());
-        $this->view->assign('currentContext',$this->contextService->getCurrentContext());
-        $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($this->contextService->getCurrentContext()));
+        $this->view->assign('currentContext',$ctx);
+        $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($ctx));
     }
 
     /**
@@ -215,10 +216,11 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     public function newAction(\ThomasWoehlke\Gtd\Domain\Model\Project $parentProject=null)
     {
+        $ctx = $this->contextService->getCurrentContext();
         $this->view->assign('parentProject', $parentProject);
         $this->view->assign('contextList',$this->contextService->getContextList());
-        $this->view->assign('currentContext',$this->contextService->getCurrentContext());
-        $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($this->contextService->getCurrentContext()));
+        $this->view->assign('currentContext',$ctx);
+        $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($ctx));
     }
 
     /**
