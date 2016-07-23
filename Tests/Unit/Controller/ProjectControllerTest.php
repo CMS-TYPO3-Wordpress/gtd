@@ -307,8 +307,53 @@ class ProjectControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      * @test
      */
     public function moveProjectActionTest(){
+        $userLoggedIn = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUser('loggedinuser','fd85df6575');
+        $userConfig = new \ThomasWoehlke\Gtd\Domain\Model\UserConfig();
+        $currentContext = new \ThomasWoehlke\Gtd\Domain\Model\Context();
+        $currentContext->setNameDe('Arbeit');
+        $currentContext->setNameEn('Work');
+        $userConfig->setUserAccount($userLoggedIn);
+        $userConfig->setDefaultContext($currentContext);
+        $project1 = new \ThomasWoehlke\Gtd\Domain\Model\Project();
+        $project1->setName('p1');
+        $project1->setDescription('d1');
+        $project1->setContext($currentContext);
+        $project1->setUserAccount($userLoggedIn);
+        $project2 = new \ThomasWoehlke\Gtd\Domain\Model\Project();
+        $project2->setName('p2');
+        $project2->setDescription('d2');
+        $project2->setContext($currentContext);
+        $project2->setUserAccount($userLoggedIn);
+        //$rootProjects = array($project1,$project2);
 
+        $task = new \ThomasWoehlke\Gtd\Domain\Model\Task();
+        $task->setContext($currentContext);
+        $task->setUserAccount($userLoggedIn);
+        $task->setProject($project1);
+        $task->setText('Task Description');
+        $task->setTitle('Do something!');
 
+        //inject $contextService
+        $contextService = $this->getMock(\ThomasWoehlke\Gtd\Service\ContextService::class, ['getCurrentContext'], [], '', false);
+        $contextService->expects(self::once())->method('getCurrentContext')->will(self::returnValue($currentContext));
+        $this->inject($this->subject, 'contextService', $contextService);
+
+        //inject $projectRepository
+        $projectRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\ProjectRepository::class, ['update'], [$project1], '', false);
+        $projectRepository->expects(self::at(0))->method('update')->withConsecutive([$project1]);
+        $projectRepository->expects(self::at(1))->method('update')->withConsecutive([$project2]);
+        $this->inject($this->subject, 'projectRepository', $projectRepository);
+
+        $dbresult = array();
+        $dbresult['uid'] = 1;
+
+        $GLOBALS['TYPO3_DB'] = $this->getMock(\TYPO3\CMS\Core\Database\DatabaseConnection::class, array(), array(), '', false);
+        $GLOBALS['TYPO3_DB']->expects(self::any())->method('exec_SELECTgetSingleRow')->will(self::returnValue($dbresult));
+        $GLOBALS['TYPO3_DB']->expects(self::any())->method('fullQuoteStr')->will(self::returnValue('test'));
+
+        $GLOBALS['TYPO3_LOADED_EXT'] = ['gtd'=>[]];
+
+        $this->subject->moveProjectAction($project1,$project2);
     }
 
     /**
@@ -404,14 +449,93 @@ class ProjectControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      * @test
      */
     public function newActionTest(){
+        $userLoggedIn = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUser('loggedinuser','fd85df6575');
+        $userConfig = new \ThomasWoehlke\Gtd\Domain\Model\UserConfig();
+        $currentContext = new \ThomasWoehlke\Gtd\Domain\Model\Context();
+        $currentContext->setNameDe('Arbeit');
+        $currentContext->setNameEn('Work');
+        $userConfig->setUserAccount($userLoggedIn);
+        $userConfig->setDefaultContext($currentContext);
+        $contextList = [$currentContext];
+        $project1 = new \ThomasWoehlke\Gtd\Domain\Model\Project();
+        $project1->setName('p1');
+        $project1->setDescription('d1');
+        $project1->setContext($currentContext);
+        $project1->setUserAccount($userLoggedIn);
+        $project2 = new \ThomasWoehlke\Gtd\Domain\Model\Project();
+        $project2->setName('p2');
+        $project2->setDescription('d2');
+        $project2->setContext($currentContext);
+        $project2->setUserAccount($userLoggedIn);
+        $rootProjects = array($project1,$project2);
 
+        //inject $contextService
+        $contextService = $this->getMock(\ThomasWoehlke\Gtd\Service\ContextService::class, ['getCurrentContext','getContextList'], [], '', false);
+        $contextService->expects(self::once())->method('getCurrentContext')->will(self::returnValue($currentContext));
+        $contextService->expects(self::once())->method('getContextList')->will(self::returnValue($contextList));
+        $this->inject($this->subject, 'contextService', $contextService);
+
+        //inject $projectRepository
+        $projectRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\ProjectRepository::class, ['getRootProjects'], [$currentContext], '', false);
+        $projectRepository->expects(self::once())->method('getRootProjects')->will(self::returnValue($rootProjects));
+        $this->inject($this->subject, 'projectRepository', $projectRepository);
+
+        $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);
+        $view->expects(self::at(0))->method('assign')->withConsecutive(['parentProject', $project1]);
+        $view->expects(self::at(1))->method('assign')->withConsecutive(['contextList', $contextList]);
+        $view->expects(self::at(2))->method('assign')->withConsecutive(['currentContext', $currentContext]);
+        $view->expects(self::at(3))->method('assign')->withConsecutive(['rootProjects', $rootProjects]);
+
+        $this->inject($this->subject, 'view', $view);
+
+        $this->subject->newAction($project1);
     }
 
     /**
      * @test
      */
     public function createActionTest(){
+        $userLoggedIn = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUser('loggedinuser','fd85df6575');
+        $userConfig = new \ThomasWoehlke\Gtd\Domain\Model\UserConfig();
+        $currentContext = new \ThomasWoehlke\Gtd\Domain\Model\Context();
+        $currentContext->setNameDe('Arbeit');
+        $currentContext->setNameEn('Work');
+        $userConfig->setUserAccount($userLoggedIn);
+        $userConfig->setDefaultContext($currentContext);
+        $contextList = [$currentContext];
+        $project1 = new \ThomasWoehlke\Gtd\Domain\Model\Project();
+        $project1->setName('p1');
+        $project1->setDescription('d1');
+        $project1->setContext($currentContext);
+        $project1->setUserAccount($userLoggedIn);
+        $project2 = new \ThomasWoehlke\Gtd\Domain\Model\Project();
+        $project2->setName('p2');
+        $project2->setDescription('d2');
+        $project2->setContext($currentContext);
+        $project2->setUserAccount($userLoggedIn);
+        $rootProjects = array($project1,$project2);
 
+        //inject $contextService
+        $contextService = $this->getMock(\ThomasWoehlke\Gtd\Service\ContextService::class, ['getCurrentContext'], [], '', false);
+        $contextService->expects(self::once())->method('getCurrentContext')->will(self::returnValue($currentContext));
+        $this->inject($this->subject, 'contextService', $contextService);
+
+        //inject $projectRepository
+        $projectRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\ProjectRepository::class, ['update','add'], [$project1,$project2], '', false);
+        $projectRepository->expects(self::once())->method('update')->will(self::returnValue($project1));
+        $projectRepository->expects(self::once())->method('add')->will(self::returnValue($project2));
+        $this->inject($this->subject, 'projectRepository', $projectRepository);
+
+        $dbresult = array();
+        $dbresult['uid'] = 1;
+
+        $GLOBALS['TYPO3_DB'] = $this->getMock(\TYPO3\CMS\Core\Database\DatabaseConnection::class, array(), array(), '', false);
+        $GLOBALS['TYPO3_DB']->expects(self::any())->method('exec_SELECTgetSingleRow')->will(self::returnValue($dbresult));
+        $GLOBALS['TYPO3_DB']->expects(self::any())->method('fullQuoteStr')->will(self::returnValue('test'));
+
+        $GLOBALS['TYPO3_LOADED_EXT'] = ['gtd'=>[]];
+
+        $this->subject->createAction($project2,$project1);
     }
 
 }
