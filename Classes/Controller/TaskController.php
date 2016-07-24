@@ -184,7 +184,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$currentContext,$this->taskStates['inbox']);
         $this->view->assign('tasks', $tasks);
         $this->view->assign('contextList',$this->contextService->getContextList());
-        $this->view->assign('currentContext',$this->contextService->getCurrentContext());
+        $this->view->assign('currentContext',$currentContext);
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($currentContext));
     }
 
@@ -200,7 +200,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$currentContext,$this->taskStates['today']);
         $this->view->assign('tasks', $tasks);
         $this->view->assign('contextList',$this->contextService->getContextList());
-        $this->view->assign('currentContext',$this->contextService->getCurrentContext());
+        $this->view->assign('currentContext',$currentContext);
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($currentContext));
     }
 
@@ -216,7 +216,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$currentContext,$this->taskStates['next']);
         $this->view->assign('tasks', $tasks);
         $this->view->assign('contextList',$this->contextService->getContextList());
-        $this->view->assign('currentContext',$this->contextService->getCurrentContext());
+        $this->view->assign('currentContext',$currentContext);
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($currentContext));
     }
 
@@ -232,7 +232,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$currentContext,$this->taskStates['waiting']);
         $this->view->assign('tasks', $tasks);
         $this->view->assign('contextList',$this->contextService->getContextList());
-        $this->view->assign('currentContext',$this->contextService->getCurrentContext());
+        $this->view->assign('currentContext',$currentContext);
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($currentContext));
     }
 
@@ -248,7 +248,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$currentContext,$this->taskStates['scheduled']);
         $this->view->assign('tasks', $tasks);
         $this->view->assign('contextList',$this->contextService->getContextList());
-        $this->view->assign('currentContext',$this->contextService->getCurrentContext());
+        $this->view->assign('currentContext',$currentContext);
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($currentContext));
     }
 
@@ -264,7 +264,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$currentContext,$this->taskStates['someday']);
         $this->view->assign('tasks', $tasks);
         $this->view->assign('contextList',$this->contextService->getContextList());
-        $this->view->assign('currentContext',$this->contextService->getCurrentContext());
+        $this->view->assign('currentContext',$currentContext);
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($currentContext));
     }
 
@@ -280,7 +280,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$currentContext,$this->taskStates['completed']);
         $this->view->assign('tasks', $tasks);
         $this->view->assign('contextList',$this->contextService->getContextList());
-        $this->view->assign('currentContext',$this->contextService->getCurrentContext());
+        $this->view->assign('currentContext',$currentContext);
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($currentContext));
     }
 
@@ -296,7 +296,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$currentContext,$this->taskStates['trash']);
         $this->view->assign('tasks', $tasks);
         $this->view->assign('contextList',$this->contextService->getContextList());
-        $this->view->assign('currentContext',$this->contextService->getCurrentContext());
+        $this->view->assign('currentContext',$currentContext);
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($currentContext));
     }
 
@@ -312,7 +312,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $tasks = $this->taskRepository->findByUserAccountAndHasFocus($userObject,$currentContext);
         $this->view->assign('tasks', $tasks);
         $this->view->assign('contextList',$this->contextService->getContextList());
-        $this->view->assign('currentContext',$this->contextService->getCurrentContext());
+        $this->view->assign('currentContext',$currentContext);
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($currentContext));
     }
 

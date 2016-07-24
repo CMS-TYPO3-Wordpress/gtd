@@ -22,6 +22,12 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     protected $project2 = null;
     protected $rootProjects = null;
     protected $task1 = null;
+    protected $task2 = null;
+    protected $taskList = null;
+
+    protected $taskStates = array(
+        'inbox' => 0, 'today' => 1, 'next' => 2, 'waiting' => 3, 'scheduled' => 4, 'someday' => 5, 'completed' => 6 , 'trash' => 7
+    );
 
     protected function setUp()
     {
@@ -73,6 +79,15 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->task1->setProject($this->project1);
         $this->task1->setText('Task Description');
         $this->task1->setTitle('Do something!');
+
+        $this->task2 = new \ThomasWoehlke\Gtd\Domain\Model\Task();
+        $this->task2->setContext($this->currentContext);
+        $this->task2->setUserAccount($this->userLoggedIn);
+        $this->task2->setProject($this->project1);
+        $this->task2->setText('Task Description 2');
+        $this->task2->setTitle('Do something 2!');
+
+        $this->taskList = [$this->task1,$this->task2];
 
         $dbresult = array();
         $dbresult['uid'] = 1;
@@ -177,62 +192,324 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function inboxActionTest(){
 
+        // inject userAccountRepository
+        $userAccountRepository = $this->getMock(\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository::class, ['findByUid'], [1], '', false);
+        $userAccountRepository->expects(self::once())->method('findByUid')->will(self::returnValue($this->userLoggedIn));
+        $this->inject($this->subject, 'userAccountRepository', $userAccountRepository);
+
+        //inject $contextService
+        $contextService = $this->getMock(\ThomasWoehlke\Gtd\Service\ContextService::class, ['getCurrentContext','getContextList'], [], '', false);
+        $contextService->expects(self::once())->method('getCurrentContext')->will(self::returnValue($this->currentContext));
+        $contextService->expects(self::once())->method('getContextList')->will(self::returnValue($this->contextList));
+        $this->inject($this->subject, 'contextService', $contextService);
+
+        //inject $projectRepository
+        $projectRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\ProjectRepository::class, ['getRootProjects'], [$this->rootProjects], '', false);
+        $projectRepository->expects(self::once())->method('getRootProjects')->will(self::returnValue($this->rootProjects));
+        $this->inject($this->subject, 'projectRepository', $projectRepository);
+
+        //inject $taskRepository
+        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['findByUserAccountAndTaskState'], [], '', false);
+        $taskRepository->expects(self::once())->method('findByUserAccountAndTaskState')->with($this->userLoggedIn,$this->currentContext,$this->taskStates['inbox'])->will(self::returnValue($this->taskList));
+        $this->inject($this->subject, 'taskRepository', $taskRepository);
+
+        $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);
+        $view->expects(self::at(0))->method('assign')->withConsecutive(['tasks', $this->taskList]);
+        $view->expects(self::at(1))->method('assign')->withConsecutive(['contextList', $this->contextList]);
+        $view->expects(self::at(2))->method('assign')->withConsecutive(['currentContext', $this->currentContext]);
+        $view->expects(self::at(3))->method('assign')->withConsecutive(['rootProjects', $this->rootProjects]);
+
+        $this->inject($this->subject, 'view', $view);
+
+        $this->subject->inboxAction();
     }
 
     /**
      * @test
      */
     public function todayActionTest(){
+        // inject userAccountRepository
+        $userAccountRepository = $this->getMock(\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository::class, ['findByUid'], [1], '', false);
+        $userAccountRepository->expects(self::once())->method('findByUid')->will(self::returnValue($this->userLoggedIn));
+        $this->inject($this->subject, 'userAccountRepository', $userAccountRepository);
 
+        //inject $contextService
+        $contextService = $this->getMock(\ThomasWoehlke\Gtd\Service\ContextService::class, ['getCurrentContext','getContextList'], [], '', false);
+        $contextService->expects(self::once())->method('getCurrentContext')->will(self::returnValue($this->currentContext));
+        $contextService->expects(self::once())->method('getContextList')->will(self::returnValue($this->contextList));
+        $this->inject($this->subject, 'contextService', $contextService);
+
+        //inject $projectRepository
+        $projectRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\ProjectRepository::class, ['getRootProjects'], [$this->rootProjects], '', false);
+        $projectRepository->expects(self::once())->method('getRootProjects')->will(self::returnValue($this->rootProjects));
+        $this->inject($this->subject, 'projectRepository', $projectRepository);
+
+        //inject $taskRepository
+        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['findByUserAccountAndTaskState'], [], '', false);
+        $taskRepository->expects(self::once())->method('findByUserAccountAndTaskState')->with($this->userLoggedIn,$this->currentContext,$this->taskStates['today'])->will(self::returnValue($this->taskList));
+        $this->inject($this->subject, 'taskRepository', $taskRepository);
+
+        $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);
+        $view->expects(self::at(0))->method('assign')->withConsecutive(['tasks', $this->taskList]);
+        $view->expects(self::at(1))->method('assign')->withConsecutive(['contextList', $this->contextList]);
+        $view->expects(self::at(2))->method('assign')->withConsecutive(['currentContext', $this->currentContext]);
+        $view->expects(self::at(3))->method('assign')->withConsecutive(['rootProjects', $this->rootProjects]);
+
+        $this->inject($this->subject, 'view', $view);
+
+        $this->subject->todayAction();
     }
 
     /**
      * @test
      */
     public function nextActionTest(){
+        // inject userAccountRepository
+        $userAccountRepository = $this->getMock(\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository::class, ['findByUid'], [1], '', false);
+        $userAccountRepository->expects(self::once())->method('findByUid')->will(self::returnValue($this->userLoggedIn));
+        $this->inject($this->subject, 'userAccountRepository', $userAccountRepository);
 
+        //inject $contextService
+        $contextService = $this->getMock(\ThomasWoehlke\Gtd\Service\ContextService::class, ['getCurrentContext','getContextList'], [], '', false);
+        $contextService->expects(self::once())->method('getCurrentContext')->will(self::returnValue($this->currentContext));
+        $contextService->expects(self::once())->method('getContextList')->will(self::returnValue($this->contextList));
+        $this->inject($this->subject, 'contextService', $contextService);
+
+        //inject $projectRepository
+        $projectRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\ProjectRepository::class, ['getRootProjects'], [$this->rootProjects], '', false);
+        $projectRepository->expects(self::once())->method('getRootProjects')->will(self::returnValue($this->rootProjects));
+        $this->inject($this->subject, 'projectRepository', $projectRepository);
+
+        //inject $taskRepository
+        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['findByUserAccountAndTaskState'], [], '', false);
+        $taskRepository->expects(self::once())->method('findByUserAccountAndTaskState')->with($this->userLoggedIn,$this->currentContext,$this->taskStates['next'])->will(self::returnValue($this->taskList));
+        $this->inject($this->subject, 'taskRepository', $taskRepository);
+
+        $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);
+        $view->expects(self::at(0))->method('assign')->withConsecutive(['tasks', $this->taskList]);
+        $view->expects(self::at(1))->method('assign')->withConsecutive(['contextList', $this->contextList]);
+        $view->expects(self::at(2))->method('assign')->withConsecutive(['currentContext', $this->currentContext]);
+        $view->expects(self::at(3))->method('assign')->withConsecutive(['rootProjects', $this->rootProjects]);
+
+        $this->inject($this->subject, 'view', $view);
+
+        $this->subject->nextAction();
     }
 
     /**
      * @test
      */
     public function waitingActionTest(){
+        // inject userAccountRepository
+        $userAccountRepository = $this->getMock(\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository::class, ['findByUid'], [1], '', false);
+        $userAccountRepository->expects(self::once())->method('findByUid')->will(self::returnValue($this->userLoggedIn));
+        $this->inject($this->subject, 'userAccountRepository', $userAccountRepository);
 
+        //inject $contextService
+        $contextService = $this->getMock(\ThomasWoehlke\Gtd\Service\ContextService::class, ['getCurrentContext','getContextList'], [], '', false);
+        $contextService->expects(self::once())->method('getCurrentContext')->will(self::returnValue($this->currentContext));
+        $contextService->expects(self::once())->method('getContextList')->will(self::returnValue($this->contextList));
+        $this->inject($this->subject, 'contextService', $contextService);
+
+        //inject $projectRepository
+        $projectRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\ProjectRepository::class, ['getRootProjects'], [$this->rootProjects], '', false);
+        $projectRepository->expects(self::once())->method('getRootProjects')->will(self::returnValue($this->rootProjects));
+        $this->inject($this->subject, 'projectRepository', $projectRepository);
+
+        //inject $taskRepository
+        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['findByUserAccountAndTaskState'], [], '', false);
+        $taskRepository->expects(self::once())->method('findByUserAccountAndTaskState')->with($this->userLoggedIn,$this->currentContext,$this->taskStates['waiting'])->will(self::returnValue($this->taskList));
+        $this->inject($this->subject, 'taskRepository', $taskRepository);
+
+        $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);
+        $view->expects(self::at(0))->method('assign')->withConsecutive(['tasks', $this->taskList]);
+        $view->expects(self::at(1))->method('assign')->withConsecutive(['contextList', $this->contextList]);
+        $view->expects(self::at(2))->method('assign')->withConsecutive(['currentContext', $this->currentContext]);
+        $view->expects(self::at(3))->method('assign')->withConsecutive(['rootProjects', $this->rootProjects]);
+
+        $this->inject($this->subject, 'view', $view);
+
+        $this->subject->waitingAction();
     }
 
     /**
      * @test
      */
     public function scheduledActionTest(){
+        // inject userAccountRepository
+        $userAccountRepository = $this->getMock(\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository::class, ['findByUid'], [1], '', false);
+        $userAccountRepository->expects(self::once())->method('findByUid')->will(self::returnValue($this->userLoggedIn));
+        $this->inject($this->subject, 'userAccountRepository', $userAccountRepository);
 
+        //inject $contextService
+        $contextService = $this->getMock(\ThomasWoehlke\Gtd\Service\ContextService::class, ['getCurrentContext','getContextList'], [], '', false);
+        $contextService->expects(self::once())->method('getCurrentContext')->will(self::returnValue($this->currentContext));
+        $contextService->expects(self::once())->method('getContextList')->will(self::returnValue($this->contextList));
+        $this->inject($this->subject, 'contextService', $contextService);
+
+        //inject $projectRepository
+        $projectRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\ProjectRepository::class, ['getRootProjects'], [$this->rootProjects], '', false);
+        $projectRepository->expects(self::once())->method('getRootProjects')->will(self::returnValue($this->rootProjects));
+        $this->inject($this->subject, 'projectRepository', $projectRepository);
+
+        //inject $taskRepository
+        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['findByUserAccountAndTaskState'], [], '', false);
+        $taskRepository->expects(self::once())->method('findByUserAccountAndTaskState')->with($this->userLoggedIn,$this->currentContext,$this->taskStates['scheduled'])->will(self::returnValue($this->taskList));
+        $this->inject($this->subject, 'taskRepository', $taskRepository);
+
+        $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);
+        $view->expects(self::at(0))->method('assign')->withConsecutive(['tasks', $this->taskList]);
+        $view->expects(self::at(1))->method('assign')->withConsecutive(['contextList', $this->contextList]);
+        $view->expects(self::at(2))->method('assign')->withConsecutive(['currentContext', $this->currentContext]);
+        $view->expects(self::at(3))->method('assign')->withConsecutive(['rootProjects', $this->rootProjects]);
+
+        $this->inject($this->subject, 'view', $view);
+
+        $this->subject->scheduledAction();
     }
 
     /**
      * @test
      */
     public function somedayActionTest(){
+        // inject userAccountRepository
+        $userAccountRepository = $this->getMock(\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository::class, ['findByUid'], [1], '', false);
+        $userAccountRepository->expects(self::once())->method('findByUid')->will(self::returnValue($this->userLoggedIn));
+        $this->inject($this->subject, 'userAccountRepository', $userAccountRepository);
 
+        //inject $contextService
+        $contextService = $this->getMock(\ThomasWoehlke\Gtd\Service\ContextService::class, ['getCurrentContext','getContextList'], [], '', false);
+        $contextService->expects(self::once())->method('getCurrentContext')->will(self::returnValue($this->currentContext));
+        $contextService->expects(self::once())->method('getContextList')->will(self::returnValue($this->contextList));
+        $this->inject($this->subject, 'contextService', $contextService);
+
+        //inject $projectRepository
+        $projectRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\ProjectRepository::class, ['getRootProjects'], [$this->rootProjects], '', false);
+        $projectRepository->expects(self::once())->method('getRootProjects')->will(self::returnValue($this->rootProjects));
+        $this->inject($this->subject, 'projectRepository', $projectRepository);
+
+        //inject $taskRepository
+        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['findByUserAccountAndTaskState'], [], '', false);
+        $taskRepository->expects(self::once())->method('findByUserAccountAndTaskState')->with($this->userLoggedIn,$this->currentContext,$this->taskStates['someday'])->will(self::returnValue($this->taskList));
+        $this->inject($this->subject, 'taskRepository', $taskRepository);
+
+        $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);
+        $view->expects(self::at(0))->method('assign')->withConsecutive(['tasks', $this->taskList]);
+        $view->expects(self::at(1))->method('assign')->withConsecutive(['contextList', $this->contextList]);
+        $view->expects(self::at(2))->method('assign')->withConsecutive(['currentContext', $this->currentContext]);
+        $view->expects(self::at(3))->method('assign')->withConsecutive(['rootProjects', $this->rootProjects]);
+
+        $this->inject($this->subject, 'view', $view);
+
+        $this->subject->somedayAction();
     }
 
     /**
      * @test
      */
     public function completedActionTest(){
+        // inject userAccountRepository
+        $userAccountRepository = $this->getMock(\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository::class, ['findByUid'], [1], '', false);
+        $userAccountRepository->expects(self::once())->method('findByUid')->will(self::returnValue($this->userLoggedIn));
+        $this->inject($this->subject, 'userAccountRepository', $userAccountRepository);
 
+        //inject $contextService
+        $contextService = $this->getMock(\ThomasWoehlke\Gtd\Service\ContextService::class, ['getCurrentContext','getContextList'], [], '', false);
+        $contextService->expects(self::once())->method('getCurrentContext')->will(self::returnValue($this->currentContext));
+        $contextService->expects(self::once())->method('getContextList')->will(self::returnValue($this->contextList));
+        $this->inject($this->subject, 'contextService', $contextService);
+
+        //inject $projectRepository
+        $projectRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\ProjectRepository::class, ['getRootProjects'], [$this->rootProjects], '', false);
+        $projectRepository->expects(self::once())->method('getRootProjects')->will(self::returnValue($this->rootProjects));
+        $this->inject($this->subject, 'projectRepository', $projectRepository);
+
+        //inject $taskRepository
+        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['findByUserAccountAndTaskState'], [], '', false);
+        $taskRepository->expects(self::once())->method('findByUserAccountAndTaskState')->with($this->userLoggedIn,$this->currentContext,$this->taskStates['completed'])->will(self::returnValue($this->taskList));
+        $this->inject($this->subject, 'taskRepository', $taskRepository);
+
+        $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);
+        $view->expects(self::at(0))->method('assign')->withConsecutive(['tasks', $this->taskList]);
+        $view->expects(self::at(1))->method('assign')->withConsecutive(['contextList', $this->contextList]);
+        $view->expects(self::at(2))->method('assign')->withConsecutive(['currentContext', $this->currentContext]);
+        $view->expects(self::at(3))->method('assign')->withConsecutive(['rootProjects', $this->rootProjects]);
+
+        $this->inject($this->subject, 'view', $view);
+
+        $this->subject->completedAction();
     }
 
     /**
      * @test
      */
     public function trashActionTest(){
+        // inject userAccountRepository
+        $userAccountRepository = $this->getMock(\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository::class, ['findByUid'], [1], '', false);
+        $userAccountRepository->expects(self::once())->method('findByUid')->will(self::returnValue($this->userLoggedIn));
+        $this->inject($this->subject, 'userAccountRepository', $userAccountRepository);
 
+        //inject $contextService
+        $contextService = $this->getMock(\ThomasWoehlke\Gtd\Service\ContextService::class, ['getCurrentContext','getContextList'], [], '', false);
+        $contextService->expects(self::once())->method('getCurrentContext')->will(self::returnValue($this->currentContext));
+        $contextService->expects(self::once())->method('getContextList')->will(self::returnValue($this->contextList));
+        $this->inject($this->subject, 'contextService', $contextService);
+
+        //inject $projectRepository
+        $projectRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\ProjectRepository::class, ['getRootProjects'], [$this->rootProjects], '', false);
+        $projectRepository->expects(self::once())->method('getRootProjects')->will(self::returnValue($this->rootProjects));
+        $this->inject($this->subject, 'projectRepository', $projectRepository);
+
+        //inject $taskRepository
+        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['findByUserAccountAndTaskState'], [], '', false);
+        $taskRepository->expects(self::once())->method('findByUserAccountAndTaskState')->with($this->userLoggedIn,$this->currentContext,$this->taskStates['trash'])->will(self::returnValue($this->taskList));
+        $this->inject($this->subject, 'taskRepository', $taskRepository);
+
+        $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);
+        $view->expects(self::at(0))->method('assign')->withConsecutive(['tasks', $this->taskList]);
+        $view->expects(self::at(1))->method('assign')->withConsecutive(['contextList', $this->contextList]);
+        $view->expects(self::at(2))->method('assign')->withConsecutive(['currentContext', $this->currentContext]);
+        $view->expects(self::at(3))->method('assign')->withConsecutive(['rootProjects', $this->rootProjects]);
+
+        $this->inject($this->subject, 'view', $view);
+
+        $this->subject->trashAction();
     }
 
     /**
      * @test
      */
     public function focusActionTest(){
+        // inject userAccountRepository
+        $userAccountRepository = $this->getMock(\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository::class, ['findByUid'], [1], '', false);
+        $userAccountRepository->expects(self::once())->method('findByUid')->will(self::returnValue($this->userLoggedIn));
+        $this->inject($this->subject, 'userAccountRepository', $userAccountRepository);
 
+        //inject $contextService
+        $contextService = $this->getMock(\ThomasWoehlke\Gtd\Service\ContextService::class, ['getCurrentContext','getContextList'], [], '', false);
+        $contextService->expects(self::once())->method('getCurrentContext')->will(self::returnValue($this->currentContext));
+        $contextService->expects(self::once())->method('getContextList')->will(self::returnValue($this->contextList));
+        $this->inject($this->subject, 'contextService', $contextService);
+
+        //inject $projectRepository
+        $projectRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\ProjectRepository::class, ['getRootProjects'], [$this->rootProjects], '', false);
+        $projectRepository->expects(self::once())->method('getRootProjects')->will(self::returnValue($this->rootProjects));
+        $this->inject($this->subject, 'projectRepository', $projectRepository);
+
+        //inject $taskRepository
+        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['findByUserAccountAndHasFocus'], [], '', false);
+        $taskRepository->expects(self::once())->method('findByUserAccountAndHasFocus')->with($this->userLoggedIn,$this->currentContext)->will(self::returnValue($this->taskList));
+        $this->inject($this->subject, 'taskRepository', $taskRepository);
+
+        $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);
+        $view->expects(self::at(0))->method('assign')->withConsecutive(['tasks', $this->taskList]);
+        $view->expects(self::at(1))->method('assign')->withConsecutive(['contextList', $this->contextList]);
+        $view->expects(self::at(2))->method('assign')->withConsecutive(['currentContext', $this->currentContext]);
+        $view->expects(self::at(3))->method('assign')->withConsecutive(['rootProjects', $this->rootProjects]);
+
+        $this->inject($this->subject, 'view', $view);
+
+        $this->subject->focusAction();
     }
 
     /**
