@@ -516,7 +516,24 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      * @test
      */
     public function emptyTrashActionTest(){
+        // inject userAccountRepository
+        $userAccountRepository = $this->getMock(\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository::class, ['findByUid'], [1], '', false);
+        $userAccountRepository->expects(self::once())->method('findByUid')->will(self::returnValue($this->userLoggedIn));
+        $this->inject($this->subject, 'userAccountRepository', $userAccountRepository);
 
+        //inject $contextService
+        $contextService = $this->getMock(\ThomasWoehlke\Gtd\Service\ContextService::class, ['getCurrentContext'], [], '', false);
+        $contextService->expects(self::once())->method('getCurrentContext')->will(self::returnValue($this->currentContext));
+        $this->inject($this->subject, 'contextService', $contextService);
+
+        //inject $taskRepository
+        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['findByUserAccountAndTaskState','remove'], [], '', false);
+        $taskRepository->expects(self::at(0))->method('findByUserAccountAndTaskState')->withConsecutive([$this->userLoggedIn,$this->currentContext,$this->taskStates['trash']])->will(self::returnValue($this->taskList));
+        $taskRepository->expects(self::at(1))->method('remove')->withConsecutive([$this->task1]);
+        $taskRepository->expects(self::at(2))->method('remove')->withConsecutive([$this->task2]);
+        $this->inject($this->subject, 'taskRepository', $taskRepository);
+
+        $this->subject->emptyTrashAction();
     }
 
     /**
