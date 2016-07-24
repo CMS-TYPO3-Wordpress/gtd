@@ -64,11 +64,12 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function showAction(\ThomasWoehlke\Gtd\Domain\Model\Task $task)
     {
+        $ctx = $this->contextService->getCurrentContext();
         $this->view->assign('task', $task);
         $this->getTaskEnergyAndTaskTime();
         $this->view->assign('contextList',$this->contextService->getContextList());
-        $this->view->assign('currentContext',$this->contextService->getCurrentContext());
-        $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($this->contextService->getCurrentContext()));
+        $this->view->assign('currentContext',$ctx);
+        $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($ctx));
     }
 
     /**
@@ -80,11 +81,12 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function editAction(\ThomasWoehlke\Gtd\Domain\Model\Task $task)
     {
+        $ctx = $this->contextService->getCurrentContext();
         $this->view->assign('task', $task);
         $this->getTaskEnergyAndTaskTime();
         $this->view->assign('contextList',$this->contextService->getContextList());
-        $this->view->assign('currentContext',$this->contextService->getCurrentContext());
-        $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($this->contextService->getCurrentContext()));
+        $this->view->assign('currentContext',$ctx);
+        $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($ctx));
     }
 
     public function initializeEditAction()
