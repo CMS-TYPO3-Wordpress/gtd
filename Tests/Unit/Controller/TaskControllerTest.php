@@ -1,6 +1,8 @@
 <?php
 namespace ThomasWoehlke\Gtd\Tests\Unit\Controller;
 
+use ThomasWoehlke\Gtd\Domain\Model\Project;
+
 /**
  * Test case.
  *
@@ -541,6 +543,29 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function transformTaskIntoProjectActionTest(){
 
+        $parentProject = $this->task1->getProject();
+        $newProject = new Project();
+        $newProject->setContext($this->task1->getContext());
+        $newProject->setUserAccount($this->task1->getUserAccount());
+        $newProject->setParent($parentProject);
+        $newProject->setName($this->task1->getTitle());
+        $newProject->setDescription($this->task1->getText());
+        if($parentProject != null){
+            $parentProject->addChild($newProject);
+        }
+
+        //inject $taskRepository
+        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['remove'], [], '', false);
+        $taskRepository->expects(self::once())->method('remove')->with($this->task1);
+        $this->inject($this->subject, 'taskRepository', $taskRepository);
+
+        //inject $projectRepository
+        $projectRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\ProjectRepository::class, ['add','update'], [$newProject,$parentProject], '', false);
+        $projectRepository->expects(self::once())->method('add')->with($newProject);
+        $projectRepository->expects(self::once())->method('update')->with($parentProject);
+        $this->inject($this->subject, 'projectRepository', $projectRepository);
+
+        $this->subject->transformTaskIntoProjectAction($this->task1);
     }
 
     /**
