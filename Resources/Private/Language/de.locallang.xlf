@@ -412,6 +412,10 @@
 				<source>m/d/Y</source>
 				<target state="translated">d.m.Y</target>
 			</trans-unit>
+			<trans-unit id="tx_gtd_layout_default.completed.move2trash">
+				<source>Move all Tasks to Trash</source>
+				<target state="translated">Alle Aufgaben in den Papierkorb legen</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
