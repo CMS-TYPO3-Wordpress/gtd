@@ -705,7 +705,24 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      * @test
      */
     public function createActionTest(){
+        // inject userAccountRepository
+        $userAccountRepository = $this->getMock(\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository::class, ['findByUid'], [1], '', false);
+        $userAccountRepository->expects(self::once())->method('findByUid')->will(self::returnValue($this->userLoggedIn));
+        $this->inject($this->subject, 'userAccountRepository', $userAccountRepository);
 
+        //inject $contextService
+        $contextService = $this->getMock(\ThomasWoehlke\Gtd\Service\ContextService::class, ['getCurrentContext'], [], '', false);
+        $contextService->expects(self::once())->method('getCurrentContext')->will(self::returnValue($this->currentContext));
+        $this->inject($this->subject, 'contextService', $contextService);
+
+        //inject $taskRepository
+        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['getMaxProjectOrderId','getMaxTaskStateOrderId','add'], [], '', false);
+        $taskRepository->expects(self::once())->method('getMaxProjectOrderId')->will(self::returnValue(12));
+        $taskRepository->expects(self::once())->method('getMaxTaskStateOrderId')->will(self::returnValue(14));
+        $taskRepository->expects(self::once())->method('add')->with($this->task1);
+        $this->inject($this->subject, 'taskRepository', $taskRepository);
+
+        $this->subject->createAction($this->task1);
     }
 
     /**
@@ -713,6 +730,23 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function moveToInboxActionTest(){
 
+        // inject userAccountRepository
+        $userAccountRepository = $this->getMock(\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository::class, ['findByUid'], [1], '', false);
+        $userAccountRepository->expects(self::once())->method('findByUid')->will(self::returnValue($this->userLoggedIn));
+        $this->inject($this->subject, 'userAccountRepository', $userAccountRepository);
+
+        //inject $contextService
+        $contextService = $this->getMock(\ThomasWoehlke\Gtd\Service\ContextService::class, ['getCurrentContext'], [], '', false);
+        $contextService->expects(self::once())->method('getCurrentContext')->will(self::returnValue($this->currentContext));
+        $this->inject($this->subject, 'contextService', $contextService);
+
+        //inject $taskRepository
+        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['getMaxTaskStateOrderId','update'], [], '', false);
+        $taskRepository->expects(self::once())->method('getMaxTaskStateOrderId')->will(self::returnValue(14));
+        $taskRepository->expects(self::once())->method('update')->with($this->task1);
+        $this->inject($this->subject, 'taskRepository', $taskRepository);
+
+        $this->subject->moveToInboxAction($this->task1);
     }
 
     /**
@@ -720,6 +754,23 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function moveToTodayActionTest(){
 
+        // inject userAccountRepository
+        $userAccountRepository = $this->getMock(\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository::class, ['findByUid'], [1], '', false);
+        $userAccountRepository->expects(self::once())->method('findByUid')->will(self::returnValue($this->userLoggedIn));
+        $this->inject($this->subject, 'userAccountRepository', $userAccountRepository);
+
+        //inject $contextService
+        $contextService = $this->getMock(\ThomasWoehlke\Gtd\Service\ContextService::class, ['getCurrentContext'], [], '', false);
+        $contextService->expects(self::once())->method('getCurrentContext')->will(self::returnValue($this->currentContext));
+        $this->inject($this->subject, 'contextService', $contextService);
+
+        //inject $taskRepository
+        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['getMaxTaskStateOrderId','update'], [], '', false);
+        $taskRepository->expects(self::once())->method('getMaxTaskStateOrderId')->will(self::returnValue(14));
+        $taskRepository->expects(self::once())->method('update')->with($this->task1);
+        $this->inject($this->subject, 'taskRepository', $taskRepository);
+
+        $this->subject->moveToTodayAction($this->task1);
     }
 
     /**
@@ -727,6 +778,23 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function moveToNextActionTest(){
 
+        // inject userAccountRepository
+        $userAccountRepository = $this->getMock(\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository::class, ['findByUid'], [1], '', false);
+        $userAccountRepository->expects(self::once())->method('findByUid')->will(self::returnValue($this->userLoggedIn));
+        $this->inject($this->subject, 'userAccountRepository', $userAccountRepository);
+
+        //inject $contextService
+        $contextService = $this->getMock(\ThomasWoehlke\Gtd\Service\ContextService::class, ['getCurrentContext'], [], '', false);
+        $contextService->expects(self::once())->method('getCurrentContext')->will(self::returnValue($this->currentContext));
+        $this->inject($this->subject, 'contextService', $contextService);
+
+        //inject $taskRepository
+        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['getMaxTaskStateOrderId','update'], [], '', false);
+        $taskRepository->expects(self::once())->method('getMaxTaskStateOrderId')->will(self::returnValue(14));
+        $taskRepository->expects(self::once())->method('update')->with($this->task1);
+        $this->inject($this->subject, 'taskRepository', $taskRepository);
+
+        $this->subject->moveToNextAction($this->task1);
     }
 
     /**
@@ -734,6 +802,23 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function moveToWaitingActionTest(){
 
+        // inject userAccountRepository
+        $userAccountRepository = $this->getMock(\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository::class, ['findByUid'], [1], '', false);
+        $userAccountRepository->expects(self::once())->method('findByUid')->will(self::returnValue($this->userLoggedIn));
+        $this->inject($this->subject, 'userAccountRepository', $userAccountRepository);
+
+        //inject $contextService
+        $contextService = $this->getMock(\ThomasWoehlke\Gtd\Service\ContextService::class, ['getCurrentContext'], [], '', false);
+        $contextService->expects(self::once())->method('getCurrentContext')->will(self::returnValue($this->currentContext));
+        $this->inject($this->subject, 'contextService', $contextService);
+
+        //inject $taskRepository
+        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['getMaxTaskStateOrderId','update'], [], '', false);
+        $taskRepository->expects(self::once())->method('getMaxTaskStateOrderId')->will(self::returnValue(14));
+        $taskRepository->expects(self::once())->method('update')->with($this->task1);
+        $this->inject($this->subject, 'taskRepository', $taskRepository);
+
+        $this->subject->moveToWaitingAction($this->task1);
     }
 
     /**
@@ -741,6 +826,23 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function moveToSomedayActionTest(){
 
+        // inject userAccountRepository
+        $userAccountRepository = $this->getMock(\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository::class, ['findByUid'], [1], '', false);
+        $userAccountRepository->expects(self::once())->method('findByUid')->will(self::returnValue($this->userLoggedIn));
+        $this->inject($this->subject, 'userAccountRepository', $userAccountRepository);
+
+        //inject $contextService
+        $contextService = $this->getMock(\ThomasWoehlke\Gtd\Service\ContextService::class, ['getCurrentContext'], [], '', false);
+        $contextService->expects(self::once())->method('getCurrentContext')->will(self::returnValue($this->currentContext));
+        $this->inject($this->subject, 'contextService', $contextService);
+
+        //inject $taskRepository
+        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['getMaxTaskStateOrderId','update'], [], '', false);
+        $taskRepository->expects(self::once())->method('getMaxTaskStateOrderId')->will(self::returnValue(14));
+        $taskRepository->expects(self::once())->method('update')->with($this->task1);
+        $this->inject($this->subject, 'taskRepository', $taskRepository);
+
+        $this->subject->moveToSomedayAction($this->task1);
     }
 
     /**
@@ -748,6 +850,23 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function moveToCompletedActionTest(){
 
+        // inject userAccountRepository
+        $userAccountRepository = $this->getMock(\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository::class, ['findByUid'], [1], '', false);
+        $userAccountRepository->expects(self::once())->method('findByUid')->will(self::returnValue($this->userLoggedIn));
+        $this->inject($this->subject, 'userAccountRepository', $userAccountRepository);
+
+        //inject $contextService
+        $contextService = $this->getMock(\ThomasWoehlke\Gtd\Service\ContextService::class, ['getCurrentContext'], [], '', false);
+        $contextService->expects(self::once())->method('getCurrentContext')->will(self::returnValue($this->currentContext));
+        $this->inject($this->subject, 'contextService', $contextService);
+
+        //inject $taskRepository
+        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['getMaxTaskStateOrderId','update'], [], '', false);
+        $taskRepository->expects(self::once())->method('getMaxTaskStateOrderId')->will(self::returnValue(14));
+        $taskRepository->expects(self::once())->method('update')->with($this->task1);
+        $this->inject($this->subject, 'taskRepository', $taskRepository);
+
+        $this->subject->moveToCompletedAction($this->task1);
     }
 
     /**
@@ -755,13 +874,48 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function moveToTrashActionTest(){
 
+        // inject userAccountRepository
+        $userAccountRepository = $this->getMock(\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository::class, ['findByUid'], [1], '', false);
+        $userAccountRepository->expects(self::once())->method('findByUid')->will(self::returnValue($this->userLoggedIn));
+        $this->inject($this->subject, 'userAccountRepository', $userAccountRepository);
+
+        //inject $contextService
+        $contextService = $this->getMock(\ThomasWoehlke\Gtd\Service\ContextService::class, ['getCurrentContext'], [], '', false);
+        $contextService->expects(self::once())->method('getCurrentContext')->will(self::returnValue($this->currentContext));
+        $this->inject($this->subject, 'contextService', $contextService);
+
+        //inject $taskRepository
+        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['getMaxTaskStateOrderId','update'], [], '', false);
+        $taskRepository->expects(self::once())->method('getMaxTaskStateOrderId')->will(self::returnValue(14));
+        $taskRepository->expects(self::once())->method('update')->with($this->task1);
+        $this->inject($this->subject, 'taskRepository', $taskRepository);
+
+        $this->subject->moveToTrashAction($this->task1);
     }
 
     /**
      * @test
      */
     public function moveAllCompletedToTrashActionTest(){
+        // inject userAccountRepository
+        $userAccountRepository = $this->getMock(\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository::class, ['findByUid'], [1], '', false);
+        $userAccountRepository->expects(self::once())->method('findByUid')->will(self::returnValue($this->userLoggedIn));
+        $this->inject($this->subject, 'userAccountRepository', $userAccountRepository);
 
+        //inject $contextService
+        $contextService = $this->getMock(\ThomasWoehlke\Gtd\Service\ContextService::class, ['getCurrentContext'], [], '', false);
+        $contextService->expects(self::once())->method('getCurrentContext')->will(self::returnValue($this->currentContext));
+        $this->inject($this->subject, 'contextService', $contextService);
+
+        //inject $taskRepository
+        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['findByUserAccountAndTaskState','getMaxTaskStateOrderId','update'], [], '', false);
+        $taskRepository->expects(self::at(0))->method('findByUserAccountAndTaskState')->withConsecutive([$this->userLoggedIn,$this->currentContext,$this->taskStates['completed']])->will(self::returnValue($this->taskList));
+        $taskRepository->expects(self::at(1))->method('getMaxTaskStateOrderId')->withConsecutive([$this->userLoggedIn,$this->currentContext,$this->taskStates['trash']])->will(self::returnValue(14));
+        $taskRepository->expects(self::at(2))->method('update')->withConsecutive([$this->task1]);
+        $taskRepository->expects(self::at(3))->method('update')->withConsecutive([$this->task2]);
+        $this->inject($this->subject, 'taskRepository', $taskRepository);
+
+        $this->subject->moveAllCompletedToTrashAction();
     }
 
     /**
