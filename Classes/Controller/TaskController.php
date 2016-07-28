@@ -436,11 +436,12 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function listAction()
     {
+        $ctx = $this->contextService->getCurrentContext();
         $tasks = $this->taskRepository->findAll();
         $this->view->assign('tasks', $tasks);
         $this->view->assign('contextList',$this->contextService->getContextList());
-        $this->view->assign('currentContext',$this->contextService->getCurrentContext());
-        $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($this->contextService->getCurrentContext()));
+        $this->view->assign('currentContext',$ctx);
+        $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($ctx));
     }
 
     private function getTaskEnergyAndTaskTime(){
@@ -476,10 +477,11 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function newAction()
     {
+        $ctx = $this->contextService->getCurrentContext();
         $this->getTaskEnergyAndTaskTime();
         $this->view->assign('contextList',$this->contextService->getContextList());
-        $this->view->assign('currentContext',$this->contextService->getCurrentContext());
-        $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($this->contextService->getCurrentContext()));
+        $this->view->assign('currentContext',$ctx);
+        $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($ctx));
     }
 
     /**
