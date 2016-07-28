@@ -922,14 +922,48 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      * @test
      */
     public function moveTaskOrderActionTest(){
+        // inject userAccountRepository
+        $userAccountRepository = $this->getMock(\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository::class, ['findByUid'], [1], '', false);
+        $userAccountRepository->expects(self::once())->method('findByUid')->will(self::returnValue($this->userLoggedIn));
+        $this->inject($this->subject, 'userAccountRepository', $userAccountRepository);
 
+        //inject $contextService
+        $contextService = $this->getMock(\ThomasWoehlke\Gtd\Service\ContextService::class, ['getCurrentContext'], [], '', false);
+        $contextService->expects(self::once())->method('getCurrentContext')->will(self::returnValue($this->currentContext));
+        $this->inject($this->subject, 'contextService', $contextService);
+
+        //inject $taskRepository
+        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['getTasksToReorderByOrderIdTaskState','update'], [], '', false);
+        $taskRepository->expects(self::at(0))->method('getTasksToReorderByOrderIdTaskState')->withConsecutive([$this->userLoggedIn, $this->currentContext, $this->task1, $this->task2, $this->taskStates['inbox']])->will(self::returnValue($this->taskList));
+        $taskRepository->expects(self::at(1))->method('update')->withConsecutive([$this->task1]);
+        $taskRepository->expects(self::at(2))->method('update')->withConsecutive([$this->task2]);
+        $this->inject($this->subject, 'taskRepository', $taskRepository);
+
+        $this->subject->moveTaskOrderAction($this->task2,$this->task1);
     }
 
     /**
      * @test
      */
     public function moveTaskOrderInsideProjectActionTest(){
+        // inject userAccountRepository
+        $userAccountRepository = $this->getMock(\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository::class, ['findByUid'], [1], '', false);
+        $userAccountRepository->expects(self::once())->method('findByUid')->will(self::returnValue($this->userLoggedIn));
+        $this->inject($this->subject, 'userAccountRepository', $userAccountRepository);
 
+        //inject $contextService
+        $contextService = $this->getMock(\ThomasWoehlke\Gtd\Service\ContextService::class, ['getCurrentContext'], [], '', false);
+        $contextService->expects(self::once())->method('getCurrentContext')->will(self::returnValue($this->currentContext));
+        $this->inject($this->subject, 'contextService', $contextService);
+
+        //inject $taskRepository
+        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['getTasksToReorderByOrderIdProject','update'], [], '', false);
+        $taskRepository->expects(self::at(0))->method('getTasksToReorderByOrderIdProject')->withConsecutive([$this->userLoggedIn, $this->currentContext, $this->task1, $this->task2, $this->project1])->will(self::returnValue($this->taskList));
+        $taskRepository->expects(self::at(1))->method('update')->withConsecutive([$this->task1]);
+        $taskRepository->expects(self::at(2))->method('update')->withConsecutive([$this->task2]);
+        $this->inject($this->subject, 'taskRepository', $taskRepository);
+
+        $this->subject->moveTaskOrderInsideProjectAction($this->task2,$this->task1);
     }
 
 
