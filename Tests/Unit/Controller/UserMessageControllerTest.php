@@ -57,7 +57,7 @@ class UserMessageControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->inject($this->subject, 'contextService', $contextService);
 
         //inject $userMessageRepository
-        $userMessageRepository = $this->getMock(\ThomasWoehlke\Gtd\Service\ContextService::class, ['findAllBetweenTwoUsers','update'], [], '', false);
+        $userMessageRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\UserMessageRepository::class, ['findAllBetweenTwoUsers','update'], [], '', false);
         $userMessageRepository->expects(self::once())->method('findAllBetweenTwoUsers')->will(self::returnValue($userMessages));
         $userMessageRepository->expects(self::once())->method('update')->with($userMessage);
         $this->inject($this->subject, 'userMessageRepository', $userMessageRepository);
@@ -93,7 +93,7 @@ class UserMessageControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $userMessage->setSender($userOther1);
 
         //inject $userMessageRepository
-        $userMessageRepository = $this->getMock(\ThomasWoehlke\Gtd\Service\ContextService::class, ['add'], [], '', false);
+        $userMessageRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\UserMessageRepository::class, ['add'], [], '', false);
         $userMessageRepository->expects(self::once())->method('add')->with($userMessage);
         $this->inject($this->subject, 'userMessageRepository', $userMessageRepository);
 

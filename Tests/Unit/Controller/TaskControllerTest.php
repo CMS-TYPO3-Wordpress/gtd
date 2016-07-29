@@ -14,6 +14,7 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      * @var \ThomasWoehlke\Gtd\Controller\TaskController
      */
     protected $subject = null;
+
     protected $taskEnergy = null;
     protected $taskTime = null;
     protected $userLoggedIn = null;
