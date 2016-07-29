@@ -1,16 +1,21 @@
 <?php
 namespace ThomasWoehlke\Gtd\Service;
 
+/***
+ *
+ * This file is part of the "Getting Things Done" Extension for TYPO3 CMS.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ *
+ *  (c) 2016 Thomas Woehlke <thomas@woehlke.org>, faktura gGmbH
+ *
+ ***/
+
 use ThomasWoehlke\Gtd\Domain\Model\Context;
 use ThomasWoehlke\Gtd\Domain\Model\UserConfig;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
-/**
- * Created by PhpStorm.
- * User: tw
- * Date: 17.04.16
- * Time: 10:37
- */
 class ContextService implements \TYPO3\CMS\Core\SingletonInterface
 {
 

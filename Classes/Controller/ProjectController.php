@@ -11,7 +11,7 @@ use ThomasWoehlke\Gtd\Domain\Model\Task;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2016 Thomas Woehlke <woehlke@faktura-berlin.de>, faktura gGmbH
+ *  (c) 2016 Thomas Woehlke <thomas@woehlke.org>, faktura gGmbH
  *
  ***/
 
