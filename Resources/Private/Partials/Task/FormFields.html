@@ -1,4 +1,4 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<div xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 <div class="form-group">
 <label for="title">
 	<f:translate key="tx_gtd_domain_model_task.title" />
@@ -27,6 +27,6 @@
 <label for="dueDate">
 	<f:translate key="tx_gtd_domain_model_task.due_date" />
 </label><br />
-	<f:form.textfield id="taskDueDate" property="dueDate" value="{task.dueDate -> f:format.date(format:'Y-m-d')}" required="false" class="form-control"/><br />
+	<f:form.textfield id="taskDueDate" property="dueDate" value="{task.dueDate -> f:format.date(format:'Y-m-d')}" class="form-control"/><br />
 </div>
-</html>
+</div>

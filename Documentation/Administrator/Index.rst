@@ -22,7 +22,7 @@ which administrator level users have access to.
 Requirements
 ------------
 
-- TYPO3 7.6 LTS
+- TYPO3 6.2 LTS or 7.6 LTS
 - Twitter Bootstrap 3 http://getbootstrap.com/
    - I used the Extension t3sbootstrap: http://www.t3sbootstrap.de/
 - An Extension for User Selfcare is Recommended. e.g.:

@@ -174,7 +174,7 @@ page.jsInline.999.value (
               }
           }
       });
-      $("#taskDueDate ").datepicker({
+      $("#taskDueDate").datepicker({
           dateFormat: 'yy-mm-dd',
           constrainInput: false
       });
