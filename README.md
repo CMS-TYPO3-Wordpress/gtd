@@ -11,3 +11,13 @@ More Info about GTD: https://en.wikipedia.org/wiki/Getting_Things_Done
 GTD® and Getting Things Done® are registered trademarks of the David Allen Company.
 gtd TYPO3 Extension is not affiliated with or endorsed by the David Allen Company and it fully supports the same GNU Public License GPL as TYPO3 itself.
 
+# users manual
+You collect Tasks to do and order them by State and into Projects. 
+https://docs.typo3.org/typo3cms/extensions/gtd/User/Index.html 
+
+# admin 
+how to install: https://docs.typo3.org/typo3cms/extensions/gtd/Administrator/Index.html
+
+
+
+
