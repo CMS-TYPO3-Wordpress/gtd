@@ -105,6 +105,9 @@
 			<trans-unit id="tx_gtd_domain_model_task.user_account">
 				<source>User Account</source>
 			</trans-unit>
+			<trans-unit id="tx_gtd_domain_model_task.files">
+				<source>Files</source>
+			</trans-unit>
 			<trans-unit id="tx_gtd_domain_model_userconfig">
 				<source>User Config</source>
 			</trans-unit>

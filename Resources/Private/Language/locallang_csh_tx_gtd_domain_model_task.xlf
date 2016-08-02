@@ -42,6 +42,9 @@
 			<trans-unit id="user_account.description">
 				<source>userAccount</source>
 			</trans-unit>
+			<trans-unit id="files.description">
+				<source>files</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

@@ -29,4 +29,18 @@
 </label><br />
 	<f:form.textfield id="taskDueDate" property="dueDate" value="{task.dueDate -> f:format.date(format:'Y-m-d')}" class="form-control"/><br />
 </div>
+	<f:if condition="{task.files}">
+	<div class="form-group">
+		<label for="files">
+			<f:translate key="tx_gtd_domain_model_task.files" />
+		</label>
+		<div id="files" class="well">
+
+				<f:for each="{task.files}" as="file">
+					<f:link.page pageUid="uploads/tx_gtd/{file.basename}" linkAccessRestrictedPages="TRUE" target="_blank">{file.basename} ( {file.filesize} )</f:link.page><br/>
+					<f:form.hidden name="file[]" value="uploads/tx_gtd/{file.basename}" />
+				</f:for>
+		</div>
+	</div>
+	</f:if>
 </div>

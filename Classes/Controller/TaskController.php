@@ -125,6 +125,10 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,$persistentTask->getTaskState());
             $persistentTask->setOrderIdTaskState($maxTaskStateOrderId);
         }
+        if($this->request->hasArgument('file')){
+            $persistentTask->setFiles(str_replace('uploads/tx_pmtodo/', '',$this->request->getArgument('file')));
+        }
+        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($persistentTask);
         $this->taskRepository->update($persistentTask);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.updated', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
@@ -742,5 +746,37 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.ordering', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('show','Project',null,$args);
+    }
+
+    /**
+     * action uploadFiles
+     *
+     * @return void
+     */
+    public function uploadFilesAction(){
+        $allowed = array('png', 'jpg', 'gif','zip','doc', 'xls', 'csv', 'docx', 'xlsx', 'psd', 'rar', 'indd', 'ind', 'pdf');
+        if(isset($_FILES['upl']) && $_FILES['upl']['error'] == 0){
+            $extension = pathinfo($_FILES['upl']['name'], PATHINFO_EXTENSION);
+            if(!in_array(strtolower($extension), $allowed)){
+                echo '{"status":"error"}';
+                exit;
+            }
+            $filePath = PATH_site . 'uploads/tx_gtd/';
+            if(!file_exists($filePath)){
+                \TYPO3\CMS\Core\Utility\GeneralUtility::mkdir($filePath);
+            }
+            if(file_exists(($filePath . $_FILES['upl']['name']))){
+                $timestamp = time();
+                if(\TYPO3\CMS\Core\Utility\GeneralUtility::upload_copy_move($_FILES['upl']['tmp_name'], $filePath.$timestamp.'_'.$_FILES['upl']['name'])){
+                    echo 'uploads/tx_gtd/'.$timestamp.'_'.$_FILES['upl']['name'];
+                    exit;
+                }
+            } else {
+                if(\TYPO3\CMS\Core\Utility\GeneralUtility::upload_copy_move($_FILES['upl']['tmp_name'], $filePath.$_FILES['upl']['name'])){
+                    echo 'uploads/tx_gtd/'.$_FILES['upl']['name'];
+                    exit;
+                }
+            }
+        }
     }
 }

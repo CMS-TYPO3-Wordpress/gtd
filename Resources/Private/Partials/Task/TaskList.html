@@ -10,6 +10,7 @@
         <th><f:translate key="tx_gtd_domain_model_task.task_energy" /></th>
         <th><f:translate key="tx_gtd_domain_model_task.task_time" /></th>
         <th><f:translate key="tx_gtd_domain_model_task.due_date" /></th>
+        <th><f:translate key="tx_gtd_domain_model_task.files" /></th>
         <th><f:translate key="tx_gtd_domain_model_task.project" /></th>
     </tr>
 
@@ -72,6 +73,11 @@
                 </f:switch>
             </td>
             <td><f:format.date date="{task.dueDate}" format="{f:translate(key: 'tx_gtd.date_format')}" /></td>
+            <td>
+                <f:if condition="{task.files}">
+                    <span class="glyphicon glyphicon-paperclip" aria-hidden="true"></span>
+                </f:if>
+            </td>
             <td>
                 <f:if condition="{task.project}">
                     <f:link.action controller="Project" action="show" arguments="{project:task.project}">{task.project.name}</f:link.action>

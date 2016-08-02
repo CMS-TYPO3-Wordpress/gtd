@@ -17,7 +17,7 @@ use TYPO3\CMS\Extbase\Validation\Validator\TextValidator;
 use TYPO3\CMS\Extbase\Validation\Validator\NumberRangeValidator;
 use TYPO3\CMS\Extbase\Validation\Validator\DateTimeValidator;
 
-    /**
+/**
  * Task
  */
 class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
@@ -121,6 +121,13 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
      */
     protected $userAccount = null;
+
+    /**
+     * files
+     *
+     * @var string
+     */
+    protected $files = null;
 
     /**
      * Returns the title
@@ -423,5 +430,74 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setUserAccount(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userAccount)
     {
         $this->userAccount = $userAccount;
+    }
+
+    /**
+     * Returns the files
+     *
+     * @return string $files
+     */
+    public function getFiles() {
+        if(!empty($this->files)){
+            $filesArray = explode(',', $this->files);
+            if(is_array($filesArray)){
+                foreach($filesArray as $item){
+                    $file = pathinfo( \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($item) );
+                    if(is_file($file['dirname'] . '/' . $file['basename'])){
+                        $bytes = filesize($file['dirname'] . '/' . $file['basename']);
+                        if ($bytes >= 1073741824) {
+                            $bytes = number_format($bytes / 1073741824, 2) . 'GB';
+                        } elseif ($bytes >= 1048576){
+                            $bytes = number_format($bytes / 1048576, 2) . 'MB';
+                        } elseif ($bytes >= 1024){
+                            $bytes = number_format($bytes / 1024, 2) . 'KB';
+                        } elseif ($bytes > 1){
+                            $bytes = $bytes . 'bytes';
+                        } elseif ($bytes == 1){
+                            $bytes = $bytes . 'byte';
+                        } else {
+                            $bytes = '0 bytes';
+                        }
+                        $returnFile[] = array_merge($file, array('filesize'=> $bytes));
+                    }
+                }
+            } else {
+                $file = pathinfo( \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName( $this->files) );
+                $bytes = filesize($file['dirname'] . '/' . $file['basename']);
+                if ($bytes >= 1073741824){
+                    $bytes = number_format($bytes / 1073741824, 2) . 'GB';
+                } elseif ($bytes >= 1048576){
+                    $bytes = number_format($bytes / 1048576, 2) . 'MB';
+                } elseif ($bytes >= 1024){
+                    $bytes = number_format($bytes / 1024, 2) . 'KB';
+                } elseif ($bytes > 1){
+                    $bytes = $bytes . 'bytes';
+                } elseif ($bytes == 1){
+                    $bytes = $bytes . 'byte';
+                } else{
+                    $bytes = '0 bytes';
+                }
+                $returnFile[] = array_merge($this->files, array('filesize'=> $bytes));
+            }
+            return $returnFile;
+        }
+    }
+
+    /**
+     * Sets the files
+     *
+     * @param string $files
+     * @return void
+     */
+    public function setFiles($files) {
+        if(is_array($files)){
+            $fileString = '';
+            foreach($files as $item){
+                $fileString .= $item . ',';
+            }
+            $this->files = substr($fileString,0,-1);
+        } else {
+            $this->files = $files;
+        }
     }
 }
