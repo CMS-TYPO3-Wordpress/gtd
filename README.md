@@ -18,6 +18,9 @@ https://docs.typo3.org/typo3cms/extensions/gtd/User/Index.html
 # admin 
 how to install: https://docs.typo3.org/typo3cms/extensions/gtd/Administrator/Index.html
 
+# Contact
+
+Twitter: https://twitter.com/ThomasWoehlke
 
 
 
