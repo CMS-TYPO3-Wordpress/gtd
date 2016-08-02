@@ -18,6 +18,7 @@ What does it do?
 ----------------
 
 TYPO3 Frontend Users can use this Extension as Todo List for Timemanagement or Projectmanangement with the Getting Things Done Scheme introduced by David Allen.
+Please refer to Users Manual.
 
 David Allen wrote the Book "Getting Things Done - The Art of Stress-free productivity".
 More info about it: http://gettingthingsdone.com/

@@ -14,7 +14,7 @@ conf.py:
   epub_copyright: 2016
   project: gtd
   version: 0.9
-  release: 0.9.2
+  release: 0.9.3
   intersphinx_mapping:
     t3tsref:
     - http://docs.typo3.org/typo3cms/TyposcriptReference/
