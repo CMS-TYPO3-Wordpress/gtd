@@ -45,7 +45,7 @@
                                id="dataDetail_{task.uid}"
                                controller="Task" action="edit" arguments="{task : task}"> {task.title}</f:link.action>
             </td>
-            <td>{task.text}</td>
+            <td><f:format.crop maxCharacters="40">{task.text}</f:format.crop></td>
             <td>
                 <f:switch expression="{task.taskEnergy}">
                     <f:case value="0"></f:case>
