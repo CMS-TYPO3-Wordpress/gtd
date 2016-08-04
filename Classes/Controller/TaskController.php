@@ -12,6 +12,7 @@ namespace ThomasWoehlke\Gtd\Controller;
  *
  ***/
 use ThomasWoehlke\Gtd\Domain\Model\Project;
+use ThomasWoehlke\Gtd\Property\TypeConverter\UploadedFileReferenceConverter;
 
 /**
  * TaskController
@@ -96,6 +97,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             ->forProperty('dueDate')
             ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',
                 \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d');
+        $this->setTypeConverterConfigurationForImageUpload('task');
     }
 
     /**
@@ -174,6 +176,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             ->forProperty('dueDate')
             ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',
                 \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d');
+        $this->setTypeConverterConfigurationForImageUpload('task');
     }
 
     /**
@@ -802,5 +805,27 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             }
             exit;
         }
+    }
+
+    /**
+     *
+     */
+    protected function setTypeConverterConfigurationForImageUpload($argumentName) {
+        $uploadConfiguration = array(
+            UploadedFileReferenceConverter::CONFIGURATION_ALLOWED_FILE_EXTENSIONS => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
+            UploadedFileReferenceConverter::CONFIGURATION_UPLOAD_FOLDER => '1:/content/',
+        );
+        /** @var PropertyMappingConfiguration $newExampleConfiguration */
+        $newExampleConfiguration = $this->arguments[$argumentName]->getPropertyMappingConfiguration();
+        $newExampleConfiguration->forProperty('image')
+            ->setTypeConverterOptions(
+                'ThomasWoehlke\\Gtd\\Property\\TypeConverter\\UploadedFileReferenceConverter',
+                $uploadConfiguration
+            );
+        $newExampleConfiguration->forProperty('imageCollection.0')
+            ->setTypeConverterOptions(
+                'ThomasWoehlke\\Gtd\\Property\\TypeConverter\\UploadedFileReferenceConverter',
+                $uploadConfiguration
+            );
     }
 }

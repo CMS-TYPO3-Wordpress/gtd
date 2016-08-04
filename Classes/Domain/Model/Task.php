@@ -8,7 +8,7 @@ namespace ThomasWoehlke\Gtd\Domain\Model;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2016 Thomas Woehlke <thomas@woehlke.org>, faktura gGmbH
+ * (c) 2016 Thomas Woehlke <thomas@woehlke.org>, faktura gGmbH
  *
  ***/
 
@@ -128,6 +128,24 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var string
      */
     protected $files = null;
+
+    /**
+     * Image
+     *
+     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
+     */
+    protected $image;
+
+    /**
+     * Image
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     */
+    protected $imageCollection;
+
+    public function __construct() {
+        $this->imageCollection = new ObjectStorage();
+    }
 
     /**
      * Returns the title
@@ -499,5 +517,38 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         } else {
             $this->files = $files;
         }
+    }
+
+    /**
+     * Returns the image
+     *
+     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference $image
+     */
+    public function getImage() {
+        return $this->image;
+    }
+
+    /**
+     * Sets the image
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $image
+     * @return void
+     */
+    public function setImage($image) {
+        $this->image = $image;
+    }
+
+    /**
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $imageCollection
+     */
+    public function setImageCollection($imageCollection) {
+        $this->imageCollection = $imageCollection;
+    }
+
+    /**
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+     */
+    public function getImageCollection() {
+        return $this->imageCollection;
     }
 }

@@ -1,3 +1,4 @@
+{namespace h=ThomasWoehlke\Gtd\ViewHelpers}
 <div xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 <div class="form-group">
 <label for="title">
@@ -43,4 +44,25 @@
 		</div>
 	</div>
 	</f:if>
+	<div class="form-group">
+	<label for="image">
+		<f:translate key="tx_gtd_domain_model_task.image" />
+	</label><br />
+	<h:form.upload property="image" >
+		<f:if condition="{resource}">
+			<f:image image="{resource}" alt="" width="50"/>
+		</f:if>
+	</h:form.upload>
+	</div>
+	<div class="form-group">
+	<label for="image_collection">
+		<f:translate key="tx_gtd_domain_model_task.image_collection" />
+	</label><br />
+	<h:form.upload property="imageCollection.0">
+		<f:if condition="{resource}">
+			<f:image image="{resource}" alt="" width="50"/>
+		</f:if>
+	</h:form.upload>
+	</div>
+
 </div>

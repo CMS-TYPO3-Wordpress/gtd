@@ -158,6 +158,8 @@ CREATE TABLE tx_gtd_domain_model_task (
 	context int(11) unsigned DEFAULT '0',
 	user_account int(11) unsigned DEFAULT '0',
 	files text DEFAULT '' NOT NULL,
+	image int(11) unsigned DEFAULT '0',
+	image_collection int(11) unsigned DEFAULT '0',
 
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
