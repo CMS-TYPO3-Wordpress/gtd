@@ -88,6 +88,7 @@ class UploadViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\UploadViewHelpe
 			return NULL;
 		}
 		$resource = $this->getValue(FALSE);
+        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($resource);
 		if ($resource instanceof \TYPO3\CMS\Extbase\Domain\Model\FileReference) {
 			return $resource;
 		}

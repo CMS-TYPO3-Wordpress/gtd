@@ -13,6 +13,7 @@ namespace ThomasWoehlke\Gtd\Controller;
  ***/
 use ThomasWoehlke\Gtd\Domain\Model\Project;
 use ThomasWoehlke\Gtd\Property\TypeConverter\UploadedFileReferenceConverter;
+use TYPO3\CMS\Extbase\Property\PropertyMappingConfiguration;
 
 /**
  * TaskController

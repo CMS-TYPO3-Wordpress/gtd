@@ -3,7 +3,7 @@ config.tx_extbase {
 		# Enable this if you need the reference index to be updated
 		# updateReferenceIndex = 1
 		classes {
-			Helhum\UploadExample\Domain\Model\FileReference {
+			ThomasWoehlke\Gtd\Domain\Model\FileReference {
 				mapping {
 					tableName = sys_file_reference
 					columns {

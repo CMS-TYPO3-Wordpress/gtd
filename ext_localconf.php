@@ -30,3 +30,6 @@ call_user_func(
     },
     $_EXTKEY
 );
+
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerTypeConverter('ThomasWoehlke\\Gtd\\Property\\TypeConverter\\UploadedFileReferenceConverter');
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerTypeConverter('ThomasWoehlke\\Gtd\\Property\\TypeConverter\\ObjectStorageConverter');
