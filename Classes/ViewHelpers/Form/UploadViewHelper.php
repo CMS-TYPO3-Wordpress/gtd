@@ -94,8 +94,21 @@ class UploadViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\UploadViewHelpe
 		if ($resource instanceof \TYPO3\CMS\Extbase\Domain\Model\FileReference) {
 			return $resource;
 		}
-
-		return $this->propertyMapper->convert($resource, 'TYPO3\\CMS\\Extbase\\Domain\\Model\\FileReference');
+		if($resource != null) {
+            foreach ($resource as $item) {
+                $logger->error("resource: " . $item);
+            }
+        }
+        $retVal = null;
+        try {
+            $retVal = $this->propertyMapper->convert($resource, 'TYPO3\\CMS\\Extbase\\Domain\\Model\\FileReference');
+        } catch (\TYPO3\CMS\Extbase\Property\Exception\InvalidSourceException $e) {
+            $logger->error('--------------');
+            $logger->error($e->getMessage());
+            $logger->error('--------------');
+        }
+        $logger->error("retVal: ".$retVal);
+		return $retVal;
 	}
 
 

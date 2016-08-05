@@ -117,6 +117,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $persistentTask->setTaskEnergy($task->getTaskEnergy());
         $persistentTask->setTaskTime($task->getTaskTime());
         $persistentTask->setDueDate($task->getDueDate());
+        $persistentTask->setImage($task->getImage());
+        $persistentTask->setImageCollection($task->getImageCollection());
         if($task->getDueDate() != NULL){
             $persistentTask->changeTaskState($this->taskStates['scheduled']);
             $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,$this->taskStates['scheduled']);
@@ -132,7 +134,13 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $persistentTask->setFiles(str_replace('uploads/tx_pmtodo/', '',$this->request->getArgument('file')));
         }
         \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($persistentTask);
-        $this->taskRepository->update($persistentTask);
+        $logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
+        $logger->error($persistentTask);
+        try {
+            $this->taskRepository->update($persistentTask);
+        } catch (\TYPO3\CMS\Extbase\Property\Exception\InvalidSourceException $e) {
+            $logger->error($e->getMessage());
+        }
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.updated', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->getRedirectFromTask($persistentTask);
