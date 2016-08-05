@@ -529,6 +529,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             ->forProperty('dueDate')
             ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',
                 \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d');
+        $this->setTypeConverterConfigurationForImageUpload('newTask');
     }
 
     /**

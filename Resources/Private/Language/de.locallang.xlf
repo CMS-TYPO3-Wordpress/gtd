@@ -424,6 +424,18 @@
 				<source>Drop Files for Upload Here</source>
 				<target state="translated">Dateien zum Hochladen hier ablegen</target>
 			</trans-unit>
+			<trans-unit id="tx_gtd_domain_model_task.files">
+				<source>Files</source>
+				<target state="translated">Dateien</target>
+			</trans-unit>
+			<trans-unit id="tx_gtd_domain_model_task.image">
+				<source>Image</source>
+				<target state="translated">Bild</target>
+			</trans-unit>
+			<trans-unit id="tx_gtd_domain_model_task.image_collection">
+				<source>Image Collection</source>
+				<target state="translated">Bilder-Sammlung</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

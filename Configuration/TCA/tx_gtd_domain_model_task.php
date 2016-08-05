@@ -10,6 +10,7 @@ return [
 		'versioningWS' => 2,
         'versioning_followPages' => true,
 
+        'origUid' => 't3_origuid',
         'languageField' => 'sys_language_uid',
         'transOrigPointerField' => 'l10n_parent',
         'transOrigDiffSourceField' => 'l10n_diffsource',
@@ -310,7 +311,7 @@ return [
         ],
         'image' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:upload_example/Resources/Private/Language/locallang_db.xlf:tx_uploadexample_domain_model_example.image',
+            'label' => 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_task.image',
             'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('image', [
                 'appearance' => [
                     'createNewRelationLinkTitle' => 'LLL:EXT:cms/locallang_ttc.xlf:images.addFileReference'
@@ -359,7 +360,7 @@ return [
         ],
         'image_collection' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:upload_example/Resources/Private/Language/locallang_db.xlf:tx_uploadexample_domain_model_example.image_collection',
+            'label' => 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_task.image_collection',
             'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('image_collection', [
                 'appearance' => [
                     'createNewRelationLinkTitle' => 'LLL:EXT:cms/locallang_ttc.xlf:images.addFileReference'

@@ -108,6 +108,12 @@
 			<trans-unit id="tx_gtd_domain_model_task.files">
 				<source>Files</source>
 			</trans-unit>
+			<trans-unit id="tx_gtd_domain_model_task.image">
+				<source>Image</source>
+			</trans-unit>
+			<trans-unit id="tx_gtd_domain_model_task.image_collection">
+				<source>Image Collection</source>
+			</trans-unit>
 			<trans-unit id="tx_gtd_domain_model_userconfig">
 				<source>User Config</source>
 			</trans-unit>

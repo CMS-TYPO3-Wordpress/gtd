@@ -161,7 +161,6 @@ CREATE TABLE tx_gtd_domain_model_task (
 	image int(11) unsigned DEFAULT '0',
 	image_collection int(11) unsigned DEFAULT '0',
 
-
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
 	cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
@@ -180,7 +179,7 @@ CREATE TABLE tx_gtd_domain_model_task (
 	t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
 	t3ver_move_id int(11) DEFAULT '0' NOT NULL,
 
-
+	t3_origuid int(11) DEFAULT '0' NOT NULL,
 	sys_language_uid int(11) DEFAULT '0' NOT NULL,
 	l10n_parent int(11) DEFAULT '0' NOT NULL,
 	l10n_diffsource mediumblob,

@@ -16,6 +16,7 @@ use TYPO3\CMS\Extbase\Validation\Validator\NotEmptyValidator;
 use TYPO3\CMS\Extbase\Validation\Validator\TextValidator;
 use TYPO3\CMS\Extbase\Validation\Validator\NumberRangeValidator;
 use TYPO3\CMS\Extbase\Validation\Validator\DateTimeValidator;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
  * Task
@@ -137,7 +138,7 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $image;
 
     /**
-     * Image
+     * Image Collection
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
      */
