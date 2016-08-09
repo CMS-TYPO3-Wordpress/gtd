@@ -74,7 +74,7 @@
             </td>
             <td><f:format.date date="{task.dueDate}" format="{f:translate(key: 'tx_gtd.date_format')}" /></td>
             <td>
-                <f:if condition="{0:task.image,1:task.imageCollection.0}!={0:'',1:''}">
+                <f:if condition="{task.files}">
                     <span class="glyphicon glyphicon-paperclip" aria-hidden="true"></span>
                 </f:if>
             </td>

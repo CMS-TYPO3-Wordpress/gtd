@@ -12,8 +12,6 @@ namespace ThomasWoehlke\Gtd\Controller;
  *
  ***/
 use ThomasWoehlke\Gtd\Domain\Model\Project;
-use ThomasWoehlke\Gtd\Property\TypeConverter\UploadedFileReferenceConverter;
-use TYPO3\CMS\Extbase\Property\PropertyMappingConfiguration;
 
 /**
  * TaskController
@@ -74,16 +72,6 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($ctx));
     }
 
-    public function initializeEditAction()
-    {
-        $this->setTypeConverterConfigurationForImageUpload('task');
-        $this->arguments['task']
-            ->getPropertyMappingConfiguration()
-            ->forProperty('dueDate')
-            ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',
-                \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d');
-    }
-
     /**
      * action edit
      *
@@ -101,9 +89,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($ctx));
     }
 
-    public function initializeUpdateAction()
+    public function initializeEditAction()
     {
-        $this->setTypeConverterConfigurationForImageUpload('task');
         $this->arguments['task']
             ->getPropertyMappingConfiguration()
             ->forProperty('dueDate')
@@ -119,12 +106,6 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function updateAction(\ThomasWoehlke\Gtd\Domain\Model\Task $task)
     {
-//        $logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
-
-//        $logger->error('$task update');
-
-//        $logger->error('$task '.$task);
-
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
         $persistentTask = $this->taskRepository->findByUid($task->getUid());
@@ -133,8 +114,6 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $persistentTask->setTaskEnergy($task->getTaskEnergy());
         $persistentTask->setTaskTime($task->getTaskTime());
         $persistentTask->setDueDate($task->getDueDate());
-        $persistentTask->setImage($task->getImage());
-        $persistentTask->setImageCollection($task->getImageCollection());
         if($task->getDueDate() != NULL){
             $persistentTask->changeTaskState($this->taskStates['scheduled']);
             $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,$this->taskStates['scheduled']);
@@ -147,14 +126,10 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $persistentTask->setOrderIdTaskState($maxTaskStateOrderId);
         }
         if($this->request->hasArgument('file')){
-            $persistentTask->setFiles(str_replace('uploads/tx_gtd/', '',$this->request->getArgument('file')));
+            $persistentTask->setFiles(str_replace('uploads/tx_pmtodo/', '',$this->request->getArgument('file')));
         }
-//        $logger->error('$persistentTask '.$persistentTask);
-//        try {
-            $this->taskRepository->update($persistentTask);
-//        } catch (\TYPO3\CMS\Extbase\Property\Exception\InvalidSourceException $e) {
-//            $logger->error('update failed: '.$e->getMessage());
-//        }
+        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($persistentTask);
+        $this->taskRepository->update($persistentTask);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.updated', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->getRedirectFromTask($persistentTask);
@@ -190,6 +165,15 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 $this->redirect('list');
                 break;
         }
+    }
+
+    public function initializeUpdateAction()
+    {
+        $this->arguments['task']
+            ->getPropertyMappingConfiguration()
+            ->forProperty('dueDate')
+            ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',
+                \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d');
     }
 
     /**
@@ -504,16 +488,6 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($ctx));
     }
 
-    public function initializeCreateAction()
-    {
-        $this->arguments['newTask']
-            ->getPropertyMappingConfiguration()
-            ->forProperty('dueDate')
-            ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',
-                \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d');
-        $this->setTypeConverterConfigurationForImageUpload('newTask');
-    }
-
     /**
      * action create
      *
@@ -542,6 +516,15 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $this->taskRepository->add($newTask);
             $this->redirect('inbox');
         }
+    }
+
+    public function initializeCreateAction()
+    {
+        $this->arguments['newTask']
+            ->getPropertyMappingConfiguration()
+            ->forProperty('dueDate')
+            ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',
+                \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d');
     }
 
     /**
@@ -766,27 +749,58 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
 
     /**
+     * action uploadFiles
      *
+     * @return void
      */
-    protected function setTypeConverterConfigurationForImageUpload($argumentName) {
-        $uploadConfiguration = array(
-            UploadedFileReferenceConverter::CONFIGURATION_ALLOWED_FILE_EXTENSIONS => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
-            UploadedFileReferenceConverter::CONFIGURATION_UPLOAD_FOLDER => '1:/content/',
-        );
-//        $logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
-//        $logger->error('setTypeConverterConfigurationForImageUpload: '.$argumentName);
-        /** @var PropertyMappingConfiguration $newExampleConfiguration */
-        $newExampleConfiguration = $this->arguments[$argumentName]->getPropertyMappingConfiguration();
-        $newExampleConfiguration->forProperty('image')
-            ->setTypeConverterOptions(
-                'ThomasWoehlke\\Gtd\\Property\\TypeConverter\\UploadedFileReferenceConverter',
-                $uploadConfiguration
-            );
-        $newExampleConfiguration->forProperty('imageCollection.0')
-            ->setTypeConverterOptions(
-                'ThomasWoehlke\\Gtd\\Property\\TypeConverter\\UploadedFileReferenceConverter',
-                $uploadConfiguration
-            );
-//        $logger->error('setTypeConverterConfigurationForImageUpload: DONE');
+    public function uploadFilesAction(){
+        /** @var $logger \TYPO3\CMS\Core\Log\Logger */
+        $logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
+        $logger->debug($_FILES['upl']);
+//        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($_FILES['upl']);
+        $allowed = array('png', 'jpg', 'gif','zip','doc', 'xls', 'csv', 'docx', 'xlsx', 'psd', 'rar', 'indd', 'ind', 'pdf');
+        if(isset($_FILES['upl']) && $_FILES['upl']['error'] == 0){
+            $extension = pathinfo($_FILES['upl']['name'], PATHINFO_EXTENSION);
+            if(!in_array(strtolower($extension), $allowed)){
+                echo '{"status":"error"}';
+                exit;
+            }
+            $filePath = PATH_site . 'uploads/tx_gtd/';
+            if(!file_exists($filePath)){
+                \TYPO3\CMS\Core\Utility\GeneralUtility::mkdir($filePath);
+            }
+            if(file_exists(($filePath . $_FILES['upl']['name']))){
+                $timestamp = time();
+                if(\TYPO3\CMS\Core\Utility\GeneralUtility::upload_copy_move($_FILES['upl']['tmp_name'], $filePath.$timestamp.'_'.$_FILES['upl']['name'])){
+                    echo 'uploads/tx_gtd/'.$timestamp.'_'.$_FILES['upl']['name'];
+                    $logger->debug('uploads/tx_gtd/'.$timestamp.'_'.$_FILES['upl']['name']);
+                    exit;
+                }
+            } else {
+                if(\TYPO3\CMS\Core\Utility\GeneralUtility::upload_copy_move($_FILES['upl']['tmp_name'], $filePath.$_FILES['upl']['name'])){
+                    echo 'uploads/tx_gtd/'.$_FILES['upl']['name'];
+                    $logger->debug('uploads/tx_gtd/'.$_FILES['upl']['name']);
+                    exit;
+                }
+            }
+        } else {
+            if(isset($_FILES['upl'])){
+            $msg = 'Failed Upload: '.$_FILES['upl']['name'].' ';
+            switch ($_FILES['upl']['error']){
+                case UPLOAD_ERR_INI_SIZE: $msg .= 'Die hochgeladene Datei ueberschreitet die in der Anweisung upload_max_filesize in php.ini festgelegte Größe.'; break;
+                case UPLOAD_ERR_FORM_SIZE: $msg .= ' Die hochgeladene Datei ueberschreitet die in dem HTML Formular mittels der Anweisung MAX_FILE_SIZE angegebene maximale Dateigroeße.';  break;
+                case UPLOAD_ERR_PARTIAL: $msg .= 'Die Datei wurde nur teilweise hochgeladen.'; break;
+                case UPLOAD_ERR_NO_FILE: $msg .= 'Es wurde keine Datei hochgeladen.'; break;
+                case UPLOAD_ERR_NO_TMP_DIR: $msg .= 'Fehlender temporärer Ordner.'; break;
+                case UPLOAD_ERR_CANT_WRITE: $msg .= 'Speichern der Datei auf die Festplatte ist fehlgeschlagen'; break;
+                case UPLOAD_ERR_EXTENSION: $msg .= 'Eine PHP Erweiterung hat den Upload der Datei gestoppt. PHP bietet keine Moeglichkeit an, um festzustellen welche Erweiterung das Hochladen der Datei gestoppt hat. Ueberpruefung aller geladenen Erweiterungen mittels phpinfo() koennte helfen.'; break;
+                default: $msg .= 'Errorcode: '.$_FILES['upl']['error']; break;
+            }
+            $logger->error($msg);
+            } else {
+                $logger->error('NOT isset($_FILES[\'upl\'])');
+            }
+            exit;
+        }
     }
 }

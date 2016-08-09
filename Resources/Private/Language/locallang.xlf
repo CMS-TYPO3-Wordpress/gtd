@@ -201,15 +201,6 @@
 			<trans-unit id="tx_gtd_domain_model_task.due_date">
 				<source>Due Date</source>
 			</trans-unit>
-			<trans-unit id="tx_gtd_domain_model_task.files">
-				<source>Files</source>
-			</trans-unit>
-			<trans-unit id="tx_gtd_domain_model_task.image">
-				<source>Image</source>
-			</trans-unit>
-			<trans-unit id="tx_gtd_domain_model_task.image_collection">
-				<source>Image Collection</source>
-			</trans-unit>
 			<trans-unit id="tx_gtd_domain_model_task.order_id_project">
 				<source>Order Id Project</source>
 			</trans-unit>

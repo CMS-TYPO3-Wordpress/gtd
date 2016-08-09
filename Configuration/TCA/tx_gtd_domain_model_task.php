@@ -10,7 +10,6 @@ return [
 		'versioningWS' => 2,
         'versioning_followPages' => true,
 
-        'origUid' => 't3_origuid',
         'languageField' => 'sys_language_uid',
         'transOrigPointerField' => 'l10n_parent',
         'transOrigDiffSourceField' => 'l10n_diffsource',
@@ -20,14 +19,14 @@ return [
 			'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => 'title,text,focus,task_state,last_task_state,task_energy,task_time,due_date,order_id_project,order_id_task_state,project,context,user_account,',
+        'searchFields' => 'title,text,focus,task_state,last_task_state,task_energy,task_time,due_date,order_id_project,order_id_task_state,project,context,user_account,files,',
         'iconfile' => 'EXT:gtd/Resources/Public/Icons/tx_gtd_domain_model_task.gif'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, text, focus, task_state, last_task_state, task_energy, task_time, due_date, order_id_project, order_id_task_state, project, context, user_account, image',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, text, focus, task_state, last_task_state, task_energy, task_time, due_date, order_id_project, order_id_task_state, project, context, user_account, files',
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, text, focus, task_state, last_task_state, task_energy, task_time, due_date, order_id_project, order_id_task_state, project, context, user_account, image, image_collection, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, text, focus, task_state, last_task_state, task_energy, task_time, due_date, order_id_project, order_id_task_state, project, context, user_account, files, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -300,103 +299,16 @@ return [
 			],
 
 	    ],
-        'image' => [
+        'files' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_task.image',
-            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('image', [
-                'appearance' => [
-                    'createNewRelationLinkTitle' => 'LLL:EXT:cms/locallang_ttc.xlf:images.addFileReference'
-                ],
-                'maxitems' => 1,
-                // custom configuration for displaying fields in the overlay/reference table
-                // to use the imageoverlayPalette instead of the basicoverlayPalette
-                'foreign_match_fields' => [
-                    'fieldname' => 'image',
-                    'tablenames' => 'tx_gtd_domain_model_task',
-                    'table_local' => 'sys_file',
-                ],
-                'foreign_types' => [
-                    '0' => [
-                        'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-                    ],
-                    \TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => [
-                        'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-                    ],
-                    \TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
-                        'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-                    ],
-                    \TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => [
-                        'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-                    ],
-                    \TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => [
-                        'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-                    ],
-                    \TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => [
-                        'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-                    ]
-                ]
-            ], $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'])
+            'label' => 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_task.files',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim'
+            ],
         ],
-        'image_collection' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_task.image_collection',
-            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('image_collection', [
-                'appearance' => [
-                    'createNewRelationLinkTitle' => 'LLL:EXT:cms/locallang_ttc.xlf:images.addFileReference'
-                ],
-                // custom configuration for displaying fields in the overlay/reference table
-                // to use the imageoverlayPalette instead of the basicoverlayPalette
-                'foreign_match_fields' => [
-                    'fieldname' => 'image_collection',
-                    'tablenames' => 'tx_gtd_domain_model_task',
-                    'table_local' => 'sys_file',
-                ],
-                'foreign_types' => [
-                    '0' => [
-                        'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-                    ],
-                    \TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => [
-                        'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-                    ],
-                    \TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
-                        'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-                    ],
-                    \TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => [
-                        'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-                    ],
-                    \TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => [
-                        'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-                    ],
-                    \TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => [
-                        'showitem' => '
-							--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-							--palette--;;filePalette'
-                    ]
-                ]
-            ], $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'])
-        ],
+
     ],
 ];
 ## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder

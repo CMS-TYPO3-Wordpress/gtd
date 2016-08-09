@@ -19,7 +19,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 <f:render partial="FormErrors" arguments="{object:Task}" />
 
-<f:form id="taskUpdate" enctype="multipart/form-data" action="update" name="task" object="{task}" >
+<f:form id="taskUpdate" action="update" name="task" object="{task}" >
 <f:render partial="Task/FormFields" arguments="{task:task, taskEnergy:taskEnergy, taskTime:taskTime}" />
 	<f:form.submit value="{f:translate(key:'tx_gtd_template_task_edit.save')}" class="btn btn-default"/>
     &nbsp;&nbsp;&nbsp;
@@ -27,5 +27,24 @@ Otherwise your changes will be overwritten the next time you save the extension 
         <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> <f:translate key="tx_gtd_template_task_edit.transform" /></f:link.action>
 </f:form>
 <br/><br/>
+<div class="well">
+    <div id="fileupload" class="row">
+        <div class="form-group">
+            <label for="files" class="col-sm-2 control-label">
+            </label>
+            <div class="col-sm-8">
+                <f:form id="upload" action="uploadFiles" controller="Task" enctype="multipart/form-data" name="newTask" object="{newTask}" class="form-horizontal">
+                    <div id="drop">
+                        <f:translate key="tx_gtd_template_task_inbox.editTask.dropHere" />
+                        <input type="file" name="upl" multiple/>
+                    </div>
+                    <ul>
+                        <!-- The file uploads will be shown here -->
+                    </ul>
+                </f:form>
+            </div>
+        </div>
+    </div>
+</div>
 </f:section>
 </div>

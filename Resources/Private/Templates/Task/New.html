@@ -19,7 +19,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 <f:render partial="FormErrors" arguments="{object:Task}" />
 
-<f:form action="create" enctype="multipart/form-data"  name="newTask" object="{newTask}">
+<f:form action="create"  name="newTask" object="{newTask}">
 <f:render partial="Task/FormFields" arguments="{taskEnergy:taskEnergy, taskTime:taskTime}"/>
 	<f:form.submit value="{f:translate(key:'tx_gtd_template_task_inbox.createNew')}" class="btn btn-default" />
 </f:form>
