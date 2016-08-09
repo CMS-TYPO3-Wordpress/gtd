@@ -459,7 +459,7 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $image
      * @return void
      */
-    public function setImage(\TYPO3\CMS\Extbase\Domain\Model\FileReference $image) {
+    public function setImage(\TYPO3\CMS\Extbase\Domain\Model\FileReference $image = null) {
         $this->image = $image;
     }
 
