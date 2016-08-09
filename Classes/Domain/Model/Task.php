@@ -442,7 +442,7 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
             $filesArray = explode(',', $this->files);
             if(is_array($filesArray)){
                 foreach($filesArray as $item){
-                    $file = pathinfo( \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($item) );
+                    $file = pathinfo( \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('uploads/tx_gtd/'.$item) );
                     if(is_file($file['dirname'] . '/' . $file['basename'])){
                         $bytes = filesize($file['dirname'] . '/' . $file['basename']);
                         if ($bytes >= 1073741824) {
@@ -462,7 +462,7 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
                     }
                 }
             } else {
-                $file = pathinfo( \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName( $this->files) );
+                $file = pathinfo( \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('uploads/tx_gtd/'. $this->files) );
                 $bytes = filesize($file['dirname'] . '/' . $file['basename']);
                 if ($bytes >= 1073741824){
                     $bytes = number_format($bytes / 1073741824, 2) . 'GB';

@@ -126,7 +126,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $persistentTask->setOrderIdTaskState($maxTaskStateOrderId);
         }
         if($this->request->hasArgument('file')){
-            $persistentTask->setFiles(str_replace('uploads/tx_pmtodo/', '',$this->request->getArgument('file')));
+            $persistentTask->setFiles(str_replace('uploads/tx_gtd/', '',$this->request->getArgument('file')));
         }
         \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($persistentTask);
         $this->taskRepository->update($persistentTask);
