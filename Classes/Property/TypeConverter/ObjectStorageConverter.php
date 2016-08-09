@@ -37,7 +37,7 @@ class ObjectStorageConverter extends \TYPO3\CMS\Extbase\Property\TypeConverter\O
 	 *
 	 * @var integer
 	 */
-	protected $priority = 3;
+	protected $priority = 2;
 
 	/**
 	 * Return the source, if it is an array, otherwise an empty array.
@@ -50,14 +50,28 @@ class ObjectStorageConverter extends \TYPO3\CMS\Extbase\Property\TypeConverter\O
 	public function getSourceChildPropertiesToBeConverted($source) {
 		$propertiesToConvert = array();
 
+//        $logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
+
 		// TODO: Find a nicer way to throw away empty uploads
 		foreach ($source as $propertyName => $propertyValue) {
 			if ($this->isUploadType($propertyValue)) {
 				if ($propertyValue['error'] !== \UPLOAD_ERR_NO_FILE || isset($propertyValue['submittedFile']['resourcePointer'])) {
 					$propertiesToConvert[$propertyName] = $propertyValue;
+//                    $logger->error("source1: ".$propertyName.' => '.$propertyValue);
+//                    if(is_array($propertyValue)) {
+//                        foreach ($propertyValue as $key => $value) {
+//                            $logger->error("source4: " . $key . ' => ' . $value);
+//                        }
+//                    }
 				}
 			} else {
 				$propertiesToConvert[$propertyName] = $propertyValue;
+//                $logger->error("source2: ".$propertyName.' => '.$propertyValue);
+//                if(is_array($propertyValue)) {
+//                    foreach ($propertyValue as $key => $value) {
+//                        $logger->error("source3: " . $key . ' => ' . $value);
+//                    }
+//                }
 			}
 		}
 

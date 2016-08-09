@@ -84,7 +84,7 @@ class UploadedFileReferenceConverter extends AbstractTypeConverter {
 	 *
 	 * @var integer
 	 */
-	protected $priority = 3;
+	protected $priority = 2;
 
 	/**
 	 * @var \TYPO3\CMS\Core\Resource\ResourceFactory
@@ -122,10 +122,25 @@ class UploadedFileReferenceConverter extends AbstractTypeConverter {
 	 * @api
 	 */
 	public function convertFrom($source, $targetType, array $convertedChildProperties = array(), PropertyMappingConfigurationInterface $configuration = NULL) {
+
+//        $logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
+
+//        $logger->error('convertFrom');
+
+//        if(is_array($source )) {
+//            foreach ($source as $key => $value) {
+//                $logger->error('source: ' . $key . '=> ' . $value);
+//            }
+//        } else {
+//            $logger->error('source: '.$source);
+//        }
+
 		if (!isset($source['error']) || $source['error'] === \UPLOAD_ERR_NO_FILE) {
 			if (isset($source['submittedFile']['resourcePointer'])) {
 				try {
+//                    $logger->error('$resourcePointer = '.$source['submittedFile']['resourcePointer']);
 					$resourcePointer = $this->hashService->validateAndStripHmac($source['submittedFile']['resourcePointer']);
+//                    $logger->error('$resourcePointer = '.$resourcePointer);
 					if (strpos($resourcePointer, 'file:') === 0) {
 						$fileUid = substr($resourcePointer, 5);
 						return $this->createFileReferenceFromFalFileObject($this->resourceFactory->getFileObject($fileUid));

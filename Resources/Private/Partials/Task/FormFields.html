@@ -30,27 +30,13 @@
 </label><br />
 	<f:form.textfield id="taskDueDate" property="dueDate" value="{task.dueDate -> f:format.date(format:'Y-m-d')}" class="form-control"/><br />
 </div>
-	<f:if condition="{task.files}">
-	<div class="form-group">
-		<label for="files">
-			<f:translate key="tx_gtd_domain_model_task.files" />
-		</label>
-		<div id="files" class="well">
-
-				<f:for each="{task.files}" as="file">
-					<f:link.page pageUid="uploads/tx_gtd/{file.basename}" linkAccessRestrictedPages="TRUE" target="_blank">{file.basename} ( {file.filesize} )</f:link.page><br/>
-					<f:form.hidden name="file[]" value="uploads/tx_gtd/{file.basename}" />
-				</f:for>
-		</div>
-	</div>
-	</f:if>
 	<div class="form-group">
 	<label for="image">
 		<f:translate key="tx_gtd_domain_model_task.image" />
 	</label><br />
 	<h:form.upload property="image" >
 		<f:if condition="{resource}">
-			<f:image image="{resource}" alt="" width="50"/>
+			<f:image id="image" image="{resource}" alt="" width="50"/>
 		</f:if>
 	</h:form.upload>
 	</div>
@@ -60,9 +46,8 @@
 	</label><br />
 	<h:form.upload property="imageCollection.0">
 		<f:if condition="{resource}">
-			<f:image image="{resource}" alt="" width="50"/>
+			<f:image id="image_collection" image="{resource}" alt="" width="50"/>
 		</f:if>
 	</h:form.upload>
 	</div>
-
 </div>

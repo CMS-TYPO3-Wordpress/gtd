@@ -20,14 +20,14 @@ return [
 			'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => 'title,text,focus,task_state,last_task_state,task_energy,task_time,due_date,order_id_project,order_id_task_state,project,context,user_account,files,',
+        'searchFields' => 'title,text,focus,task_state,last_task_state,task_energy,task_time,due_date,order_id_project,order_id_task_state,project,context,user_account,',
         'iconfile' => 'EXT:gtd/Resources/Public/Icons/tx_gtd_domain_model_task.gif'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, text, focus, task_state, last_task_state, task_energy, task_time, due_date, order_id_project, order_id_task_state, project, context, user_account, files, image',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, text, focus, task_state, last_task_state, task_energy, task_time, due_date, order_id_project, order_id_task_state, project, context, user_account, image',
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, text, focus, task_state, last_task_state, task_energy, task_time, due_date, order_id_project, order_id_task_state, project, context, user_account, files, image, image_collection, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, text, focus, task_state, last_task_state, task_energy, task_time, due_date, order_id_project, order_id_task_state, project, context, user_account, image, image_collection, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -300,17 +300,8 @@ return [
 			],
 
 	    ],
-        'files' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_task.files',
-            'config' => [
-                'type' => 'input',
-                'size' => 30,
-                'eval' => 'trim'
-            ],
-        ],
         'image' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_task.image',
             'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('image', [
                 'appearance' => [
@@ -359,7 +350,7 @@ return [
             ], $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'])
         ],
         'image_collection' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => 'LLL:EXT:gtd/Resources/Private/Language/locallang_db.xlf:tx_gtd_domain_model_task.image_collection',
             'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('image_collection', [
                 'appearance' => [

@@ -88,20 +88,24 @@ class UploadViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\UploadViewHelpe
 			return NULL;
 		}
 		$resource = $this->getValue(FALSE);
-        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($resource);
+//        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($resource);
         $logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
         $logger->error("resource: ".$resource);
 		if ($resource instanceof \TYPO3\CMS\Extbase\Domain\Model\FileReference) {
 			return $resource;
 		}
-		if($resource != null) {
+		if($resource !== null) {
             foreach ($resource as $item) {
                 $logger->error("resource: " . $item);
             }
+        } else {
+            $logger->error("resource: NULL");
         }
+        /** @var \TYPO3\CMS\Extbase\Domain\Model\FileReference $retVal */
         $retVal = null;
         try {
             $retVal = $this->propertyMapper->convert($resource, 'TYPO3\\CMS\\Extbase\\Domain\\Model\\FileReference');
+            $logger->error('convert done');
         } catch (\TYPO3\CMS\Extbase\Property\Exception\InvalidSourceException $e) {
             $logger->error('--------------');
             $logger->error($e->getMessage());

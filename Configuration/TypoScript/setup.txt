@@ -53,12 +53,6 @@ page.includeCSS.file1 = EXT:gtd/Resources/Public/Css/jquery-ui.css
 page.includeJSFooterlibs {
   jqueryui = http://code.jquery.com/ui/1.11.4/jquery-ui.js
   jqueryui.external = 1
-
-  fileuploadlib1 = EXT:gtd/Resources/Public/Js/jquery.knob.js
-  fileuploadlib2 = EXT:gtd/Resources/Public/Js/jquery.ui.widget.js
-  fileuploadlib3 = EXT:gtd/Resources/Public/Js/jquery.iframe-transport.js
-  fileuploadlib4 = EXT:gtd/Resources/Public/Js/jquery.fileupload.js
-  fileuploadlib5 = EXT:gtd/Resources/Public/Js/script.js
 }
 
 page.jsInline.999 = TEXT
