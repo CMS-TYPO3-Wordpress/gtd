@@ -439,6 +439,7 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function getFiles() {
         if(!empty($this->files)){
+            $returnFile = array();
             $filesArray = explode(',', $this->files);
             if(is_array($filesArray)){
                 foreach($filesArray as $item){
@@ -477,7 +478,7 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
                 } else{
                     $bytes = '0 bytes';
                 }
-                $returnFile[] = array_merge($this->files, array('filesize'=> $bytes));
+                $returnFile[] = array_merge($file, array('filesize'=> $bytes));
             }
             return $returnFile;
         }

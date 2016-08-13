@@ -131,6 +131,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($persistentTask);
         $this->taskRepository->update($persistentTask);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.updated', $this->extName, null);
+        $msg .= ' ( '.htmlspecialchars($task->getTitle()).' )';
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->getRedirectFromTask($persistentTask);
     }
@@ -763,44 +764,58 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $extension = pathinfo($_FILES['upl']['name'], PATHINFO_EXTENSION);
             if(!in_array(strtolower($extension), $allowed)){
                 echo '{"status":"error"}';
+                $msg = "File Type not allowed";
+                $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
                 exit;
             }
             $filePath = PATH_site . 'uploads/tx_gtd/';
             if(!file_exists($filePath)){
                 \TYPO3\CMS\Core\Utility\GeneralUtility::mkdir($filePath);
             }
+            $originalName = $_FILES['upl']['name'];
+            $targetName = $this->getGoodFilemane($originalName);
             if(file_exists(($filePath . $_FILES['upl']['name']))){
                 $timestamp = time();
-                if(\TYPO3\CMS\Core\Utility\GeneralUtility::upload_copy_move($_FILES['upl']['tmp_name'], $filePath.$timestamp.'_'.$_FILES['upl']['name'])){
-                    echo 'uploads/tx_gtd/'.$timestamp.'_'.$_FILES['upl']['name'];
+                if(\TYPO3\CMS\Core\Utility\GeneralUtility::upload_copy_move($_FILES['upl']['tmp_name'], $filePath.$timestamp.'_'.$targetName)){
+                    echo 'uploads/tx_gtd/'.$timestamp.'_'.$targetName;
                     $logger->debug('uploads/tx_gtd/'.$timestamp.'_'.$_FILES['upl']['name']);
                     exit;
                 }
             } else {
-                if(\TYPO3\CMS\Core\Utility\GeneralUtility::upload_copy_move($_FILES['upl']['tmp_name'], $filePath.$_FILES['upl']['name'])){
-                    echo 'uploads/tx_gtd/'.$_FILES['upl']['name'];
+                if(\TYPO3\CMS\Core\Utility\GeneralUtility::upload_copy_move($_FILES['upl']['tmp_name'], $filePath.$targetName)){
+                    echo 'uploads/tx_gtd/'.$targetName;
                     $logger->debug('uploads/tx_gtd/'.$_FILES['upl']['name']);
                     exit;
                 }
             }
         } else {
             if(isset($_FILES['upl'])){
-            $msg = 'Failed Upload: '.$_FILES['upl']['name'].' ';
-            switch ($_FILES['upl']['error']){
-                case UPLOAD_ERR_INI_SIZE: $msg .= 'Die hochgeladene Datei ueberschreitet die in der Anweisung upload_max_filesize in php.ini festgelegte Größe.'; break;
-                case UPLOAD_ERR_FORM_SIZE: $msg .= ' Die hochgeladene Datei ueberschreitet die in dem HTML Formular mittels der Anweisung MAX_FILE_SIZE angegebene maximale Dateigroeße.';  break;
-                case UPLOAD_ERR_PARTIAL: $msg .= 'Die Datei wurde nur teilweise hochgeladen.'; break;
-                case UPLOAD_ERR_NO_FILE: $msg .= 'Es wurde keine Datei hochgeladen.'; break;
-                case UPLOAD_ERR_NO_TMP_DIR: $msg .= 'Fehlender temporärer Ordner.'; break;
-                case UPLOAD_ERR_CANT_WRITE: $msg .= 'Speichern der Datei auf die Festplatte ist fehlgeschlagen'; break;
-                case UPLOAD_ERR_EXTENSION: $msg .= 'Eine PHP Erweiterung hat den Upload der Datei gestoppt. PHP bietet keine Moeglichkeit an, um festzustellen welche Erweiterung das Hochladen der Datei gestoppt hat. Ueberpruefung aller geladenen Erweiterungen mittels phpinfo() koennte helfen.'; break;
-                default: $msg .= 'Errorcode: '.$_FILES['upl']['error']; break;
-            }
-            $logger->error($msg);
+                $msg = 'Failed Upload: '.$_FILES['upl']['name'].' ';
+                switch ($_FILES['upl']['error']){
+                    case UPLOAD_ERR_INI_SIZE: $msg .= 'Die hochgeladene Datei ueberschreitet die in der Anweisung upload_max_filesize in php.ini festgelegte Größe.'; break;
+                    case UPLOAD_ERR_FORM_SIZE: $msg .= ' Die hochgeladene Datei ueberschreitet die in dem HTML Formular mittels der Anweisung MAX_FILE_SIZE angegebene maximale Dateigroeße.';  break;
+                    case UPLOAD_ERR_PARTIAL: $msg .= 'Die Datei wurde nur teilweise hochgeladen.'; break;
+                    case UPLOAD_ERR_NO_FILE: $msg .= 'Es wurde keine Datei hochgeladen.'; break;
+                    case UPLOAD_ERR_NO_TMP_DIR: $msg .= 'Fehlender temporärer Ordner.'; break;
+                    case UPLOAD_ERR_CANT_WRITE: $msg .= 'Speichern der Datei auf die Festplatte ist fehlgeschlagen'; break;
+                    case UPLOAD_ERR_EXTENSION: $msg .= 'Eine PHP Erweiterung hat den Upload der Datei gestoppt. PHP bietet keine Moeglichkeit an, um festzustellen welche Erweiterung das Hochladen der Datei gestoppt hat. Ueberpruefung aller geladenen Erweiterungen mittels phpinfo() koennte helfen.'; break;
+                    default: $msg .= 'Errorcode: '.$_FILES['upl']['error']; break;
+                }
+                $logger->error($msg);
+                $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
             } else {
                 $logger->error('NOT isset($_FILES[\'upl\'])');
             }
             exit;
         }
+    }
+
+    /**
+     * @param string $oldFilename
+     * @return string
+     */
+    private function getGoodFilemane($oldFilename){
+        $oldFilename = str_replace(' ','_',$oldFilename);
+        return $oldFilename;
     }
 }

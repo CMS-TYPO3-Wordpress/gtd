@@ -3,28 +3,28 @@
 <label for="title">
 	<f:translate key="tx_gtd_domain_model_task.title" />
 </label><br />
-	<f:form.textfield property="title" class="form-control"/><br />
+	<f:form.textfield id="title" property="title" class="form-control"/><br />
 </div>
 <div class="form-group">
 <label for="text">
 	<f:translate key="tx_gtd_domain_model_task.text" />
 </label><br />
-	<f:form.textarea property="text" cols="40" rows="15" class="form-control"/><br />
+	<f:form.textarea id="text" property="text" cols="40" rows="15" class="form-control"/><br />
 </div>
 <div class="form-group">
 <label for="taskEnergy">
 	<f:translate key="tx_gtd_domain_model_task.task_energy" />
 </label><br />
-	<f:form.select property="taskEnergy" options="{taskEnergy}" class="form-control"/><br /><br />
+	<f:form.select id="taskEnergy" property="taskEnergy" options="{taskEnergy}" class="form-control"/><br /><br />
 </div>
 <div class="form-group">
 <label for="taskTime">
 	<f:translate key="tx_gtd_domain_model_task.task_time" />
 </label><br />
-	<f:form.select property="taskTime" options="{taskTime}" class="form-control"/><br />
+	<f:form.select id="taskTime" property="taskTime" options="{taskTime}" class="form-control"/><br />
 </div>
 <div class="form-group">
-<label for="dueDate">
+<label for="taskDueDate">
 	<f:translate key="tx_gtd_domain_model_task.due_date" />
 </label><br />
 	<f:form.textfield id="taskDueDate" property="dueDate" value="{task.dueDate -> f:format.date(format:'Y-m-d')}" class="form-control"/><br />
@@ -34,12 +34,20 @@
 		<label for="files">
 			<f:translate key="tx_gtd_domain_model_task.files" />
 		</label>
-		<div id="files" class="well">
-
+		<div id="files">
+			    <table class="table table-striped">
 				<f:for each="{task.files}" as="file">
-					<f:link.page pageUid="uploads/tx_gtd/{file.basename}" linkAccessRestrictedPages="TRUE" target="_blank">{file.basename} ( {file.filesize} )</f:link.page><br/>
-					<f:form.hidden name="file[]" value="uploads/tx_gtd/{file.basename}" />
+					<td>
+						<td>
+							<f:link.page pageUid="uploads/tx_gtd/{file.basename}" linkAccessRestrictedPages="TRUE" target="_blank">{file.basename}</f:link.page>
+						</td>
+						<td>
+							{file.filesize}
+							<f:form.hidden name="file[]" value="uploads/tx_gtd/{file.basename}" />
+						</td>
+					</tr>
 				</f:for>
+				</table>
 		</div>
 	</div>
 	</f:if>

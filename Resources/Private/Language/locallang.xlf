@@ -330,6 +330,9 @@
 			<trans-unit id="tx_gtd_template_task_inbox.editTask.dropHere">
 				<source>Drop Files for Upload Here</source>
 			</trans-unit>
+			<trans-unit id="tx_gtd_domain_model_task.files_upload">
+				<source>Add Files</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
