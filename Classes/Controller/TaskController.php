@@ -506,6 +506,9 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $newTask->setOrderIdProject($projectOrderId);
         $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,$this->taskStates['inbox']);
         $newTask->setOrderIdTaskState($maxTaskStateOrderId);
+        if($this->request->hasArgument('file')){
+            $newTask->setFiles(str_replace('uploads/tx_gtd/', '',$this->request->getArgument('file')));
+        }
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.new', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         if($newTask->getDueDate() != NULL){
