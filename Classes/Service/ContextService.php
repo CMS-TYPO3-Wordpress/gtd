@@ -14,7 +14,6 @@ namespace ThomasWoehlke\Gtd\Service;
 
 use ThomasWoehlke\Gtd\Domain\Model\Context;
 use ThomasWoehlke\Gtd\Domain\Model\UserConfig;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 class ContextService implements \TYPO3\CMS\Core\SingletonInterface
 {
@@ -47,6 +46,7 @@ class ContextService implements \TYPO3\CMS\Core\SingletonInterface
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
     public function getContextList(){
+        /** @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userObject */
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $contextList = $this->contextRepository->findAllByUserAccount($userObject);
         if($contextList->count() == 0){
@@ -72,7 +72,9 @@ class ContextService implements \TYPO3\CMS\Core\SingletonInterface
         $private->setUserAccount($userObject);
         $this->contextRepository->add($work);
         $this->contextRepository->add($private);
+        /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
         $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
+        /** @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager */
         $persistenceManager = $objectManager->get("TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
         $persistenceManager->persistAll();
     }
@@ -86,7 +88,7 @@ class ContextService implements \TYPO3\CMS\Core\SingletonInterface
         $contextUid = $sessionData['contextUid'];
         if($contextUid == null){
             $contextList = $this->getContextList();
-            //DebuggerUtility::var_dump($contextList);
+            /** @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userObject */
             $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
             $userConfig = $this->userConfigRepository->findByUserAccount($userObject);
             if($userConfig == null){
@@ -95,11 +97,12 @@ class ContextService implements \TYPO3\CMS\Core\SingletonInterface
                 $ctx = $contextList->getFirst();
                 $userConfig2->setDefaultContext($ctx);
                 $this->userConfigRepository->add($userConfig2);
+                /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
                 $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
                 $persistenceManager = $objectManager->get("TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
+                /** @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager */
                 $persistenceManager->persistAll();
                 $userConfig = $this->userConfigRepository->findByUserAccount($userObject);
-                //DebuggerUtility::var_dump($userConfig);
             }
             $defaultContext = $userConfig->getDefaultContext();
             $sessionData['contextUid'] = $defaultContext->getUid();

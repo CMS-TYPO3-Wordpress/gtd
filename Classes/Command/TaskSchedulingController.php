@@ -15,6 +15,11 @@ namespace ThomasWoehlke\Gtd\Command;
 
 use \ThomasWoehlke\Gtd\Domain\Model\Task;
 
+/**
+ * Class TaskSchedulingController
+ *
+ * @package ThomasWoehlke\Gtd\Command
+ */
 class TaskSchedulingController extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 
     /**
@@ -33,13 +38,13 @@ class TaskSchedulingController extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 
         $logger->info('execute Start');
 
-        /** @var $objectManager \TYPO3\CMS\Extbase\Object\ObjectManager */
+        /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
         $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
 
-        /** @var $taskRepository  \ThomasWoehlke\Gtd\Domain\Repository\TaskRepository */
+        /** @var \ThomasWoehlke\Gtd\Domain\Repository\TaskRepository $taskRepository */
         $taskRepository = $objectManager->get('ThomasWoehlke\\Gtd\\Domain\\Repository\\TaskRepository');
 
-        /** @var $configurationManager \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface */
+        /** @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager */
         $configurationManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManagerInterface');
 
         $settings = $configurationManager->getConfiguration(
@@ -50,10 +55,10 @@ class TaskSchedulingController extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 
         $logger->info('storagePid: '.$storagePid);
 
-        /** @var $querySettings \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings */
+        /** @var \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings $querySettings */
         $querySettings = $objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
 
-        /** @var $persistenceManager \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager */
+        /** @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager */
         $persistenceManager = $objectManager->get("TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
 
         $querySettings->setStoragePageIds(array($storagePid));

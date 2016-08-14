@@ -13,7 +13,9 @@ namespace ThomasWoehlke\Gtd\Controller;
  ***/
 
 /**
- * UserMessageController
+ * Class UserMessageController
+ *
+ * @package ThomasWoehlke\Gtd\Controller
  */
 class UserMessageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {

@@ -252,6 +252,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     public function createTestDataAction()
     {
+        /** @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userObject */
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
         $testProject1 = new Project();

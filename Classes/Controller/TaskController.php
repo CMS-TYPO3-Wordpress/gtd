@@ -15,7 +15,9 @@ use ThomasWoehlke\Gtd\Domain\Model\Project;
 use \ThomasWoehlke\Gtd\Domain\Model\Task;
 
 /**
- * TaskController
+ * Class TaskController
+ *
+ * @package ThomasWoehlke\Gtd\Controller
  */
 class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {

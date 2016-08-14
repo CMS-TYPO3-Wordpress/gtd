@@ -13,7 +13,9 @@ namespace ThomasWoehlke\Gtd\Controller;
  ***/
 
 /**
- * ContextController
+ * Class ContextController
+ *
+ * @package ThomasWoehlke\Gtd\Controller
  */
 class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {

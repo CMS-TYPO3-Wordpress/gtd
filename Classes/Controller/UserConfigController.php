@@ -13,7 +13,9 @@ namespace ThomasWoehlke\Gtd\Controller;
  ***/
 
 /**
- * UserConfigController
+ * Class UserConfigController
+ *
+ * @package ThomasWoehlke\Gtd\Controller
  */
 class UserConfigController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
