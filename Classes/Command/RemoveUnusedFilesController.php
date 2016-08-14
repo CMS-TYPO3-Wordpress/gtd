@@ -13,14 +13,12 @@ namespace ThomasWoehlke\Gtd\Command;
  *
  ***/
 
-use \ThomasWoehlke\Gtd\Domain\Model\Task;
-
 /**
- * Class TaskSchedulingController
+ * Class RemoveUnusedFilesController
  *
  * @package ThomasWoehlke\Gtd\Command
  */
-class TaskSchedulingController extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
+class RemoveUnusedFilesController extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 
     /**
      * This is the main method that is called when a task is executed
@@ -31,7 +29,7 @@ class TaskSchedulingController extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
      *
      * @return bool Returns TRUE on successful execution, FALSE on error
      */
-    public function execute(){
+    public function execute() {
 
         /** @var $logger \TYPO3\CMS\Core\Log\Logger */
         $logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
@@ -58,31 +56,55 @@ class TaskSchedulingController extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
         /** @var \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings $querySettings */
         $querySettings = $objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
 
-        /** @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager */
-        $persistenceManager = $objectManager->get("TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
-
         $querySettings->setStoragePageIds(array($storagePid));
 
         $taskRepository->setDefaultQuerySettings($querySettings);
 
-        $tasks = $taskRepository->getScheduledTasksOfCurrentDay();
+        $tasks = $taskRepository->getTasksWithFiles();
 
         $logger->info('execute found: '.count($tasks));
 
+        $filenamesFromDatabase = array();
+
         foreach ($tasks as $task){
-            $userAccount = $task->getUserAccount();
-            $context = $task->getContext();
-            $maxTaskStateOrderId = $taskRepository->getMaxTaskStateOrderId($userAccount,$context,Task::$TASK_STATES['today']);
-            $task->changeTaskState(Task::$TASK_STATES['today']);
-            $task->setOrderIdTaskState($maxTaskStateOrderId);
-            $taskRepository->update($task);
-            $logger->error($task->getTitle());
+            $logger->info('task: '.$task->getTitle());
+            $taskFiles = $task->getFiles();
+            if($taskFiles !== null){
+                foreach ($taskFiles as $file) {
+                    $filenamesFromDatabase[] = $file['basename'];
+                }
+            }
         }
 
-        $persistenceManager->persistAll();
+        foreach ($filenamesFromDatabase as $filenameFromDatabase){
+            $logger->info('filenameFromDatabase: '.$filenameFromDatabase);
+        }
+
+        $filePath = PATH_site . 'uploads/tx_gtd/';
+
+        $logger->info($filePath);
+
+        $filesOnDisk = \TYPO3\CMS\Core\Utility\GeneralUtility::getFilesInDir($filePath);
+
+        $filesOnDiskToBeDeleted = array();
+
+        foreach ($filesOnDisk as $fileOnDisk){
+            $logger->info('fileOnDisk: '.$fileOnDisk);
+            if(! in_array($fileOnDisk,$filenamesFromDatabase)){
+                $filesOnDiskToBeDeleted[] = $fileOnDisk;
+            }
+        }
+
+        foreach ($filesOnDiskToBeDeleted as $fileOnDiskToBeDeleted){
+            $filepath = $filePath.$fileOnDiskToBeDeleted;
+            if(unlink($filepath)){
+                $logger->info('deleted File: '.$filepath);
+            }
+        }
 
         $logger->info('execute DONE');
 
         return TRUE;
     }
+
 }

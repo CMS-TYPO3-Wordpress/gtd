@@ -39,3 +39,11 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']
     'description' => 'Move Tasks from TasksList Scheduled to TaskList Today, if their dueDate is the current day',
     'additionalFields' => ''
 );
+
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']
+['ThomasWoehlke\\Gtd\\Command\\RemoveUnusedFilesController'] = array(
+    'extension' => $_EXTKEY,
+    'title' => 'remove unused Files from deleted gtd-Tasks',
+    'description' => 'Files may be uploaded and added to task, after tasks are deleted these files may be unused',
+    'additionalFields' => ''
+);

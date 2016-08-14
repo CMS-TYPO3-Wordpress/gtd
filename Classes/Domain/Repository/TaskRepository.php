@@ -252,4 +252,20 @@ class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         return $query->execute();
     }
 
+    /**
+     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    public function getTasksWithFiles(){
+        $query = $this->createQuery();
+        $query->matching(
+            $query->logicalNot(
+                $query->logicalOr(
+                    $query->equals('files',null),
+                    $query->equals('files','')
+                )
+            )
+        );
+        return $query->execute();
+    }
+
 }
