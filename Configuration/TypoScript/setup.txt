@@ -102,10 +102,11 @@ page.jsInline.999.value (
           drop: function( event, ui ) {
               var selfId = ("" + $( this ).attr("id")).split("_")[1];
               var draggableId = "" +ui.draggable.attr("id").split("_")[1];
+              var langId = "" +ui.draggable.attr("id").split("_")[2];
               var draggableType = ""+ui.draggable.attr("id").split("_")[0];
               var rootUrl = $(location).attr('pathname');
               if(draggableType == "dataDetail" || draggableType == "dataDetailProject"){
-                  var html4move = rootUrl+"?tx_gtd_frontendgtd[task]="+draggableId+"&tx_gtd_frontendgtd[action]=moveToInbox&tx_gtd_frontendgtd[controller]=Task";
+                  var html4move = rootUrl+"?L="+langId+"&tx_gtd_frontendgtd[task]="+draggableId+"&tx_gtd_frontendgtd[action]=moveToInbox&tx_gtd_frontendgtd[controller]=Task";
                   window.location.replace(html4move);
               }
           }
@@ -114,10 +115,11 @@ page.jsInline.999.value (
           drop: function( event, ui ) {
               var selfId = ("" + $( this ).attr("id")).split("_")[1];
               var draggableId = "" +ui.draggable.attr("id").split("_")[1];
+              var langId = "" +ui.draggable.attr("id").split("_")[2];
               var draggableType = ""+ui.draggable.attr("id").split("_")[0];
               var rootUrl = $(location).attr('pathname');
               if(draggableType == "dataDetail" || draggableType == "dataDetailProject"){
-                  var html4move = rootUrl+"?tx_gtd_frontendgtd[task]="+draggableId+"&tx_gtd_frontendgtd[action]=moveToToday&tx_gtd_frontendgtd[controller]=Task";
+                  var html4move = rootUrl+"?L="+langId+"&tx_gtd_frontendgtd[task]="+draggableId+"&tx_gtd_frontendgtd[action]=moveToToday&tx_gtd_frontendgtd[controller]=Task";
                   window.location.replace(html4move);
               }
           }
@@ -126,10 +128,11 @@ page.jsInline.999.value (
           drop: function( event, ui ) {
               var selfId = ("" + $( this ).attr("id")).split("_")[1];
               var draggableId = "" +ui.draggable.attr("id").split("_")[1];
+              var langId = "" +ui.draggable.attr("id").split("_")[2];
               var draggableType = ""+ui.draggable.attr("id").split("_")[0];
               var rootUrl = $(location).attr('pathname');
               if(draggableType == "dataDetail" || draggableType == "dataDetailProject"){
-                  var html4move = rootUrl+"?tx_gtd_frontendgtd[task]="+draggableId+"&tx_gtd_frontendgtd[action]=moveToNext&tx_gtd_frontendgtd[controller]=Task";
+                  var html4move = rootUrl+"?L="+langId+"&tx_gtd_frontendgtd[task]="+draggableId+"&tx_gtd_frontendgtd[action]=moveToNext&tx_gtd_frontendgtd[controller]=Task";
                   window.location.replace(html4move);
               }
           }
@@ -138,10 +141,11 @@ page.jsInline.999.value (
           drop: function( event, ui ) {
               var selfId = ("" + $( this ).attr("id")).split("_")[1];
               var draggableId = "" +ui.draggable.attr("id").split("_")[1];
+              var langId = "" +ui.draggable.attr("id").split("_")[2];
               var draggableType = ""+ui.draggable.attr("id").split("_")[0];
               var rootUrl = $(location).attr('pathname');
               if(draggableType == "dataDetail" || draggableType == "dataDetailProject"){
-                  var html4move = rootUrl+"?tx_gtd_frontendgtd[task]="+draggableId+"&tx_gtd_frontendgtd[action]=moveToWaiting&tx_gtd_frontendgtd[controller]=Task";
+                  var html4move = rootUrl+"?L="+langId+"&tx_gtd_frontendgtd[task]="+draggableId+"&tx_gtd_frontendgtd[action]=moveToWaiting&tx_gtd_frontendgtd[controller]=Task";
                   window.location.replace(html4move);
               }
           }
@@ -150,10 +154,11 @@ page.jsInline.999.value (
           drop: function( event, ui ) {
               var selfId = ("" + $( this ).attr("id")).split("_")[1];
               var draggableId = "" +ui.draggable.attr("id").split("_")[1];
+              var langId = "" +ui.draggable.attr("id").split("_")[2];
               var draggableType = ""+ui.draggable.attr("id").split("_")[0];
               var rootUrl = $(location).attr('pathname');
               if(draggableType == "dataDetail" || draggableType == "dataDetailProject"){
-                  var html4move = rootUrl+"?tx_gtd_frontendgtd[task]="+draggableId+"&tx_gtd_frontendgtd[action]=moveToSomeday&tx_gtd_frontendgtd[controller]=Task";
+                  var html4move = rootUrl+"?L="+langId+"&tx_gtd_frontendgtd[task]="+draggableId+"&tx_gtd_frontendgtd[action]=moveToSomeday&tx_gtd_frontendgtd[controller]=Task";
                   window.location.replace(html4move);
               }
           }
@@ -162,10 +167,11 @@ page.jsInline.999.value (
           drop: function( event, ui ) {
               var selfId = ("" + $( this ).attr("id")).split("_")[1];
               var draggableId = "" +ui.draggable.attr("id").split("_")[1];
+              var langId = "" +ui.draggable.attr("id").split("_")[2];
               var draggableType = ""+ui.draggable.attr("id").split("_")[0];
               var rootUrl = $(location).attr('pathname');
               if(draggableType == "dataDetail" || draggableType == "dataDetailProject"){
-                  var html4move = rootUrl+"?tx_gtd_frontendgtd[task]="+draggableId+"&tx_gtd_frontendgtd[action]=moveToCompleted&tx_gtd_frontendgtd[controller]=Task";
+                  var html4move = rootUrl+"?L="+langId+"&tx_gtd_frontendgtd[task]="+draggableId+"&tx_gtd_frontendgtd[action]=moveToCompleted&tx_gtd_frontendgtd[controller]=Task";
                   window.location.replace(html4move);
               }
           }
@@ -174,10 +180,11 @@ page.jsInline.999.value (
           drop: function( event, ui ) {
               var selfId = ("" + $( this ).attr("id")).split("_")[1];
               var draggableId = "" +ui.draggable.attr("id").split("_")[1];
+              var langId = ""+ui.draggable.attr("id").split("_")[2];
               var draggableType = ""+ui.draggable.attr("id").split("_")[0];
               var rootUrl = $(location).attr('pathname');
               if(draggableType == "dataDetail" || draggableType == "dataDetailProject"){
-                  var html4move = rootUrl+"?tx_gtd_frontendgtd[task]="+draggableId+"&tx_gtd_frontendgtd[action]=moveToTrash&tx_gtd_frontendgtd[controller]=Task";
+                  var html4move = rootUrl+"?L="+langId+"&tx_gtd_frontendgtd[task]="+draggableId+"&tx_gtd_frontendgtd[action]=moveToTrash&tx_gtd_frontendgtd[controller]=Task";
                   window.location.replace(html4move);
               }
           }

@@ -53,6 +53,14 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     protected $contextService = null;
 
+    /**
+     * contextService
+     *
+     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManager
+     * @inject
+     */
+    protected $configurationManager = null;
+
     private $extName = 'gtd';
 
     /**
@@ -114,44 +122,57 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 $persistentTask->setFiles(str_replace('uploads/tx_gtd/', '', $this->request->getArgument('file')));
             }
         }
-        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($persistentTask);
         $this->taskRepository->update($persistentTask);
+//        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($persistentTask);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.updated', $this->extName, null);
         $msg .= ' ( '.htmlspecialchars($task->getTitle()).' )';
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->getRedirectFromTask($persistentTask);
     }
 
+
+
+    /**
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Task $task
+     */
     private function getRedirectFromTask(\ThomasWoehlke\Gtd\Domain\Model\Task $task){
+        /** @var $logger \TYPO3\CMS\Core\Log\Logger */
+        $logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
+        $langId=$this->getLanguageId();
+        $logger->error($langId);
+        $pid = $this->uriBuilder->getTargetPageUid();
+        $this->uriBuilder->reset()->setArguments(array('L' => $langId))->setTargetPageUid($pid);
+        $uri = $this->uriBuilder->uriFor('inbox', array(), 'Task');
         switch($task->getTaskState()){
             case Task::$TASK_STATES['inbox']:
-                $this->redirect('inbox');
                 break;
             case Task::$TASK_STATES['today']:
-                $this->redirect('today');
+                $uri = $this->uriBuilder->uriFor('today', array(), 'Task');
                 break;
             case Task::$TASK_STATES['next']:
-                $this->redirect('next');
+                $uri = $this->uriBuilder->uriFor('next', array(), 'Task');
                 break;
             case Task::$TASK_STATES['waiting']:
-                $this->redirect('waiting');
+                $uri = $this->uriBuilder->uriFor('waiting', array(), 'Task');
                 break;
             case Task::$TASK_STATES['scheduled']:
-                $this->redirect('scheduled');
+                $uri = $this->uriBuilder->uriFor('scheduled', array(), 'Task');
                 break;
             case Task::$TASK_STATES['someday']:
-                $this->redirect('someday');
+                $uri = $this->uriBuilder->uriFor('someday', array(), 'Task');
                 break;
             case Task::$TASK_STATES['completed']:
-                $this->redirect('completed');
+                $uri = $this->uriBuilder->uriFor('completed', array(), 'Task');
                 break;
             case Task::$TASK_STATES['trash']:
-                $this->redirect('trash');
+                $uri = $this->uriBuilder->uriFor('trash', array(), 'Task');
                 break;
             default:
-                $this->redirect('list');
                 break;
         }
+
+        $logger->error($uri);
+        $this->redirectToUri($uri);
     }
 
     public function initializeUpdateAction()
@@ -161,6 +182,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             ->forProperty('dueDate')
             ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',
                 \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d');
+        $pid = $this->uriBuilder->getTargetPageUid();
+        $this->uriBuilder->reset()->setArguments(array('L' => $GLOBALS['TSFE']->sys_language_uid))->setTargetPageUid($pid);
     }
 
     /**
@@ -178,6 +201,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('contextList',$this->contextService->getContextList());
         $this->view->assign('currentContext',$currentContext);
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($currentContext));
+        $this->view->assign('langKey',$this->getLanguageId());
     }
 
     /**
@@ -196,6 +220,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('contextList',$this->contextService->getContextList());
         $this->view->assign('currentContext',$currentContext);
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($currentContext));
+        $this->view->assign('langKey',$this->getLanguageId());
     }
 
     /**
@@ -213,6 +238,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('contextList',$this->contextService->getContextList());
         $this->view->assign('currentContext',$currentContext);
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($currentContext));
+        $this->view->assign('langKey',$this->getLanguageId());
     }
 
     /**
@@ -230,6 +256,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('contextList',$this->contextService->getContextList());
         $this->view->assign('currentContext',$currentContext);
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($currentContext));
+        $this->view->assign('langKey',$this->getLanguageId());
     }
 
     /**
@@ -248,6 +275,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('contextList',$this->contextService->getContextList());
         $this->view->assign('currentContext',$currentContext);
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($currentContext));
+        $this->view->assign('langKey',$this->getLanguageId());
     }
 
     /**
@@ -261,10 +289,12 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
         $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$currentContext,Task::$TASK_STATES['someday']);
+//        $this->setLanguage();
         $this->view->assign('tasks', $tasks);
         $this->view->assign('contextList',$this->contextService->getContextList());
         $this->view->assign('currentContext',$currentContext);
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($currentContext));
+        $this->view->assign('langKey',$this->getLanguageId());
     }
 
     /**
@@ -282,6 +312,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('contextList',$this->contextService->getContextList());
         $this->view->assign('currentContext',$currentContext);
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($currentContext));
+        $this->view->assign('langKey',$this->getLanguageId());
     }
 
     /**
@@ -299,6 +330,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('contextList',$this->contextService->getContextList());
         $this->view->assign('currentContext',$currentContext);
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($currentContext));
+        $this->view->assign('langKey',$this->getLanguageId());
     }
 
     /**
@@ -334,7 +366,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         }
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.trash_emptied', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
-        $this->redirect('trash');
+        $this->myRedirect('trash');
     }
 
     /**
@@ -435,27 +467,56 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
 
     private function getTaskEnergyAndTaskTime(){
-        $taskEnergy = array(
-            0 => 'none',
-            1 => 'low',
-            2 => 'mid',
-            3 => 'high'
-        );
-        $taskTime = array(
-            0 => 'none',
-            1 => '5 min',
-            2 => '10 min',
-            3 => '15 min',
-            4 => '30 min',
-            5 => '45 min',
-            6 => '1 hours',
-            7 => '2 hours',
-            8 => '3 hours',
-            9 => '4 hours',
-            10 => '6 hours',
-            11 => '8 hours',
-            12 => 'more'
-        );
+        $taskEnergy = array();
+        $taskTime = array();
+        switch ($this->getLanguage()) {
+            case 'de':
+                $taskEnergy = array(
+                    0 => 'nichts',
+                    1 => 'niedrig',
+                    2 => 'mittel',
+                    3 => 'hoch'
+                );
+                $taskTime = array(
+                    0 => 'nichts',
+                    1 => '5 min',
+                    2 => '10 min',
+                    3 => '15 min',
+                    4 => '30 min',
+                    5 => '45 min',
+                    6 => '1 Stunde',
+                    7 => '2 Stunden',
+                    8 => '3 Stunden',
+                    9 => '4 Stunden',
+                    10 => '6 Stunden',
+                    11 => '8 Stunden',
+                    12 => 'mehr'
+                );
+                break;
+            case 'en':
+                $taskEnergy = array(
+                    0 => 'none',
+                    1 => 'low',
+                    2 => 'mid',
+                    3 => 'high'
+                );
+                $taskTime = array(
+                    0 => 'none',
+                    1 => '5 min',
+                    2 => '10 min',
+                    3 => '15 min',
+                    4 => '30 min',
+                    5 => '45 min',
+                    6 => '1 hours',
+                    7 => '2 hours',
+                    8 => '3 hours',
+                    9 => '4 hours',
+                    10 => '6 hours',
+                    11 => '8 hours',
+                    12 => 'more'
+                );
+                break;
+        }
         $this->view->assign('taskEnergy',$taskEnergy);
         $this->view->assign('taskTime',$taskTime);
     }
@@ -472,6 +533,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('contextList',$this->contextService->getContextList());
         $this->view->assign('currentContext',$ctx);
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($ctx));
+        $this->view->assign('langKey',$GLOBALS['TSFE']->sys_language_uid);
     }
 
     /**
@@ -502,11 +564,11 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         if($newTask->getDueDate() != NULL){
             $newTask->setTaskState(Task::$TASK_STATES['scheduled']);
             $this->taskRepository->add($newTask);
-            $this->redirect('scheduled');
+            $this->myRedirect('scheduled');
         } else {
             $newTask->setTaskState(Task::$TASK_STATES['inbox']);
             $this->taskRepository->add($newTask);
-            $this->redirect('inbox');
+            $this->myRedirect('inbox');
         }
     }
 
@@ -535,7 +597,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->taskRepository->update($task);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.moved_inbox', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
-        $this->redirect('inbox');
+//        $this->redirect('inbox');
+        $this->getRedirectFromTask($task);
     }
 
     /**
@@ -554,7 +617,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->taskRepository->update($task);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.moved_today', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
-        $this->redirect('today');
+//        $this->redirect('today');
+        $this->getRedirectFromTask($task);
     }
 
     /**
@@ -573,7 +637,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->taskRepository->update($task);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.moved_next', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
-        $this->redirect('next');
+//        $this->redirect('next');
+        $this->getRedirectFromTask($task);
     }
 
     /**
@@ -592,7 +657,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->taskRepository->update($task);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.moved_waiting', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
-        $this->redirect('waiting');
+//        $this->redirect('waiting');
+        $this->getRedirectFromTask($task);
     }
 
     /**
@@ -611,7 +677,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->taskRepository->update($task);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.moved_someday', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
-        $this->redirect('someday');
+//        $this->redirect('someday');
+        $this->getRedirectFromTask($task);
     }
 
     /**
@@ -630,7 +697,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->taskRepository->update($task);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.moved_completed', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
-        $this->redirect('completed');
+//        $this->redirect('completed');
+        $this->getRedirectFromTask($task);
     }
 
     /**
@@ -649,7 +717,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->taskRepository->update($task);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.moved_trash', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
-        $this->redirect('trash');
+//        $this->redirect('trash');
+        $this->getRedirectFromTask($task);
     }
 
     /**
@@ -671,7 +740,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         }
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.moved_completed2trash', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
-        $this->redirect('trash');
+
+//        $this->getRedirectFromTask($task);
     }
 
     /**
@@ -830,4 +900,51 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $this->taskRepository->update($task);
         }
     }
+
+    /**
+     * @return string
+     */
+    private function getLanguage(){
+//        if (isset($GLOBALS['TSFE']->config['config']['language'])) {
+//            return $GLOBALS['TSFE']->config['config']['language'];
+//        }
+//        return 'en'; //default
+
+//        /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
+//        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+
+//        /** @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager */
+//        $configurationManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManagerInterface');
+
+        $settings = $this->configurationManager->getConfiguration(
+            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
+        );
+
+        return $settings['config.']['language'];
+    }
+
+    private function getLanguageId(){
+
+//        /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
+//        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+//
+//        /** @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager */
+//        $configurationManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManagerInterface');
+//
+
+        $settings = $this->configurationManager->getConfiguration(
+            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
+        );
+
+        return $settings['config.']['sys_language_uid'];
+    }
+
+    private function myRedirect($actionName='inbox'){
+        $langId=$this->getLanguageId();
+        $pid = $this->uriBuilder->getTargetPageUid();
+        $this->uriBuilder->reset()->setArguments(array('L' => $langId))->setTargetPageUid($pid);
+        $uri = $this->uriBuilder->uriFor($actionName, array(), 'Task');
+        $this->redirectToUri($uri);
+    }
+
 }
