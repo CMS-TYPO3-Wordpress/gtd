@@ -13,11 +13,9 @@ namespace ThomasWoehlke\Gtd\Command;
  *
  ***/
 
-class TaskSchedulingController extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
+use \ThomasWoehlke\Gtd\Domain\Model\Task;
 
-    protected $taskStates = array(
-        'inbox' => 0, 'today' => 1, 'next' => 2, 'waiting' => 3, 'scheduled' => 4, 'someday' => 5, 'completed' => 6 , 'trash' => 7
-    );
+class TaskSchedulingController extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 
     /**
      * This is the main method that is called when a task is executed
@@ -33,7 +31,7 @@ class TaskSchedulingController extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
         /** @var $logger \TYPO3\CMS\Core\Log\Logger */
         $logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
 
-        $logger->debug('execute Start');
+        $logger->info('execute Start');
 
         /** @var $objectManager \TYPO3\CMS\Extbase\Object\ObjectManager */
         $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
@@ -50,7 +48,7 @@ class TaskSchedulingController extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 
         $storagePid = $settings['plugin.']['tx_gtd_frontendgtd.']['persistence.']['storagePid'];
 
-        $logger->debug('storagePid: '.$storagePid);
+        $logger->info('storagePid: '.$storagePid);
 
         /** @var $querySettings \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings */
         $querySettings = $objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
@@ -64,13 +62,13 @@ class TaskSchedulingController extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 
         $tasks = $taskRepository->getScheduledTasksOfCurrentDay();
 
-        $logger->debug('execute found: '.count($tasks));
+        $logger->info('execute found: '.count($tasks));
 
         foreach ($tasks as $task){
             $userAccount = $task->getUserAccount();
             $context = $task->getContext();
-            $maxTaskStateOrderId = $taskRepository->getMaxTaskStateOrderId($userAccount,$context,$this->taskStates['today']);
-            $task->changeTaskState($this->taskStates['today']);
+            $maxTaskStateOrderId = $taskRepository->getMaxTaskStateOrderId($userAccount,$context,Task::$TASK_STATES['today']);
+            $task->changeTaskState(Task::$TASK_STATES['today']);
             $task->setOrderIdTaskState($maxTaskStateOrderId);
             $taskRepository->update($task);
             $logger->error($task->getTitle());
@@ -78,7 +76,7 @@ class TaskSchedulingController extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 
         $persistenceManager->persistAll();
 
-        $logger->debug('execute DONE');
+        $logger->info('execute DONE');
 
         return TRUE;
     }

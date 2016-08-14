@@ -12,14 +12,13 @@ namespace ThomasWoehlke\Gtd\Domain\Repository;
  *
  ***/
 
+use \ThomasWoehlke\Gtd\Domain\Model\Task;
+
 /**
  * The repository for Tasks
  */
 class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
-    protected $taskStates = array(
-        'inbox' => 0, 'today' => 1, 'next' => 2, 'waiting' => 3, 'scheduled' => 4, 'someday' => 5, 'completed' => 6 , 'trash' => 7
-    );
 
     protected $defaultOrderings = array(
         'orderIdTaskState' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
@@ -120,6 +119,10 @@ class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         return $query->execute();
     }
 
+    /**
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Project|null $project
+     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
     public function findByProject(\ThomasWoehlke\Gtd\Domain\Model\Project $project=null)
     {
         $query = $this->createQuery();
@@ -134,6 +137,10 @@ class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         return $query->execute();
     }
 
+    /**
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Project|null $project
+     * @return int
+     */
     public function getMaxProjectOrderId(\ThomasWoehlke\Gtd\Domain\Model\Project $project=null)
     {
         $query = $this->createQuery();
@@ -163,7 +170,11 @@ class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         return $maxProjectOrderId;
     }
 
-    public function findByRootProjectAndContext($ctx)
+    /**
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Context $ctx
+     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    public function findByRootProjectAndContext(\ThomasWoehlke\Gtd\Domain\Model\Context $ctx)
     {
         $query = $this->createQuery();
         $query->matching(
@@ -180,6 +191,14 @@ class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         return $query->execute();
     }
 
+    /**
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userObject
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Context $currentContext
+     * @param Task $lowerTask
+     * @param Task $higherTask
+     * @param \ThomasWoehlke\Gtd\Domain\Model\Project|null $project
+     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
     public function getTasksToReorderByOrderIdProject(
         \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userObject,
         \ThomasWoehlke\Gtd\Domain\Model\Context $currentContext,
@@ -226,7 +245,7 @@ class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         );
         $query->matching(
             $query->logicalAnd(
-                $query->equals('taskState',$this->taskStates['scheduled']),
+                $query->equals('taskState',Task::$TASK_STATES['scheduled']),
                 $query->equals('dueDate', $today->format('Y-m-d'))
             )
         );

@@ -22,6 +22,14 @@ use TYPO3\CMS\Extbase\Validation\Validator\DateTimeValidator;
  */
 class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
+
+    /**
+     * @var array|int
+     */
+    public static $TASK_STATES = array(
+        'inbox' => 0, 'today' => 1, 'next' => 2, 'waiting' => 3, 'scheduled' => 4, 'someday' => 5, 'completed' => 6 , 'trash' => 7
+    );
+
     /**
      * title
      *

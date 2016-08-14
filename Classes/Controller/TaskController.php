@@ -12,6 +12,7 @@ namespace ThomasWoehlke\Gtd\Controller;
  *
  ***/
 use ThomasWoehlke\Gtd\Domain\Model\Project;
+use \ThomasWoehlke\Gtd\Domain\Model\Task;
 
 /**
  * TaskController
@@ -49,10 +50,6 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @inject
      */
     protected $contextService = null;
-
-    protected $taskStates = array(
-        'inbox' => 0, 'today' => 1, 'next' => 2, 'waiting' => 3, 'scheduled' => 4, 'someday' => 5, 'completed' => 6 , 'trash' => 7
-    );
 
     private $extName = 'gtd';
 
@@ -106,6 +103,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function updateAction(\ThomasWoehlke\Gtd\Domain\Model\Task $task)
     {
+        /** @var $userObject \TYPO3\CMS\Extbase\Domain\Model\FrontendUser */
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
         $persistentTask = $this->taskRepository->findByUid($task->getUid());
@@ -115,12 +113,12 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $persistentTask->setTaskTime($task->getTaskTime());
         $persistentTask->setDueDate($task->getDueDate());
         if($task->getDueDate() != NULL){
-            $persistentTask->changeTaskState($this->taskStates['scheduled']);
-            $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,$this->taskStates['scheduled']);
+            $persistentTask->changeTaskState(Task::$TASK_STATES['scheduled']);
+            $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,Task::$TASK_STATES['scheduled']);
             $persistentTask->setOrderIdTaskState($maxTaskStateOrderId);
         } else {
-            if($persistentTask->getTaskState() == $this->taskStates['scheduled']){
-                $persistentTask->changeTaskState($this->taskStates['inbox']);
+            if($persistentTask->getTaskState() == Task::$TASK_STATES['scheduled']){
+                $persistentTask->changeTaskState(Task::$TASK_STATES['inbox']);
             }
             $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,$persistentTask->getTaskState());
             $persistentTask->setOrderIdTaskState($maxTaskStateOrderId);
@@ -140,28 +138,28 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
     private function getRedirectFromTask(\ThomasWoehlke\Gtd\Domain\Model\Task $task){
         switch($task->getTaskState()){
-            case $this->taskStates['inbox']:
+            case Task::$TASK_STATES['inbox']:
                 $this->redirect('inbox');
                 break;
-            case $this->taskStates['today']:
+            case Task::$TASK_STATES['today']:
                 $this->redirect('today');
                 break;
-            case $this->taskStates['next']:
+            case Task::$TASK_STATES['next']:
                 $this->redirect('next');
                 break;
-            case $this->taskStates['waiting']:
+            case Task::$TASK_STATES['waiting']:
                 $this->redirect('waiting');
                 break;
-            case $this->taskStates['scheduled']:
+            case Task::$TASK_STATES['scheduled']:
                 $this->redirect('scheduled');
                 break;
-            case $this->taskStates['someday']:
+            case Task::$TASK_STATES['someday']:
                 $this->redirect('someday');
                 break;
-            case $this->taskStates['completed']:
+            case Task::$TASK_STATES['completed']:
                 $this->redirect('completed');
                 break;
-            case $this->taskStates['trash']:
+            case Task::$TASK_STATES['trash']:
                 $this->redirect('trash');
                 break;
             default:
@@ -186,9 +184,10 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function inboxAction()
     {
+        /** @var $userObject \TYPO3\CMS\Extbase\Domain\Model\FrontendUser */
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
-        $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$currentContext,$this->taskStates['inbox']);
+        $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$currentContext,Task::$TASK_STATES['inbox']);
         $this->view->assign('tasks', $tasks);
         $this->view->assign('contextList',$this->contextService->getContextList());
         $this->view->assign('currentContext',$currentContext);
@@ -202,10 +201,11 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function todayAction()
     {
+        /** @var $userObject \TYPO3\CMS\Extbase\Domain\Model\FrontendUser */
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
         $this->updateTodayAndScheduledTaskStates();
-        $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$currentContext,$this->taskStates['today']);
+        $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$currentContext,Task::$TASK_STATES['today']);
         $this->view->assign('tasks', $tasks);
         $this->view->assign('contextList',$this->contextService->getContextList());
         $this->view->assign('currentContext',$currentContext);
@@ -219,9 +219,10 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function nextAction()
     {
+        /** @var $userObject \TYPO3\CMS\Extbase\Domain\Model\FrontendUser */
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
-        $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$currentContext,$this->taskStates['next']);
+        $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$currentContext,Task::$TASK_STATES['next']);
         $this->view->assign('tasks', $tasks);
         $this->view->assign('contextList',$this->contextService->getContextList());
         $this->view->assign('currentContext',$currentContext);
@@ -235,9 +236,10 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function waitingAction()
     {
+        /** @var $userObject \TYPO3\CMS\Extbase\Domain\Model\FrontendUser */
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
-        $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$currentContext,$this->taskStates['waiting']);
+        $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$currentContext,Task::$TASK_STATES['waiting']);
         $this->view->assign('tasks', $tasks);
         $this->view->assign('contextList',$this->contextService->getContextList());
         $this->view->assign('currentContext',$currentContext);
@@ -251,10 +253,11 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function scheduledAction()
     {
+        /** @var $userObject \TYPO3\CMS\Extbase\Domain\Model\FrontendUser */
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
         $this->updateTodayAndScheduledTaskStates();
-        $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$currentContext,$this->taskStates['scheduled']);
+        $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$currentContext,Task::$TASK_STATES['scheduled']);
         $this->view->assign('tasks', $tasks);
         $this->view->assign('contextList',$this->contextService->getContextList());
         $this->view->assign('currentContext',$currentContext);
@@ -268,9 +271,10 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function somedayAction()
     {
+        /** @var $userObject \TYPO3\CMS\Extbase\Domain\Model\FrontendUser */
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
-        $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$currentContext,$this->taskStates['someday']);
+        $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$currentContext,Task::$TASK_STATES['someday']);
         $this->view->assign('tasks', $tasks);
         $this->view->assign('contextList',$this->contextService->getContextList());
         $this->view->assign('currentContext',$currentContext);
@@ -284,9 +288,10 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function completedAction()
     {
+        /** @var $userObject \TYPO3\CMS\Extbase\Domain\Model\FrontendUser */
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
-        $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$currentContext,$this->taskStates['completed']);
+        $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$currentContext,Task::$TASK_STATES['completed']);
         $this->view->assign('tasks', $tasks);
         $this->view->assign('contextList',$this->contextService->getContextList());
         $this->view->assign('currentContext',$currentContext);
@@ -300,9 +305,10 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function trashAction()
     {
+        /** @var $userObject \TYPO3\CMS\Extbase\Domain\Model\FrontendUser */
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
-        $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$currentContext,$this->taskStates['trash']);
+        $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$currentContext,Task::$TASK_STATES['trash']);
         $this->view->assign('tasks', $tasks);
         $this->view->assign('contextList',$this->contextService->getContextList());
         $this->view->assign('currentContext',$currentContext);
@@ -316,6 +322,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function focusAction()
     {
+        /** @var $userObject \TYPO3\CMS\Extbase\Domain\Model\FrontendUser */
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
         $tasks = $this->taskRepository->findByUserAccountAndHasFocus($userObject,$currentContext);
@@ -332,9 +339,10 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function emptyTrashAction()
     {
+        /** @var $userObject \TYPO3\CMS\Extbase\Domain\Model\FrontendUser */
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
-        $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$currentContext,$this->taskStates['trash']);
+        $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$currentContext,Task::$TASK_STATES['trash']);
         foreach($tasks as $task){
             $this->taskRepository->remove($task);
         }
@@ -378,10 +386,11 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function completeTaskAction(\ThomasWoehlke\Gtd\Domain\Model\Task $task)
     {
-        $task->changeTaskState($this->taskStates['completed']);
+        $task->changeTaskState(Task::$TASK_STATES['completed']);
+        /** @var $userObject \TYPO3\CMS\Extbase\Domain\Model\FrontendUser */
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
-        $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,$this->taskStates['completed']);
+        $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,Task::$TASK_STATES['completed']);
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $this->taskRepository->update($task);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.completed', $this->extName, null);
@@ -398,6 +407,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     public function undoneTaskAction(\ThomasWoehlke\Gtd\Domain\Model\Task $task)
     {
         $task->setToLastTaskState();
+        /** @var $userObject \TYPO3\CMS\Extbase\Domain\Model\FrontendUser */
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
         $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,$task->getTaskState());
@@ -501,14 +511,15 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function createAction(\ThomasWoehlke\Gtd\Domain\Model\Task $newTask)
     {
+        /** @var $userObject \TYPO3\CMS\Extbase\Domain\Model\FrontendUser */
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
         $newTask->setContext($currentContext);
         $newTask->setUserAccount($userObject);
-        $newTask->setTaskState($this->taskStates['inbox']);
+        $newTask->setTaskState(Task::$TASK_STATES['inbox']);
         $projectOrderId = $this->taskRepository->getMaxProjectOrderId(null);
         $newTask->setOrderIdProject($projectOrderId);
-        $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,$this->taskStates['inbox']);
+        $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,Task::$TASK_STATES['inbox']);
         $newTask->setOrderIdTaskState($maxTaskStateOrderId);
         if($this->request !== null) {
             if ($this->request->hasArgument('file')) {
@@ -518,11 +529,11 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.new', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         if($newTask->getDueDate() != NULL){
-            $newTask->setTaskState($this->taskStates['scheduled']);
+            $newTask->setTaskState(Task::$TASK_STATES['scheduled']);
             $this->taskRepository->add($newTask);
             $this->redirect('scheduled');
         } else {
-            $newTask->setTaskState($this->taskStates['inbox']);
+            $newTask->setTaskState(Task::$TASK_STATES['inbox']);
             $this->taskRepository->add($newTask);
             $this->redirect('inbox');
         }
@@ -544,11 +555,12 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @return void
      */
     public function moveToInboxAction(\ThomasWoehlke\Gtd\Domain\Model\Task $task){
+        /** @var $userObject \TYPO3\CMS\Extbase\Domain\Model\FrontendUser */
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
-        $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,$this->taskStates['inbox']);
+        $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,Task::$TASK_STATES['inbox']);
         $task->setOrderIdTaskState($maxTaskStateOrderId);
-        $task->changeTaskState($this->taskStates['inbox']);
+        $task->changeTaskState(Task::$TASK_STATES['inbox']);
         $this->taskRepository->update($task);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.moved_inbox', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
@@ -562,11 +574,12 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @return void
      */
     public function moveToTodayAction(\ThomasWoehlke\Gtd\Domain\Model\Task $task){
+        /** @var $userObject \TYPO3\CMS\Extbase\Domain\Model\FrontendUser */
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
-        $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,$this->taskStates['today']);
+        $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,Task::$TASK_STATES['today']);
         $task->setOrderIdTaskState($maxTaskStateOrderId);
-        $task->changeTaskState($this->taskStates['today']);
+        $task->changeTaskState(Task::$TASK_STATES['today']);
         $this->taskRepository->update($task);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.moved_today', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
@@ -580,11 +593,12 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @return void
      */
     public function moveToNextAction(\ThomasWoehlke\Gtd\Domain\Model\Task $task){
+        /** @var $userObject \TYPO3\CMS\Extbase\Domain\Model\FrontendUser */
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
-        $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,$this->taskStates['next']);
+        $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,Task::$TASK_STATES['next']);
         $task->setOrderIdTaskState($maxTaskStateOrderId);
-        $task->changeTaskState($this->taskStates['next']);
+        $task->changeTaskState(Task::$TASK_STATES['next']);
         $this->taskRepository->update($task);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.moved_next', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
@@ -598,11 +612,12 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @return void
      */
     public function moveToWaitingAction(\ThomasWoehlke\Gtd\Domain\Model\Task $task){
+        /** @var $userObject \TYPO3\CMS\Extbase\Domain\Model\FrontendUser */
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
-        $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,$this->taskStates['waiting']);
+        $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,Task::$TASK_STATES['waiting']);
         $task->setOrderIdTaskState($maxTaskStateOrderId);
-        $task->changeTaskState($this->taskStates['waiting']);
+        $task->changeTaskState(Task::$TASK_STATES['waiting']);
         $this->taskRepository->update($task);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.moved_waiting', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
@@ -616,11 +631,12 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @return void
      */
     public function moveToSomedayAction(\ThomasWoehlke\Gtd\Domain\Model\Task $task){
+        /** @var $userObject \TYPO3\CMS\Extbase\Domain\Model\FrontendUser */
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
-        $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,$this->taskStates['someday']);
+        $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,Task::$TASK_STATES['someday']);
         $task->setOrderIdTaskState($maxTaskStateOrderId);
-        $task->changeTaskState($this->taskStates['someday']);
+        $task->changeTaskState(Task::$TASK_STATES['someday']);
         $this->taskRepository->update($task);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.moved_someday', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
@@ -634,11 +650,12 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @return void
      */
     public function moveToCompletedAction(\ThomasWoehlke\Gtd\Domain\Model\Task $task){
+        /** @var $userObject \TYPO3\CMS\Extbase\Domain\Model\FrontendUser */
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
-        $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,$this->taskStates['completed']);
+        $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,Task::$TASK_STATES['completed']);
         $task->setOrderIdTaskState($maxTaskStateOrderId);
-        $task->changeTaskState($this->taskStates['completed']);
+        $task->changeTaskState(Task::$TASK_STATES['completed']);
         $this->taskRepository->update($task);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.moved_completed', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
@@ -652,11 +669,12 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @return void
      */
     public function moveToTrashAction(\ThomasWoehlke\Gtd\Domain\Model\Task $task){
+        /** @var $userObject \TYPO3\CMS\Extbase\Domain\Model\FrontendUser */
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
-        $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,$this->taskStates['trash']);
+        $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,Task::$TASK_STATES['trash']);
         $task->setOrderIdTaskState($maxTaskStateOrderId);
-        $task->changeTaskState($this->taskStates['trash']);
+        $task->changeTaskState(Task::$TASK_STATES['trash']);
         $this->taskRepository->update($task);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.moved_trash', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
@@ -669,12 +687,13 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @return void
      */
     public function moveAllCompletedToTrashAction(){
+        /** @var $userObject \TYPO3\CMS\Extbase\Domain\Model\FrontendUser */
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
-        $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$currentContext, $this->taskStates['completed']);
-        $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,$this->taskStates['trash']);
+        $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$currentContext, Task::$TASK_STATES['completed']);
+        $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,Task::$TASK_STATES['trash']);
         foreach($tasks as $task){
-            $task->changeTaskState($this->taskStates['trash']);
+            $task->changeTaskState(Task::$TASK_STATES['trash']);
             $task->setOrderIdTaskState($maxTaskStateOrderId);
             $this->taskRepository->update($task);
             $maxTaskStateOrderId++;
@@ -693,6 +712,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function moveTaskOrderAction(\ThomasWoehlke\Gtd\Domain\Model\Task $srcTask,
                                         \ThomasWoehlke\Gtd\Domain\Model\Task $targetTask){
+        /** @var $userObject \TYPO3\CMS\Extbase\Domain\Model\FrontendUser */
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
         $destinationTaskOrderId = $targetTask->getOrderIdTaskState();
@@ -729,6 +749,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function moveTaskOrderInsideProjectAction(\ThomasWoehlke\Gtd\Domain\Model\Task $srcTask,
                                                      \ThomasWoehlke\Gtd\Domain\Model\Task $targetTask){
+        /** @var $userObject \TYPO3\CMS\Extbase\Domain\Model\FrontendUser */
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
         $project = $srcTask->getProject();
@@ -767,7 +788,6 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         /** @var $logger \TYPO3\CMS\Core\Log\Logger */
         $logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
         $logger->debug($_FILES['upl']);
-//        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($_FILES['upl']);
         $allowed = array('png', 'jpg', 'gif','zip','doc', 'xls', 'csv', 'docx', 'xlsx', 'psd', 'rar', 'indd', 'ind', 'pdf');
         if(isset($_FILES['upl']) && $_FILES['upl']['error'] == UPLOAD_ERR_OK){
             $extension = pathinfo($_FILES['upl']['name'], PATHINFO_EXTENSION);
@@ -833,8 +853,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         foreach ($tasks as $task){
             $userAccount = $task->getUserAccount();
             $context = $task->getContext();
-            $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userAccount,$context,$this->taskStates['today']);
-            $task->changeTaskState($this->taskStates['today']);
+            $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userAccount,$context,Task::$TASK_STATES['today']);
+            $task->changeTaskState(Task::$TASK_STATES['today']);
             $task->setOrderIdTaskState($maxTaskStateOrderId);
             $this->taskRepository->update($task);
         }
