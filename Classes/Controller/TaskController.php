@@ -56,22 +56,6 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     private $extName = 'gtd';
 
     /**
-     * action show
-     *
-     * @param \ThomasWoehlke\Gtd\Domain\Model\Task $task
-     * @return void
-     */
-    public function showAction(\ThomasWoehlke\Gtd\Domain\Model\Task $task)
-    {
-        $ctx = $this->contextService->getCurrentContext();
-        $this->view->assign('task', $task);
-        $this->getTaskEnergyAndTaskTime();
-        $this->view->assign('contextList',$this->contextService->getContextList());
-        $this->view->assign('currentContext',$ctx);
-        $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($ctx));
-    }
-
-    /**
      * action edit
      *
      * @param \ThomasWoehlke\Gtd\Domain\Model\Task $task
@@ -448,21 +432,6 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.notfocus', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->getRedirectFromTask($task);
-    }
-
-    /**
-     * action list
-     *
-     * @return void
-     */
-    public function listAction()
-    {
-        $ctx = $this->contextService->getCurrentContext();
-        $tasks = $this->taskRepository->findAll();
-        $this->view->assign('tasks', $tasks);
-        $this->view->assign('contextList',$this->contextService->getContextList());
-        $this->view->assign('currentContext',$ctx);
-        $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($ctx));
     }
 
     private function getTaskEnergyAndTaskTime(){

@@ -9,21 +9,21 @@ call_user_func(
             'ThomasWoehlke.' . $extKey,
             'Frontendgtd',
             [
+                'Task' => 'inbox, edit, update, new, create, focus, today, next, waiting, scheduled, someday, completed, trash, emptyTrash, moveTaskOrderInsideProject, transformTaskIntoProject, completeTask, undoneTask, setFocus, unsetFocus, moveToInbox, moveToToday, moveToNext, moveToWaiting, moveToSomeday, moveToCompleted, moveToTrash, moveAllCompletedToTrash, moveTaskOrder, uploadFiles',
                 'UserAccount' => 'list',
                 'UserMessage' => 'list, create',
                 'UserConfig' => 'show, update',
                 'Context' => 'switchContext, show, new, create, edit, update, delete',
-                'Project' => 'list, show, new, create, edit, update, delete, moveTask, moveProject, createTestData',
-                'Task' => 'list, show, edit, update, new, create, focus, inbox, today, next, waiting, scheduled, someday, completed, trash, emptyTrash, moveTaskOrderInsideProject, transformTaskIntoProject, completeTask, undoneTask, setFocus, unsetFocus, moveToInbox, moveToToday, moveToNext, moveToWaiting, moveToSomeday, moveToCompleted, moveToTrash, moveAllCompletedToTrash, moveTaskOrder, uploadFiles'
+                'Project' => 'list, show, new, create, edit, update, delete, moveTask, moveProject, createTestData'
             ],
             // non-cacheable actions
             [
+                'Task' => 'inbox, edit, update, new, create, focus, today, next, waiting, scheduled, someday, completed, trash, emptyTrash, moveTaskOrderInsideProject, transformTaskIntoProject, completeTask, undoneTask, setFocus, unsetFocus, moveToInbox, moveToToday, moveToNext, moveToWaiting, moveToSomeday, moveToCompleted, moveToTrash, moveAllCompletedToTrash, moveTaskOrder, uploadFiles',
                 'UserAccount' => 'list',
                 'UserMessage' => 'list, create',
                 'UserConfig' => 'show, update',
                 'Context' => 'switchContext, show, new, create, edit, update, delete',
-                'Project' => 'list, show, new, create, edit, update, delete, moveTask, moveProject, createTestData',
-                'Task' => 'list, show, edit, update, new, create, focus, inbox, today, next, waiting, scheduled, someday, completed, trash, emptyTrash, moveTaskOrderInsideProject, transformTaskIntoProject, completeTask, undoneTask, setFocus, unsetFocus, moveToInbox, moveToToday, moveToNext, moveToWaiting, moveToSomeday, moveToCompleted, moveToTrash, moveAllCompletedToTrash, moveTaskOrder, uploadFiles'
+                'Project' => 'list, show, new, create, edit, update, delete, moveTask, moveProject, createTestData'
             ]
         );
 
