@@ -17,6 +17,9 @@ namespace ThomasWoehlke\Gtd\Domain\Repository;
  */
 class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
+    protected $taskStates = array(
+        'inbox' => 0, 'today' => 1, 'next' => 2, 'waiting' => 3, 'scheduled' => 4, 'someday' => 5, 'completed' => 6 , 'trash' => 7
+    );
 
     protected $defaultOrderings = array(
         'orderIdTaskState' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
@@ -206,6 +209,27 @@ class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 )
             );
         }
+        return $query->execute();
+    }
+
+    /**
+     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    public function getScheduledTasksOfCurrentDay(){
+        $today = new \DateTime();
+        $today->setTime(0,0,0);
+        $query = $this->createQuery();
+        $query->setOrderings(
+            array(
+                "orderIdTaskState" => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
+            )
+        );
+        $query->matching(
+            $query->logicalAnd(
+                $query->equals('taskState',$this->taskStates['scheduled']),
+                $query->equals('dueDate', $today->format('Y-m-d'))
+            )
+        );
         return $query->execute();
     }
 

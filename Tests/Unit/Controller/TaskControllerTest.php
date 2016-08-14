@@ -248,8 +248,9 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->inject($this->subject, 'projectRepository', $projectRepository);
 
         //inject $taskRepository
-        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['findByUserAccountAndTaskState'], [], '', false);
+        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['findByUserAccountAndTaskState','getScheduledTasksOfCurrentDay','getMaxTaskStateOrderId','update'], [], '', false);
         $taskRepository->expects(self::once())->method('findByUserAccountAndTaskState')->with($this->userLoggedIn,$this->currentContext,$this->taskStates['today'])->will(self::returnValue($this->taskList));
+        $taskRepository->expects(self::once())->method('getScheduledTasksOfCurrentDay')->will(self::returnValue(array()));
         $this->inject($this->subject, 'taskRepository', $taskRepository);
 
         $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);
@@ -356,8 +357,11 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->inject($this->subject, 'projectRepository', $projectRepository);
 
         //inject $taskRepository
-        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['findByUserAccountAndTaskState'], [], '', false);
+        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['findByUserAccountAndTaskState','getScheduledTasksOfCurrentDay','getMaxTaskStateOrderId','update'], [], '', false);
         $taskRepository->expects(self::once())->method('findByUserAccountAndTaskState')->with($this->userLoggedIn,$this->currentContext,$this->taskStates['scheduled'])->will(self::returnValue($this->taskList));
+        $taskRepository->expects(self::once())->method('getScheduledTasksOfCurrentDay')->will(self::returnValue(array()));
+        $this->inject($this->subject, 'taskRepository', $taskRepository);
+
         $this->inject($this->subject, 'taskRepository', $taskRepository);
 
         $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);

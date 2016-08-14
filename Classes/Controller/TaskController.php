@@ -204,6 +204,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     {
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
+        $this->updateTodayAndScheduledTaskStates();
         $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$currentContext,$this->taskStates['today']);
         $this->view->assign('tasks', $tasks);
         $this->view->assign('contextList',$this->contextService->getContextList());
@@ -252,6 +253,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     {
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
+        $this->updateTodayAndScheduledTaskStates();
         $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$currentContext,$this->taskStates['scheduled']);
         $this->view->assign('tasks', $tasks);
         $this->view->assign('contextList',$this->contextService->getContextList());
@@ -798,6 +800,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         } else {
             if(isset($_FILES['upl'])){
                 $msg = 'Failed Upload: '.$_FILES['upl']['name'].' ';
+                //TODO: translate the Error Messages into English
                 switch ($_FILES['upl']['error']){
                     case UPLOAD_ERR_INI_SIZE: $msg .= 'Die hochgeladene Datei ueberschreitet die in der Anweisung upload_max_filesize in php.ini festgelegte Größe.'; break;
                     case UPLOAD_ERR_FORM_SIZE: $msg .= ' Die hochgeladene Datei ueberschreitet die in dem HTML Formular mittels der Anweisung MAX_FILE_SIZE angegebene maximale Dateigroeße.';  break;
@@ -824,5 +827,25 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     private function getGoodFilemane($oldFilename){
         $oldFilename = str_replace(' ','_',$oldFilename);
         return $oldFilename;
+    }
+
+    private function updateTodayAndScheduledTaskStates(){
+
+        /** @var $logger \TYPO3\CMS\Core\Log\Logger */
+        $logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
+
+        $tasks = $this->taskRepository->getScheduledTasksOfCurrentDay();
+
+        $logger->error('execute found: '.count($tasks));
+
+        foreach ($tasks as $task){
+            $userAccount = $task->getUserAccount();
+            $context = $task->getContext();
+            $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userAccount,$context,$this->taskStates['today']);
+            $task->changeTaskState($this->taskStates['today']);
+            $task->setOrderIdTaskState($maxTaskStateOrderId);
+            $this->taskRepository->update($task);
+            $logger->error($task->getTitle());
+        }
     }
 }

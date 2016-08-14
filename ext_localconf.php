@@ -30,3 +30,12 @@ call_user_func(
     },
     $_EXTKEY
 );
+
+
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']
+['ThomasWoehlke\\Gtd\\Command\\TaskSchedulingController'] = array(
+    'extension' => $_EXTKEY,
+    'title' => 'Move scheduled Tasks to today, if dueDate is current day',
+    'description' => 'Move Tasks from TasksList Scheduled to TaskList Today, if their dueDate is the current day',
+    'additionalFields' => ''
+);
