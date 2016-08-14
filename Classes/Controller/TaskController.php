@@ -769,7 +769,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $logger->debug($_FILES['upl']);
 //        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($_FILES['upl']);
         $allowed = array('png', 'jpg', 'gif','zip','doc', 'xls', 'csv', 'docx', 'xlsx', 'psd', 'rar', 'indd', 'ind', 'pdf');
-        if(isset($_FILES['upl']) && $_FILES['upl']['error'] == 0){
+        if(isset($_FILES['upl']) && $_FILES['upl']['error'] == UPLOAD_ERR_OK){
             $extension = pathinfo($_FILES['upl']['name'], PATHINFO_EXTENSION);
             if(!in_array(strtolower($extension), $allowed)){
                 echo '{"status":"error"}';
@@ -800,15 +800,14 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         } else {
             if(isset($_FILES['upl'])){
                 $msg = 'Failed Upload: '.$_FILES['upl']['name'].' ';
-                //TODO: translate the Error Messages into English
                 switch ($_FILES['upl']['error']){
-                    case UPLOAD_ERR_INI_SIZE: $msg .= 'Die hochgeladene Datei ueberschreitet die in der Anweisung upload_max_filesize in php.ini festgelegte Größe.'; break;
-                    case UPLOAD_ERR_FORM_SIZE: $msg .= ' Die hochgeladene Datei ueberschreitet die in dem HTML Formular mittels der Anweisung MAX_FILE_SIZE angegebene maximale Dateigroeße.';  break;
-                    case UPLOAD_ERR_PARTIAL: $msg .= 'Die Datei wurde nur teilweise hochgeladen.'; break;
-                    case UPLOAD_ERR_NO_FILE: $msg .= 'Es wurde keine Datei hochgeladen.'; break;
-                    case UPLOAD_ERR_NO_TMP_DIR: $msg .= 'Fehlender temporärer Ordner.'; break;
-                    case UPLOAD_ERR_CANT_WRITE: $msg .= 'Speichern der Datei auf die Festplatte ist fehlgeschlagen'; break;
-                    case UPLOAD_ERR_EXTENSION: $msg .= 'Eine PHP Erweiterung hat den Upload der Datei gestoppt. PHP bietet keine Moeglichkeit an, um festzustellen welche Erweiterung das Hochladen der Datei gestoppt hat. Ueberpruefung aller geladenen Erweiterungen mittels phpinfo() koennte helfen.'; break;
+                    case UPLOAD_ERR_INI_SIZE: $msg .= 'The uploaded file exceeds the upload_max_filesize directive in php.ini.'; break;
+                    case UPLOAD_ERR_FORM_SIZE: $msg .= 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.';  break;
+                    case UPLOAD_ERR_PARTIAL: $msg .= 'The uploaded file was only partially uploaded.'; break;
+                    case UPLOAD_ERR_NO_FILE: $msg .= 'No file was uploaded.'; break;
+                    case UPLOAD_ERR_NO_TMP_DIR: $msg .= 'Missing a temporary folder.'; break;
+                    case UPLOAD_ERR_CANT_WRITE: $msg .= 'Failed to write file to disk.'; break;
+                    case UPLOAD_ERR_EXTENSION: $msg .= 'A PHP extension stopped the file upload. PHP does not provide a way to ascertain which extension caused the file upload to stop; examining the list of loaded extensions with phpinfo() may help.'; break;
                     default: $msg .= 'Errorcode: '.$_FILES['upl']['error']; break;
                 }
                 $logger->error($msg);
@@ -830,14 +829,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
 
     private function updateTodayAndScheduledTaskStates(){
-
-        /** @var $logger \TYPO3\CMS\Core\Log\Logger */
-        $logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
-
         $tasks = $this->taskRepository->getScheduledTasksOfCurrentDay();
-
-        $logger->error('execute found: '.count($tasks));
-
         foreach ($tasks as $task){
             $userAccount = $task->getUserAccount();
             $context = $task->getContext();
@@ -845,7 +837,6 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $task->changeTaskState($this->taskStates['today']);
             $task->setOrderIdTaskState($maxTaskStateOrderId);
             $this->taskRepository->update($task);
-            $logger->error($task->getTitle());
         }
     }
 }

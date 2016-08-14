@@ -33,7 +33,7 @@ class TaskSchedulingController extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
         /** @var $logger \TYPO3\CMS\Core\Log\Logger */
         $logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
 
-        $logger->error('execute Start');
+        $logger->debug('execute Start');
 
         /** @var $objectManager \TYPO3\CMS\Extbase\Object\ObjectManager */
         $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
@@ -50,7 +50,7 @@ class TaskSchedulingController extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 
         $storagePid = $settings['plugin.']['tx_gtd_frontendgtd.']['persistence.']['storagePid'];
 
-        $logger->error('storagePid: '.$storagePid);
+        $logger->debug('storagePid: '.$storagePid);
 
         /** @var $querySettings \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings */
         $querySettings = $objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
@@ -64,7 +64,7 @@ class TaskSchedulingController extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 
         $tasks = $taskRepository->getScheduledTasksOfCurrentDay();
 
-        $logger->error('execute found: '.count($tasks));
+        $logger->debug('execute found: '.count($tasks));
 
         foreach ($tasks as $task){
             $userAccount = $task->getUserAccount();
@@ -78,7 +78,7 @@ class TaskSchedulingController extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 
         $persistenceManager->persistAll();
 
-        $logger->error('execute DONE');
+        $logger->debug('execute DONE');
 
         return TRUE;
     }
