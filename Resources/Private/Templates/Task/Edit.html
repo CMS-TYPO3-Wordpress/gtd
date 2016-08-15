@@ -36,7 +36,8 @@ Otherwise your changes will be overwritten the next time you save the extension 
                 <f:form id="upload" action="uploadFiles" controller="Task" enctype="multipart/form-data" name="newTask" object="{newTask}" class="form-horizontal">
                     <div id="drop">
                         <f:translate key="tx_gtd_template_task_inbox.editTask.dropHere" />
-                        <input type="file" name="upl" multiple/>
+                        <input id="uploadFilesInput" type="file" name="upl" multiple="multiple"
+                               data-button-text="{f:translate(key:'tx_gtd_template_task_files.upload_button')}"/>
                     </div>
                     <ul>
                         <!-- The file uploads will be shown here -->

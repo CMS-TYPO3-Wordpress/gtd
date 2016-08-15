@@ -58,12 +58,15 @@ page.includeJSFooterlibs {
   fileuploadlib2 = EXT:gtd/Resources/Public/Js/jquery.ui.widget.js
   fileuploadlib3 = EXT:gtd/Resources/Public/Js/jquery.iframe-transport.js
   fileuploadlib4 = EXT:gtd/Resources/Public/Js/jquery.fileupload.js
-  fileuploadlib5 = EXT:gtd/Resources/Public/Js/script.js
+  fileuploadlib5 = EXT:gtd/Resources/Public/Js/bootstrap-filestyle.min.js
+  fileuploadlib6 = EXT:gtd/Resources/Public/Js/script.js
 }
 
 page.jsInline.999 = TEXT
 page.jsInline.999.value (
     $(window).load( function() {
+      var uploadFilesInputButtonText = $('#uploadFilesInput').attr('data-button-text');
+      $('#uploadFilesInput').filestyle('buttonText',uploadFilesInputButtonText);
       $( ".dataDetailListTitle").draggable({ cursor: "crosshair", revert: "invalid"  });
       $( ".categoryNode" ).draggable({ cursor: "crosshair", revert: "invalid"  });
       $( ".categoryNode" ).droppable({

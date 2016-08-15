@@ -492,6 +492,10 @@
 				<source>more</source>
 				<target state="translated">Mehr</target>
 			</trans-unit>
+			<trans-unit id="tx_gtd_template_task_files.upload_button">
+				<source>Choose Files</source>
+				<target state="translated">Dateien auswählen</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
