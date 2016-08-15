@@ -428,6 +428,70 @@
 				<source>Add Files</source>
 				<target state="translated">Dateien hinzufügen</target>
 			</trans-unit>
+			<trans-unit id="tx_gtd_domain_model_task.files">
+				<source>Files</source>
+				<target state="translated">Dateien</target>
+			</trans-unit>
+			<trans-unit id="tx_gtd_tasklist_task_energy.low">
+				<source>low</source>
+				<target state="translated">wenig</target>
+			</trans-unit>
+			<trans-unit id="tx_gtd_tasklist_task_energy.mid">
+				<source>mid</source>
+				<target state="translated">mittel</target>
+			</trans-unit>
+			<trans-unit id="tx_gtd_tasklist_task_energy.high">
+				<source>high</source>
+				<target state="translated">hoch</target>
+			</trans-unit>
+			<trans-unit id="tx_gtd_tasklist_task_time.5min">
+				<source>5 min</source>
+				<target state="translated">5 Min</target>
+			</trans-unit>
+			<trans-unit id="tx_gtd_tasklist_task_time.10min">
+				<source>10 min</source>
+				<target state="translated">10 Min</target>
+			</trans-unit>
+			<trans-unit id="tx_gtd_tasklist_task_time.15min">
+				<source>15 min</source>
+				<target state="translated">15 Min</target>
+			</trans-unit>
+			<trans-unit id="tx_gtd_tasklist_task_time.30min">
+				<source>30 min</source>
+				<target state="translated">30 Min</target>
+			</trans-unit>
+			<trans-unit id="tx_gtd_tasklist_task_time.45min">
+				<source>45 min</source>
+				<target state="translated">45 Min</target>
+			</trans-unit>
+			<trans-unit id="tx_gtd_tasklist_task_time.1hour">
+				<source>1 hour</source>
+				<target state="translated">1 Stunde</target>
+			</trans-unit>
+			<trans-unit id="tx_gtd_tasklist_task_time.2hours">
+				<source>2 hours</source>
+				<target state="translated">2 Stunden</target>
+			</trans-unit>
+			<trans-unit id="tx_gtd_tasklist_task_time.3hours">
+				<source>3 hours</source>
+				<target state="translated">3 Stunden</target>
+			</trans-unit>
+			<trans-unit id="tx_gtd_tasklist_task_time.4hours">
+				<source>4 hours</source>
+				<target state="translated">4 Stunden</target>
+			</trans-unit>
+			<trans-unit id="tx_gtd_tasklist_task_time.6hours">
+				<source>6 hours</source>
+				<target state="translated">6 Stunden</target>
+			</trans-unit>
+			<trans-unit id="tx_gtd_tasklist_task_time.8hours">
+				<source>8 hours</source>
+				<target state="translated">8 Stunden</target>
+			</trans-unit>
+			<trans-unit id="tx_gtd_tasklist_task_time.more">
+				<source>more</source>
+				<target state="translated">Mehr</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
