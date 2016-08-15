@@ -116,7 +116,6 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             }
         }
         $this->taskRepository->update($persistentTask);
-//        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($persistentTask);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.updated', $this->extName, null);
         $msg .= ' ( '.htmlspecialchars($task->getTitle()).' )';
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
@@ -175,8 +174,6 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             ->forProperty('dueDate')
             ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',
                 \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d');
-//        $pid = $this->uriBuilder->getTargetPageUid();
-//        $this->uriBuilder->reset()->setArguments(array('L' => $GLOBALS['TSFE']->sys_language_uid))->setTargetPageUid($pid);
     }
 
     /**
@@ -591,7 +588,6 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->taskRepository->update($task);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.moved_inbox', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
-//        $this->redirect('inbox');
         $this->getRedirectFromTask($task);
     }
 
@@ -631,7 +627,6 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->taskRepository->update($task);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.moved_next', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
-//        $this->redirect('next');
         $this->getRedirectFromTask($task);
     }
 
@@ -671,7 +666,6 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->taskRepository->update($task);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.moved_someday', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
-//        $this->redirect('someday');
         $this->getRedirectFromTask($task);
     }
 
@@ -691,7 +685,6 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->taskRepository->update($task);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.moved_completed', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
-//        $this->redirect('completed');
         $this->getRedirectFromTask($task);
     }
 
@@ -711,7 +704,6 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->taskRepository->update($task);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.moved_trash', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
-//        $this->redirect('trash');
         $this->getRedirectFromTask($task);
     }
 
@@ -735,7 +727,6 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.moved_completed2trash', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->myRedirect('trash');
-//        $this->getRedirectFromTask($task);
     }
 
     /**
