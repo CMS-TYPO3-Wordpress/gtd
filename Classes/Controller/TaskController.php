@@ -128,10 +128,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @param \ThomasWoehlke\Gtd\Domain\Model\Task $task
      */
     private function getRedirectFromTask(\ThomasWoehlke\Gtd\Domain\Model\Task $task){
-        /** @var $logger \TYPO3\CMS\Core\Log\Logger */
-        $logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
         $langId=$this->getLanguageId();
-        $logger->error($langId);
         $pid = $this->uriBuilder->getTargetPageUid();
         $this->uriBuilder->reset()->setArguments(array('L' => $langId))->setTargetPageUid($pid);
         $uri = $this->uriBuilder->uriFor('inbox', array(), 'Task');
@@ -162,8 +159,6 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             default:
                 break;
         }
-
-        $logger->error($uri);
         $this->redirectToUri($uri);
     }
 

@@ -40,6 +40,9 @@ You collect Tasks to do and order them by State and into Projects.
 
   - In Trash you can delete all Tasks there
 
+  - If Due Date is the current Date, then the Task will be moved to Tasklist Today
+
+  - You can add Files to a Task by Upload and via Drag and Drop (New in 0.10.0)
 
 - How to Work with Projects
 
@@ -62,7 +65,7 @@ You collect Tasks to do and order them by State and into Projects.
 
 - Settings:
 
-Here you can set the default Context with what you will start after Login. You also can change the List of Contexts here.
+  - Here you can set the default Context with what you will start after Login. You also can change the List of Contexts here.
 
 .. tip::
 
@@ -75,7 +78,8 @@ Here you can set the default Context with what you will start after Login. You a
    GTD® and Getting Things Done® are registered trademarks of the David Allen Company.
    GTD TYPO3 Extension is not affiliated with or endorsed by the David Allen Company.
 
-Here are some screenshots for the first impression:
+Here are some **Screenshots** for the first impression:
+-------------------------------------------------------
 
 .. figure:: ../Images/01-user.png
    :width: 500px
@@ -134,6 +138,16 @@ Here are some screenshots for the first impression:
    Projects
 
    Tasks can also be ordered in Projects. Projects may have subprojects.
+
+
+
+.. figure:: ../Images/07-Files-for-Tasks.png
+   :width: 500px
+   :alt: Files for Task
+
+   Files for Task
+
+   You can add Files to a Task by Upload and via Drag and Drop. (New in 0.10.0)
 
 
 .. _user-faq:

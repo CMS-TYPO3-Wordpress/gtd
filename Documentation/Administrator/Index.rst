@@ -42,6 +42,7 @@ To install the extension, perform the following steps:
 #. Create a usergroup for gtd, maybe it is good to create a testuser
 #. Include the static Template
 #. Configure the Template
+#. Add the two Cronjobs to the Scheduler
 
 configuration options:
 
@@ -88,6 +89,16 @@ Template: Setup (TypoScript)
    Data Folder
 
    List of Frontend-Users and Frontend-Usergroups and also all the gtd-Data.
+
+
+.. figure:: ../Images/AdministratorManual/23-Scheduled-Tasks-Cronjobs.png
+   :width: 500px
+   :alt: Cronjobs for Scheduled Tasks
+
+   Cronjobs for Scheduled Tasks
+
+   There are two Cronjobs for the TYPO3-Scheduler (New in 0.10.0) Move scheduled Tasks to today, if dueDate is current day and remove unused Files from deleted gtd-Tasks
+
 
 
 
