@@ -94,9 +94,7 @@ class UserMessageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $newUserMessage->setReceiver($receiver);
         $this->userMessageRepository->add($newUserMessage);
         $arguments = array('thisUser'=> $sender,'otherUser' => $receiver);
-        $controllerName = null;
-        $extensionName = null;
-        $this->redirect('list',$controllerName,$extensionName,$arguments);
+        $this->myRedirect('list',$arguments);
     }
 
     /**
@@ -125,7 +123,7 @@ class UserMessageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      * @param array $controllerArguments
      * @param string $controllerName
      */
-    private function myRedirect($actionName='inbox',$controllerArguments=array(),$controllerName = 'UserMessage'){
+    private function myRedirect($actionName='list',$controllerArguments=array(),$controllerName = 'UserMessage'){
         $langId=$this->getLanguageId();
         $pid = $this->uriBuilder->getTargetPageUid();
         $this->uriBuilder->reset()->setArguments(array('L' => $langId))->setTargetPageUid($pid);

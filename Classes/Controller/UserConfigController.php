@@ -99,7 +99,7 @@ class UserConfigController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContr
         $this->contextService->setCurrentContext($ctx);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.userconfig.updated', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
-        $this->redirect('show');
+        $this->myRedirect('show');
     }
 
     /**
@@ -128,7 +128,7 @@ class UserConfigController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContr
      * @param array $controllerArguments
      * @param string $controllerName
      */
-    private function myRedirect($actionName='inbox',$controllerArguments=array(),$controllerName = 'Task'){
+    private function myRedirect($actionName='show',$controllerArguments=array(),$controllerName = 'UserConfig'){
         $langId=$this->getLanguageId();
         $pid = $this->uriBuilder->getTargetPageUid();
         $this->uriBuilder->reset()->setArguments(array('L' => $langId))->setTargetPageUid($pid);

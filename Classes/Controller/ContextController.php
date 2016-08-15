@@ -65,7 +65,7 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $sessionData['contextUid'] = $context->getUid();
         $GLOBALS['TSFE']->fe_user->setKey('ses', 'tx_gtd_fesessiondata', $sessionData);
         $GLOBALS['TSFE']->fe_user->storeSessionData();
-        $this->redirect('inbox',"Task");
+        $this->myRedirect('inbox',array(),"Task");
     }
 
     /**
@@ -120,7 +120,7 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         //$this->addFlashMessage('The object was created.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.context.created', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
-        $this->redirect('show','UserConfig');
+        $this->myRedirect('show',array(),'UserConfig');
     }
 
     /**
@@ -152,7 +152,7 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         //$this->addFlashMessage('The object was updated.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.context.updated', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
-        $this->redirect('show','UserConfig');
+        $this->myRedirect('show',array(),'UserConfig');
     }
 
     /**
@@ -167,7 +167,7 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         //$this->addFlashMessage('The object was deleted.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.context.deleted', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
-        $this->redirect('show','UserConfig');
+        $this->myRedirect('show',array(),'UserConfig');
     }
 
     /**
@@ -196,7 +196,7 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @param array $controllerArguments
      * @param string $controllerName
      */
-    private function myRedirect($actionName='inbox',$controllerArguments=array(),$controllerName = 'UserConfig'){
+    private function myRedirect($actionName='inbox',$controllerArguments=array(),$controllerName = 'Context'){
         $langId=$this->getLanguageId();
         $pid = $this->uriBuilder->getTargetPageUid();
         $this->uriBuilder->reset()->setArguments(array('L' => $langId))->setTargetPageUid($pid);
