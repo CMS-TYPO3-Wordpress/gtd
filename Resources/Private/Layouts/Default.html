@@ -20,10 +20,10 @@
 					</li>
 					<li><hr/></li>
 					<li><f:link.action id="list_users" controller="UserAccount" action="list"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <f:translate key="tx_gtd_layout_default.users" /></f:link.action></li>
-					<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-tags" aria-hidden="true"></span> <f:translate key="tx_gtd_layout_default.context" /> ({currentContext.nameDe})<span class="caret"></span></a>
+					<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-tags" aria-hidden="true"></span> <f:translate key="tx_gtd_layout_default.context" /> (<f:switch expression="{langKey}"><f:case value="0">{currentContext.nameDe}</f:case><f:case value="1">{currentContext.nameEn}</f:case></f:switch>)<span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<f:for each="{contextList}" as="context">
-							<li><f:link.action controller="Context" action="switchContext" arguments="{context:context}">{context.nameDe}</f:link.action></li>
+							<li><f:link.action controller="Context" action="switchContext" arguments="{context:context}"><f:switch expression="{langKey}"><f:case value="0">{context.nameDe}</f:case><f:case value="1">{context.nameEn}</f:case></f:switch></f:link.action></li>
 							</f:for>
 						</ul>
 					</li>

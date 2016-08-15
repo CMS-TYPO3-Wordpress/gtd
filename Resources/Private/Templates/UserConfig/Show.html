@@ -7,7 +7,10 @@
 <f:form action="update" name="userConfig" object="{userConfig}" >
     <div class="form-group">
         <label for="defaultContext"><f:translate key="tx_gtd_template_user_config.set_default_context" /></label>
-        <f:form.select id="defaultContext" property="defaultContext" options="{contextList}" optionLabelField="nameDe" class="form-control"/>
+        <f:switch expression="{langKey}">
+            <f:case value="0"><f:form.select id="defaultContext" property="defaultContext" options="{contextList}" optionLabelField="nameDe" class="form-control"/></f:case>
+            <f:case value="1"><f:form.select id="defaultContext" property="defaultContext" options="{contextList}" optionLabelField="nameEn" class="form-control"/></f:case>
+        </f:switch>
     </div>
     <f:form.submit value="{f:translate(key:'tx_gtd_template_user_config.save_default_context')}" class="btn btn-default" />
 </f:form>
