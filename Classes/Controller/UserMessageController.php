@@ -70,6 +70,7 @@ class UserMessageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $this->view->assign('contextList',$this->contextService->getContextList());
         $this->view->assign('currentContext',$context);
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($context));
+        $this->view->assign('langKey',$this->getLanguageId());
     }
 
     /**
@@ -96,6 +97,40 @@ class UserMessageController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $controllerName = null;
         $extensionName = null;
         $this->redirect('list',$controllerName,$extensionName,$arguments);
+    }
+
+    /**
+     * @return string
+     */
+    private function getLanguage(){
+
+        $settings = $this->configurationManager->getConfiguration(
+            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
+        );
+
+        return $settings['config.']['language'];
+    }
+
+    private function getLanguageId(){
+
+        $settings = $this->configurationManager->getConfiguration(
+            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
+        );
+
+        return $settings['config.']['sys_language_uid'];
+    }
+
+    /**
+     * @param string $actionName
+     * @param array $controllerArguments
+     * @param string $controllerName
+     */
+    private function myRedirect($actionName='inbox',$controllerArguments=array(),$controllerName = 'UserMessage'){
+        $langId=$this->getLanguageId();
+        $pid = $this->uriBuilder->getTargetPageUid();
+        $this->uriBuilder->reset()->setArguments(array('L' => $langId))->setTargetPageUid($pid);
+        $uri = $this->uriBuilder->uriFor($actionName, $controllerArguments,$controllerName);
+        $this->redirectToUri($uri);
     }
 
 }

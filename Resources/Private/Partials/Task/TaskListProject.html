@@ -43,7 +43,7 @@
                 </f:if>
             </td>
             <td><f:link.action class="dataDetailListTitle"
-                               id="dataDetailProject_{task.uid}"
+                               id="dataDetailProject_{task.uid}_{langKey}"
                                controller="Task" action="edit" arguments="{task : task}"> {task.title}</f:link.action>
             </td>
             <td><f:format.crop maxCharacters="40">{task.text}</f:format.crop></td>

@@ -16,7 +16,7 @@
 					<li><hr/></li>
 					<li>
 						<f:link.action id="categoryNode_0" class="categoryNode" controller="Project" action="show"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> <f:translate key="tx_gtd_layout_default.projects" /></f:link.action>
-						<ul><f:render partial="Project/Navigation" arguments="{navProjects:rootProjects}" /></ul>
+						<ul><f:render partial="Project/Navigation" arguments="{navProjects:rootProjects,langKey:langKey}" /></ul>
 					</li>
 					<li><hr/></li>
 					<li><f:link.action id="list_users" controller="UserAccount" action="list"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <f:translate key="tx_gtd_layout_default.users" /></f:link.action></li>

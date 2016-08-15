@@ -79,6 +79,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         }
         $this->view->assign('tasks', $tasks);
         $this->view->assign('deleteable',$deleteable);
+        $this->view->assign('langKey',$this->getLanguageId());
     }
 
     /**
@@ -95,6 +96,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('contextList',$this->contextService->getContextList());
         $this->view->assign('currentContext',$ctx);
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($ctx));
+        $this->view->assign('langKey',$this->getLanguageId());
     }
 
     /**
@@ -109,7 +111,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.project.updated', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $args = array('project'=>$project);
-        $this->redirect('show',null,null,$args);
+        $this->myRedirect('show',$args);
     }
 
     /**
@@ -132,7 +134,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $this->projectRepository->remove($project);
         }
         $args = array('project'=>$parentProject);
-        $this->redirect('show',null,null,$args);
+        $this->myRedirect('show',$args);
     }
 
     /**
@@ -169,7 +171,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.project.moved', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $arguments = array("project" => $targetProject);
-        $this->redirect('show',null,null, $arguments);
+        $this->myRedirect('show', $arguments);
     }
 
     /**
@@ -190,7 +192,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $arguments = array("project" => $targetProject);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.moved2project', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
-        $this->redirect('show',null,null, $arguments);
+        $this->myRedirect('show', $arguments);
     }
 
     /**
@@ -206,6 +208,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('contextList',$this->contextService->getContextList());
         $this->view->assign('currentContext',$ctx);
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($ctx));
+        $this->view->assign('langKey',$this->getLanguageId());
     }
 
     /**
@@ -221,6 +224,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('contextList',$this->contextService->getContextList());
         $this->view->assign('currentContext',$ctx);
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($ctx));
+        $this->view->assign('langKey',$this->getLanguageId());
     }
 
     /**
@@ -243,7 +247,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.project.created', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $args = array('project'=>$parentProject);
-        $this->redirect('show',null,null,$args);
+        $this->myRedirect('show',$args);
     }
 
     /**
@@ -331,6 +335,40 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.testdata.created', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
 
-        $this->redirect('inbox',"Task");
+        $this->myRedirect('inbox',array(),"Task");
+    }
+
+    /**
+     * @return string
+     */
+    private function getLanguage(){
+
+        $settings = $this->configurationManager->getConfiguration(
+            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
+        );
+
+        return $settings['config.']['language'];
+    }
+
+    private function getLanguageId(){
+
+        $settings = $this->configurationManager->getConfiguration(
+            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
+        );
+
+        return $settings['config.']['sys_language_uid'];
+    }
+
+    /**
+     * @param string $actionName
+     * @param array $controllerArguments
+     * @param string $controllerName
+     */
+    private function myRedirect($actionName='show',$controllerArguments=array(),$controllerName = 'Project'){
+        $langId=$this->getLanguageId();
+        $pid = $this->uriBuilder->getTargetPageUid();
+        $this->uriBuilder->reset()->setArguments(array('L' => $langId))->setTargetPageUid($pid);
+        $uri = $this->uriBuilder->uriFor($actionName, $controllerArguments,$controllerName);
+        $this->redirectToUri($uri);
     }
 }

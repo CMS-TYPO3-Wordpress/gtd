@@ -82,6 +82,7 @@ class UserConfigController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContr
         $this->view->assign('contextList',$contextList);
         $this->view->assign('currentContext',$currentContext);
         $this->view->assign('rootProjects',$rootProjects);
+        $this->view->assign('langKey',$this->getLanguageId());
     }
 
     /**
@@ -99,5 +100,39 @@ class UserConfigController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContr
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.userconfig.updated', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->redirect('show');
+    }
+
+    /**
+     * @return string
+     */
+    private function getLanguage(){
+
+        $settings = $this->configurationManager->getConfiguration(
+            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
+        );
+
+        return $settings['config.']['language'];
+    }
+
+    private function getLanguageId(){
+
+        $settings = $this->configurationManager->getConfiguration(
+            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
+        );
+
+        return $settings['config.']['sys_language_uid'];
+    }
+
+    /**
+     * @param string $actionName
+     * @param array $controllerArguments
+     * @param string $controllerName
+     */
+    private function myRedirect($actionName='inbox',$controllerArguments=array(),$controllerName = 'Task'){
+        $langId=$this->getLanguageId();
+        $pid = $this->uriBuilder->getTargetPageUid();
+        $this->uriBuilder->reset()->setArguments(array('L' => $langId))->setTargetPageUid($pid);
+        $uri = $this->uriBuilder->uriFor($actionName, $controllerArguments,$controllerName);
+        $this->redirectToUri($uri);
     }
 }

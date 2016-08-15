@@ -53,14 +53,6 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     protected $contextService = null;
 
-    /**
-     * contextService
-     *
-     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManager
-     * @inject
-     */
-    protected $configurationManager = null;
-
     private $extName = 'gtd';
 
     /**
@@ -78,6 +70,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('contextList',$this->contextService->getContextList());
         $this->view->assign('currentContext',$ctx);
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($ctx));
+        $this->view->assign('langKey',$this->getLanguageId());
     }
 
     public function initializeEditAction()
@@ -182,8 +175,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             ->forProperty('dueDate')
             ->setTypeConverterOption('TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',
                 \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d');
-        $pid = $this->uriBuilder->getTargetPageUid();
-        $this->uriBuilder->reset()->setArguments(array('L' => $GLOBALS['TSFE']->sys_language_uid))->setTargetPageUid($pid);
+//        $pid = $this->uriBuilder->getTargetPageUid();
+//        $this->uriBuilder->reset()->setArguments(array('L' => $GLOBALS['TSFE']->sys_language_uid))->setTargetPageUid($pid);
     }
 
     /**
@@ -289,7 +282,6 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
         $tasks = $this->taskRepository->findByUserAccountAndTaskState($userObject,$currentContext,Task::$TASK_STATES['someday']);
-//        $this->setLanguage();
         $this->view->assign('tasks', $tasks);
         $this->view->assign('contextList',$this->contextService->getContextList());
         $this->view->assign('currentContext',$currentContext);
@@ -348,6 +340,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('contextList',$this->contextService->getContextList());
         $this->view->assign('currentContext',$currentContext);
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($currentContext));
+        $this->view->assign('langKey',$this->getLanguageId());
     }
 
     /**
@@ -393,7 +386,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $args = array("project" => $parentProject);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.task2project', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
-        $this->redirect('show',"Project",null,$args);
+        $this->myRedirect('show',$args,"Project");
     }
 
     /**
@@ -533,7 +526,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('contextList',$this->contextService->getContextList());
         $this->view->assign('currentContext',$ctx);
         $this->view->assign('rootProjects',$this->projectRepository->getRootProjects($ctx));
-        $this->view->assign('langKey',$GLOBALS['TSFE']->sys_language_uid);
+        $this->view->assign('langKey',$this->getLanguageId());
     }
 
     /**
@@ -740,7 +733,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         }
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.moved_completed2trash', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
-
+        $this->myRedirect('trash');
 //        $this->getRedirectFromTask($task);
     }
 
@@ -817,7 +810,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $args = array('project'=>$project);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.ordering', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
-        $this->redirect('show','Project',null,$args);
+        $this->myRedirect('show',$args,'Project');
     }
 
     /**
@@ -905,16 +898,6 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @return string
      */
     private function getLanguage(){
-//        if (isset($GLOBALS['TSFE']->config['config']['language'])) {
-//            return $GLOBALS['TSFE']->config['config']['language'];
-//        }
-//        return 'en'; //default
-
-//        /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
-//        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-
-//        /** @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager */
-//        $configurationManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManagerInterface');
 
         $settings = $this->configurationManager->getConfiguration(
             \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
@@ -925,13 +908,6 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
     private function getLanguageId(){
 
-//        /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
-//        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-//
-//        /** @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager */
-//        $configurationManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManagerInterface');
-//
-
         $settings = $this->configurationManager->getConfiguration(
             \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
         );
@@ -939,11 +915,16 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         return $settings['config.']['sys_language_uid'];
     }
 
-    private function myRedirect($actionName='inbox'){
+    /**
+     * @param string $actionName
+     * @param array $controllerArguments
+     * @param string $controllerName
+     */
+    private function myRedirect($actionName='inbox',$controllerArguments=array(),$controllerName = 'Task'){
         $langId=$this->getLanguageId();
         $pid = $this->uriBuilder->getTargetPageUid();
         $this->uriBuilder->reset()->setArguments(array('L' => $langId))->setTargetPageUid($pid);
-        $uri = $this->uriBuilder->uriFor($actionName, array(), 'Task');
+        $uri = $this->uriBuilder->uriFor($actionName, $controllerArguments,$controllerName);
         $this->redirectToUri($uri);
     }
 

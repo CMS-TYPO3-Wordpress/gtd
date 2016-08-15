@@ -70,14 +70,15 @@ page.jsInline.999.value (
           drop: function( event, ui ) {
               var selfId = ("" + $( this ).attr("id")).split("_")[1];
               var draggableId = "" +ui.draggable.attr("id").split("_")[1];
+              var langId = "" +ui.draggable.attr("id").split("_")[2];
               var draggableType = ""+ui.draggable.attr("id").split("_")[0];
               var rootUrl = $(location).attr('pathname');
               var html4move = "";
               if(draggableType == "dataDetail" || draggableType == "dataDetailProject"){
-                  rootUrl = rootUrl + "?tx_gtd_frontendgtd[action]=moveTask";
+                  rootUrl = rootUrl  +"?L="+langId+"&tx_gtd_frontendgtd[action]=moveTask";
                   html4move = rootUrl + '&tx_gtd_frontendgtd[srcTask]=' + draggableId + '&tx_gtd_frontendgtd[targetProject]=' + selfId+'&tx_gtd_frontendgtd[controller]=Project';
               } else {
-                  rootUrl = rootUrl + "?tx_gtd_frontendgtd[action]=moveProject";
+                  rootUrl = rootUrl +"?L="+langId+"&tx_gtd_frontendgtd[action]=moveProject";
                   html4move = rootUrl + '&tx_gtd_frontendgtd[srcProject]=' + draggableId + '&tx_gtd_frontendgtd[targetProject]=' + selfId+'&tx_gtd_frontendgtd[controller]=Project';
               }
               window.location.replace(html4move);
@@ -87,12 +88,13 @@ page.jsInline.999.value (
           drop: function( event, ui ) {
               var selfId = ("" + $( this ).attr("id")).split("_")[1];
               var draggableId = "" +ui.draggable.attr("id").split("_")[1];
+              var langId = "" +ui.draggable.attr("id").split("_")[2];
               var draggableType = ""+ui.draggable.attr("id").split("_")[0];
               var rootUrl = $(location).attr('pathname');
               if(draggableType == "dataDetail") {
                   rootUrl = rootUrl + "?tx_gtd_frontendgtd[action]=moveTaskOrder";
               } else if(draggableType == "dataDetailProject") {
-                  rootUrl = rootUrl + "?tx_gtd_frontendgtd[action]=moveTaskOrderInsideProject";
+                  rootUrl = rootUrl +"?L="+langId+"&tx_gtd_frontendgtd[action]=moveTaskOrderInsideProject";
               }
               var html4move = rootUrl + '&tx_gtd_frontendgtd[srcTask]=' + draggableId + '&tx_gtd_frontendgtd[targetTask]=' + selfId+'&tx_gtd_frontendgtd[controller]=Task';
               window.location.replace(html4move);
