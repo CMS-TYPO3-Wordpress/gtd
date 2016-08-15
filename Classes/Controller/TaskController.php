@@ -487,6 +487,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 );
                 break;
             case 'en':
+            default:
                 $taskEnergy = array(
                     0 => 'none',
                     1 => 'low',
@@ -500,7 +501,7 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                     3 => '15 min',
                     4 => '30 min',
                     5 => '45 min',
-                    6 => '1 hours',
+                    6 => '1 hour',
                     7 => '2 hours',
                     8 => '3 hours',
                     9 => '4 hours',
@@ -908,11 +909,17 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
     private function getLanguageId(){
 
+        $id = 0;
+
         $settings = $this->configurationManager->getConfiguration(
             \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
         );
 
-        return $settings['config.']['sys_language_uid'];
+        if(isset($settings['config.']['sys_language_uid']) && ($settings['config.']['sys_language_uid'] !== null)){
+            $id = $settings['config.']['sys_language_uid'];
+        }
+
+        return $id;
     }
 
     /**

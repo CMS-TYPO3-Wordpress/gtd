@@ -36,7 +36,7 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
     protected function setUp()
     {
-        $this->subject = $this->getMock(\ThomasWoehlke\Gtd\Controller\TaskController::class, ['redirect', 'forward', 'addFlashMessage','getRedirectFromTask','getLanguageId','getLanguage','myRedirect'], [], '', false);
+        $this->subject = $this->getMock(\ThomasWoehlke\Gtd\Controller\TaskController::class, ['redirect', 'forward', 'addFlashMessage','getRedirectFromTask','getLanguageId','getLanguage','myRedirect','redirectToUri'], [], '', false);
         $this->taskEnergy = array(
             0 => 'none',
             1 => 'low',
@@ -50,7 +50,7 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             3 => '15 min',
             4 => '30 min',
             5 => '45 min',
-            6 => '1 hours',
+            6 => '1 hour',
             7 => '2 hours',
             8 => '3 hours',
             9 => '4 hours',
@@ -114,9 +114,16 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->inject($this->subject, 'configurationManager', $configurationManager);
 
         /** @var \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder */
-        $uriBuilder = $objectManager->get('TYPO3\\CMS\\Extbase\\Mvc\\Web\Routing\\UriBuilder');
+        $uriBuilder = $this->getMock(\TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder::class,array(), array(), '', false);
+
+        $uriBuilder->expects(self::any())->method('reset')->will(self::returnValue($uriBuilder));
+        $uriBuilder->expects(self::any())->method('setArguments')->will(self::returnValue($uriBuilder));
+        $uriBuilder->expects(self::any())->method('setTargetPageUid')->will(self::returnValue($uriBuilder));
+        $uriBuilder->expects(self::any())->method('uriFor');
 
         $this->inject($this->subject, 'uriBuilder', $uriBuilder);
+
+        $this->subject->expects(self::any())->method('redirectToUri');
     }
 
     protected function tearDown()
@@ -127,38 +134,7 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function showActionTest(){
-        //inject $contextService
-        $contextService = $this->getMock(\ThomasWoehlke\Gtd\Service\ContextService::class, ['getCurrentContext','getContextList'], [], '', false);
-        $contextService->expects(self::once())->method('getCurrentContext')->will(self::returnValue($this->currentContext));
-        $contextService->expects(self::once())->method('getContextList')->will(self::returnValue($this->contextList));
-        $this->inject($this->subject, 'contextService', $contextService);
-
-        //inject $projectRepository
-        $projectRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\ProjectRepository::class, ['getRootProjects'], [$this->rootProjects], '', false);
-        $projectRepository->expects(self::once())->method('getRootProjects')->will(self::returnValue($this->rootProjects));
-        $this->inject($this->subject, 'projectRepository', $projectRepository);
-
-        $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);
-        $view->expects(self::at(0))->method('assign')->withConsecutive(['task', $this->task1]);
-        $view->expects(self::at(1))->method('assign')->withConsecutive(['taskEnergy', $this->taskEnergy]);
-        $view->expects(self::at(2))->method('assign')->withConsecutive(['taskTime', $this->taskTime]);
-        $view->expects(self::at(3))->method('assign')->withConsecutive(['contextList', $this->contextList]);
-        $view->expects(self::at(4))->method('assign')->withConsecutive(['currentContext', $this->currentContext]);
-        $view->expects(self::at(5))->method('assign')->withConsecutive(['rootProjects', $this->rootProjects]);
-
-        $this->inject($this->subject, 'view', $view);
-
-//        $this->subject->showAction($this->task1);
-    }
-
-    /**
-     * @test
-     */
     public function editActionTest(){
-
-//        $this->subject->expects(self::once())->method('getLanguageId')->will(self::returnValue(0));
-//        $this->subject->expects(self::once())->method('getLanguage')->will(self::returnValue('de'));
 
         //inject $contextService
         $contextService = $this->getMock(\ThomasWoehlke\Gtd\Service\ContextService::class, ['getCurrentContext','getContextList'], [], '', false);
@@ -666,37 +642,6 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->inject($this->subject, 'taskRepository', $taskRepository);
 
         $this->subject->unsetFocusAction($this->task1);
-    }
-
-    /**
-     * @test
-     */
-    public function listActionTest(){
-        //inject $contextService
-        $contextService = $this->getMock(\ThomasWoehlke\Gtd\Service\ContextService::class, ['getCurrentContext','getContextList'], [], '', false);
-        $contextService->expects(self::once())->method('getCurrentContext')->will(self::returnValue($this->currentContext));
-        $contextService->expects(self::once())->method('getContextList')->will(self::returnValue($this->contextList));
-        $this->inject($this->subject, 'contextService', $contextService);
-
-        //inject $projectRepository
-        $projectRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\ProjectRepository::class, ['getRootProjects'], [$this->rootProjects], '', false);
-        $projectRepository->expects(self::once())->method('getRootProjects')->will(self::returnValue($this->rootProjects));
-        $this->inject($this->subject, 'projectRepository', $projectRepository);
-
-        //inject $taskRepository
-        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['findAll'], [], '', false);
-        $taskRepository->expects(self::once())->method('findAll')->will(self::returnValue($this->taskList));
-        $this->inject($this->subject, 'taskRepository', $taskRepository);
-
-        $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);
-        $view->expects(self::at(0))->method('assign')->withConsecutive(['tasks', $this->taskList]);
-        $view->expects(self::at(1))->method('assign')->withConsecutive(['contextList', $this->contextList]);
-        $view->expects(self::at(2))->method('assign')->withConsecutive(['currentContext', $this->currentContext]);
-        $view->expects(self::at(3))->method('assign')->withConsecutive(['rootProjects', $this->rootProjects]);
-
-        $this->inject($this->subject, 'view', $view);
-
-        $this->subject->listAction();
     }
 
     /**

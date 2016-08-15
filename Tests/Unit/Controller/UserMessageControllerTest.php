@@ -14,10 +14,43 @@ class UserMessageControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     protected $subject = null;
 
+    protected $langKey = 0;
+
     protected function setUp()
     {
         $this->subject = $this->getMock(\ThomasWoehlke\Gtd\Controller\UserMessageController::class,
-            ['redirect', 'forward', 'addFlashMessage'], [], '', false);
+            ['redirect', 'forward', 'addFlashMessage','getLanguageId','getLanguage','myRedirect','redirectToUri'], [], '', false);
+
+        $dbresult = array();
+        $dbresult['uid'] = 1;
+
+        $GLOBALS['TYPO3_DB'] = $this->getMock(\TYPO3\CMS\Core\Database\DatabaseConnection::class, array(), array(), '', false);
+        $GLOBALS['TYPO3_DB']->expects(self::any())->method('exec_SELECTgetSingleRow')->will(self::returnValue($dbresult));
+        $GLOBALS['TYPO3_DB']->expects(self::any())->method('fullQuoteStr')->will(self::returnValue('test'));
+
+        $GLOBALS['TYPO3_LOADED_EXT'] = ['gtd'=>[]];
+
+        /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
+        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+
+        $this->inject($this->subject, 'objectManager', $objectManager);
+
+        /** @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager */
+        $configurationManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManagerInterface');
+
+        $this->inject($this->subject, 'configurationManager', $configurationManager);
+
+        /** @var \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder */
+        $uriBuilder = $this->getMock(\TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder::class,array(), array(), '', false);
+
+        $uriBuilder->expects(self::any())->method('reset')->will(self::returnValue($uriBuilder));
+        $uriBuilder->expects(self::any())->method('setArguments')->will(self::returnValue($uriBuilder));
+        $uriBuilder->expects(self::any())->method('setTargetPageUid')->will(self::returnValue($uriBuilder));
+        $uriBuilder->expects(self::any())->method('uriFor');
+
+        $this->inject($this->subject, 'uriBuilder', $uriBuilder);
+
+        $this->subject->expects(self::any())->method('redirectToUri');
     }
 
     protected function tearDown()

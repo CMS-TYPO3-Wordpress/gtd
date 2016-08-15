@@ -13,9 +13,42 @@ class ContextControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     protected $subject = null;
 
+    protected $langKey = 0;
+
     protected function setUp()
     {
-        $this->subject = $this->getMock(\ThomasWoehlke\Gtd\Controller\ContextController::class, ['redirect', 'forward', 'addFlashMessage'], [], '', false);
+        $this->subject = $this->getMock(\ThomasWoehlke\Gtd\Controller\ContextController::class, ['redirect', 'forward', 'addFlashMessage','getLanguageId','getLanguage','myRedirect','redirectToUri'], [], '', false);
+
+        $dbresult = array();
+        $dbresult['uid'] = 1;
+
+        $GLOBALS['TYPO3_DB'] = $this->getMock(\TYPO3\CMS\Core\Database\DatabaseConnection::class, array(), array(), '', false);
+        $GLOBALS['TYPO3_DB']->expects(self::any())->method('exec_SELECTgetSingleRow')->will(self::returnValue($dbresult));
+        $GLOBALS['TYPO3_DB']->expects(self::any())->method('fullQuoteStr')->will(self::returnValue('test'));
+
+        $GLOBALS['TYPO3_LOADED_EXT'] = ['gtd'=>[]];
+
+        /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
+        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+
+        $this->inject($this->subject, 'objectManager', $objectManager);
+
+        /** @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager */
+        $configurationManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManagerInterface');
+
+        $this->inject($this->subject, 'configurationManager', $configurationManager);
+
+        /** @var \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder */
+        $uriBuilder = $this->getMock(\TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder::class,array(), array(), '', false);
+
+        $uriBuilder->expects(self::any())->method('reset')->will(self::returnValue($uriBuilder));
+        $uriBuilder->expects(self::any())->method('setArguments')->will(self::returnValue($uriBuilder));
+        $uriBuilder->expects(self::any())->method('setTargetPageUid')->will(self::returnValue($uriBuilder));
+        $uriBuilder->expects(self::any())->method('uriFor');
+
+        $this->inject($this->subject, 'uriBuilder', $uriBuilder);
+
+        $this->subject->expects(self::any())->method('redirectToUri');
     }
 
     protected function tearDown()
@@ -38,7 +71,8 @@ class ContextControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->inject($this->subject, 'contextRepository', $contextRepository);
 
         $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);
-        $view->expects(self::once())->method('assign')->with('contexts', $allContexts);
+        $view->expects(self::at(0))->method('assign')->withConsecutive(['contexts', $allContexts]);
+        $view->expects(self::at(1))->method('assign')->withConsecutive(['langKey', $this->langKey]);
         $this->inject($this->subject, 'view', $view);
 
         $this->subject->listAction();
@@ -53,7 +87,9 @@ class ContextControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
         $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);
         $this->inject($this->subject, 'view', $view);
-        $view->expects(self::once())->method('assign')->with('context', $context);
+//        $view->expects(self::once())->method('assign')->with('context', $context);
+        $view->expects(self::at(0))->method('assign')->withConsecutive(['context', $context]);
+        $view->expects(self::at(1))->method('assign')->withConsecutive(['langKey', $this->langKey]);
 
         $this->subject->showAction($context);
     }

@@ -352,11 +352,17 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
     private function getLanguageId(){
 
+        $id = 0;
+
         $settings = $this->configurationManager->getConfiguration(
             \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
         );
 
-        return $settings['config.']['sys_language_uid'];
+        if(isset($settings['config.']['sys_language_uid']) && ($settings['config.']['sys_language_uid'] !== null)){
+            $id = $settings['config.']['sys_language_uid'];
+        }
+
+        return $id;
     }
 
     /**
