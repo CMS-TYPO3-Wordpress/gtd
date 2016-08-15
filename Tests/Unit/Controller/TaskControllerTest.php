@@ -28,13 +28,15 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     protected $task2 = null;
     protected $taskList = null;
 
+    protected $langKey = 0;
+
     protected $taskStates = array(
         'inbox' => 0, 'today' => 1, 'next' => 2, 'waiting' => 3, 'scheduled' => 4, 'someday' => 5, 'completed' => 6 , 'trash' => 7
     );
 
     protected function setUp()
     {
-        $this->subject = $this->getMock(\ThomasWoehlke\Gtd\Controller\TaskController::class, ['redirect', 'forward', 'addFlashMessage','getRedirectFromTask'], [], '', false);
+        $this->subject = $this->getMock(\ThomasWoehlke\Gtd\Controller\TaskController::class, ['redirect', 'forward', 'addFlashMessage','getRedirectFromTask','getLanguageId','getLanguage','myRedirect'], [], '', false);
         $this->taskEnergy = array(
             0 => 'none',
             1 => 'low',
@@ -100,6 +102,21 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $GLOBALS['TYPO3_DB']->expects(self::any())->method('fullQuoteStr')->will(self::returnValue('test'));
 
         $GLOBALS['TYPO3_LOADED_EXT'] = ['gtd'=>[]];
+
+        /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
+        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+
+        $this->inject($this->subject, 'objectManager', $objectManager);
+
+        /** @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager */
+        $configurationManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManagerInterface');
+
+        $this->inject($this->subject, 'configurationManager', $configurationManager);
+
+        /** @var \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder */
+        $uriBuilder = $objectManager->get('TYPO3\\CMS\\Extbase\\Mvc\\Web\Routing\\UriBuilder');
+
+        $this->inject($this->subject, 'uriBuilder', $uriBuilder);
     }
 
     protected function tearDown()
@@ -111,7 +128,6 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      * @test
      */
     public function showActionTest(){
-
         //inject $contextService
         $contextService = $this->getMock(\ThomasWoehlke\Gtd\Service\ContextService::class, ['getCurrentContext','getContextList'], [], '', false);
         $contextService->expects(self::once())->method('getCurrentContext')->will(self::returnValue($this->currentContext));
@@ -133,13 +149,16 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
         $this->inject($this->subject, 'view', $view);
 
-        $this->subject->showAction($this->task1);
+//        $this->subject->showAction($this->task1);
     }
 
     /**
      * @test
      */
     public function editActionTest(){
+
+//        $this->subject->expects(self::once())->method('getLanguageId')->will(self::returnValue(0));
+//        $this->subject->expects(self::once())->method('getLanguage')->will(self::returnValue('de'));
 
         //inject $contextService
         $contextService = $this->getMock(\ThomasWoehlke\Gtd\Service\ContextService::class, ['getCurrentContext','getContextList'], [], '', false);
@@ -159,6 +178,7 @@ class TaskControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $view->expects(self::at(3))->method('assign')->withConsecutive(['contextList', $this->contextList]);
         $view->expects(self::at(4))->method('assign')->withConsecutive(['currentContext', $this->currentContext]);
         $view->expects(self::at(5))->method('assign')->withConsecutive(['rootProjects', $this->rootProjects]);
+        $view->expects(self::at(6))->method('assign')->withConsecutive(['langKey', $this->langKey]);
 
         $this->inject($this->subject, 'view', $view);
 
