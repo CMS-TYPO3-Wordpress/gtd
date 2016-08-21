@@ -114,7 +114,7 @@ page.jsInline.999.value (
               var draggableType = ""+ui.draggable.attr("id").split("_")[0];
               var rootUrl = $(location).attr('pathname');
               if(draggableType == "dataDetail") {
-                  rootUrl = rootUrl + "?tx_gtd_frontendgtd[action]=moveTaskOrder";
+                  rootUrl = rootUrl + "?L="+langId+"&tx_gtd_frontendgtd[action]=moveTaskOrder";
               } else if(draggableType == "dataDetailProject") {
                   rootUrl = rootUrl +"?L="+langId+"&tx_gtd_frontendgtd[action]=moveTaskOrderInsideProject";
               }
