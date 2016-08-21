@@ -99,7 +99,8 @@ class UserAccountController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
             \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
         );
 
-        if(isset($settings['config.']['sys_language_uid']) && ($settings['config.']['sys_language_uid'] !== null)){
+        if(isset($settings['config.']['sys_language_uid']) &&
+            ($settings['config.']['sys_language_uid'] !== null)){
             $id = $settings['config.']['sys_language_uid'];
         }
 
@@ -111,7 +112,8 @@ class UserAccountController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      * @param array $controllerArguments
      * @param string $controllerName
      */
-    private function myRedirect($actionName='inbox',$controllerArguments=array(),$controllerName = 'UserAccount'){
+    private function myRedirect(
+        $actionName='inbox',$controllerArguments=array(),$controllerName = 'UserAccount'){
         $langId=$this->getLanguageId();
         $pid = $this->uriBuilder->getTargetPageUid();
         $this->uriBuilder->reset()->setArguments(array('L' => $langId))->setTargetPageUid($pid);

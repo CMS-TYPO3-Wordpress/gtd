@@ -97,7 +97,8 @@ class UserConfigController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContr
         $persistentUserConfig->setDefaultContext($ctx);
         $this->userConfigRepository->update($persistentUserConfig);
         $this->contextService->setCurrentContext($ctx);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.userconfig.updated', $this->extName, null);
+        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+            'tx_gtd_flash.userconfig.updated', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\FlashMessage::OK);
         $this->myRedirect('show');
     }
@@ -122,7 +123,8 @@ class UserConfigController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContr
             \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
         );
 
-        if(isset($settings['config.']['sys_language_uid']) && ($settings['config.']['sys_language_uid'] !== null)){
+        if(isset($settings['config.']['sys_language_uid']) &&
+            ($settings['config.']['sys_language_uid'] !== null)){
             $id = $settings['config.']['sys_language_uid'];
         }
 
@@ -134,7 +136,8 @@ class UserConfigController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContr
      * @param array $controllerArguments
      * @param string $controllerName
      */
-    private function myRedirect($actionName='show',$controllerArguments=array(),$controllerName = 'UserConfig'){
+    private function myRedirect(
+        $actionName='show',$controllerArguments=array(),$controllerName = 'UserConfig'){
         $langId=$this->getLanguageId();
         $pid = $this->uriBuilder->getTargetPageUid();
         $this->uriBuilder->reset()->setArguments(array('L' => $langId))->setTargetPageUid($pid);

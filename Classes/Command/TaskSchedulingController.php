@@ -34,18 +34,21 @@ class TaskSchedulingController extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
     public function execute(){
 
         /** @var $logger \TYPO3\CMS\Core\Log\Logger */
-        $logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
+        $logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+            'TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
 
         $logger->info('execute Start');
 
         /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
-        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+            'TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
 
         /** @var \ThomasWoehlke\Gtd\Domain\Repository\TaskRepository $taskRepository */
         $taskRepository = $objectManager->get('ThomasWoehlke\\Gtd\\Domain\\Repository\\TaskRepository');
 
         /** @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager */
-        $configurationManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManagerInterface');
+        $configurationManager = $objectManager->get(
+            'TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManagerInterface');
 
         $settings = $configurationManager->getConfiguration(
             \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
@@ -59,7 +62,8 @@ class TaskSchedulingController extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
         $querySettings = $objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
 
         /** @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager */
-        $persistenceManager = $objectManager->get("TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
+        $persistenceManager = $objectManager->get(
+            "TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
 
         $querySettings->setStoragePageIds(array($storagePid));
 
@@ -72,7 +76,8 @@ class TaskSchedulingController extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
         foreach ($tasks as $task){
             $userAccount = $task->getUserAccount();
             $context = $task->getContext();
-            $maxTaskStateOrderId = $taskRepository->getMaxTaskStateOrderId($userAccount,$context,Task::$TASK_STATES['today']);
+            $maxTaskStateOrderId = $taskRepository->getMaxTaskStateOrderId(
+                $userAccount,$context,Task::$TASK_STATES['today']);
             $task->changeTaskState(Task::$TASK_STATES['today']);
             $task->setOrderIdTaskState($maxTaskStateOrderId);
             $taskRepository->update($task);

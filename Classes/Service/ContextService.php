@@ -73,9 +73,11 @@ class ContextService implements \TYPO3\CMS\Core\SingletonInterface
         $this->contextRepository->add($work);
         $this->contextRepository->add($private);
         /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
-        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
+        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+            'TYPO3\CMS\Extbase\Object\ObjectManager');
         /** @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager */
-        $persistenceManager = $objectManager->get("TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
+        $persistenceManager = $objectManager->get(
+            "TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
         $persistenceManager->persistAll();
     }
 
@@ -98,8 +100,10 @@ class ContextService implements \TYPO3\CMS\Core\SingletonInterface
                 $userConfig2->setDefaultContext($ctx);
                 $this->userConfigRepository->add($userConfig2);
                 /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
-                $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
-                $persistenceManager = $objectManager->get("TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
+                $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+                    'TYPO3\CMS\Extbase\Object\ObjectManager');
+                $persistenceManager = $objectManager->get(
+                    "TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
                 /** @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager */
                 $persistenceManager->persistAll();
                 $userConfig = $this->userConfigRepository->findByUserAccount($userObject);

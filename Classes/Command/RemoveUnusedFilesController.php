@@ -32,18 +32,21 @@ class RemoveUnusedFilesController extends \TYPO3\CMS\Scheduler\Task\AbstractTask
     public function execute() {
 
         /** @var $logger \TYPO3\CMS\Core\Log\Logger */
-        $logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
+        $logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+            'TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
 
         $logger->info('execute Start');
 
         /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
-        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
+        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+            'TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
 
         /** @var \ThomasWoehlke\Gtd\Domain\Repository\TaskRepository $taskRepository */
         $taskRepository = $objectManager->get('ThomasWoehlke\\Gtd\\Domain\\Repository\\TaskRepository');
 
         /** @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager */
-        $configurationManager = $objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManagerInterface');
+        $configurationManager = $objectManager->get(
+            'TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManagerInterface');
 
         $settings = $configurationManager->getConfiguration(
             \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
@@ -54,7 +57,8 @@ class RemoveUnusedFilesController extends \TYPO3\CMS\Scheduler\Task\AbstractTask
         $logger->info('storagePid: '.$storagePid);
 
         /** @var \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings $querySettings */
-        $querySettings = $objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+        $querySettings = $objectManager->get(
+            'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
 
         $querySettings->setStoragePageIds(array($storagePid));
 
