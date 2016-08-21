@@ -15,7 +15,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 <f:section name="main">
 <h1>Single View for Context</h1>
 
-<f:flashMessages />
+<f:flashMessages renderMode="div" />
 <f:render partial="Context/Properties" arguments="{context:context}" />
 <f:link.action controller="UserConfig" action="show">Back to list</f:link.action><br />
 </f:section>

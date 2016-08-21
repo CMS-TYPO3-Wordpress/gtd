@@ -5,7 +5,7 @@
 <h1><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> <f:link.action action="edit" arguments="{project:project}">{project.name}</f:link.action></h1>
 <h2><small>{project.description}</small></h2>
 
-<f:flashMessages />
+<f:flashMessages renderMode="div" />
 <!-- f:render partial="Project/Properties" arguments="{project:project}" / -->
 <f:link.action action="new" arguments="{parentProject:project}"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> <f:translate key="tx_gtd_project_show.new_child" /></f:link.action>
 <f:if condition="{deleteable}">

@@ -117,9 +117,9 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $newContext->setUserAccount($userObject);
         $this->contextRepository->add($newContext);
-        //$this->addFlashMessage('The object was created.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
+        //$this->addFlashMessage('The object was created.', '', \TYPO3\CMS\Core\Messaging\FlashMessage::OK);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.context.created', $this->extName, null);
-        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
+        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\FlashMessage::OK);
         $this->myRedirect('show',array(),'UserConfig');
     }
 
@@ -149,9 +149,9 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     public function updateAction(\ThomasWoehlke\Gtd\Domain\Model\Context $ctx)
     {
         $this->contextRepository->update($ctx);
-        //$this->addFlashMessage('The object was updated.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
+        //$this->addFlashMessage('The object was updated.', '', \TYPO3\CMS\Core\Messaging\FlashMessage::OK);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.context.updated', $this->extName, null);
-        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
+        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\FlashMessage::OK);
         $this->myRedirect('show',array(),'UserConfig');
     }
 
@@ -164,9 +164,9 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     public function deleteAction(\ThomasWoehlke\Gtd\Domain\Model\Context $context)
     {
         $this->contextRepository->remove($context);
-        //$this->addFlashMessage('The object was deleted.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+        //$this->addFlashMessage('The object was deleted.', '', \TYPO3\CMS\Core\Messaging\FlashMessage::WARNING);
         $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.context.deleted', $this->extName, null);
-        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\FlashMessage::WARNING);
         $this->myRedirect('show',array(),'UserConfig');
     }
 

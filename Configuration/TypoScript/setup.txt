@@ -30,14 +30,6 @@ plugin.tx_gtd._CSS_DEFAULT_STYLE (
         border: 1px #FF0000 solid;
     }
 
-    #tx-gtd .typo3-messages .message-error {
-        color:red;
-    }
-
-    #tx-gtd .typo3-messages .message-ok {
-        color:green;
-    }
-
     #tx-gtd .nav > li > a {
         padding: 5px 10px !important;
     }
@@ -45,6 +37,33 @@ plugin.tx_gtd._CSS_DEFAULT_STYLE (
     #tx-gtd hr {
       margin-top: 10px !important;
       margin-bottom: 10px !important;
+    }
+
+    .typo3-messages div.typo3-message {
+      border: 1px solid rgba(0, 0, 0, 0);
+      border-radius: 4px;
+      margin-bottom: 20px;
+      padding: 15px;
+    }
+    .typo3-messages div.message-ok {
+        background-color: #DFF0D8;
+        border-color: #D6E9C6;
+        color: #3C763D;
+    }
+    .typo3-messages div.message-information {
+        background-color: #D9EDF7;
+        border-color: #BCE8F1;
+        color: #31708F;
+    }
+    .typo3-messages div.message-warning {
+        background-color: #FCF8E3;
+        border-color: #FAEBCC;
+        color: #8A6D3B;
+    }
+    .typo3-messages div.message-error {
+        background-color: #F2DEDE;
+        border-color: #EBCCD1;
+        color: #A94442;
     }
 )
 

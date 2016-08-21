@@ -3,7 +3,7 @@
 
 <f:section name="main">
 <h2><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> <f:translate key="tx_gtd_template_user_config.show" /> <small>{thisUser.name} ({thisUser.email})</small></h2>
-<f:flashMessages />
+<f:flashMessages renderMode="div" />
 <f:form action="update" name="userConfig" object="{userConfig}" >
     <div class="form-group">
         <label for="defaultContext"><f:translate key="tx_gtd_template_user_config.set_default_context" /></label>

@@ -15,7 +15,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 <f:section name="main">
 <h1>Single View for Task</h1>
 
-<f:flashMessages />
+<f:flashMessages renderMode="div" />
 <f:render partial="Task/Properties" arguments="{task:task, taskEnergy:taskEnergy, taskTime:taskTime}" />
 <f:link.action action="list">Back to list</f:link.action><br />
 </f:section>
