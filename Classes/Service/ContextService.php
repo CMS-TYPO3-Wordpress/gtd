@@ -89,23 +89,11 @@ class ContextService implements \TYPO3\CMS\Core\SingletonInterface
         $sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', 'tx_gtd_fesessiondata');
         $contextUid = $sessionData['contextUid'];
         if($contextUid == null){
-            $contextList = $this->getContextList();
             /** @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userObject */
             $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
             $userConfig = $this->userConfigRepository->findByUserAccount($userObject);
             if($userConfig == null){
-                $userConfig2 = new UserConfig();
-                $userConfig2->setUserAccount($userObject);
-                $ctx = $contextList->getFirst();
-                $userConfig2->setDefaultContext($ctx);
-                $this->userConfigRepository->add($userConfig2);
-                /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
-                $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-                    'TYPO3\CMS\Extbase\Object\ObjectManager');
-                $persistenceManager = $objectManager->get(
-                    "TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
-                /** @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager */
-                $persistenceManager->persistAll();
+                $this->createUserConfig($userObject);
                 $userConfig = $this->userConfigRepository->findByUserAccount($userObject);
             }
             $defaultContext = $userConfig->getDefaultContext();
@@ -114,7 +102,23 @@ class ContextService implements \TYPO3\CMS\Core\SingletonInterface
             $GLOBALS['TSFE']->fe_user->storeSessionData();
             return $defaultContext;
         } else {
-            return $this->contextRepository->findByUid($contextUid);
+            /** @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userObject */
+            $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
+            /** @var \ThomasWoehlke\Gtd\Domain\Model\Context $activeContext */
+            $activeContext = $this->contextRepository->findByUid($contextUid);
+            if($activeContext->getUserAccount()->getUid() == $userObject->getUid()){
+                return $activeContext;
+            } else {
+                /** @var \ThomasWoehlke\Gtd\Domain\Model\UserConfig $userConfig */
+                $userConfig = $this->userConfigRepository->findByUserAccount($userObject);
+                if($userConfig == null){
+                    $this->createUserConfig($userObject);
+                    $userConfig = $this->userConfigRepository->findByUserAccount($userObject);
+                }
+                $activeContext = $userConfig->getDefaultContext();
+                $this->setCurrentContext($activeContext);
+                return $activeContext;
+            }
         }
     }
 
@@ -127,6 +131,26 @@ class ContextService implements \TYPO3\CMS\Core\SingletonInterface
         $sessionData['contextUid'] = $context->getUid();
         $GLOBALS['TSFE']->fe_user->setKey('ses', 'tx_gtd_fesessiondata', $sessionData);
         $GLOBALS['TSFE']->fe_user->storeSessionData();
+    }
+
+    /**
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userObject
+     * @return void
+     */
+    private function createUserConfig(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userObject){
+        $userConfig2 = new UserConfig();
+        $userConfig2->setUserAccount($userObject);
+        $contextList = $this->getContextList();
+        $ctx = $contextList->getFirst();
+        $userConfig2->setDefaultContext($ctx);
+        $this->userConfigRepository->add($userConfig2);
+        /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
+        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+            'TYPO3\CMS\Extbase\Object\ObjectManager');
+        $persistenceManager = $objectManager->get(
+            "TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
+        /** @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager */
+        $persistenceManager->persistAll();
     }
 
 }
