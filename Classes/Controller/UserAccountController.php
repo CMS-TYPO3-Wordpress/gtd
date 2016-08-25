@@ -65,7 +65,7 @@ class UserAccountController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $userAccount2messages = array();
         foreach ($userAccounts as $userAccount){
             if($userAccount->getUid() != $userObject->getUid()){
-                $nrMessages = $this->userMessageRepository->getNewMessagesFor($userAccount);
+                $nrMessages = $this->userMessageRepository->getNewMessagesFor($userAccount,$userObject);
                 $userAccount2messages[$userAccount->getUid()]=$nrMessages;
             }
         }

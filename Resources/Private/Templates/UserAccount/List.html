@@ -30,7 +30,8 @@ Otherwise your changes will be overwritten the next time you save the extension 
 		<tr>
 			<td>
 				<f:if condition="{thisUser.uid} != {userAccount.uid}">
-					<f:link.action controller="UserMessage" action="list" arguments="{thisUser : thisUser, otherUser : userAccount}">
+					<f:link.action controller="UserMessage" action="list"
+								   arguments="{thisUser : thisUser, otherUser : userAccount}">
 					<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
 					</f:link.action>
 					<f:for each="{userAccount2messages}" as="messages" key="uid">
@@ -48,7 +49,10 @@ Otherwise your changes will be overwritten the next time you save the extension 
 						{userAccount.username}
 					</f:then>
 					<f:else>
-						<f:link.action controller="UserMessage" action="list" arguments="{thisUser : thisUser, otherUser : userAccount}"> {userAccount.username}</f:link.action>
+						<f:link.action controller="UserMessage" action="list"
+									   arguments="{thisUser : thisUser, otherUser : userAccount}">
+							{userAccount.username}
+						</f:link.action>
 					</f:else>
 				</f:if>
 			</td>

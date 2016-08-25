@@ -13,6 +13,9 @@ namespace ThomasWoehlke\Gtd\Controller;
  ***/
 use ThomasWoehlke\Gtd\Domain\Model\Project;
 use \ThomasWoehlke\Gtd\Domain\Model\Task;
+use \TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use \TYPO3\CMS\Core\Messaging\FlashMessage;
+use \TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class TaskController
@@ -120,10 +123,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             }
         }
         $this->taskRepository->update($persistentTask);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-            'tx_gtd_flash.task.updated', $this->extName, null);
-        $this->addFlashMessage(htmlspecialchars($task->getTitle()), $msg,
-            \TYPO3\CMS\Core\Messaging\FlashMessage::OK);
+        $msg = LocalizationUtility::translate('tx_gtd_flash.task.updated', $this->extName, null);
+        $this->addFlashMessage(htmlspecialchars($task->getTitle()), $msg, FlashMessage::OK);
         $this->getRedirectFromTask($persistentTask);
     }
 
@@ -364,8 +365,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         foreach($tasks as $task){
             $this->taskRepository->remove($task);
         }
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.task.trash_emptied', $this->extName, null);
-        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\FlashMessage::OK);
+        $msg = LocalizationUtility::translate('tx_gtd_flash.task.trash_emptied', $this->extName, null);
+        $this->addFlashMessage($msg, '', FlashMessage::OK);
         $this->myRedirect('trash');
     }
 
@@ -391,10 +392,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->projectRepository->add($newProject);
         $this->taskRepository->remove($task);
         $args = array("project" => $parentProject);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-            'tx_gtd_flash.task.task2project', $this->extName, null);
-        $this->addFlashMessage(htmlspecialchars($newProject->getName()), $msg,
-            \TYPO3\CMS\Core\Messaging\FlashMessage::OK);
+        $msg = LocalizationUtility::translate('tx_gtd_flash.task.task2project', $this->extName, null);
+        $this->addFlashMessage(htmlspecialchars($newProject->getName()), $msg, FlashMessage::OK);
         $this->myRedirect('show',$args,"Project");
     }
 
@@ -414,10 +413,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $userObject,$currentContext,Task::$TASK_STATES['completed']);
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $this->taskRepository->update($task);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-            'tx_gtd_flash.task.completed', $this->extName, null);
-        $this->addFlashMessage(htmlspecialchars($task->getTitle()), $msg,
-            \TYPO3\CMS\Core\Messaging\FlashMessage::OK);
+        $msg = LocalizationUtility::translate('tx_gtd_flash.task.completed', $this->extName, null);
+        $this->addFlashMessage(htmlspecialchars($task->getTitle()), $msg, FlashMessage::OK);
         $this->getRedirectFromTask($task);
     }
 
@@ -437,10 +434,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $userObject,$currentContext,$task->getTaskState());
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $this->taskRepository->update($task);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-            'tx_gtd_flash.task.notcompleted', $this->extName, null);
-        $this->addFlashMessage(
-            htmlspecialchars($task->getTitle()), $msg, \TYPO3\CMS\Core\Messaging\FlashMessage::OK);
+        $msg = LocalizationUtility::translate('tx_gtd_flash.task.notcompleted', $this->extName, null);
+        $this->addFlashMessage(htmlspecialchars($task->getTitle()), $msg, FlashMessage::OK);
         $this->getRedirectFromTask($task);
     }
 
@@ -454,10 +449,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     {
         $task->setFocus(true);
         $this->taskRepository->update($task);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-            'tx_gtd_flash.task.focus', $this->extName, null);
-        $this->addFlashMessage(
-            htmlspecialchars($task->getTitle()),$msg, \TYPO3\CMS\Core\Messaging\FlashMessage::OK);
+        $msg = LocalizationUtility::translate('tx_gtd_flash.task.focus', $this->extName, null);
+        $this->addFlashMessage(htmlspecialchars($task->getTitle()),$msg, FlashMessage::OK);
         $this->getRedirectFromTask($task);
     }
 
@@ -471,10 +464,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     {
         $task->setFocus(false);
         $this->taskRepository->update($task);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-            'tx_gtd_flash.task.notfocus', $this->extName, null);
-        $this->addFlashMessage(
-            htmlspecialchars($task->getTitle()),$msg, \TYPO3\CMS\Core\Messaging\FlashMessage::OK);
+        $msg = LocalizationUtility::translate('tx_gtd_flash.task.notfocus', $this->extName, null);
+        $this->addFlashMessage(htmlspecialchars($task->getTitle()),$msg, FlashMessage::OK);
         $this->getRedirectFromTask($task);
     }
 
@@ -574,10 +565,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                     $this->request->getArgument('file')));
             }
         }
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-            'tx_gtd_flash.task.new', $this->extName, null);
-        $this->addFlashMessage(
-            htmlspecialchars($newTask->getTitle()),$msg, \TYPO3\CMS\Core\Messaging\FlashMessage::OK);
+        $msg = LocalizationUtility::translate('tx_gtd_flash.task.new', $this->extName, null);
+        $this->addFlashMessage(htmlspecialchars($newTask->getTitle()),$msg, FlashMessage::OK);
         if($newTask->getDueDate() != NULL){
             $newTask->setTaskState(Task::$TASK_STATES['scheduled']);
             $this->taskRepository->add($newTask);
@@ -614,10 +603,9 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $task->changeTaskState(Task::$TASK_STATES['inbox']);
         $this->taskRepository->update($task);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-            'tx_gtd_flash.task.moved_inbox', $this->extName, null);
+        $msg = LocalizationUtility::translate('tx_gtd_flash.task.moved_inbox', $this->extName, null);
         $this->addFlashMessage(
-            htmlspecialchars($task->getTitle()), $msg, \TYPO3\CMS\Core\Messaging\FlashMessage::OK);
+            htmlspecialchars($task->getTitle()), $msg, FlashMessage::OK);
         $this->getRedirectFromTask($task);
     }
 
@@ -636,10 +624,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $task->changeTaskState(Task::$TASK_STATES['today']);
         $this->taskRepository->update($task);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-            'tx_gtd_flash.task.moved_today', $this->extName, null);
-        $this->addFlashMessage(
-            htmlspecialchars($task->getTitle()), $msg, \TYPO3\CMS\Core\Messaging\FlashMessage::OK);
+        $msg = LocalizationUtility::translate('tx_gtd_flash.task.moved_today', $this->extName, null);
+        $this->addFlashMessage(htmlspecialchars($task->getTitle()), $msg, FlashMessage::OK);
         $this->getRedirectFromTask($task);
     }
 
@@ -653,14 +639,14 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         /** @var $userObject \TYPO3\CMS\Extbase\Domain\Model\FrontendUser */
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $currentContext = $this->contextService->getCurrentContext();
-        $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId($userObject,$currentContext,Task::$TASK_STATES['next']);
+        $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId(
+            $userObject,$currentContext, Task::$TASK_STATES['next']
+        );
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $task->changeTaskState(Task::$TASK_STATES['next']);
         $this->taskRepository->update($task);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-            'tx_gtd_flash.task.moved_next', $this->extName, null);
-        $this->addFlashMessage(
-            htmlspecialchars($task->getTitle()),$msg, \TYPO3\CMS\Core\Messaging\FlashMessage::OK);
+        $msg = LocalizationUtility::translate('tx_gtd_flash.task.moved_next', $this->extName, null);
+        $this->addFlashMessage(htmlspecialchars($task->getTitle()),$msg, FlashMessage::OK);
         $this->getRedirectFromTask($task);
     }
 
@@ -679,10 +665,9 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $task->changeTaskState(Task::$TASK_STATES['waiting']);
         $this->taskRepository->update($task);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-            'tx_gtd_flash.task.moved_waiting', $this->extName, null);
+        $msg = LocalizationUtility::translate('tx_gtd_flash.task.moved_waiting', $this->extName, null);
         $this->addFlashMessage(
-            htmlspecialchars($task->getTitle()), $msg, \TYPO3\CMS\Core\Messaging\FlashMessage::OK);
+            htmlspecialchars($task->getTitle()), $msg, FlashMessage::OK);
         $this->getRedirectFromTask($task);
     }
 
@@ -701,10 +686,9 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $task->changeTaskState(Task::$TASK_STATES['someday']);
         $this->taskRepository->update($task);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-            'tx_gtd_flash.task.moved_someday', $this->extName, null);
+        $msg = LocalizationUtility::translate('tx_gtd_flash.task.moved_someday', $this->extName, null);
         $this->addFlashMessage(
-            htmlspecialchars($task->getTitle()), $msg, \TYPO3\CMS\Core\Messaging\FlashMessage::OK);
+            htmlspecialchars($task->getTitle()), $msg, FlashMessage::OK);
         $this->getRedirectFromTask($task);
     }
 
@@ -723,10 +707,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $task->changeTaskState(Task::$TASK_STATES['completed']);
         $this->taskRepository->update($task);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-            'tx_gtd_flash.task.moved_completed', $this->extName, null);
-        $this->addFlashMessage(
-            htmlspecialchars($task->getTitle()), $msg, \TYPO3\CMS\Core\Messaging\FlashMessage::OK);
+        $msg = LocalizationUtility::translate('tx_gtd_flash.task.moved_completed', $this->extName, null);
+        $this->addFlashMessage(htmlspecialchars($task->getTitle()), $msg, FlashMessage::OK);
         $this->getRedirectFromTask($task);
     }
 
@@ -745,10 +727,9 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $task->setOrderIdTaskState($maxTaskStateOrderId);
         $task->changeTaskState(Task::$TASK_STATES['trash']);
         $this->taskRepository->update($task);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-            'tx_gtd_flash.task.moved_trash', $this->extName, null);
+        $msg = LocalizationUtility::translate('tx_gtd_flash.task.moved_trash', $this->extName, null);
         $this->addFlashMessage(
-            htmlspecialchars($task->getTitle()), $msg, \TYPO3\CMS\Core\Messaging\FlashMessage::OK);
+            htmlspecialchars($task->getTitle()), $msg, FlashMessage::OK);
         $this->getRedirectFromTask($task);
     }
 
@@ -771,10 +752,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $this->taskRepository->update($task);
             $maxTaskStateOrderId++;
         }
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-            'tx_gtd_flash.task.moved_completed2trash', $this->extName, null);
-        $this->addFlashMessage(
-            htmlspecialchars($task->getTitle()), $msg, \TYPO3\CMS\Core\Messaging\FlashMessage::OK);
+        $msg = LocalizationUtility::translate('tx_gtd_flash.task.moved_completed2trash', $this->extName, null);
+        $this->addFlashMessage(htmlspecialchars($task->getTitle()), $msg, FlashMessage::OK);
         $this->myRedirect('trash');
     }
 
@@ -812,10 +791,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $srcTask->setOrderIdTaskState($destinationTaskOrderId+1);
             $this->taskRepository->update($srcTask);
         }
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-            'tx_gtd_flash.task.ordering', $this->extName, null);
-        $this->addFlashMessage(
-            htmlspecialchars($srcTask->getTitle()), $msg, \TYPO3\CMS\Core\Messaging\FlashMessage::OK);
+        $msg = LocalizationUtility::translate('tx_gtd_flash.task.ordering', $this->extName, null);
+        $this->addFlashMessage(htmlspecialchars($srcTask->getTitle()), $msg, FlashMessage::OK);
         $this->getRedirectFromTask($srcTask);
     }
 
@@ -834,7 +811,9 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $project = $srcTask->getProject();
         $destinationProjectOrderId = $targetTask->getOrderIdProject();
         if($srcTask->getOrderIdProject()<$targetTask->getOrderIdProject()){
-            $tasks = $this->taskRepository->getTasksToReorderByOrderIdProject($userObject, $currentContext, $srcTask, $targetTask, $project);
+            $tasks = $this->taskRepository->getTasksToReorderByOrderIdProject(
+                $userObject, $currentContext, $srcTask, $targetTask, $project
+            );
             foreach ($tasks as $task){
                 $task->setOrderIdProject($task->getOrderIdProject()-1);
                 $this->taskRepository->update($task);
@@ -844,7 +823,9 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $srcTask->setOrderIdProject($destinationProjectOrderId);
             $this->taskRepository->update($srcTask);
         } else {
-            $tasks = $this->taskRepository->getTasksToReorderByOrderIdProject($userObject, $currentContext, $targetTask, $srcTask, $project);
+            $tasks = $this->taskRepository->getTasksToReorderByOrderIdProject(
+                $userObject, $currentContext, $targetTask, $srcTask, $project
+            );
             foreach ($tasks as $task){
                 $task->setOrderIdProject($task->getOrderIdProject()+1);
                 $this->taskRepository->update($task);
@@ -853,10 +834,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $this->taskRepository->update($srcTask);
         }
         $args = array('project'=>$project);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-            'tx_gtd_flash.task.ordering', $this->extName, null);
-        $this->addFlashMessage(
-            htmlspecialchars($srcTask->getTitle()), $msg, \TYPO3\CMS\Core\Messaging\FlashMessage::OK);
+        $msg = LocalizationUtility::translate('tx_gtd_flash.task.ordering', $this->extName, null);
+        $this->addFlashMessage(htmlspecialchars($srcTask->getTitle()), $msg, FlashMessage::OK);
         $this->myRedirect('show',$args,'Project');
     }
 
@@ -867,34 +846,34 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function uploadFilesAction(){
         /** @var $logger \TYPO3\CMS\Core\Log\Logger */
-        $logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
+        $logger = GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
         $logger->debug($_FILES['upl']);
-        $allowed = array('png', 'jpg', 'gif','zip','doc', 'xls', 'csv', 'docx', 'xlsx', 'psd', 'rar', 'indd', 'ind', 'pdf');
+        $allowed = array(
+            'png', 'jpg', 'gif','zip','doc', 'xls', 'csv', 'docx', 'xlsx', 'psd', 'rar', 'indd', 'ind', 'pdf'
+        );
         if(isset($_FILES['upl']) && $_FILES['upl']['error'] == UPLOAD_ERR_OK){
             $extension = pathinfo($_FILES['upl']['name'], PATHINFO_EXTENSION);
             if(!in_array(strtolower($extension), $allowed)){
                 echo '{"status":"error"}';
                 $msg = "File Type not allowed";
-                $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
+                $this->addFlashMessage($msg, '', FlashMessage::ERROR);
                 exit;
             }
             $filePath = PATH_site . 'uploads/tx_gtd/';
             if(!file_exists($filePath)){
-                \TYPO3\CMS\Core\Utility\GeneralUtility::mkdir($filePath);
+                GeneralUtility::mkdir($filePath);
             }
             $originalName = $_FILES['upl']['name'];
             $targetName = $this->getGoodFilemane($originalName);
             if(file_exists(($filePath . $_FILES['upl']['name']))){
                 $timestamp = time();
-                if(\TYPO3\CMS\Core\Utility\GeneralUtility::upload_copy_move(
-                    $_FILES['upl']['tmp_name'], $filePath.$timestamp.'_'.$targetName)){
+                if(GeneralUtility::upload_copy_move($_FILES['upl']['tmp_name'], $filePath.$timestamp.'_'.$targetName)){
                     echo 'uploads/tx_gtd/'.$timestamp.'_'.$targetName;
                     $logger->debug('uploads/tx_gtd/'.$timestamp.'_'.$_FILES['upl']['name']);
                     exit;
                 }
             } else {
-                if(\TYPO3\CMS\Core\Utility\GeneralUtility::upload_copy_move(
-                    $_FILES['upl']['tmp_name'], $filePath.$targetName)){
+                if(GeneralUtility::upload_copy_move($_FILES['upl']['tmp_name'], $filePath.$targetName)){
                     echo 'uploads/tx_gtd/'.$targetName;
                     $logger->debug('uploads/tx_gtd/'.$_FILES['upl']['name']);
                     exit;
@@ -904,17 +883,36 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             if(isset($_FILES['upl'])){
                 $msg = 'Failed Upload: '.$_FILES['upl']['name'].' ';
                 switch ($_FILES['upl']['error']){
-                    case UPLOAD_ERR_INI_SIZE: $msg .= 'The uploaded file exceeds the upload_max_filesize directive in php.ini.'; break;
-                    case UPLOAD_ERR_FORM_SIZE: $msg .= 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.';  break;
-                    case UPLOAD_ERR_PARTIAL: $msg .= 'The uploaded file was only partially uploaded.'; break;
-                    case UPLOAD_ERR_NO_FILE: $msg .= 'No file was uploaded.'; break;
-                    case UPLOAD_ERR_NO_TMP_DIR: $msg .= 'Missing a temporary folder.'; break;
-                    case UPLOAD_ERR_CANT_WRITE: $msg .= 'Failed to write file to disk.'; break;
-                    case UPLOAD_ERR_EXTENSION: $msg .= 'A PHP extension stopped the file upload. PHP does not provide a way to ascertain which extension caused the file upload to stop; examining the list of loaded extensions with phpinfo() may help.'; break;
-                    default: $msg .= 'Errorcode: '.$_FILES['upl']['error']; break;
+                    case UPLOAD_ERR_INI_SIZE:
+                        $msg .= 'The uploaded file exceeds the upload_max_filesize directive in php.ini.';
+                        break;
+                    case UPLOAD_ERR_FORM_SIZE:
+                        $msg .= 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified'
+                        .' in the HTML form.';
+                        break;
+                    case UPLOAD_ERR_PARTIAL:
+                        $msg .= 'The uploaded file was only partially uploaded.';
+                        break;
+                    case UPLOAD_ERR_NO_FILE:
+                        $msg .= 'No file was uploaded.';
+                        break;
+                    case UPLOAD_ERR_NO_TMP_DIR:
+                        $msg .= 'Missing a temporary folder.';
+                        break;
+                    case UPLOAD_ERR_CANT_WRITE:
+                        $msg .= 'Failed to write file to disk.';
+                        break;
+                    case UPLOAD_ERR_EXTENSION:
+                        $msg .= 'A PHP extension stopped the file upload.'
+                        .'PHP does not provide a way to ascertain which extension caused the file upload to stop;'
+                        .'examining the list of loaded extensions with phpinfo() may help.';
+                        break;
+                    default:
+                        $msg .= 'Errorcode: '.$_FILES['upl']['error'];
+                        break;
                 }
                 $logger->error($msg);
-                $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
+                $this->addFlashMessage($msg, '', FlashMessage::ERROR);
             } else {
                 $logger->error('NOT isset($_FILES[\'upl\'])');
             }
@@ -937,7 +935,8 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $userAccount = $task->getUserAccount();
             $context = $task->getContext();
             $maxTaskStateOrderId = $this->taskRepository->getMaxTaskStateOrderId(
-                $userAccount,$context,Task::$TASK_STATES['today']);
+                $userAccount,$context,Task::$TASK_STATES['today']
+            );
             $task->changeTaskState(Task::$TASK_STATES['today']);
             $task->setOrderIdTaskState($maxTaskStateOrderId);
             $this->taskRepository->update($task);

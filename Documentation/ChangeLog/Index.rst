@@ -11,6 +11,13 @@
 ChangeLog
 =========
 
+0.10.1
+------
+
+Fixed Translation Issues.
+Fixed User Session Issues.
+Fixed TYPO3 6.2 Compatibility Issues.
+
 0.10.0
 ------
 

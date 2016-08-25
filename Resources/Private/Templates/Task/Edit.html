@@ -1,19 +1,11 @@
 <div xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:layout name="Default" />
 
-This template displays a EDIT form for the current domain object.
-
-If you modify this template, do not forget to change the overwrite settings
-in /Configuration/ExtensionBuilder/settings.yaml:
-  Resources:
-    Private:
-      Templates:
-        Edit.html: keep
-
-Otherwise your changes will be overwritten the next time you save the extension in the extension builder
-
 <f:section name="main">
-<h1><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;<f:translate key="tx_gtd_template_task_inbox.editTask" /></h1>
+<h1>
+    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;
+    <f:translate key="tx_gtd_template_task_inbox.editTask" />
+</h1>
 
 <f:flashMessages renderMode="div" />
 
@@ -24,16 +16,20 @@ Otherwise your changes will be overwritten the next time you save the extension 
 	<f:form.submit value="{f:translate(key:'tx_gtd_template_task_edit.save')}" class="btn btn-default"/>
     &nbsp;&nbsp;&nbsp;
     <f:link.action controller="Task" action="transformTaskIntoProject" arguments="{task:task}">
-        <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> <f:translate key="tx_gtd_template_task_edit.transform" /></f:link.action>
+        <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+        <f:translate key="tx_gtd_template_task_edit.transform" />
+    </f:link.action>
 </f:form>
 <br/><br/>
 <div class="well">
     <div id="fileupload" class="row">
         <div class="form-group">
-            <label for="upload" class="col-sm-2 control-label"><f:translate key="tx_gtd_domain_model_task.files_upload" />
+            <label for="upload" class="col-sm-2 control-label">
+                <f:translate key="tx_gtd_domain_model_task.files_upload" />
             </label>
             <div class="col-sm-8">
-                <f:form id="upload" action="uploadFiles" controller="Task" enctype="multipart/form-data" name="newTask" object="{newTask}" class="form-horizontal">
+                <f:form id="upload" action="uploadFiles" controller="Task" enctype="multipart/form-data" name="newTask"
+                        object="{newTask}" class="form-horizontal">
                     <div id="drop">
                         <f:translate key="tx_gtd_template_task_inbox.editTask.dropHere" />
                         <input id="uploadFilesInput" type="file" name="upl" multiple="multiple"

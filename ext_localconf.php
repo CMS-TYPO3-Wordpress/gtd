@@ -13,7 +13,7 @@ call_user_func(
                 'UserAccount' => 'list',
                 'UserMessage' => 'list, create',
                 'UserConfig' => 'show, update',
-                'Context' => 'switchContext, show, new, create, edit, update, delete',
+                'Context' => 'switchContext, new, create, edit, update, delete',
                 'Project' => 'list, show, new, create, edit, update, delete, moveTask, moveProject, createTestData'
             ],
             // non-cacheable actions
@@ -22,7 +22,7 @@ call_user_func(
                 'UserAccount' => 'list',
                 'UserMessage' => 'list, create',
                 'UserConfig' => 'show, update',
-                'Context' => 'switchContext, show, new, create, edit, update, delete',
+                'Context' => 'switchContext, new, create, edit, update, delete',
                 'Project' => 'list, show, new, create, edit, update, delete, moveTask, moveProject, createTestData'
             ]
         );

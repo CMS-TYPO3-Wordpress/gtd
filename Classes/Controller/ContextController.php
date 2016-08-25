@@ -12,6 +12,8 @@ namespace ThomasWoehlke\Gtd\Controller;
  *
  ***/
 
+use \TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+
 /**
  * Class ContextController
  *
@@ -69,30 +71,6 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     }
 
     /**
-     * action list
-     *
-     * @return void
-     */
-    public function listAction()
-    {
-        $contexts = $this->contextRepository->findAll();
-        $this->view->assign('contexts', $contexts);
-        $this->view->assign('langKey',$this->getLanguageId());
-    }
-
-    /**
-     * action show
-     *
-     * @param \ThomasWoehlke\Gtd\Domain\Model\Context $context
-     * @return void
-     */
-    public function showAction(\ThomasWoehlke\Gtd\Domain\Model\Context $context)
-    {
-        $this->view->assign('context', $context);
-        $this->view->assign('langKey',$this->getLanguageId());
-    }
-
-    /**
      * action new
      *
      * @return void
@@ -117,7 +95,7 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
         $newContext->setUserAccount($userObject);
         $this->contextRepository->add($newContext);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+        $msg = LocalizationUtility::translate(
             'tx_gtd_flash.context.created', $this->extName, null);
         $this->addFlashMessage(
             $msg, '', \TYPO3\CMS\Core\Messaging\FlashMessage::OK);
@@ -150,7 +128,7 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     public function updateAction(\ThomasWoehlke\Gtd\Domain\Model\Context $ctx)
     {
         $this->contextRepository->update($ctx);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.context.updated', $this->extName, null);
+        $msg = LocalizationUtility::translate('tx_gtd_flash.context.updated', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\FlashMessage::OK);
         $this->myRedirect('show',array(),'UserConfig');
     }
@@ -164,7 +142,7 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     public function deleteAction(\ThomasWoehlke\Gtd\Domain\Model\Context $context)
     {
         $this->contextRepository->remove($context);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+        $msg = LocalizationUtility::translate(
             'tx_gtd_flash.context.deleted', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\FlashMessage::WARNING);
         $this->myRedirect('show',array(),'UserConfig');

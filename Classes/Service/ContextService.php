@@ -14,6 +14,7 @@ namespace ThomasWoehlke\Gtd\Service;
 
 use ThomasWoehlke\Gtd\Domain\Model\Context;
 use ThomasWoehlke\Gtd\Domain\Model\UserConfig;
+use \TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class ContextService implements \TYPO3\CMS\Core\SingletonInterface
 {
@@ -73,19 +74,16 @@ class ContextService implements \TYPO3\CMS\Core\SingletonInterface
         $this->contextRepository->add($work);
         $this->contextRepository->add($private);
         /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
-        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-            'TYPO3\CMS\Extbase\Object\ObjectManager');
+        $objectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
         /** @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager */
-        $persistenceManager = $objectManager->get(
-            "TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
+        $persistenceManager = $objectManager->get("TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
         $persistenceManager->persistAll();
     }
 
     /**
      * @return \ThomasWoehlke\Gtd\Domain\Model\Context
      */
-    public function getCurrentContext()
-    {
+    public function getCurrentContext(){
         $sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', 'tx_gtd_fesessiondata');
         $contextUid = $sessionData['contextUid'];
         if($contextUid == null){
@@ -145,11 +143,10 @@ class ContextService implements \TYPO3\CMS\Core\SingletonInterface
         $userConfig2->setDefaultContext($ctx);
         $this->userConfigRepository->add($userConfig2);
         /** @var \TYPO3\CMS\Extbase\Object\ObjectManager $objectManager */
-        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-            'TYPO3\CMS\Extbase\Object\ObjectManager');
+        $objectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
+        /** @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager */
         $persistenceManager = $objectManager->get(
             "TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager");
-        /** @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager */
         $persistenceManager->persistAll();
     }
 

@@ -16,6 +16,7 @@ use TYPO3\CMS\Extbase\Validation\Validator\NotEmptyValidator;
 use TYPO3\CMS\Extbase\Validation\Validator\TextValidator;
 use TYPO3\CMS\Extbase\Validation\Validator\NumberRangeValidator;
 use TYPO3\CMS\Extbase\Validation\Validator\DateTimeValidator;
+use \TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Task
@@ -27,7 +28,14 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var array|int
      */
     public static $TASK_STATES = array(
-        'inbox' => 0, 'today' => 1, 'next' => 2, 'waiting' => 3, 'scheduled' => 4, 'someday' => 5, 'completed' => 6 , 'trash' => 7
+        'inbox' => 0,
+        'today' => 1,
+        'next' => 2,
+        'waiting' => 3,
+        'scheduled' => 4,
+        'someday' => 5,
+        'completed' => 6 ,
+        'trash' => 7
     );
 
     /**
@@ -451,7 +459,7 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
             $filesArray = explode(',', $this->files);
             if(is_array($filesArray)){
                 foreach($filesArray as $item){
-                    $file = pathinfo( \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('uploads/tx_gtd/'.$item) );
+                    $file = pathinfo(GeneralUtility::getFileAbsFileName('uploads/tx_gtd/'.$item));
                     if(is_file($file['dirname'] . '/' . $file['basename'])){
                         $bytes = filesize($file['dirname'] . '/' . $file['basename']);
                         if ($bytes >= 1073741824) {
@@ -471,7 +479,7 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
                     }
                 }
             } else {
-                $file = pathinfo( \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('uploads/tx_gtd/'. $this->files) );
+                $file = pathinfo(GeneralUtility::getFileAbsFileName('uploads/tx_gtd/'. $this->files));
                 $bytes = filesize($file['dirname'] . '/' . $file['basename']);
                 if ($bytes >= 1073741824){
                     $bytes = number_format($bytes / 1073741824, 2) . 'GB';

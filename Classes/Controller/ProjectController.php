@@ -3,6 +3,7 @@ namespace ThomasWoehlke\Gtd\Controller;
 
 use ThomasWoehlke\Gtd\Domain\Model\Project;
 use ThomasWoehlke\Gtd\Domain\Model\Task;
+use \TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /***
  *
@@ -108,8 +109,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     public function updateAction(\ThomasWoehlke\Gtd\Domain\Model\Project $project)
     {
         $this->projectRepository->update($project);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-            'tx_gtd_flash.project.updated', $this->extName, null);
+        $msg = LocalizationUtility::translate('tx_gtd_flash.project.updated', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\FlashMessage::OK);
         $args = array('project'=>$project);
         $this->myRedirect('show',$args);
@@ -130,8 +130,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $deleteable = true;
         }
         if($deleteable) {
-            $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-                'tx_gtd_flash.project.deleted', $this->extName, null);
+            $msg = LocalizationUtility::translate('tx_gtd_flash.project.deleted', $this->extName, null);
             $this->addFlashMessage(
                 htmlspecialchars($project->getName()), $msg,
                 \TYPO3\CMS\Core\Messaging\FlashMessage::WARNING);
@@ -172,8 +171,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $targetProject->addChild($srcProject);
             $this->projectRepository->update($targetProject);
         }
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-            'tx_gtd_flash.project.moved', $this->extName, null);
+        $msg = LocalizationUtility::translate('tx_gtd_flash.project.moved', $this->extName, null);
         $this->addFlashMessage(
             htmlspecialchars($srcProject->getName()),$msg, \TYPO3\CMS\Core\Messaging\FlashMessage::OK);
         $arguments = array("project" => $targetProject);
@@ -196,7 +194,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $srcTask->setOrderIdProject($projectOrderId);
         $this->taskRepository->update($srcTask);
         $arguments = array("project" => $targetProject);
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+        $msg = LocalizationUtility::translate(
             'tx_gtd_flash.task.moved2project', $this->extName, null);
         $this->addFlashMessage(
             htmlentities($srcTask->getTitle()), $msg, \TYPO3\CMS\Core\Messaging\FlashMessage::OK);
@@ -252,7 +250,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $parentProject->addChild($newProject);
             $this->projectRepository->update($parentProject);
         }
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+        $msg = LocalizationUtility::translate(
             'tx_gtd_flash.project.created', $this->extName, null);
         $this->addFlashMessage(
             htmlspecialchars($newProject->getName()), $msg, \TYPO3\CMS\Core\Messaging\FlashMessage::OK);
@@ -342,7 +340,7 @@ class ProjectController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->projectRepository->add($testProject1_3_1);
         $this->projectRepository->add($testProject1_3_2);
 
-        $msg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_gtd_flash.testdata.created', $this->extName, null);
+        $msg = LocalizationUtility::translate('tx_gtd_flash.testdata.created', $this->extName, null);
         $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\FlashMessage::OK);
 
         $this->myRedirect('inbox',array(),"Task");

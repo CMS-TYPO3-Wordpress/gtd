@@ -1,19 +1,11 @@
 <div xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:layout name="Default" />
 
-This template displays a NEW form for the current domain object.
-
-If you modify this template, do not forget to change the overwrite settings
-in /Configuration/ExtensionBuilder/settings.yaml:
-  Resources:
-    Private:
-      Templates:
-        New.html: keep
-
-Otherwise your changes will be overwritten the next time you save the extension in the extension builder
-
 <f:section name="main">
-<h1><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> <f:translate key="tx_gtd_template_task_inbox.newTask" /></h1>
+<h1>
+	<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+	<f:translate key="tx_gtd_template_task_inbox.newTask" />
+</h1>
 
 <f:flashMessages renderMode="div" />
 
@@ -27,10 +19,12 @@ Otherwise your changes will be overwritten the next time you save the extension 
 	<div class="well">
 		<div id="fileupload" class="row">
 			<div class="form-group">
-				<label for="upload" class="col-sm-2 control-label"><f:translate key="tx_gtd_domain_model_task.files_upload" />
+				<label for="upload" class="col-sm-2 control-label">
+					<f:translate key="tx_gtd_domain_model_task.files_upload" />
 				</label>
 				<div class="col-sm-8">
-					<f:form id="upload" action="uploadFiles" controller="Task" enctype="multipart/form-data" name="task" object="{task}" class="form-horizontal">
+					<f:form id="upload" action="uploadFiles" controller="Task" enctype="multipart/form-data" name="task"
+							object="{task}" class="form-horizontal">
 						<div id="drop">
 							<f:translate key="tx_gtd_template_task_inbox.editTask.dropHere" />
 							<input id="uploadFilesInput" type="file" name="upl" multiple="multiple"

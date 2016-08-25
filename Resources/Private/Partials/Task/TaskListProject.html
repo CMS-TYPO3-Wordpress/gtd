@@ -50,26 +50,56 @@
             <td>
                 <f:switch expression="{task.taskEnergy}">
                     <f:case value="0"></f:case>
-                    <f:case value="1"><span class="badge"><f:translate key="tx_gtd_tasklist_task_energy.low" /></span></f:case>
-                    <f:case value="2"><span class="badge"><f:translate key="tx_gtd_tasklist_task_energy.mid" /></span></f:case>
-                    <f:case value="3"><span class="badge"><f:translate key="tx_gtd_tasklist_task_energy.high" /></span></f:case>
+                    <f:case value="1">
+                        <span class="badge"><f:translate key="tx_gtd_tasklist_task_energy.low" /></span>
+                    </f:case>
+                    <f:case value="2">
+                        <span class="badge"><f:translate key="tx_gtd_tasklist_task_energy.mid" /></span>
+                    </f:case>
+                    <f:case value="3">
+                        <span class="badge"><f:translate key="tx_gtd_tasklist_task_energy.high" /></span>
+                    </f:case>
                 </f:switch>
             </td>
             <td>
                 <f:switch expression="{task.taskTime}">
                     <f:case value="0"></f:case>
-                    <f:case value="1"><span class="badge"><f:translate key="tx_gtd_tasklist_task_time.5min" /></span></f:case>
-                    <f:case value="2"><span class="badge"><f:translate key="tx_gtd_tasklist_task_time.10min" /></span></f:case>
-                    <f:case value="3"><span class="badge"><f:translate key="tx_gtd_tasklist_task_time.15min" /></span></f:case>
-                    <f:case value="4"><span class="badge"><f:translate key="tx_gtd_tasklist_task_time.30min" /></span></f:case>
-                    <f:case value="5"><span class="badge"><f:translate key="tx_gtd_tasklist_task_time.45min" /></span></f:case>
-                    <f:case value="6"><span class="badge"><f:translate key="tx_gtd_tasklist_task_time.1hour" /></span></f:case>
-                    <f:case value="7"><span class="badge"><f:translate key="tx_gtd_tasklist_task_time.2hours" /></span></f:case>
-                    <f:case value="8"><span class="badge"><f:translate key="tx_gtd_tasklist_task_time.3hours" /></span></f:case>
-                    <f:case value="9"><span class="badge"><f:translate key="tx_gtd_tasklist_task_time.4hours" /></span></f:case>
-                    <f:case value="10"><span class="badge"><f:translate key="tx_gtd_tasklist_task_time.6hours" /></span></f:case>
-                    <f:case value="11"><span class="badge"><f:translate key="tx_gtd_tasklist_task_time.8hours" /></span></f:case>
-                    <f:case value="12"><span class="badge"><f:translate key="tx_gtd_tasklist_task_time.more" /></span></f:case>
+                    <f:case value="1">
+                        <span class="badge"><f:translate key="tx_gtd_tasklist_task_time.5min" /></span>
+                    </f:case>
+                    <f:case value="2">
+                        <span class="badge"><f:translate key="tx_gtd_tasklist_task_time.10min" /></span>
+                    </f:case>
+                    <f:case value="3">
+                        <span class="badge"><f:translate key="tx_gtd_tasklist_task_time.15min" /></span>
+                    </f:case>
+                    <f:case value="4">
+                        <span class="badge"><f:translate key="tx_gtd_tasklist_task_time.30min" /></span>
+                    </f:case>
+                    <f:case value="5">
+                        <span class="badge"><f:translate key="tx_gtd_tasklist_task_time.45min" /></span>
+                    </f:case>
+                    <f:case value="6">
+                        <span class="badge"><f:translate key="tx_gtd_tasklist_task_time.1hour" /></span>
+                    </f:case>
+                    <f:case value="7">
+                        <span class="badge"><f:translate key="tx_gtd_tasklist_task_time.2hours" /></span>
+                    </f:case>
+                    <f:case value="8">
+                        <span class="badge"><f:translate key="tx_gtd_tasklist_task_time.3hours" /></span>
+                    </f:case>
+                    <f:case value="9">
+                        <span class="badge"><f:translate key="tx_gtd_tasklist_task_time.4hours" /></span>
+                    </f:case>
+                    <f:case value="10">
+                        <span class="badge"><f:translate key="tx_gtd_tasklist_task_time.6hours" /></span>
+                    </f:case>
+                    <f:case value="11">
+                        <span class="badge"><f:translate key="tx_gtd_tasklist_task_time.8hours" /></span>
+                    </f:case>
+                    <f:case value="12">
+                        <span class="badge"><f:translate key="tx_gtd_tasklist_task_time.more" /></span>
+                    </f:case>
                 </f:switch>
             </td>
             <td>{task.dueDate -> f:format.date()}</td>
@@ -81,31 +111,58 @@
             <td>
                 <f:switch expression="{task.taskState}">
                     <f:case value="0">
-                        <f:link.action controller="Task" action="inbox"><span class="glyphicon glyphicon-inbox" aria-hidden="true"></span> <f:translate key="tx_gtd_layout_default.inbox" /></f:link.action>
+                        <f:link.action controller="Task" action="inbox">
+                            <span class="glyphicon glyphicon-inbox" aria-hidden="true"></span>
+                            <f:translate key="tx_gtd_layout_default.inbox" />
+                        </f:link.action>
                     </f:case>
                     <f:case value="1">
-                        <f:link.action controller="Task" action="today"><span class="glyphicon glyphicon glyphicon-time" aria-hidden="true"></span> <f:translate key="tx_gtd_layout_default.today" /></f:link.action>
+                        <f:link.action controller="Task" action="today">
+                            <span class="glyphicon glyphicon glyphicon-time" aria-hidden="true"></span>
+                            <f:translate key="tx_gtd_layout_default.today" />
+                        </f:link.action>
                     </f:case>
                     <f:case value="2">
-                        <f:link.action controller="Task" action="next"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> <f:translate key="tx_gtd_layout_default.next" /></f:link.action>
+                        <f:link.action controller="Task" action="next">
+                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                            <f:translate key="tx_gtd_layout_default.next" />
+                        </f:link.action>
                     </f:case>
                     <f:case value="3">
-                        <f:link.action controller="Task" action="waiting"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span> <f:translate key="tx_gtd_layout_default.waiting" /></f:link.action>
+                        <f:link.action controller="Task" action="waiting">
+                            <span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span>
+                            <f:translate key="tx_gtd_layout_default.waiting" />
+                        </f:link.action>
                     </f:case>
                     <f:case value="4">
-                        <f:link.action controller="Task" action="scheduled"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> <f:translate key="tx_gtd_layout_default.scheduled" /></f:link.action>
+                        <f:link.action controller="Task" action="scheduled">
+                            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                            <f:translate key="tx_gtd_layout_default.scheduled" />
+                        </f:link.action>
                     </f:case>
                     <f:case value="5">
-                        <f:link.action controller="Task" action="someday"><span class="glyphicon glyphicon-road" aria-hidden="true"></span> <f:translate key="tx_gtd_layout_default.someday" /></f:link.action>
+                        <f:link.action controller="Task" action="someday">
+                            <span class="glyphicon glyphicon-road" aria-hidden="true"></span>
+                            <f:translate key="tx_gtd_layout_default.someday" />
+                        </f:link.action>
                     </f:case>
                     <f:case value="6">
-                        <f:link.action controller="Task" action="focus"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> <f:translate key="tx_gtd_layout_default.focus" /></f:link.action>
+                        <f:link.action controller="Task" action="focus">
+                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                            <f:translate key="tx_gtd_layout_default.focus" />
+                        </f:link.action>
                     </f:case>
                     <f:case value="7">
-                        <f:link.action controller="Task" action="completed"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> <f:translate key="tx_gtd_layout_default.completed" /></f:link.action>
+                        <f:link.action controller="Task" action="completed">
+                            <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+                            <f:translate key="tx_gtd_layout_default.completed" />
+                        </f:link.action>
                     </f:case>
                     <f:case value="8">
-                        <f:link.action controller="Task" action="trash"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> <f:translate key="tx_gtd_layout_default.trash" /></f:link.action>
+                        <f:link.action controller="Task" action="trash">
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                            <f:translate key="tx_gtd_layout_default.trash" />
+                        </f:link.action>
                     </f:case>
                 </f:switch>
             </td>

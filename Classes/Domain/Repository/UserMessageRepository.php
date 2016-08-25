@@ -50,12 +50,14 @@ class UserMessageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userAccount
      * @return int
      */
-    public function getNewMessagesFor(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userAccount)
+    public function getNewMessagesFor(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $sender,
+        \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $receiver)
     {
         $query = $this->createQuery();
         $query->matching(
             $query->logicalAnd(
-                $query->equals('sender', $userAccount),
+                $query->equals('sender', $sender),
+                $query->equals('receiver', $receiver),
                 $query->equals('readByReceiver', false)
             )
         );

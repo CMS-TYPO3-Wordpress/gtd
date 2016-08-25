@@ -42,34 +42,63 @@
                     </f:else>
                 </f:if>
             </td>
-            <td><f:link.action class="dataDetailListTitle"
-                               id="dataDetail_{task.uid}_{langKey}"
+            <td><f:link.action class="dataDetailListTitle" id="dataDetail_{task.uid}_{langKey}"
                                controller="Task" action="edit" arguments="{task : task}"> {task.title}</f:link.action>
             </td>
             <td><f:format.crop maxCharacters="40">{task.text}</f:format.crop></td>
             <td>
                 <f:switch expression="{task.taskEnergy}">
                     <f:case value="0"></f:case>
-                    <f:case value="1"><span class="badge"><f:translate key="tx_gtd_tasklist_task_energy.low" /></span></f:case>
-                    <f:case value="2"><span class="badge"><f:translate key="tx_gtd_tasklist_task_energy.mid" /></span></f:case>
-                    <f:case value="3"><span class="badge"><f:translate key="tx_gtd_tasklist_task_energy.high" /></span></f:case>
+                    <f:case value="1">
+                        <span class="badge"><f:translate key="tx_gtd_tasklist_task_energy.low" /></span>
+                    </f:case>
+                    <f:case value="2">
+                        <span class="badge"><f:translate key="tx_gtd_tasklist_task_energy.mid" /></span>
+                    </f:case>
+                    <f:case value="3">
+                        <span class="badge"><f:translate key="tx_gtd_tasklist_task_energy.high" /></span>
+                    </f:case>
                 </f:switch>
             </td>
             <td>
                 <f:switch expression="{task.taskTime}">
                     <f:case value="0"></f:case>
-                    <f:case value="1"><span class="badge"><f:translate key="tx_gtd_tasklist_task_time.5min" /></span></f:case>
-                    <f:case value="2"><span class="badge"><f:translate key="tx_gtd_tasklist_task_time.10min" /></span></f:case>
-                    <f:case value="3"><span class="badge"><f:translate key="tx_gtd_tasklist_task_time.15min" /></span></f:case>
-                    <f:case value="4"><span class="badge"><f:translate key="tx_gtd_tasklist_task_time.30min" /></span></f:case>
-                    <f:case value="5"><span class="badge"><f:translate key="tx_gtd_tasklist_task_time.45min" /></span></f:case>
-                    <f:case value="6"><span class="badge"><f:translate key="tx_gtd_tasklist_task_time.1hour" /></span></f:case>
-                    <f:case value="7"><span class="badge"><f:translate key="tx_gtd_tasklist_task_time.2hours" /></span></f:case>
-                    <f:case value="8"><span class="badge"><f:translate key="tx_gtd_tasklist_task_time.3hours" /></span></f:case>
-                    <f:case value="9"><span class="badge"><f:translate key="tx_gtd_tasklist_task_time.4hours" /></span></f:case>
-                    <f:case value="10"><span class="badge"><f:translate key="tx_gtd_tasklist_task_time.6hours" /></span></f:case>
-                    <f:case value="11"><span class="badge"><f:translate key="tx_gtd_tasklist_task_time.8hours" /></span></f:case>
-                    <f:case value="12"><span class="badge"><f:translate key="tx_gtd_tasklist_task_time.more" /></span></f:case>
+                    <f:case value="1">
+                        <span class="badge"><f:translate key="tx_gtd_tasklist_task_time.5min" /></span>
+                    </f:case>
+                    <f:case value="2">
+                        <span class="badge"><f:translate key="tx_gtd_tasklist_task_time.10min" /></span>
+                    </f:case>
+                    <f:case value="3">
+                        <span class="badge"><f:translate key="tx_gtd_tasklist_task_time.15min" /></span>
+                    </f:case>
+                    <f:case value="4">
+                        <span class="badge"><f:translate key="tx_gtd_tasklist_task_time.30min" /></span>
+                    </f:case>
+                    <f:case value="5">
+                        <span class="badge"><f:translate key="tx_gtd_tasklist_task_time.45min" /></span>
+                    </f:case>
+                    <f:case value="6">
+                        <span class="badge"><f:translate key="tx_gtd_tasklist_task_time.1hour" /></span>
+                    </f:case>
+                    <f:case value="7">
+                        <span class="badge"><f:translate key="tx_gtd_tasklist_task_time.2hours" /></span>
+                    </f:case>
+                    <f:case value="8">
+                        <span class="badge"><f:translate key="tx_gtd_tasklist_task_time.3hours" /></span>
+                    </f:case>
+                    <f:case value="9">
+                        <span class="badge"><f:translate key="tx_gtd_tasklist_task_time.4hours" /></span>
+                    </f:case>
+                    <f:case value="10">
+                        <span class="badge"><f:translate key="tx_gtd_tasklist_task_time.6hours" /></span>
+                    </f:case>
+                    <f:case value="11">
+                        <span class="badge"><f:translate key="tx_gtd_tasklist_task_time.8hours" /></span>
+                    </f:case>
+                    <f:case value="12">
+                        <span class="badge"><f:translate key="tx_gtd_tasklist_task_time.more" /></span>
+                    </f:case>
                 </f:switch>
             </td>
             <td><f:format.date date="{task.dueDate}" format="{f:translate(key: 'tx_gtd.date_format')}" /></td>
@@ -80,7 +109,9 @@
             </td>
             <td>
                 <f:if condition="{task.project}">
-                    <f:link.action controller="Project" action="show" arguments="{project:task.project}">{task.project.name}</f:link.action>
+                    <f:link.action controller="Project" action="show" arguments="{project:task.project}">
+                        {task.project.name}
+                    </f:link.action>
                 </f:if>
             </td>
         </tr>
