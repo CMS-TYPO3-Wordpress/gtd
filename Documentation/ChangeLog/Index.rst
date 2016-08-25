@@ -16,6 +16,7 @@ ChangeLog
 
 Fixed Translation Issues.
 Fixed User Session Issues.
+Fixed User Messages Issues.
 Fixed TYPO3 6.2 Compatibility Issues.
 
 0.10.0
