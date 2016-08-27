@@ -65,6 +65,10 @@ plugin.tx_gtd._CSS_DEFAULT_STYLE (
         border-color: #EBCCD1;
         color: #A94442;
     }
+    a.categoryNode {
+      line-height: 1.8em !important;
+      width: 100%;
+    }
 )
 
 page.includeCSS.file1 = EXT:gtd/Resources/Public/Css/jquery-ui.css

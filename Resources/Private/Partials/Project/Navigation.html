@@ -5,9 +5,11 @@
                        controller="Project" action="show" arguments="{project : navProject}">
             {navProject.name}
         </f:link.action>
+        <f:if condition="{navProject.children}">
         <ul>
             <f:render partial="Project/Navigation" arguments="{navProjects:navProject.children,langKey:langKey}" />
         </ul>
+        </f:if>
     </li>
 </f:for>
 </div>
