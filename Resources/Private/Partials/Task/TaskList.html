@@ -19,24 +19,28 @@
             <td>
                 <f:if condition="{task.taskState} > 5">
                     <f:then>
-                        <f:link.action controller="Task" action="undoneTask" arguments="{task : task}">
+                        <f:link.action controller="Task" action="undoneTask" arguments="{task : task}"
+                                       class="taskStateDone">
                             <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
                         </f:link.action>
                     </f:then>
                     <f:else>
-                        <f:link.action controller="Task" action="completeTask" arguments="{task : task}">
+                        <f:link.action controller="Task" action="completeTask" arguments="{task : task}"
+                                       class="taskStateNotDone">
                             <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
                         </f:link.action>
                     </f:else>
                 </f:if>
                 <f:if condition="{task.focus}">
                     <f:then>
-                        <f:link.action controller="Task" action="unsetFocus" arguments="{task : task}">
+                        <f:link.action controller="Task" action="unsetFocus" arguments="{task : task}"
+                                       class="hasFocus">
                             <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                         </f:link.action>
                     </f:then>
                     <f:else>
-                        <f:link.action controller="Task" action="setFocus" arguments="{task : task}">
+                        <f:link.action controller="Task" action="setFocus" arguments="{task : task}"
+                                       class="hasNotFocus">
                             <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
                         </f:link.action>
                     </f:else>
