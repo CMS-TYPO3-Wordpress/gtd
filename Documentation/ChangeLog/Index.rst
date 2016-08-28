@@ -18,6 +18,7 @@ Fixed Translation Issues.
 Fixed User Session Issues.
 Fixed User Messages Issues.
 Fixed TYPO3 6.2 Compatibility Issues.
+Added Selenium Integration Tests.
 
 0.10.0
 ------
