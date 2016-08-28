@@ -496,6 +496,10 @@
 				<source>Choose Files</source>
 				<target state="translated">Dateien auswählen</target>
 			</trans-unit>
+			<trans-unit id="tx_gtd_flash.context.cannot_delete">
+				<source>Can not be deleted, cause there are Tasks or Projects for this Context.</source>
+				<target state="translated">Kann nicht gelöscht werden, weil noch Projekte oder Aufgaben für diesen Kontext vorhanden sind.</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

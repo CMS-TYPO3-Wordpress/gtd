@@ -54,6 +54,14 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     protected $userAccountRepository = null;
 
+    /**
+     * taskRepository
+     *
+     * @var \ThomasWoehlke\Gtd\Domain\Repository\TaskRepository
+     * @inject
+     */
+    protected $taskRepository = null;
+
     private $extName = 'gtd';
 
     /**
@@ -141,10 +149,18 @@ class ContextController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     public function deleteAction(\ThomasWoehlke\Gtd\Domain\Model\Context $context)
     {
-        $this->contextRepository->remove($context);
-        $msg = LocalizationUtility::translate(
-            'tx_gtd_flash.context.deleted', $this->extName, null);
-        $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\FlashMessage::WARNING);
+        $hasTasks = $this->taskRepository->hasTasksForContext($context);
+        $hasProjects = $this->projectRepository->hasProjectsForContext($context);
+        if($hasTasks || $hasProjects){
+            $msg = LocalizationUtility::translate(
+                'tx_gtd_flash.context.cannot_delete', $this->extName, null);
+            $this->addFlashMessage($msg, $context->getNameDe(), \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR);
+        } else {
+            $this->contextRepository->remove($context);
+            $msg = LocalizationUtility::translate(
+                'tx_gtd_flash.context.deleted', $this->extName, null);
+            $this->addFlashMessage($msg, $context->getNameDe(), \TYPO3\CMS\Core\Messaging\FlashMessage::WARNING);
+        }
         $this->myRedirect('show',array(),'UserConfig');
     }
 

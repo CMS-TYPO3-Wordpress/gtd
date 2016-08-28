@@ -268,4 +268,18 @@ class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         return $query->execute();
     }
 
+    /**
+     * @param $context
+     * @return bool
+     */
+    public function hasTasksForContext($context)
+    {
+        $query = $this->createQuery();
+        $query->matching(
+            $query->equals('context',$context)
+        );
+        $list = $query->execute();
+        return $list->count() > 0;
+    }
+
 }

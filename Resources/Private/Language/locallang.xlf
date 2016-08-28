@@ -384,6 +384,9 @@
 			<trans-unit id="tx_gtd_template_task_files.upload_button">
 				<source>Choose Files</source>
 			</trans-unit>
+			<trans-unit id="tx_gtd_flash.context.cannot_delete">
+				<source>Can not be deleted, cause there are Tasks or Projects for this Context.</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

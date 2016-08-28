@@ -27,7 +27,7 @@
 </f:form>
 <hr/>
 <h3><f:translate key="tx_gtd_template_user_config.edit_your_contexts" /></h3>
-<table class="table table-striped" >
+<table id="contextList" class="table table-striped" >
     <tr>
         <th><f:translate key="tx_gtd_domain_model_context.name_de" /></th>
         <th><f:translate key="tx_gtd_domain_model_context.name_en" /></th>
@@ -36,23 +36,23 @@
     </tr>
 
     <f:for each="{contextList}" as="ctx">
-        <tr>
+        <tr class="contextRow">
             <td>
-                <f:link.action controller="Context" action="show" arguments="{context : ctx}"> {ctx.nameDe}
+                <f:link.action controller="Context" action="edit" arguments="{context : ctx}"> {ctx.nameDe}
                 </f:link.action>
             </td>
             <td>
-                <f:link.action controller="Context" action="show" arguments="{context : ctx}"> {ctx.nameEn}
+                <f:link.action controller="Context" action="edit" arguments="{context : ctx}"> {ctx.nameEn}
                 </f:link.action>
             </td>
-            <td>
-                <f:link.action controller="Context" action="edit" arguments="{context : ctx}">
+            <td class="editContextRow">
+                <f:link.action class="editContextLink" controller="Context" action="edit" arguments="{context : ctx}">
                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                     <f:translate key="tx_gtd_domain_model_context.edit" />
                 </f:link.action>
             </td>
-            <td>
-                <f:link.action controller="Context" action="delete" arguments="{context : ctx}">
+            <td class="deleteContextRow">
+                <f:link.action class="deleteContextLink" controller="Context" action="delete" arguments="{context : ctx}">
                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                     <f:translate key="tx_gtd_domain_model_context.delete" />
                 </f:link.action>
@@ -61,7 +61,7 @@
     </f:for>
 </table>
 
-<f:link.action controller="Context" action="new"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+<f:link.action id="addNewContext" controller="Context" action="new"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
     <f:translate key="tx_gtd_domain_model_context.new_context" />
 </f:link.action>
 
