@@ -9,7 +9,8 @@
 
     <f:render partial="Task/TaskList" arguments="{tasks:tasks,langKey:langKey}"/>
 
-    <f:link.action action="emptyTrash"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+    <f:link.action id="emptyTrash" action="emptyTrash">
+        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
         <f:translate key="tx_gtd_layout_default.trash.empty" />
     </f:link.action>
 
