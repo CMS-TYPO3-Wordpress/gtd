@@ -89,6 +89,7 @@ class ContextService implements \TYPO3\CMS\Core\SingletonInterface
         if($contextUid == null){
             /** @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userObject */
             $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
+            /** @var \ThomasWoehlke\Gtd\Domain\Model\UserConfig $userConfig */
             $userConfig = $this->userConfigRepository->findByUserAccount($userObject);
             if($userConfig == null){
                 $this->createUserConfig($userObject);
@@ -102,8 +103,17 @@ class ContextService implements \TYPO3\CMS\Core\SingletonInterface
         } else {
             /** @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userObject */
             $userObject = $this->userAccountRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
+            /** @var \ThomasWoehlke\Gtd\Domain\Model\UserConfig $userConfig */
+            $userConfig = $this->userConfigRepository->findByUserAccount($userObject);
+            if($userConfig == null){
+                $this->createUserConfig($userObject);
+                $userConfig = $this->userConfigRepository->findByUserAccount($userObject);
+            }
             /** @var \ThomasWoehlke\Gtd\Domain\Model\Context $activeContext */
             $activeContext = $this->contextRepository->findByUid($contextUid);
+            if($activeContext == null){
+                $activeContext = $userConfig->getDefaultContext();
+            }
             if($activeContext->getUserAccount()->getUid() == $userObject->getUid()){
                 return $activeContext;
             } else {
