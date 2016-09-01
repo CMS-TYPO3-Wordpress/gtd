@@ -56,44 +56,6 @@ class ContextControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         parent::tearDown();
     }
 
-
-
-    /**
-     * @test
-     */
-    public function listActionTest()
-    {
-
-        $allContexts = $this->getMock(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class, [], [], '', false);
-
-        $contextRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\ContextRepository::class, ['findAll'], [], '', false);
-        $contextRepository->expects(self::once())->method('findAll')->will(self::returnValue($allContexts));
-        $this->inject($this->subject, 'contextRepository', $contextRepository);
-
-        $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);
-        $view->expects(self::at(0))->method('assign')->withConsecutive(['contexts', $allContexts]);
-        $view->expects(self::at(1))->method('assign')->withConsecutive(['langKey', $this->langKey]);
-        $this->inject($this->subject, 'view', $view);
-
-        $this->subject->listAction();
-    }
-
-    /**
-     * @test
-     */
-    public function showActionTest()
-    {
-        $context = new \ThomasWoehlke\Gtd\Domain\Model\Context();
-
-        $view = $this->getMock(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class);
-        $this->inject($this->subject, 'view', $view);
-//        $view->expects(self::once())->method('assign')->with('context', $context);
-        $view->expects(self::at(0))->method('assign')->withConsecutive(['context', $context]);
-        $view->expects(self::at(1))->method('assign')->withConsecutive(['langKey', $this->langKey]);
-
-        $this->subject->showAction($context);
-    }
-
     /**
      * @test
      */
@@ -253,6 +215,16 @@ class ContextControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $contextRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\ContextRepository::class, ['remove'], [], '', false);
         $contextRepository->expects(self::once())->method('remove')->with($context);
         $this->inject($this->subject, 'contextRepository', $contextRepository);
+
+        //inject $taskRepository
+        $taskRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\TaskRepository::class, ['hasTasksForContext'], [$context], '', false);
+        $taskRepository->expects(self::once())->method('hasTasksForContext')->with($context)->will(self::returnValue(false));
+        $this->inject($this->subject, 'taskRepository', $taskRepository);
+
+        //inject $projectRepository
+        $projectRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\ProjectRepository::class, ['hasProjectsForContext'], [$context], '', false);
+        $projectRepository->expects(self::once())->method('hasProjectsForContext')->with($context)->will(self::returnValue(false));
+        $this->inject($this->subject, 'projectRepository', $projectRepository);
 
         $dbresult = array();
         $dbresult['uid'] = 1;

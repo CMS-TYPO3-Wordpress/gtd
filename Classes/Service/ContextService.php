@@ -96,9 +96,7 @@ class ContextService implements \TYPO3\CMS\Core\SingletonInterface
                 $userConfig = $this->userConfigRepository->findByUserAccount($userObject);
             }
             $defaultContext = $userConfig->getDefaultContext();
-            $sessionData['contextUid'] = $defaultContext->getUid();
-            $GLOBALS['TSFE']->fe_user->setKey('ses', 'tx_gtd_fesessiondata', $sessionData);
-            $GLOBALS['TSFE']->fe_user->storeSessionData();
+            $this->setCurrentContext($defaultContext);
             return $defaultContext;
         } else {
             /** @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userObject */

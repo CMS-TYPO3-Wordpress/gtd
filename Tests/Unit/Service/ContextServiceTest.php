@@ -83,24 +83,18 @@ class ContextServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function getCurrentContextTest(){
 
-        $myContextList = $this->getMock(\TYPO3\CMS\Extbase\Persistence\QueryResultInterface::class, ['count','getQuery','getFirst','toArray','current','next','key','valid','rewind','offsetExists','offsetGet','offsetSet','offsetUnset'], [], '', false);
-        $myContextList->expects(self::once())->method('count')->will(self::returnValue(1));
-
         $userConfig2 = new \ThomasWoehlke\Gtd\Domain\Model\UserConfig();
         $userConfig2->setUserAccount($this->userLoggedIn);
         $userConfig2->setDefaultContext($this->currentContext);
 
         // inject userAccountRepository
         $userAccountRepository = $this->getMock(\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository::class, ['findByUid'], [1], '', false);
-        $userAccountRepository->expects(self::exactly(2))->method('findByUid')->will(self::returnValue($this->userLoggedIn));
+        $userAccountRepository->expects(self::once())->method('findByUid')->will(self::returnValue($this->userLoggedIn));
         $this->inject($this->subject, 'userAccountRepository', $userAccountRepository);
 
-        $contextRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\ContextRepository::class, ['findAllByUserAccount'], [], '', false);
-        $contextRepository->expects(self::once())->method('findAllByUserAccount')->with($this->userLoggedIn)->will(self::returnValue($myContextList));
-        $this->inject($this->subject, 'contextRepository', $contextRepository);
-
         //inject $userConfigRepository
-        $userConfigRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\UserConfigRepository::class, ['findByUserAccount','add'], [$this->userLoggedIn], '', false);
+        $userConfigRepository = $this->getMock(\ThomasWoehlke\Gtd\Domain\Repository\UserConfigRepository::class,
+            ['findByUserAccount'], [$this->userLoggedIn], '', false);
         $userConfigRepository->expects(self::once())->method('findByUserAccount')->will(self::returnValue($userConfig2));
         $this->inject($this->subject, 'userConfigRepository', $userConfigRepository);
 
