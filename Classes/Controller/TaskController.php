@@ -957,17 +957,23 @@ class TaskController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
     private function getLanguageId(){
 
+        /** @var $logger \TYPO3\CMS\Core\Log\Logger */
+        //$logger = GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
+
         $id = 0;
 
         $settings = $this->configurationManager->getConfiguration(
             \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
         );
 
+        //\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($settings);
+
         if(isset($settings['config.']['sys_language_uid']) &&
             ($settings['config.']['sys_language_uid'] !== null)){
             $id = $settings['config.']['sys_language_uid'];
+            //$logger->error($id);
         }
-
+        //$logger->error($id);
         return $id;
     }
 
