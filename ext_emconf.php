@@ -20,7 +20,7 @@ $EM_CONF[$_EXTKEY] = [
     'createDirs' => 'uploads/tx_gtd',
     'clearCacheOnLoad' => 1,
     'lockType' => '',
-    'version' => '0.11.0-dev',
+    'version' => '1.0.0-dev',
     'constraints' => [
         'depends' => [
             'felogin' => '6.2.0-8.7.99',
@@ -32,7 +32,7 @@ $EM_CONF[$_EXTKEY] = [
         ],
         'conflicts' => [],
         'suggests' => [
-            't3sbootstrap' => '3.1.0-3.1.99',
+            't3sbootstrap' => '3.1.0-3.2.99',
         ],
     ],
 ];

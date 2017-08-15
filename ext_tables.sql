@@ -151,7 +151,7 @@ CREATE TABLE tx_gtd_domain_model_task (
 	last_task_state int(11) DEFAULT '0' NOT NULL,
 	task_energy int(11) DEFAULT '0' NOT NULL,
 	task_time int(11) DEFAULT '0' NOT NULL,
-	due_date date DEFAULT '0000-00-00',
+	due_date date NOT NULL DEFAULT '0000-00-00',
 	order_id_project int(11) DEFAULT '0' NOT NULL,
 	order_id_task_state int(11) DEFAULT '0' NOT NULL,
 	project int(11) unsigned DEFAULT '0',
